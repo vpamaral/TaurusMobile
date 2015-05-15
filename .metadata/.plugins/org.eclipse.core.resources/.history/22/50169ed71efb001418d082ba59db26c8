@@ -16,11 +16,11 @@
 
         <Button
             android:id="@+id/btn_animal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
             android:layout_alignLeft="@+id/btn_atualiza"
             android:layout_below="@+id/btn_atualiza"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_selector"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
