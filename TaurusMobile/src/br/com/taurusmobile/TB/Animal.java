@@ -1,0 +1,53 @@
+package br.com.taurusmobile.TB;
+
+import java.io.Serializable;
+
+import br.com.taurusmobile.Annotation.AColumn;
+
+public class Animal implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private String sisbov;
+	private String codigo;
+	private String codigo_ferro;
+	private String identificador;
+
+	
+	@AColumn(position=0)
+	public String getSisbov() {
+		return sisbov;
+	}
+
+	public void setSisbov(String sisbov) {
+		this.sisbov = sisbov;
+	}
+
+	@AColumn(position=1)
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	@AColumn(position=2)
+	public String getCodigo_ferro() {
+		return codigo_ferro;
+	}
+
+	public void setCodigo_ferro(String codigo_ferro) {
+		this.codigo_ferro = codigo_ferro;
+	}
+
+	@AColumn(position=3)
+	public String getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
+	}
+
+}
