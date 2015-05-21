@@ -1,4 +1,4 @@
-package br.com.taurusmobile.model;
+package br.com.taurusmobile.TB;
 
 public class Parto {
 
