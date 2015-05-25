@@ -18,6 +18,7 @@ public class AnimalModel extends BancoService {
 		Class classe = table.getClass();
 		List<Animal> listadd = new ArrayList<Animal>();
 		String sql = "SELECT * FROM " + Tabela;
+		
 
 		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
@@ -34,10 +35,12 @@ public class AnimalModel extends BancoService {
 		return listadd;
 	}
 
+
 	@Override
-	public Animal selectID(Context ctx, String Tabela, Object table, long id) {
+	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
