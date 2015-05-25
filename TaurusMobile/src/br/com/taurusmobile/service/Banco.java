@@ -3,26 +3,43 @@ package br.com.taurusmobile.service;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.provider.OpenableColumns;
 
 public class Banco extends SQLiteOpenHelper {
 
-	public Banco(Context context, String name, CursorFactory factory,
-			int version) {
-		super(context, name, factory, version);
-		// TODO Auto-generated constructor stub
+	static final String DATABASE = "BDTaurus";
+
+	private static final int VERSION = 1;
+
+	public Banco(Context context) {
+		super(context, DATABASE, null, VERSION);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
 
+		
+		String sql = "CREATE TABLE 'Animal' ("
+				+ "'id_auto'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'id_pk'	INTEGER,"
+				+ "'codigo'	TEXT,"
+				+ "'sibov'	TEXT,"
+				+ "'data_nascimento'	TEXT,"
+				+ "'sexo'	TEXT,"
+				+ "'id_fk_gi_raca'	INTEGER,"
+				+ "'id_fk_gi_categoria'	INTEGER,"
+				+ "'identificador'	TEXT,"
+				+ "'peso_atual'	NUMERIC,"
+				+ "'codigo_ferro'	TEXT"
+				+ " );";
+			
+
+		db.execSQL(sql);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }
