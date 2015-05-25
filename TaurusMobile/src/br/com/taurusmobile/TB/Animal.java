@@ -6,12 +6,11 @@ import br.com.taurusmobile.Annotation.AColumn;
 
 public class Animal implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
-	private String sisbov;
-	private String codigo;
-	private String codigo_ferro;
-	private String identificador;
+	
+	public String sisbov;
+	public String codigo;
+	public String codigo_ferro;
+	public String identificador;
 
 	
 	@AColumn(position=0)
