@@ -8,9 +8,10 @@ import android.provider.OpenableColumns;
 public class Banco extends SQLiteOpenHelper {
 
 	static final String DATABASE = "BDTaurus";
-
-	private static final int VERSION = 1;
-
+	static final int VERSION = 1;
+	private String scriptSQLCreate;
+	private String scriptSQLDelete;
+	
 	public Banco(Context context) {
 		super(context, DATABASE, null, VERSION);
 	}
@@ -22,7 +23,7 @@ public class Banco extends SQLiteOpenHelper {
 		String sql = "CREATE TABLE 'Animal' ("
 				+ "'id_auto'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'id_pk'	INTEGER,"
-				+ "'codigo'	TEXT,"
+				+ "'codigo'	INT,"
 				+ "'sibov'	TEXT,"
 				+ "'data_nascimento'	TEXT,"
 				+ "'sexo'	TEXT,"
@@ -32,8 +33,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'peso_atual'	NUMERIC,"
 				+ "'codigo_ferro'	TEXT"
 				+ " );";
-			
-
+		
 		db.execSQL(sql);
 	}
 
