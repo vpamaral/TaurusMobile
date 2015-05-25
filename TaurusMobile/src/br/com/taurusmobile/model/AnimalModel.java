@@ -12,6 +12,12 @@ import br.com.taurusmobile.service.BancoService;
 public class AnimalModel extends BancoService {
 
 	@Override
+	public boolean validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE)
+	{
+		return true;
+	}
+	
+	@Override
 	public List<Animal> selectAll(Context ctx, String Tabela, Object table) {
 		Banco banco = new Banco(ctx);
 

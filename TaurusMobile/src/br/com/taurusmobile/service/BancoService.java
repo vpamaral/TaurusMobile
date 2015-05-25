@@ -17,6 +17,8 @@ import br.com.taurusmobile.TB.Animal;
 @SuppressLint("ShowToast")
 public abstract class BancoService {
 
+	public abstract boolean validate(Context ctx,String Tabela, Object table, int VALIDATION_TYPE);
+	
 	public abstract <T> List<T> selectAll(Context ctx, String Tabela, Object table);
 	
 	public abstract <T> T selectID (Context ctx, String Tabela, Object table, long id);
@@ -33,7 +35,6 @@ public abstract class BancoService {
 			int column = 0;
 
 			for (Field f : s.getDeclaredFields()) {
-				String d = getValueAt(table, column).toString();
 				cv.put(f.getName(), getValueAt(table, column).toString());
 				column++;
 			}
@@ -51,6 +52,13 @@ public abstract class BancoService {
 			toast.show();
 		}
 
+	}
+	
+	public static void Update(Context ctx, String Tabela, Object table)
+	{
+		
+
+		
 	}
 
 	private static Object getValueAt(Object table, int column) {
