@@ -25,17 +25,17 @@ public class ListaAnimaisActivity extends Activity {
 		setContentView(R.layout.activity_lista_animais);
 
 		ani_tb = new Animal();
-		ani_model = new AnimalModel();
+		ani_model = new AnimalModel(getBaseContext());
 		List<String> animais = new ArrayList<String>();
 		ListView lista = (ListView) findViewById(R.id.lista_animais);
 		
 
 		List<Animal> listaani = ani_model.selectAll(this, "Animal", ani_tb);
 
-		for(Animal a: listaani)
+		/*for(Animal a: listaani)
 		{
 			animais.add(a.getCodigo());
-		}
+		}*/
 
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, animais);
