@@ -2,27 +2,23 @@ package br.com.taurusmobile.service;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.widget.Toast;
 import br.com.taurusmobile.Annotation.AColumn;
-import br.com.taurusmobile.TB.Animal;
+
 
 @SuppressLint("ShowToast")
 public abstract class BancoService {
-
-	public abstract boolean validate(Context ctx,String Tabela, Object table, int VALIDATION_TYPE);
 	
 	public abstract <T> List<T> selectAll(Context ctx, String Tabela, Object table);
 	
 	public abstract <T> T selectID (Context ctx, String Tabela, Object table, long id);
-
+	
+	
 	@SuppressLint("ShowToast")
 	public static void insert(Context ctx, String Tabela, Object table) {
 
@@ -53,13 +49,6 @@ public abstract class BancoService {
 		}
 
 	}
-	
-	public static void Update(Context ctx, String Tabela, Object table)
-	{
-		
-
-		
-	}
 
 	private static Object getValueAt(Object table, int column) {
 
@@ -68,7 +57,7 @@ public abstract class BancoService {
 			Class<?> classe = obj.getClass();
 
 			for (Method method : classe.getDeclaredMethods()) {
-				if (method.getName().contains("get")) {
+				if (classe.isAnnotationPresent(AColumn.class)) {
 					AColumn annotation = method.getAnnotation(AColumn.class);
 					if (annotation.position() == column) {
 						return method.invoke(obj);
