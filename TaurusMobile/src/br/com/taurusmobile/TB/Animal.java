@@ -8,7 +8,7 @@ public class Animal implements Serializable {
 
 	
 	public String sisbov;
-	public String codigo;
+	public int codigo;
 	public String codigo_ferro;
 	public String identificador;
 
@@ -23,11 +23,11 @@ public class Animal implements Serializable {
 	}
 
 	@AColumn(position=1)
-	public String getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
