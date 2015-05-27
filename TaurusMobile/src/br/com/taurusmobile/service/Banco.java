@@ -24,7 +24,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'id_auto'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'codigo'	varchar(45),"
 				+ "'sisbov'	varchar(45),"
-				+ "'identificador'	TEXT,"
+				+ "'identificador'	varchar(45),"
 				+ "'codigo_ferro'	varchar(45)"
 				+ " );";
 		

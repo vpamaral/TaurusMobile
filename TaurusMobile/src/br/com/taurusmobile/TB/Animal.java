@@ -13,7 +13,6 @@ public class Animal implements Serializable {
 	public String identificador;
 
 	
-	@AColumn(position=0)
 	public String getSisbov() {
 		return sisbov;
 	}
@@ -22,7 +21,6 @@ public class Animal implements Serializable {
 		this.sisbov = sisbov;
 	}
 
-	@AColumn(position=1)
 	public String getCodigo() {
 		return codigo;
 	}
@@ -31,7 +29,6 @@ public class Animal implements Serializable {
 		this.codigo = codigo;
 	}
 
-	@AColumn(position=2)
 	public String getCodigo_ferro() {
 		return codigo_ferro;
 	}
@@ -40,7 +37,6 @@ public class Animal implements Serializable {
 		this.codigo_ferro = codigo_ferro;
 	}
 
-	@AColumn(position=3)
 	public String getIdentificador() {
 		return identificador;
 	}
