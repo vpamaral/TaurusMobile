@@ -45,6 +45,7 @@ public class AnimalModel extends BancoService {
 		while (c.moveToNext()) {
 			Animal animal = new Animal();
 			animal.setCodigo(c.getInt(c.getColumnIndex("codigo")));
+			
 			animal.setSisbov(c.getString(c.getColumnIndex("sisbov")));
 			animal.setIdentificador(c.getString(c.getColumnIndex("identificador")));
 			animal.setCodigo_ferro(c.getString(c.getColumnIndex("codigo_ferro")));
@@ -58,7 +59,7 @@ public class AnimalModel extends BancoService {
 
 
 	@Override
-	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
+	public Animal selectID(Context ctx, String Tabela, Object table, long id) {
 		Cursor cursor = null;
 		Animal AnimalLinha = new Animal();
     	
