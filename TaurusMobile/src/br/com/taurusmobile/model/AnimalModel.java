@@ -44,8 +44,7 @@ public class AnimalModel extends BancoService {
 
 		while (c.moveToNext()) {
 			Animal animal = new Animal();
-			animal.setCodigo(c.getInt(c.getColumnIndex("codigo")));
-			
+			animal.setCodigo(c.getString(c.getColumnIndex("codigo")));
 			animal.setSisbov(c.getString(c.getColumnIndex("sisbov")));
 			animal.setIdentificador(c.getString(c.getColumnIndex("identificador")));
 			animal.setCodigo_ferro(c.getString(c.getColumnIndex("codigo_ferro")));
@@ -68,7 +67,7 @@ public class AnimalModel extends BancoService {
             cursor = db.rawQuery(query,null);
     		if (cursor.getCount() > 0 ) {
 				while (cursor.moveToNext()){
-					AnimalLinha.setCodigo(cursor.getInt(cursor.getColumnIndex("codigo")));
+					AnimalLinha.setCodigo(cursor.getString(cursor.getColumnIndex("codigo")));
 					AnimalLinha.setSisbov(cursor.getString(cursor.getColumnIndex("sisbov")));
 					AnimalLinha.setIdentificador(cursor.getString(cursor.getColumnIndex("identificador")));
 					AnimalLinha.setCodigo_ferro(cursor.getString(cursor.getColumnIndex("codigo_ferro")));			
