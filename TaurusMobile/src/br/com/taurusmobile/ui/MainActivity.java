@@ -1,7 +1,14 @@
 package br.com.taurusmobile.ui;
 
+import java.util.List;
+
+import br.com.taurusmobile.TB.Animal;
+import br.com.taurusmobile.model.AnimalModel;
+import br.com.taurusmobile.service.ServicoRecebido;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +22,9 @@ public class MainActivity extends Activity {
 	private Button btn_animais;
 	private Button btn_parto;
 
+	List<Animal> objListaAnimal;
+	ProgressDialog objProgressDialog;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,17 +33,28 @@ public class MainActivity extends Activity {
 		btn_atualizar = (Button) findViewById(R.id.btn_atualiza);
 
 		btn_animais = (Button) findViewById(R.id.btn_animal);
-
+		
 		btn_parto = (Button) findViewById(R.id.btn_parto);
 
+		btn_atualizar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				objProgressDialog = new ProgressDialog(MainActivity.this);
+				objProgressDialog.setMessage("Processando...");
+				objProgressDialog.show();
+
+				ExecucaoProcesso objProcessarDados = new ExecucaoProcesso();
+				objProcessarDados.execute();
+				
+			}
+		});
+		
 		btn_animais.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this,
-						ListaAnimaisActivity.class);
-				startActivity(intent);
-
+				
 			}
 		});
 
@@ -47,6 +68,45 @@ public class MainActivity extends Activity {
 
 			}
 		});
+
+	}
+
+	private class ExecucaoProcesso extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			atualizarListaFamiliaBancoSQLite();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			objProgressDialog.dismiss();
+
+			Intent intent = new Intent(MainActivity.this,
+					ListaAnimaisActivity.class);
+			startActivity(intent);
+
+			super.onPostExecute(result);
+		}
+	}
+
+	private void atualizarListaFamiliaBancoSQLite() {
+
+		Animal AnimalTB = new Animal();
+		AnimalModel objModelAnimal = new AnimalModel(getBaseContext());
+		ServicoRecebido objServicoRecebido = new ServicoRecebido();
+		objListaAnimal = objServicoRecebido.listaAnimal();
+
+		for (Animal animal : objListaAnimal) {
+			AnimalTB.setCodigo(animal.getCodigo());
+			AnimalTB.setSisbov(animal.getSisbov());
+			AnimalTB.setCodigo_ferro(animal.getCodigo_ferro());
+			AnimalTB.setIdentificador(animal.getIdentificador());
+
+			objModelAnimal.insert(this, "Animal", AnimalTB);
+
+		}
 
 	}
 

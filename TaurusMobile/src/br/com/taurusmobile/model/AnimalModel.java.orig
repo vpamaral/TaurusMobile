@@ -57,8 +57,14 @@ public class AnimalModel extends BancoService {
 	
 
 
+
 	@Override
+<<<<<<< HEAD
 	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
+		// TODO Auto-generated method stub
+		return null;
+=======
+	public Animal selectID(Context ctx, String Tabela, Object table, long id) {
 		Cursor cursor = null;
 		Animal AnimalLinha = new Animal();
     	
@@ -84,6 +90,7 @@ public class AnimalModel extends BancoService {
 			}
 		}
     	return AnimalLinha;
+>>>>>>> c67443eabeb02b4eea631ee8188ec2e6ee77ddcc
 	}
 
 
