@@ -13,8 +13,11 @@ import br.com.taurusmobile.Annotation.AColumn;
 
 @SuppressLint("ShowToast")
 public abstract class BancoService {
-	
+<<<<<<< HEAD
+
 	public abstract boolean validate(Context ctx,String Tabela, Object table, int VALIDATION_TYPE);
+=======
+>>>>>>> c67443eabeb02b4eea631ee8188ec2e6ee77ddcc
 	
 	public abstract <T> List<T> selectAll(Context ctx, String Tabela, Object table);
 	
