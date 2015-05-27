@@ -58,7 +58,7 @@ public class AnimalModel extends BancoService {
 
 
 	@Override
-	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
+	public Animal selectID(Context ctx, String Tabela, Object table, long id) {
 		Cursor cursor = null;
 		Animal AnimalLinha = new Animal();
     	

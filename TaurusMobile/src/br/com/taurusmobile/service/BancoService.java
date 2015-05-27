@@ -11,7 +11,6 @@ import android.widget.Toast;
 import br.com.taurusmobile.Annotation.AColumn;
 
 
-@SuppressLint("ShowToast")
 public abstract class BancoService {
 	
 	public abstract boolean validate(Context ctx,String Tabela, Object table, int VALIDATION_TYPE);
@@ -21,7 +20,6 @@ public abstract class BancoService {
 	public abstract <T> T selectID (Context ctx, String Tabela, Object table, long id);
 	
 	
-	@SuppressLint("ShowToast")
 	public static void insert(Context ctx, String Tabela, Object table) {
 
 		try {
@@ -66,7 +64,7 @@ public abstract class BancoService {
 			Class<?> classe = obj.getClass();
 
 			for (Method method : classe.getDeclaredMethods()) {
-				if (classe.isAnnotationPresent(AColumn.class)) {
+				if (method.isAnnotationPresent(AColumn.class)) {
 					AColumn annotation = method.getAnnotation(AColumn.class);
 					if (annotation.position() == column) {
 						return method.invoke(obj);
