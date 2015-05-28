@@ -22,16 +22,10 @@ public class Banco extends SQLiteOpenHelper {
 		
 		String sql = "CREATE TABLE 'Animal' ("
 				+ "'id_auto'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'id_pk'	INTEGER,"
-				+ "'codigo'	INT,"
-				+ "'sibov'	TEXT,"
-				+ "'data_nascimento'	TEXT,"
-				+ "'sexo'	TEXT,"
-				+ "'id_fk_gi_raca'	INTEGER,"
-				+ "'id_fk_gi_categoria'	INTEGER,"
-				+ "'identificador'	TEXT,"
-				+ "'peso_atual'	NUMERIC,"
-				+ "'codigo_ferro'	TEXT"
+				+ "'codigo'	varchar(45),"
+				+ "'sisbov'	varchar(45),"
+				+ "'identificador'	varchar(45),"
+				+ "'codigo_ferro'	varchar(45)"
 				+ " );";
 		
 		db.execSQL(sql);
