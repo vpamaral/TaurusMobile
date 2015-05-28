@@ -9,7 +9,7 @@ import br.com.taurusmobile.TB.Animal;
 
 public class ServicoRecebido {
 
-	String URLIPCaminhoServico = "http://192.168.0.246/WcfServiceAnimal/ServiceAnimal.svc/listaAnimal";
+	String URLIPCaminhoServico = "http://192.168.0.235/TaurusWebService/TaurusService.svc/listaAnimaisJson";
 	
 	public ArrayList<Animal> listaAnimal(){
 			
