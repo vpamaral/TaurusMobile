@@ -22,20 +22,26 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int btn_selector=0x7f020000;
-        public static final int buttonshape=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
+        public static final int adiciona32=0x7f020000;
+        public static final int atualiza32=0x7f020001;
+        public static final int btn_selector=0x7f020002;
+        public static final int buttonshape=0x7f020003;
+        public static final int envia32=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int lista32=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f080009;
+        public static final int action_settings=0x7f08000b;
         public static final int btn_animal=0x7f080004;
         public static final int btn_atualiza=0x7f080002;
-        public static final int btn_enviar_dados=0x7f080008;
+        public static final int btn_enviar_dados=0x7f08000a;
+        public static final int btn_lista_parto=0x7f080008;
         public static final int btn_parto=0x7f080006;
         public static final int linearLayout1=0x7f080001;
         public static final int linearLayout2=0x7f080003;
         public static final int linearLayout3=0x7f080005;
         public static final int linearLayout4=0x7f080007;
+        public static final int linearLayout5=0x7f080009;
         public static final int lista_animais=0x7f080000;
     }
     public static final class layout {

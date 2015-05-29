@@ -22,7 +22,7 @@ public abstract class BancoService {
 	public abstract <T> T selectID(Context ctx, String Tabela, Object table,
 			long id);
 
-	public static void insert(Context ctx, String Tabela, Object table) {
+	public void insert(Context ctx, String Tabela, Object table) {
 
 		try {
 			Banco banco = new Banco(ctx);
@@ -44,9 +44,9 @@ public abstract class BancoService {
 			banco.close();
 
 		} catch (Exception e) {
-			Toast toast = Toast.makeText(ctx,
+			/*Toast toast = Toast.makeText(ctx,
 					"Erro ao salvar informações no banco!", 5);
-			toast.show();
+			toast.show();*/
 		}
 
 	}

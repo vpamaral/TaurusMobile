@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="@drawable/btn_selector"
+            android:drawableLeft="@drawable/atualiza32"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
@@ -39,7 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
+            android:background="@drawable/btn_selector"           
+            android:drawableLeft="@drawable/lista32"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
@@ -60,17 +62,40 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_selector"
+            android:drawableLeft="@drawable/adiciona32"
+            android:drawablePadding="0dp"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:text="Parto"
+            android:text="Lançar Parto"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+    
+     <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btn_lista_parto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_selector"
+            android:drawableLeft="@drawable/lista32"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Partos"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
     
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/linearLayout5"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -80,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_selector"
+            android:drawableLeft="@drawable/envia32"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
