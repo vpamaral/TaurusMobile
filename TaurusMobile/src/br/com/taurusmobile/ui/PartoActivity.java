@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class PartoActivity extends Activity {
@@ -12,8 +15,10 @@ public class PartoActivity extends Activity {
 	// recebe os valores do banco para popular o array
 	private static final String[] PERDA = new String[] { "NENHUM", "UM",
 			"DOIS", "TRÊS" };
-	private static final String[] SEXO = new String[] { "SEXO", "FEMIA",
+	private static final String[] SEXO = new String[] { "SEXO", "FÊMEA",
 			"MACHO" };
+	
+	private EditText editMatriz;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,16 @@ public class PartoActivity extends Activity {
 				android.R.layout.simple_spinner_item, SEXO);
 		adpSexo.setDropDownViewResource(android.R.layout.simple_spinner_item);
 		spnSexo.setAdapter(adpSexo);
+		
+		editMatriz = (EditText) findViewById(R.id.edtMatriz);
+		
+		editMatriz.setOnFocusChangeListener(new OnFocusChangeListener() {
+			
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				
+			}
+		});
 
 	}
 
