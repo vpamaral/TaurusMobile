@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
 	List<Animal> objListaAnimal;
 	ProgressDialog objProgressDialog;
 	AnimalAdapter aniHelper;
+	ServicoRecebido objServicoRecebido;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +91,17 @@ public class MainActivity extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 			objProgressDialog.dismiss();
-
-			Intent intent = new Intent(MainActivity.this,
-					ListaAnimaisActivity.class);
-			startActivity(intent);
-
+			
+			try {
+				
+				Intent intent = new Intent(MainActivity.this,
+						ListaAnimaisActivity.class);
+				startActivity(intent);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			super.onPostExecute(result);
 		}
 	}
@@ -102,7 +109,7 @@ public class MainActivity extends Activity {
 	private void InserirAnimaisBancoSQLite() throws Exception {
 
 		AnimalModel objModelAnimal = new AnimalModel(getBaseContext());
-		ServicoRecebido objServicoRecebido = new ServicoRecebido();
+		objServicoRecebido = new ServicoRecebido();
 		objListaAnimal = objServicoRecebido.listaAnimal();
 		aniHelper = new AnimalAdapter();
 

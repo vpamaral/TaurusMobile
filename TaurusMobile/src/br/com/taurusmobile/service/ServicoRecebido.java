@@ -18,7 +18,6 @@ public class ServicoRecebido {
 			AnimalAdapter ani_helper = new AnimalAdapter();
 			try {
 				
-				Log.i("URL", URLIPCaminhoServico);
 				ConexaoHTTP conexaoServidor = new ConexaoHTTP();
 				String retornoDadosJSON = conexaoServidor.lerUrlServico(URLIPCaminhoServico);
 	
