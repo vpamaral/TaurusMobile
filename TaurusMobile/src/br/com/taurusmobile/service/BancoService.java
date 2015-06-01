@@ -10,7 +10,6 @@ import android.content.Context;
 import android.widget.Toast;
 import br.com.taurusmobile.Annotation.AColumn;
 
-
 public abstract class BancoService {
 
 	public abstract boolean validate(Context ctx, String Tabela, Object table,
@@ -38,20 +37,26 @@ public abstract class BancoService {
 
 			banco.getWritableDatabase().insert(Tabela, null, cv);
 
-			/*Toast toast = Toast.makeText(ctx, Tabela
-					+ " cadastrado com sucesso!!", 5);
-			toast.show();*/
+			/*
+			 * Toast toast = Toast.makeText(ctx, Tabela +
+			 * " cadastrado com sucesso!!", 5); toast.show();
+			 */
 			banco.close();
 
 		} catch (Exception e) {
-			/*Toast toast = Toast.makeText(ctx,
-					"Erro ao salvar informações no banco!", 5);
-			toast.show();*/
+			/*
+			 * Toast toast = Toast.makeText(ctx,
+			 * "Erro ao salvar informações no banco!", 5); toast.show();
+			 */
 		}
 
 	}
 
-	public static void Update(Context ctx, String Tabela, Object table) {
+	public void Update(Context ctx, String Tabela, Object table) {
+
+	}
+
+	public void Delete(Context ctx, String Tablea, Object table) {
 
 	}
 

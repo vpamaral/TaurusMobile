@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
     tools:context="br.com.taurusmobile.ui.MainActivity" >
 
     <LinearLayout
@@ -115,17 +116,7 @@
             android:textSize="20sp" />
     </LinearLayout>
     
-    <LinearLayout
-        android:id="@+id/linearLayout25"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
     
-    <ListView 
-        android:id="@+id/lista_animais"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        ></ListView>
-     </LinearLayout>
     
 
 </LinearLayout>
