@@ -2,9 +2,9 @@ package br.com.taurusmobile.TB;
 
 import java.io.Serializable;
 
-import br.com.taurusmobile.Annotation.AColumn;
-
 public class Animal implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	public long id_pk;
 	
