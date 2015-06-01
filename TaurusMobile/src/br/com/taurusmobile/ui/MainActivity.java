@@ -3,6 +3,7 @@ package br.com.taurusmobile.ui;
 import java.util.List;
 
 import br.com.taurusmobile.TB.Animal;
+import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.model.AnimalModel;
 import br.com.taurusmobile.service.ServicoRecebido;
 import android.app.Activity;
@@ -24,6 +25,7 @@ public class MainActivity extends Activity {
 
 	List<Animal> objListaAnimal;
 	ProgressDialog objProgressDialog;
+	AnimalAdapter aniHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,11 @@ public class MainActivity extends Activity {
 		btn_atualizar = (Button) findViewById(R.id.btn_atualiza);
 
 		btn_animais = (Button) findViewById(R.id.btn_animal);
-		
+
 		btn_parto = (Button) findViewById(R.id.btn_parto);
 
 		btn_atualizar.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				objProgressDialog = new ProgressDialog(MainActivity.this);
@@ -46,15 +48,17 @@ public class MainActivity extends Activity {
 
 				ExecucaoProcesso objProcessarDados = new ExecucaoProcesso();
 				objProcessarDados.execute();
-				
+
 			}
 		});
-		
+
 		btn_animais.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				
+				Intent intent = new Intent(MainActivity.this,
+						ListaAnimaisActivity.class);
+				startActivity(intent);
 			}
 		});
 
@@ -75,7 +79,11 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			atualizarListaFamiliaBancoSQLite();
+			try {
+				InserirAnimaisBancoSQLite();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			return null;
 		}
 
@@ -91,20 +99,16 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private void atualizarListaFamiliaBancoSQLite() {
+	private void InserirAnimaisBancoSQLite() throws Exception {
 
-		Animal AnimalTB = new Animal();
 		AnimalModel objModelAnimal = new AnimalModel(getBaseContext());
 		ServicoRecebido objServicoRecebido = new ServicoRecebido();
 		objListaAnimal = objServicoRecebido.listaAnimal();
+		aniHelper = new AnimalAdapter();
 
 		for (Animal animal : objListaAnimal) {
-			AnimalTB.setCodigo(animal.getCodigo());
-			AnimalTB.setSisbov(animal.getSisbov());
-			AnimalTB.setCodigo_ferro(animal.getCodigo_ferro());
-			AnimalTB.setIdentificador(animal.getIdentificador());
 
-			objModelAnimal.insert(this, "Animal", AnimalTB);
+			objModelAnimal.insert(this, "Animal", aniHelper.AnimalHelper(animal));
 
 		}
 

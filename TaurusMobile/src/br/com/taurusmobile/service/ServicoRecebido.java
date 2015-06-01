@@ -6,15 +6,16 @@ import com.google.gson.Gson;
 
 import android.util.Log;
 import br.com.taurusmobile.TB.Animal;
+import br.com.taurusmobile.adapter.AnimalAdapter;
+import br.com.taurusmobile.model.AnimalModel;
 
 public class ServicoRecebido {
 
-	String URLIPCaminhoServico = "http://192.168.0.246/WcfServiceAnimal/ServiceAnimal.svc/listaAnimal";
+	String URLIPCaminhoServico = "http://192.168.0.235/TaurusWebService/TaurusService.svc/listaAnimaisJson";
 	
-	public ArrayList<Animal> listaAnimal(){
+	public ArrayList<Animal> listaAnimal() throws Exception{
 			
-			ArrayList<Animal> listaAnimal = new ArrayList<Animal>();
-			
+			AnimalAdapter ani_helper = new AnimalAdapter();
 			try {
 				
 				Log.i("URL", URLIPCaminhoServico);
@@ -28,22 +29,12 @@ public class ServicoRecebido {
 				Log.i("Exibir:", "criou Gson");
 				Animal[] objArrayAnimal = gson.fromJson(retornoDadosJSON, Animal[].class);
 				
-				for (int i=0; i < objArrayAnimal.length ; i++){
-					
-					Animal objAnimal = new Animal();
-					
-					objAnimal.setSisbov(objArrayAnimal[i].getSisbov());
-					objAnimal.setCodigo(objArrayAnimal[i].getCodigo());
-					objAnimal.setCodigo_ferro(objArrayAnimal[i].getCodigo_ferro());
-					objAnimal.setIdentificador(objArrayAnimal[i].getIdentificador());
-					
-					listaAnimal.add(objAnimal);
-				}
+				return ani_helper.AnimalPreencheArrayHelper(objArrayAnimal);
 				
 			} catch (Exception e) {
 				Log.i("Erro GSON:", e.getMessage());
 				e.printStackTrace();
+				throw e;
 			}
-			return listaAnimal;
 		}
 	}
