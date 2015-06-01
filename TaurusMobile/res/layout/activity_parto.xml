@@ -13,24 +13,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <!--
-             <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#1E90FF"
-            android:gravity="center"
-            android:text="Taurus Mobile"
-            android:textColor="#fff"
-            android:textSize="22sp"
-            android:textStyle="bold" />       -->
-
 
         <!-- Dados da Matriz -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F0F8FF"
             android:orientation="vertical" >
 
             <TextView
@@ -46,14 +34,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Matriz: "
+                    android:text="Matriz:           "
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtMatriz"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
+                    android:layout_height="wrap_content"  >
+					
                     <requestFocus />
                 </EditText>
             </LinearLayout>
@@ -71,7 +59,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data Parto: "
+                    android:text="Data Parto:    "
                     android:textStyle="bold" />
 
                 <EditText
@@ -101,21 +89,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-        </LinearLayout>
-        <!-- Dados da Cria -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#87CEFA"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/space3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
+            
+             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
@@ -123,54 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cód. Cria: "
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edtCodigoCria"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <requestFocus />
-                </EditText>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/space4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Raça: "
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edtRaca"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/space5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sexo: "
+                    android:text="Sexo:              "
                     android:textStyle="bold" />
 
                 <Spinner
@@ -179,6 +107,16 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
+        <!-- Dados da Cria -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+             </LinearLayout>
+             
+       
     </LinearLayout>
 
 </ScrollView>
