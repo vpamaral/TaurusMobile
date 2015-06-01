@@ -6,19 +6,42 @@ import br.com.taurusmobile.Annotation.AColumn;
 
 public class Animal implements Serializable {
 
+	public long id_pk;
+	
+	public long id_fk_cria;
+
+	public String codigo;
 	
 	public String sisbov;
-	public String codigo;
-	public String codigo_ferro;
+	
 	public String identificador;
 
+	public String codigo_ferro;
 	
-	public String getSisbov() {
-		return sisbov;
+	public String data_nascimento;
+	
+	public String categoria;
+	
+	public String raca;
+	
+	public double peso_atual;
+	
+	public String grau_sangue;
+
+	public long getId_pk() {
+		return id_pk;
 	}
 
-	public void setSisbov(String sisbov) {
-		this.sisbov = sisbov;
+	public void setId_pk(long id_pk) {
+		this.id_pk = id_pk;
+	}
+
+	public long getId_fk_cria() {
+		return id_fk_cria;
+	}
+
+	public void setId_fk_cria(long id_fk_cria) {
+		this.id_fk_cria = id_fk_cria;
 	}
 
 	public String getCodigo() {
@@ -29,12 +52,12 @@ public class Animal implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public String getCodigo_ferro() {
-		return codigo_ferro;
+	public String getSisbov() {
+		return sisbov;
 	}
 
-	public void setCodigo_ferro(String codigo_ferro) {
-		this.codigo_ferro = codigo_ferro;
+	public void setSisbov(String sisbov) {
+		this.sisbov = sisbov;
 	}
 
 	public String getIdentificador() {
@@ -45,4 +68,54 @@ public class Animal implements Serializable {
 		this.identificador = identificador;
 	}
 
+	public String getCodigo_ferro() {
+		return codigo_ferro;
+	}
+
+	public void setCodigo_ferro(String codigo_ferro) {
+		this.codigo_ferro = codigo_ferro;
+	}
+
+	public String getData_nascimento() {
+		return data_nascimento;
+	}
+
+	public void setData_nascimento(String data_nascimento) {
+		this.data_nascimento = data_nascimento;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getRaca() {
+		return raca;
+	}
+
+	public void setRaca(String raca) {
+		this.raca = raca;
+	}
+
+	public double getPeso_atual() {
+		return peso_atual;
+	}
+
+	public void setPeso_atual(double peso_atual) {
+		this.peso_atual = peso_atual;
+	}
+
+	public String getGrau_sangue() {
+		return grau_sangue;
+	}
+
+	public void setGrau_sangue(String grau_sangue) {
+		this.grau_sangue = grau_sangue;
+	}
+
+	
+	
 }
