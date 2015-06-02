@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,10 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.taurusmobile.ui.PartoActivity" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+   
 
 
         <!-- Dados da Matriz -->
@@ -46,10 +43,6 @@
                 </EditText>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/space1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,7 +83,9 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             
-             <LinearLayout
+             
+            
+              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
@@ -98,7 +93,45 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sexo:              "
+                    android:text="Raça Reprod:"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spnRaca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            
+              <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cód.Cria:        "
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtCria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"  >
+					
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
+           
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sexo Cria:       "
                     android:textStyle="bold" />
 
                 <Spinner
@@ -106,17 +139,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+          
+            
+            
+              <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                
+                  <Button android:id="@+id/btnParto"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="15dp"
+                      android:background="@drawable/btn_selector"
+                      android:text="Salvar"
+                      
+                      />
+            </LinearLayout>
+            
+            
         </LinearLayout>
         <!-- Dados da Cria -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-             </LinearLayout>
-             
+        
        
-    </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

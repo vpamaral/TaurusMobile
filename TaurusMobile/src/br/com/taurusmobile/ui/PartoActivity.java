@@ -1,24 +1,37 @@
 package br.com.taurusmobile.ui;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import android.app.Activity;
+import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnFocusChangeListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
+import br.com.taurusmobile.TB.Animal;
+import br.com.taurusmobile.model.AnimalModel;
 
 public class PartoActivity extends Activity {
 
-	// recebe os valores do banco para popular o array
 	private static final String[] PERDA = new String[] { "NENHUM", "UM",
 			"DOIS", "TRÊS" };
 	private static final String[] SEXO = new String[] { "SEXO", "FÊMEA",
 			"MACHO" };
 
 	private EditText editMatriz;
+	private EditText editDataParto;
+
+	private AnimalModel ani_model;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +47,35 @@ public class PartoActivity extends Activity {
 		ArrayAdapter<String> adpSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, SEXO);
 		adpSexo.setDropDownViewResource(android.R.layout.simple_spinner_item);
 		spnSexo.setAdapter(adpSexo);
+		
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
+        Date data = new Date();
+
+        Calendar  cal = Calendar.getInstance();
+        cal.setTime(data);
+        Date data_atual = cal.getTime();
+
+        String data_completa = dateFormat.format(data_atual);
+
+		ani_model = new AnimalModel(this);
+		
 		editMatriz = (EditText) findViewById(R.id.edtMatriz);
-
+		editDataParto = (EditText) findViewById(R.id.edtDataParto);
+		
+		editDataParto.setText(data_completa);
+		
 		editMatriz.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-
+				final Animal animal = ani_model.selectByCodigo(PartoActivity.this, editMatriz.getText().toString());
+				
+				
 			}
 		});
+		
 
 	}
 
