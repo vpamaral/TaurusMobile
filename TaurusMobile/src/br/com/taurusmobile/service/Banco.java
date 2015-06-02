@@ -3,14 +3,11 @@ package br.com.taurusmobile.service;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.OpenableColumns;
 
 public class Banco extends SQLiteOpenHelper {
 
 	static final String DATABASE = "BDTaurus";
 	static final int VERSION = 1;
-	private String scriptSQLCreate;
-	private String scriptSQLDelete;
 	
 	public Banco(Context context) {
 		super(context, DATABASE, null, VERSION);

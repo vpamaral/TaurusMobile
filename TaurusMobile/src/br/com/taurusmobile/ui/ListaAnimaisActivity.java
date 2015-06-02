@@ -4,21 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import br.com.taurusmobile.TB.Animal;
-import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.model.AnimalModel;
 
 public class ListaAnimaisActivity extends Activity {
 
 	AnimalModel ani_model;
 	Animal ani_tb;
-	List<Animal> objListaAnimal;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +23,6 @@ public class ListaAnimaisActivity extends Activity {
 		setContentView(R.layout.activity_lista_animais);
 
 		ani_tb = new Animal();
-		objListaAnimal = new ArrayList<Animal>();
 		ani_model = new AnimalModel(getBaseContext());
 		List<String> animais = new ArrayList<String>();
 		ListView lista = (ListView) findViewById(R.id.lista_animais);
