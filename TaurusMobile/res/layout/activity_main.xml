@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
     tools:context="br.com.taurusmobile.ui.MainActivity" >
 
     <LinearLayout
@@ -114,5 +115,8 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
+    
+    
+    
 
 </LinearLayout>
