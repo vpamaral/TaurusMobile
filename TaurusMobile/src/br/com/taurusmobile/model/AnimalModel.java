@@ -8,16 +8,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import br.com.taurusmobile.TB.Animal;
+import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.service.Banco;
 import br.com.taurusmobile.service.BancoService;
 
 public class AnimalModel extends BancoService {
 
 	private Banco banco;
-	private SQLiteDatabase db;
+	AnimalAdapter ani_adapter;
 
 	public AnimalModel(Context ctx) {
-
+		ani_adapter = new AnimalAdapter();
 	}
 
 	@Override
@@ -36,40 +37,29 @@ public class AnimalModel extends BancoService {
 
 		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
-		while (c.moveToNext()) {
-			Animal animal = new Animal();
-			animal.setCodigo(c.getString(c.getColumnIndex("codigo")));
-			animal.setSisbov(c.getString(c.getColumnIndex("sisbov")));
-			animal.setIdentificador(c.getString(c
-					.getColumnIndex("identificador")));
-			animal.setCodigo_ferro(c.getString(c.getColumnIndex("codigo_ferro")));
-			listadd.add(animal);
-		}
+		listadd = ani_adapter.AnimalPreencheArrayCursor(c);
 
 		banco.close();
 		return listadd;
 	}
 
-	@Override
-	public Animal selectID(Context ctx, String Tabela, Object table, long id) {
+	public Animal selectByCodigo(Context ctx, String codigo) {
 		Cursor cursor = null;
 		Animal AnimalLinha = new Animal();
-
+		Banco banco = new Banco(ctx);
+		
 		try {
-			String query = "SELECT * FROM" + Tabela + "WHERE Id =" + id + ";";
-			cursor = db.rawQuery(query, null);
-			if (cursor.getCount() > 0) {
-				while (cursor.moveToNext()) {
-					AnimalLinha.setCodigo(cursor.getString(cursor
-							.getColumnIndex("codigo")));
-					AnimalLinha.setSisbov(cursor.getString(cursor
-							.getColumnIndex("sisbov")));
-					AnimalLinha.setIdentificador(cursor.getString(cursor
-							.getColumnIndex("identificador")));
-					AnimalLinha.setCodigo_ferro(cursor.getString(cursor
-							.getColumnIndex("codigo_ferro")));
-				}
-			}
+			String query = "SELECT * FROM Animal WHERE codigo ='" + codigo + "';";
+			
+			List<Animal> listadd = new ArrayList<Animal>();
+			
+			cursor = banco.getWritableDatabase().rawQuery(query, null);
+			
+			
+			listadd = ani_adapter.AnimalPreencheArrayCursor(cursor);
+			
+			AnimalLinha = listadd.get(0);
+			
 		} catch (Exception e) {
 			Log.e("AnimalModel", e.toString());
 		} finally {
@@ -80,6 +70,13 @@ public class AnimalModel extends BancoService {
 			}
 		}
 		return AnimalLinha;
+	}
+
+
+	@Override
+	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
