@@ -17,7 +17,7 @@ public class PartoActivity extends Activity {
 			"DOIS", "TRÊS" };
 	private static final String[] SEXO = new String[] { "SEXO", "FÊMEA",
 			"MACHO" };
-	
+
 	private EditText editMatriz;
 
 	@Override
@@ -26,24 +26,22 @@ public class PartoActivity extends Activity {
 		setContentView(R.layout.activity_parto);
 
 		Spinner perdaGest = (Spinner) findViewById(R.id.spnPerda);
-		ArrayAdapter adpPerda = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, PERDA);
+		ArrayAdapter<String> adpPerda = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PERDA);
 		adpPerda.setDropDownViewResource(android.R.layout.simple_spinner_item);
 		perdaGest.setAdapter(adpPerda);
 
 		Spinner spnSexo = (Spinner) findViewById(R.id.spnSexo);
-		ArrayAdapter adpSexo = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, SEXO);
+		ArrayAdapter<String> adpSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, SEXO);
 		adpSexo.setDropDownViewResource(android.R.layout.simple_spinner_item);
 		spnSexo.setAdapter(adpSexo);
-		
+
 		editMatriz = (EditText) findViewById(R.id.edtMatriz);
-		
+
 		editMatriz.setOnFocusChangeListener(new OnFocusChangeListener() {
-			
+
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				
+
 			}
 		});
 

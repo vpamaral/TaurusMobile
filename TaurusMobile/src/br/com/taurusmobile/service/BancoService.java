@@ -3,12 +3,9 @@ package br.com.taurusmobile.service;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
-import android.widget.Toast;
-import br.com.taurusmobile.Annotation.AColumn;
 
 public abstract class BancoService {
 
@@ -31,8 +28,7 @@ public abstract class BancoService {
 			Class<? extends Object> s = table.getClass();
 
 			for (Field f : s.getDeclaredFields()) {
-				cv.put(f.getName(), getValueAt(table, "get" + f.getName())
-						.toString());
+				cv.put(f.getName(), getValueAt(table, "get" + f.getName()).toString());
 			}
 
 			banco.getWritableDatabase().insert(Tabela, null, cv);
