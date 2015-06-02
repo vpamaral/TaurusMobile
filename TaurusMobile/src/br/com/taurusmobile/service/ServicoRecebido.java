@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import android.util.Log;
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.adapter.AnimalAdapter;
-import br.com.taurusmobile.model.AnimalModel;
 
 public class ServicoRecebido {
 

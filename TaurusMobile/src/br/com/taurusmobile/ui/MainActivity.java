@@ -4,12 +4,11 @@ import java.util.List;
 
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.adapter.AnimalAdapter;
-import br.com.taurusmobile.model.AnimalModel;
+import br.com.taurusmobile.service.ExecucaoProcesso;
 import br.com.taurusmobile.service.ServicoRecebido;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,7 +46,7 @@ public class MainActivity extends Activity {
 				objProgressDialog.setMessage("Processando...");
 				objProgressDialog.show();
 
-				ExecucaoProcesso objProcessarDados = new ExecucaoProcesso();
+				ExecucaoProcesso objProcessarDados = new ExecucaoProcesso(MainActivity.this);
 				objProcessarDados.execute();
 
 			}
@@ -73,51 +72,6 @@ public class MainActivity extends Activity {
 
 			}
 		});
-
-	}
-
-	private class ExecucaoProcesso extends AsyncTask<Void, Void, Void> {
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			try {
-				InserirAnimaisBancoSQLite();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			objProgressDialog.dismiss();
-			
-			try {
-				
-				Intent intent = new Intent(MainActivity.this,
-						ListaAnimaisActivity.class);
-				startActivity(intent);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			super.onPostExecute(result);
-		}
-	}
-
-	private void InserirAnimaisBancoSQLite() throws Exception {
-
-		AnimalModel objModelAnimal = new AnimalModel(getBaseContext());
-		objServicoRecebido = new ServicoRecebido();
-		objListaAnimal = objServicoRecebido.listaAnimal();
-		aniHelper = new AnimalAdapter();
-
-		for (Animal animal : objListaAnimal) {
-
-			objModelAnimal.insert(this, "Animal", aniHelper.AnimalHelper(animal));
-
-		}
 
 	}
 
