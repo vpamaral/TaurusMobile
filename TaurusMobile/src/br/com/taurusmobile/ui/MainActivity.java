@@ -4,11 +4,12 @@ import java.util.List;
 
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.adapter.AnimalAdapter;
-import br.com.taurusmobile.service.ExecucaoProcesso;
+import br.com.taurusmobile.model.AnimalModel;
 import br.com.taurusmobile.service.ServicoRecebido;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +27,8 @@ public class MainActivity extends Activity {
 	ProgressDialog objProgressDialog;
 	AnimalAdapter aniHelper;
 	ServicoRecebido objServicoRecebido;
-
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,11 +44,11 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				
 				objProgressDialog = new ProgressDialog(MainActivity.this);
 				objProgressDialog.setMessage("Processando...");
 				objProgressDialog.show();
-
-				ExecucaoProcesso objProcessarDados = new ExecucaoProcesso(MainActivity.this);
+				ExecucaoProcesso objProcessarDados = new ExecucaoProcesso();
 				objProcessarDados.execute();
 
 			}
@@ -74,7 +76,45 @@ public class MainActivity extends Activity {
 		});
 
 	}
+	
+	public class ExecucaoProcesso extends AsyncTask<Void, Void, Void>{
 
+		@Override
+		protected Void doInBackground(Void... params) {
+			try {
+				InserirAnimaisBancoSQLite();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			objProgressDialog.dismiss();
+			
+			Intent intent = new Intent(MainActivity.this,
+					ListaAnimaisActivity.class);
+			startActivity(intent);
+			
+			super.onPostExecute(result);
+		}
+	}
+	
+	private void InserirAnimaisBancoSQLite() throws Exception {
+
+		AnimalModel objModelAnimal = new AnimalModel(getBaseContext());
+		objServicoRecebido = new ServicoRecebido();
+		objListaAnimal = objServicoRecebido.listaAnimal();
+		aniHelper = new AnimalAdapter();
+		for (Animal animal : objListaAnimal) {
+			if(animal != null)
+			objModelAnimal.insert(this, "Animal", aniHelper.AnimalHelper(animal));
+		}
+
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
