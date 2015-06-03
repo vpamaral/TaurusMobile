@@ -29,7 +29,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'categoria'	varchar(45),"
 				+ "'raca'	varchar(45),"
 				+ "'peso_atual'	double(45),"
-				+ "'grau_sangue'	varchar(45)"
+				+ "'raca_reprod'	varchar(45)"
 				+ " );";
 		
 		db.execSQL(sql);
