@@ -26,7 +26,7 @@ public class Animal implements Serializable {
 	
 	public double peso_atual;
 	
-	public String grau_sangue;
+	public String raca_reprod;
 
 	public long getId_pk() {
 		return id_pk;
@@ -108,12 +108,12 @@ public class Animal implements Serializable {
 		this.peso_atual = peso_atual;
 	}
 
-	public String getGrau_sangue() {
-		return grau_sangue;
+	public String getRaca_reprod() {
+		return raca_reprod;
 	}
 
-	public void setGrau_sangue(String grau_sangue) {
-		this.grau_sangue = grau_sangue;
+	public void setRaca_reprod(String grau_sangue) {
+		this.raca_reprod = grau_sangue;
 	}
 
 	
