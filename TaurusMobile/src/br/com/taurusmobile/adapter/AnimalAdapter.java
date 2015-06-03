@@ -32,7 +32,7 @@ public class AnimalAdapter {
 			animal.setCategoria(c.getString(c.getColumnIndex("categoria")));
 			animal.setRaca(c.getString(c.getColumnIndex("raca")));
 			animal.setPeso_atual(c.getDouble(c.getColumnIndex("peso_atual")));
-			animal.setGrau_sangue(c.getString(c.getColumnIndex("grau_sangue")));
+			//animal.setRaca_reprod(c.getString(c.getColumnIndex("raca_reprod")));
 
 			listaAnimal.add(animal);
 		}
@@ -58,7 +58,7 @@ public class AnimalAdapter {
 			animal.setCategoria(AnimalArray[i].getCategoria());
 			animal.setRaca(AnimalArray[i].getRaca());
 			animal.setPeso_atual(AnimalArray[i].getPeso_atual());
-			animal.setGrau_sangue(AnimalArray[i].getGrau_sangue());
+			animal.setRaca_reprod(AnimalArray[i].getRaca_reprod());
 
 			listaAnimal.add(animal);
 		}
@@ -82,7 +82,7 @@ public class AnimalAdapter {
 		animal.setCategoria(animalTB.getCategoria());
 		animal.setRaca(animalTB.getRaca());
 		animal.setPeso_atual(animalTB.getPeso_atual());
-		animal.setGrau_sangue(animalTB.getGrau_sangue());
+		animal.setRaca_reprod(animalTB.getRaca_reprod());
 
 		return animal;
 	}

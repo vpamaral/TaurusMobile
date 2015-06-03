@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +8,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.taurusmobile.ui.PartoActivity" >
 
-   
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
 
         <!-- Dados da Matriz -->
@@ -18,11 +21,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/space"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,13 +29,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Matriz:           "
+                    android:text="Matriz:            "
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtMatriz"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"  >
+                    android:layout_height="wrap_content"   >
 					
                     <requestFocus />
                 </EditText>
@@ -52,7 +50,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data Parto:    "
+                    android:text="Data Parto:     "
                     android:textStyle="bold" />
 
                 <EditText
@@ -83,7 +81,11 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             
-             
+             <TextView
+                android:id="@+id/space7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            
             
               <LinearLayout
                 android:layout_width="match_parent"
@@ -96,8 +98,8 @@
                     android:text="Raça Reprod:"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/spnRaca"
+                <EditText
+                    android:id="@+id/edtRacaPai"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -139,7 +141,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-          
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peso Cria:        "
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtPesoCria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"   >
+					
+                    <requestFocus />
+                </EditText>
+            </LinearLayout>
             
             
               <LinearLayout
@@ -147,13 +168,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
                 
-                  <Button android:id="@+id/btnParto"
+                  <Button android:id="@+id/btnSalvarParto"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_marginTop="15dp"
                       android:background="@drawable/btn_selector"
                       android:text="Salvar"
-                      
+                      android:textColor="#FFFFFF"
                       />
             </LinearLayout>
             
@@ -163,4 +184,8 @@
         
        
 
-</LinearLayout>
+             
+       
+    </LinearLayout>
+
+</ScrollView>
