@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class Animal implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
-
 	public long id_pk;
 	
 	public long id_fk_cria;
@@ -115,7 +113,5 @@ public class Animal implements Serializable {
 	public void setGrau_sangue(String grau_sangue) {
 		this.grau_sangue = grau_sangue;
 	}
-
-	
 	
 }

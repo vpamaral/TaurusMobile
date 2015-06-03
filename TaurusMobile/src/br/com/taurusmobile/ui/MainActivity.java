@@ -27,7 +27,8 @@ public class MainActivity extends Activity {
 	ProgressDialog objProgressDialog;
 	AnimalAdapter aniHelper;
 	ServicoRecebido objServicoRecebido;
-
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,10 +44,10 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				
 				objProgressDialog = new ProgressDialog(MainActivity.this);
 				objProgressDialog.setMessage("Processando...");
 				objProgressDialog.show();
-
 				ExecucaoProcesso objProcessarDados = new ExecucaoProcesso();
 				objProcessarDados.execute();
 
@@ -75,52 +76,45 @@ public class MainActivity extends Activity {
 		});
 
 	}
-
-	private class ExecucaoProcesso extends AsyncTask<Void, Void, Void> {
+	
+	public class ExecucaoProcesso extends AsyncTask<Void, Void, Void>{
 
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
 				InserirAnimaisBancoSQLite();
 			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;
 		}
-
+		
 		@Override
 		protected void onPostExecute(Void result) {
 			objProgressDialog.dismiss();
 			
-			try {
-				
-				Intent intent = new Intent(MainActivity.this,
-						ListaAnimaisActivity.class);
-				startActivity(intent);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			Intent intent = new Intent(MainActivity.this,
+					ListaAnimaisActivity.class);
+			startActivity(intent);
 			
 			super.onPostExecute(result);
 		}
 	}
-
+	
 	private void InserirAnimaisBancoSQLite() throws Exception {
 
 		AnimalModel objModelAnimal = new AnimalModel(getBaseContext());
 		objServicoRecebido = new ServicoRecebido();
 		objListaAnimal = objServicoRecebido.listaAnimal();
 		aniHelper = new AnimalAdapter();
-
 		for (Animal animal : objListaAnimal) {
-
+			if(animal != null)
 			objModelAnimal.insert(this, "Animal", aniHelper.AnimalHelper(animal));
-
 		}
 
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
