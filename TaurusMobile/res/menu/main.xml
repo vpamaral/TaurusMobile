@@ -3,9 +3,37 @@
     tools:context="br.com.taurusmobile.ui.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_opcoes"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:showAsAction="always"
+        android:title="@string/action_settings">
+        <menu>
+            <item
+                android:id="@+id/menu_atualiza_dados"
+                android:icon="@drawable/atualiza32"
+                android:showAsAction="always"
+                android:title="Atualizar Dados"/>
+            <item
+                android:id="@+id/menu_lista_animais"
+                android:icon="@drawable/lista32"
+                android:showAsAction="always"
+                android:title="Lista de Animais"/>
+            <item
+                android:id="@+id/menu_novo_parto"
+                android:icon="@drawable/adiciona32"
+                android:showAsAction="always"
+                android:title="Lançar Parto"/>
+            <item
+                android:id="@+id/menu_lista_partos"
+                android:icon="@drawable/lista32"
+                android:showAsAction="always"
+                android:title="Lista de Partos"/>
+            <item
+                android:id="@+id/menu_enviar_dados"
+                android:icon="@drawable/envia32"
+                android:showAsAction="always"
+                android:title="Enviar Dados Servidor"/>
+        </menu>
+    </item>
 
 </menu>

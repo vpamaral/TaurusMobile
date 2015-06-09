@@ -28,8 +28,9 @@ public final class R {
         public static final int btn_selector=0x7f020003;
         public static final int buttonshape=0x7f020004;
         public static final int envia32=0x7f020005;
-        public static final int lista32=0x7f020006;
-        public static final int logo_taurus=0x7f020007;
+        public static final int ic_opcoes=0x7f020006;
+        public static final int lista32=0x7f020007;
+        public static final int logo_taurus=0x7f020008;
     }
     public static final class id {
         public static final int action_settings=0x7f080011;
@@ -46,6 +47,11 @@ public final class R {
         public static final int edtRacaPai=0x7f08000c;
         public static final int linearLayout1=0x7f080001;
         public static final int lista_animais=0x7f080000;
+        public static final int menu_atualiza_dados=0x7f080012;
+        public static final int menu_enviar_dados=0x7f080016;
+        public static final int menu_lista_animais=0x7f080013;
+        public static final int menu_lista_partos=0x7f080015;
+        public static final int menu_novo_parto=0x7f080014;
         public static final int space2=0x7f080009;
         public static final int space7=0x7f08000b;
         public static final int spnPerda=0x7f08000a;
