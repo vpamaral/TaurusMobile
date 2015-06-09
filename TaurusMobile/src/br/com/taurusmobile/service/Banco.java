@@ -8,7 +8,7 @@ public class Banco extends SQLiteOpenHelper {
 
 	static final String DATABASE = "BDTaurus";
 	static final int VERSION = 1;
-	
+
 	public Banco(Context context) {
 		super(context, DATABASE, null, VERSION);
 	}
@@ -16,7 +16,6 @@ public class Banco extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
-		
 		String sql = "CREATE TABLE 'Animal' ("
 				+ "'id_auto'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'id_pk'	INTEGER,"
@@ -30,14 +29,30 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'raca'	varchar(45),"
 				+ "'peso_atual'	double(45),"
 				+ "'raca_reprod'	varchar(45)"
-				+ " );";
-		
+				+ " );"
+
+				+ "CREATE TABLE 'Parto' ("
+				+ "'id_auto'	       INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'id_fk_animal'   INTEGER,"
+				+ "'data_parto'     varchar(45),"
+				+ "'sexo_parto'     varchar(45),"
+				+ "'perda_gestacao' varchar(45)"
+				+");"
+
+				+ "CREATE TABLE 'Parto_Cria' ("
+				+ "'id_auto'	         INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'id_fk_animal_mae' INTEGER,"
+				+ "'peso_cria'        varchar(45),"
+				+ "'codigo_cria'      varchar(45),"
+				+ "'sexo'             varchar(45)"
+				+");";
+
 		db.execSQL(sql);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		
+
 	}
 
 }

@@ -32,7 +32,7 @@ public class AnimalAdapter {
 			animal.setCategoria(c.getString(c.getColumnIndex("categoria")));
 			animal.setRaca(c.getString(c.getColumnIndex("raca")));
 			animal.setPeso_atual(c.getDouble(c.getColumnIndex("peso_atual")));
-			//animal.setRaca_reprod(c.getString(c.getColumnIndex("raca_reprod")));
+			animal.setRaca_reprod(c.getString(c.getColumnIndex("raca_reprod")));
 
 			listaAnimal.add(animal);
 		}

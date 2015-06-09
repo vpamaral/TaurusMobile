@@ -9,10 +9,10 @@ public class Parto_Cria implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private long id_fk_animal_mae;
-	private double peso_cria;
-	private String codigo_cria;
-	private String sexo;
+	public long id_fk_animal_mae;
+	public String peso_cria;
+	public String codigo_cria;
+	public String sexo;
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;
@@ -22,11 +22,11 @@ public class Parto_Cria implements Serializable {
 		this.id_fk_animal_mae = id_fk_animal_mae;
 	}
 
-	public double getPeso_cria() {
+	public String getPeso_cria() {
 		return peso_cria;
 	}
 
-	public void setPeso_cria(double peso_cria) {
+	public void setPeso_cria(String peso_cria) {
 		this.peso_cria = peso_cria;
 	}
 
