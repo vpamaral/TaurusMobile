@@ -95,7 +95,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Raça Reprod:"
+                    android:text="Raça Reprod:  "
                     android:textStyle="bold" />
 
                 <EditText
@@ -150,13 +150,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Peso Cria:        "
+                    android:text="Peso Cria:      "
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtPesoCria"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"   >
+                    android:layout_height="wrap_content"  
+                     >
 					
                     <requestFocus />
                 </EditText>

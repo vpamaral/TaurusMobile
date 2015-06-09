@@ -9,10 +9,10 @@ public class Parto_Cria implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private long id_fk_animal_mae;
-	private double peso_cria;
-	private String codigo_cria;
-	private String sexo;
+	public long id_fk_animal_mae;
+	public double peso_cria;
+	public String codigo_cria;
+	public String sexo;
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;

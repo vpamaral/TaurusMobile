@@ -30,10 +30,10 @@ import br.com.taurusmobile.model.AnimalModel;
 
 public class PartoActivity extends Activity {
 
-	private static final String[] PERDA = new String[] { "NENHUMA", "ABORTO", "NATIMORTO",
-			"DESCONHECIDA", "F.AUTOLISADO", "F.MACERADO", "F.MUMIFICADO", "OUTRA" };
-	private static final String[] SEXO = new String[] {"","FÊMEA",
-			"MACHO" };
+	private static final String[] PERDA = new String[] { "NENHUMA", "ABORTO",
+			"NATIMORTO", "DESCONHECIDA", "F.AUTOLISADO", "F.MACERADO",
+			"F.MUMIFICADO", "OUTRA" };
+	private static final String[] SEXO = new String[] { "", "FÊMEA", "MACHO" };
 
 	private EditText editMatriz;
 	private EditText editDataParto;
@@ -46,8 +46,8 @@ public class PartoActivity extends Activity {
 
 	private AnimalModel ani_model;
 	private PartoAdapter p_helper;
-	private Parto parto_tb;
-	private Parto_Cria cria_tb;
+	private Parto parto;
+	private Parto_Cria cria;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,28 +55,29 @@ public class PartoActivity extends Activity {
 		setContentView(R.layout.activity_parto);
 
 		Spinner perdaGest = (Spinner) findViewById(R.id.spnPerda);
-		ArrayAdapter<String> adpPerda = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PERDA);
+		ArrayAdapter<String> adpPerda = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, PERDA);
 		adpPerda.setDropDownViewResource(android.R.layout.simple_spinner_item);
 		perdaGest.setAdapter(adpPerda);
 
 		Spinner spnSexo = (Spinner) findViewById(R.id.spnSexo);
-		ArrayAdapter<String> adpSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, SEXO);
+		ArrayAdapter<String> adpSexo = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, SEXO);
 		adpSexo.setDropDownViewResource(android.R.layout.simple_spinner_item);
 		spnSexo.setAdapter(adpSexo);
-		
-		
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        Date data = new Date();
+		Date data = new Date();
 
-        Calendar  cal = Calendar.getInstance();
-        cal.setTime(data);
-        Date data_atual = cal.getTime();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(data);
+		Date data_atual = cal.getTime();
 
-        String data_completa = dateFormat.format(data_atual);
+		String data_completa = dateFormat.format(data_atual);
 
 		ani_model = new AnimalModel(this);
-		
+
 		editMatriz = (EditText) findViewById(R.id.edtMatriz);
 		editDataParto = (EditText) findViewById(R.id.edtDataParto);
 		editRacaPai = (EditText) findViewById(R.id.edtRacaPai);
@@ -84,37 +85,42 @@ public class PartoActivity extends Activity {
 		spinSexo = (Spinner) findViewById(R.id.spnSexo);
 		editCodCria = (EditText) findViewById(R.id.edtCria);
 		editPeso = (EditText) findViewById(R.id.edtPesoCria);
-		
+
 		btnSalvar = (Button) findViewById(R.id.btnSalvarParto);
-		
+
 		editDataParto.setText(data_completa);
-		
+
 		editMatriz.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				parto_tb = new Parto();
-				cria_tb = new Parto_Cria();
-				final Animal animal = ani_model.selectByCodigo(PartoActivity.this, editMatriz.getText().toString());
+				Parto parto_tb = new Parto();
+				Parto_Cria cria_tb = new Parto_Cria();
+				final Animal animal = ani_model.selectByCodigo(
+						PartoActivity.this, editMatriz.getText().toString());
 				editRacaPai.setText(animal.getRaca_reprod());
 				parto_tb.setId_fk_animal(animal.getId_pk());
 				cria_tb.setId_fk_animal_mae(animal.getId_pk());
+				parto = parto_tb;
+				cria = cria_tb;
 			}
 		});
-		
+
 		
 		btnSalvar.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				parto_tb.setData_parto(editDataParto.getText().toString());
-				parto_tb.setPerda_gestacao(spinPerda.getSelectedItem().toString());
-				parto_tb.setSexo_parto(spinSexo.getSelectedItem().toString());
-				
-				cria_tb.setCodigo_cria(editCodCria.getText().toString());
-				cria_tb.setPeso_cria(Double.valueOf(editPeso.getText().toString()));
-				cria_tb.setSexo(spinSexo.getSelectedItem().toString());
-				
+				parto.setData_parto(editDataParto.getText().toString());
+				parto.setPerda_gestacao(spinPerda.getSelectedItem()
+						.toString());
+				parto.setSexo_parto(spinSexo.getSelectedItem().toString());
+
+				cria.setCodigo_cria(editCodCria.getText().toString());
+				cria.setPeso_cria(Double.valueOf(editPeso.getText()
+						.toString()));
+				cria.setSexo(spinSexo.getSelectedItem().toString());
+
 			}
 		});
 
@@ -138,9 +144,8 @@ public class PartoActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void zerarInterface()
-	{
-		
+
+	public void zerarInterface() {
+
 	}
 }
