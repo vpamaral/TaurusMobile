@@ -110,8 +110,8 @@ public class Animal implements Serializable {
 		return raca_reprod;
 	}
 
-	public void setRaca_reprod(String grau_sangue) {
-		this.raca_reprod = grau_sangue;
+	public void setRaca_reprod(String raca_reprod) {
+		this.raca_reprod = raca_reprod;
 	}
 	
 }
