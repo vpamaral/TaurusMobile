@@ -7,5 +7,6 @@
     <string name="title_activity_lista_animais">Animais</string>
     <string name="title_activity_parto">Lançar Parto</string>
     <string name="title_activity_enviar">EnviarActivity</string>
+    <string name="title_activity_lista_partos">ListaPartosActivity</string>
 
 </resources>

@@ -4,11 +4,6 @@ import java.io.Serializable;
 
 public class Parto_Cria implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public long id_fk_animal_mae;
 	public String peso_cria;
 	public String codigo_cria;
