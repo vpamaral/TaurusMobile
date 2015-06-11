@@ -29,12 +29,11 @@ public class MensagemUtil {
 	 * @param msg
 	 * @param icone
 	 */
-	public static void addMsg(MesageDialog window, Activity activity, String msg, String titulo, int icone){
+	public static void addMsg(MesageDialog window, Activity activity, String msg, String titulo){
 		AlertDialog.Builder builderDialog = new AlertDialog.Builder(activity);
 		builderDialog.setTitle(titulo);
 		builderDialog.setMessage(msg);
 		builderDialog.setNeutralButton("Ok", null);
-		builderDialog.setIcon(icone);
 		builderDialog.show();
 	}
 	
@@ -48,13 +47,12 @@ public class MensagemUtil {
 	 * @param listener
 	 */
 	public static void addMsg(Activity activity, String titulo, 
-		String msg, int icone, OnClickListener listener) {
+		String msg, OnClickListener listener) {
 		AlertDialog.Builder builderDialog = new AlertDialog.Builder(activity);
 		builderDialog.setTitle(titulo);
 		builderDialog.setMessage(msg);
 		builderDialog.setPositiveButton("Sim", listener);
 		builderDialog.setNegativeButton("Não", null);
-		builderDialog.setIcon(icone);
 		builderDialog.show();
 	}
 

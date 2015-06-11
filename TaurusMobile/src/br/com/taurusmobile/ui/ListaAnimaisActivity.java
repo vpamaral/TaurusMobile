@@ -12,9 +12,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.model.AnimalModel;
+import br.com.taurusmobile.util.MensagemUtil;
+import br.com.taurusmobile.util.MesageDialog;
 
 public class ListaAnimaisActivity extends Activity {
 
@@ -46,11 +47,16 @@ public class ListaAnimaisActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-			
 				
-				Toast.makeText(ListaAnimaisActivity.this,
-						"A posição selecionado foi " + position,
-						Toast.LENGTH_SHORT).show();
+				ani_tb = ani_model.selectByCodigo(ListaAnimaisActivity.this, (int) position + 1);
+				
+				String msg = "Código: " + ani_tb.getCodigo() +
+						"\nSisbov: " + ani_tb.getSisbov() + 
+						"\nIdentificador: " + ani_tb.getIdentificador() + 
+						"\nPeso Atual: " + ani_tb.getPeso_atual();
+				
+				MensagemUtil.addMsg(MesageDialog.Yes, ListaAnimaisActivity.this, msg, "Animal");
+				
 			}
 		});
 		lista.setAdapter(adapter);
