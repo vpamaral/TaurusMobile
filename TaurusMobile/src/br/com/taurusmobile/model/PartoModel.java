@@ -1,9 +1,12 @@
 package br.com.taurusmobile.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import br.com.taurusmobile.adapter.AnimalAdapter;
+import android.database.Cursor;
+import br.com.taurusmobile.TB.Animal;
+import br.com.taurusmobile.TB.Parto;
 import br.com.taurusmobile.adapter.PartoAdapter;
 import br.com.taurusmobile.service.Banco;
 import br.com.taurusmobile.service.BancoService;
@@ -24,9 +27,19 @@ public class PartoModel extends BancoService {
 	}
 
 	@Override
-	public <T> List<T> selectAll(Context ctx, String Tabela, Object table) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Parto> selectAll(Context ctx, String Tabela, Object table) {
+		Banco banco = new Banco(ctx);
+
+		Class classe = table.getClass();
+		List<Parto> listadd = new ArrayList<Parto>();
+		String sql = "SELECT * FROM " + Tabela;
+
+		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
+
+		listadd = parto_adapter.PartoPreencheArrayCursor(c);
+
+		banco.close();
+		return listadd;
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public class Banco extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
-		String sql = "CREATE TABLE 'Animal' ("
+		String sql_animal = "CREATE TABLE 'Animal' ("
 				+ "'id_auto'	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'id_pk'	INTEGER,"
 				+ "'id_fk_cria'	INTEGER,"
@@ -29,17 +29,17 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'raca'	varchar(45),"
 				+ "'peso_atual'	double(45),"
 				+ "'raca_reprod'	varchar(45)"
-				+ " );"
-
-				+ "CREATE TABLE 'Parto' ("
+				+ " );";
+		
+		String sql_parto = "CREATE TABLE 'Parto' ("
 				+ "'id_auto'	       INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'id_fk_animal'   INTEGER,"
 				+ "'data_parto'     varchar(45),"
 				+ "'sexo_parto'     varchar(45),"
 				+ "'perda_gestacao' varchar(45)"
-				+");"
+				+");";
 
-				+ "CREATE TABLE 'Parto_Cria' ("
+		String sql_parto_cria = "CREATE TABLE 'Parto_Cria' ("
 				+ "'id_auto'	         INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'id_fk_animal_mae' INTEGER,"
 				+ "'peso_cria'        varchar(45),"
@@ -47,7 +47,9 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'sexo'             varchar(45)"
 				+");";
 
-		db.execSQL(sql);
+		db.execSQL(sql_animal);
+		db.execSQL(sql_parto);
+		db.execSQL(sql_parto_cria);
 	}
 
 	@Override

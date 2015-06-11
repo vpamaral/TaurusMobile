@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-
         <!-- Dados da Matriz -->
 
         <LinearLayout
@@ -24,34 +23,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                 >
+                android:orientation="horizontal" >
 
-                
-                 <TextView 
-                    
+                <TextView
                     android:id="@+id/id_animal"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
-                
+                    android:visibility="gone" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Matriz:            "
                     android:textStyle="bold" />
-               
 
                 <EditText
                     android:id="@+id/edtMatriz"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"   >
-					
+                    android:layout_height="wrap_content" >
+
                     <requestFocus />
                 </EditText>
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,14 +84,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            
-             <TextView
+
+            <TextView
                 android:id="@+id/space7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            
-            
-              <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
@@ -114,8 +106,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            
-              <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
@@ -129,13 +121,9 @@
                 <EditText
                     android:id="@+id/edtCria"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"  >
-					
-                    <requestFocus />
-                </EditText>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-           
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,7 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,37 +155,26 @@
                 <EditText
                     android:id="@+id/edtPesoCria"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"  
-                     >
-					
-                    <requestFocus />
-                </EditText>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-            
-            
-              <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
-                
-                  <Button android:id="@+id/btnSalvarParto"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_marginTop="15dp"
-                      android:background="@drawable/btn_selector"
-                      android:text="Salvar"
-                      android:textColor="#FFFFFF"
-                      />
+
+                <Button
+                    android:id="@+id/btnSalvarParto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/btn_selector"
+                    android:text="Salvar"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
-            
-            
         </LinearLayout>
         <!-- Dados da Cria -->
-        
-       
 
-             
-       
     </LinearLayout>
 
 </ScrollView>

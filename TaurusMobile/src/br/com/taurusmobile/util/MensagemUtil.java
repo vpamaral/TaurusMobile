@@ -14,9 +14,9 @@ public class MensagemUtil {
 	 * @param msg
 	 * 
 	 */
-	public static void addMsg(MessaDialog window, Activity activity, String msg) {
+	public static void addMsg(MesageDialog window, Activity activity, String msg) {
 		
-		if(window == MessaDialog.Toast){
+		if(window == MesageDialog.Toast){
 			Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -29,7 +29,7 @@ public class MensagemUtil {
 	 * @param msg
 	 * @param icone
 	 */
-	public static void addMsg(MessaDialog window, Activity activity, String msg, String titulo, int icone){
+	public static void addMsg(MesageDialog window, Activity activity, String msg, String titulo, int icone){
 		AlertDialog.Builder builderDialog = new AlertDialog.Builder(activity);
 		builderDialog.setTitle(titulo);
 		builderDialog.setMessage(msg);
