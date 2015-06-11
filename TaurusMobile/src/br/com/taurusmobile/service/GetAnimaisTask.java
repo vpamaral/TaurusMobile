@@ -6,7 +6,7 @@ import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.model.AnimalModel;
 import br.com.taurusmobile.util.MensagemUtil;
-import br.com.taurusmobile.util.MessaDialog;
+import br.com.taurusmobile.util.MesageDialog;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -52,6 +52,6 @@ public class GetAnimaisTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPostExecute(Void result) {
 		progress.dismiss();
-		MensagemUtil.addMsg(MessaDialog.Toast, (Activity) ctx, "Dados atualizado com sucesso!");
+		MensagemUtil.addMsg(MesageDialog.Toast, (Activity) ctx, "Dados atualizado com sucesso!");
 	}
 }

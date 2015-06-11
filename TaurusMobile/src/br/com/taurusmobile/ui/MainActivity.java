@@ -1,6 +1,7 @@
 package br.com.taurusmobile.ui;
 
 import java.util.List;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -20,6 +21,7 @@ public class MainActivity extends Activity {
 	private Button btn_atualizar;
 	private Button btn_animais;
 	private Button btn_parto;
+	private Button btn_lista_parto;
 	protected List<Animal> objListaAnimal;
 	ProgressDialog objProgressDialog;
 	AnimalAdapter aniHelper;
@@ -33,6 +35,7 @@ public class MainActivity extends Activity {
 		btn_atualizar = (Button) findViewById(R.id.btn_atualiza);
 		btn_animais = (Button) findViewById(R.id.btn_animal);
 		btn_parto = (Button) findViewById(R.id.btn_parto);
+		btn_lista_parto = (Button) findViewById(R.id.btn_lista_parto);
 
 		btn_atualizar.setOnClickListener(new OnClickListener() {
 
@@ -57,6 +60,14 @@ public class MainActivity extends Activity {
 				lancaParto();
 			}
 		});
+		
+		btn_lista_parto.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				listaPartos();
+			}
+		});
 	}
 
 	@Override
@@ -78,6 +89,9 @@ public class MainActivity extends Activity {
 		case R.id.menu_novo_parto:
 			lancaParto();
 			return false;
+		case R.id.menu_lista_partos:
+			listaPartos();
+			return false;
 		default:
 			break;
 		}
@@ -93,6 +107,12 @@ public class MainActivity extends Activity {
 	private void listaAnimais() {
 		Intent intent = new Intent(MainActivity.this,
 				ListaAnimaisActivity.class);
+		startActivity(intent);
+	}
+	
+	private void listaPartos() {
+		Intent intent = new Intent(MainActivity.this,
+				ListaPartosCriaActivity.class);
 		startActivity(intent);
 	}
 

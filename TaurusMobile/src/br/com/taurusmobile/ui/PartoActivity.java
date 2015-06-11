@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.TB.Parto;
 import br.com.taurusmobile.TB.Parto_Cria;
@@ -125,6 +126,8 @@ public class PartoActivity extends Activity {
 				cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
 				
 				zerarInterface();
+				
+				Toast.makeText(PartoActivity.this, "Parto cadastrados com sucesso!", Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -154,5 +157,6 @@ public class PartoActivity extends Activity {
 		editRacaPai.setText("");
 		editCodCria.setText("");
 		txtidanimal.setText("");
+		editMatriz.requestFocus();
 	}
 }

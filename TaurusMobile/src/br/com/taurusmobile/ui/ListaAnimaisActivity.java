@@ -7,8 +7,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.model.AnimalModel;
 
@@ -16,6 +20,7 @@ public class ListaAnimaisActivity extends Activity {
 
 	AnimalModel ani_model;
 	Animal ani_tb;
+	private ListView lista;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +30,31 @@ public class ListaAnimaisActivity extends Activity {
 		ani_tb = new Animal();
 		ani_model = new AnimalModel(getBaseContext());
 		List<String> animais = new ArrayList<String>();
-		ListView lista = (ListView) findViewById(R.id.lista_animais);
-		
-		List<Animal> listaani = ani_model.selectAll(this, "Animal", ani_tb);
+		lista = (ListView) findViewById(R.id.lista_animais);
 
-		for(Animal a: listaani)
-		{
+		final List<Animal> listaani = ani_model.selectAll(this, "Animal", ani_tb);
+
+		for (Animal a : listaani) {
 			animais.add(a.getCodigo());
 		}
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, animais);
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, animais);
+		lista.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+			
+				
+				Toast.makeText(ListaAnimaisActivity.this,
+						"A posição selecionado foi " + position,
+						Toast.LENGTH_SHORT).show();
+			}
+		});
 		lista.setAdapter(adapter);
+
 	}
 
 	@Override
