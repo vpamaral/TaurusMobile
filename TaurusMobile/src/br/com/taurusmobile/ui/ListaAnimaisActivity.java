@@ -30,9 +30,15 @@ public class ListaAnimaisActivity extends Activity {
 
 		ani_tb = new Animal();
 		ani_model = new AnimalModel(getBaseContext());
-		List<String> animais = new ArrayList<String>();
+		
 		lista = (ListView) findViewById(R.id.lista_animais);
-
+		
+		this.listarAnimais();
+		this.consultarPorId();
+	}
+	
+	private void listarAnimais(){
+		List<String> animais = new ArrayList<String>();
 		final List<Animal> listaani = ani_model.selectAll(this, "Animal", ani_tb);
 
 		for (Animal a : listaani) {
@@ -42,6 +48,10 @@ public class ListaAnimaisActivity extends Activity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, animais);
 		
+		lista.setAdapter(adapter);
+	}
+	
+	private void consultarPorId(){
 		lista.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -59,10 +69,9 @@ public class ListaAnimaisActivity extends Activity {
 				
 			}
 		});
-		lista.setAdapter(adapter);
-
 	}
-
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
