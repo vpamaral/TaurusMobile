@@ -51,6 +51,20 @@ public class ListaAnimaisActivity extends Activity {
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long id) {
 
+				Toast.makeText(ListaAnimaisActivity.this,
+						"Animal selecionado " + animais.get(position),
+						Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		// quando um item da lista recebe um click longo
+		lista.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> adapter, View view,
+					int position, long id) {
+<<<<<<< HEAD
+				
 				ani_tb = ani_model.selectByCodigo(ListaAnimaisActivity.this, (int) position + 1);
 				
 				String msg = "Código: " + ani_tb.getCodigo() +
@@ -59,14 +73,13 @@ public class ListaAnimaisActivity extends Activity {
 						"\nPeso Atual: " + ani_tb.getPeso_atual();
 				
 				MensagemUtil.addMsg(MesageDialog.Yes, ListaAnimaisActivity.this, msg, "Animal");
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> adapter, View view,
-					int position, long id) {
+				
+=======
 				Toast.makeText(ListaAnimaisActivity.this,
 						"Animal selecionado " + animais.get(position),
 						Toast.LENGTH_SHORT).show();
 				return true;
+>>>>>>> 62ba28b8d948d4dce1d3b2aaf931159ea3b86fde
 			}
 		});
 		lista.setAdapter(adapter);
