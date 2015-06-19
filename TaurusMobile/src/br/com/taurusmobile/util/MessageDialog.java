@@ -1,12 +1,12 @@
 package br.com.taurusmobile.util;
 
-public enum MesageDialog {
+public enum MessageDialog {
 	
 	Toast(1), Yes(2), YesOk(3); 
 	
 	private final int valor; 
 	
-	MesageDialog(int valorOpcao){
+	MessageDialog(int valorOpcao){
 		valor = valorOpcao; 
 	} 
 	
