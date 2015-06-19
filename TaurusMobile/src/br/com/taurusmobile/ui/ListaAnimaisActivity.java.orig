@@ -86,6 +86,10 @@ public class ListaAnimaisActivity extends Activity {
 				return true;
 			}
 		});
+<<<<<<< HEAD
+		lista.setAdapter(adapter);
+=======
+>>>>>>> hudsonpr-master
 	}
 	
 	
