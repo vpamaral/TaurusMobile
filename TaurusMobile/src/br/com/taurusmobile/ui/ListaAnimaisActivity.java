@@ -10,12 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.model.AnimalModel;
 import br.com.taurusmobile.util.MensagemUtil;
-import br.com.taurusmobile.util.MesageDialog;
+import br.com.taurusmobile.util.MessageDialog;
 
 public class ListaAnimaisActivity extends Activity {
 
@@ -30,16 +32,17 @@ public class ListaAnimaisActivity extends Activity {
 
 		ani_tb = new Animal();
 		ani_model = new AnimalModel(getBaseContext());
-		
+		final List<String> animais = new ArrayList<String>();
 		lista = (ListView) findViewById(R.id.lista_animais);
 		
 		this.listarAnimais();
 		this.consultarPorId();
+		final List<Animal> listaani = ani_model.selectAll(this, "Animal",
+				ani_tb);
 	}
 	
 	private void listarAnimais(){
 		List<String> animais = new ArrayList<String>();
-		final List<Animal> listaani = ani_model.selectAll(this, "Animal", ani_tb);
 
 		for (Animal a : listaani) {
 			animais.add(a.getCodigo());
@@ -47,7 +50,8 @@ public class ListaAnimaisActivity extends Activity {
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, animais);
-		
+
+		// quando um item da lista é clicado.
 		lista.setAdapter(adapter);
 	}
 	
@@ -55,18 +59,31 @@ public class ListaAnimaisActivity extends Activity {
 		lista.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
+			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long id) {
-				
-				ani_tb = ani_model.selectByCodigo(ListaAnimaisActivity.this, (int) position + 1);
-				
-				String msg = "Código: " + ani_tb.getCodigo() +
-						"\nSisbov: " + ani_tb.getSisbov() + 
-						"\nIdentificador: " + ani_tb.getIdentificador() + 
-						"\nPeso Atual: " + ani_tb.getPeso_atual();
-				
-				MensagemUtil.addMsg(MesageDialog.Yes, ListaAnimaisActivity.this, msg, "Animal");
-				
+				ani_tb = ani_model.selectByCodigo(ListaAnimaisActivity.this,
+						(int) position + 1);
+
+				String msg = "Código: " + ani_tb.getCodigo() + "\nSisbov: "
+						+ ani_tb.getSisbov() + "\nIdentificador: "
+						+ ani_tb.getIdentificador() + "\nPeso Atual: "
+						+ ani_tb.getPeso_atual();
+
+				MensagemUtil.addMsg(MessageDialog.Yes,
+						ListaAnimaisActivity.this, msg, "Animal", position);
+			}
+		});
+
+		// quando um item da lista recebe um click longo
+		lista.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> adapter, View view,
+					int position, long id) {
+				Toast.makeText(ListaAnimaisActivity.this,
+						"Animal selecionado " + animais.get(position),
+						Toast.LENGTH_SHORT).show();
+				return true;
 			}
 		});
 	}

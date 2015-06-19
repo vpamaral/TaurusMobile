@@ -14,43 +14,63 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import br.com.taurusmobile.TB.Parto_Cria;
-import br.com.taurusmobile.model.Parto_CriaModel;
+import br.com.taurusmobile.TB.Animal;
+import br.com.taurusmobile.model.AnimalModel;
+import br.com.taurusmobile.util.MensagemUtil;
+import br.com.taurusmobile.util.MessageDialog;
 
-public class ListaPartosCriaActivity extends Activity {
-	Parto_CriaModel p_cria_model;
-	Parto_Cria p_cria_tb;
+public class ListaAnimaisActivity extends Activity {
+
+	AnimalModel ani_model;
+	Animal ani_tb;
+	private ListView lista;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_lista_partos_cria);
+		setContentView(R.layout.activity_lista_animais);
 
-		p_cria_tb = new Parto_Cria();
-		p_cria_model = new Parto_CriaModel(getBaseContext());
-		final List<String> partos_cria = new ArrayList<String>();
-		ListView lista = (ListView) findViewById(R.id.lista_partos);
+		ani_tb = new Animal();
+		ani_model = new AnimalModel(getBaseContext());
+		final List<String> animais = new ArrayList<String>();
+		lista = (ListView) findViewById(R.id.lista_animais);
+		
+		this.listarAnimais();
+		this.consultarPorId();
+		final List<Animal> listaani = ani_model.selectAll(this, "Animal",
+				ani_tb);
+	}
+	
+	private void listarAnimais(){
+		List<String> animais = new ArrayList<String>();
 
-		List<Parto_Cria> lista_partos = p_cria_model.selectAll(this,
-				"Parto_Cria", p_cria_tb);
-
-		for (Parto_Cria p_cria : lista_partos) {
-			partos_cria.add(p_cria.getCodigo_cria());
+		for (Animal a : listaani) {
+			animais.add(a.getCodigo());
 		}
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, partos_cria);
+				android.R.layout.simple_list_item_1, animais);
 
 		// quando um item da lista é clicado.
+		lista.setAdapter(adapter);
+	}
+	
+	private void consultarPorId(){
 		lista.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long id) {
+				ani_tb = ani_model.selectByCodigo(ListaAnimaisActivity.this,
+						(int) position + 1);
 
-				Toast.makeText(ListaPartosCriaActivity.this,
-						"Animal selecionado " + partos_cria.get(position),
-						Toast.LENGTH_SHORT).show();
+				String msg = "Código: " + ani_tb.getCodigo() + "\nSisbov: "
+						+ ani_tb.getSisbov() + "\nIdentificador: "
+						+ ani_tb.getIdentificador() + "\nPeso Atual: "
+						+ ani_tb.getPeso_atual();
+
+				MensagemUtil.addMsg(MessageDialog.Yes,
+						ListaAnimaisActivity.this, msg, "Animal", position);
 			}
 		});
 
@@ -60,20 +80,23 @@ public class ListaPartosCriaActivity extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adapter, View view,
 					int position, long id) {
-				Toast.makeText(ListaPartosCriaActivity.this,
-						"Animal selecionado " + partos_cria.get(position),
+				Toast.makeText(ListaAnimaisActivity.this,
+						"Animal selecionado " + animais.get(position),
 						Toast.LENGTH_SHORT).show();
 				return true;
 			}
 		});
-
+<<<<<<< HEAD
 		lista.setAdapter(adapter);
+=======
+>>>>>>> hudsonpr-master
 	}
-
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.lista_partos, menu);
+		getMenuInflater().inflate(R.menu.lista_animais, menu);
 		return true;
 	}
 

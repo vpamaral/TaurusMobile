@@ -14,14 +14,12 @@ import br.com.taurusmobile.service.BancoService;
 
 public class AnimalModel extends BancoService {
 
-	
-	AnimalAdapter ani_adapter;
-	SQLiteDatabase db;
-	Banco banco;
-	Animal animal;
+	private Banco banco;
+	private AnimalAdapter ani_adapter;
+	private SQLiteDatabase db;
+	private Animal animal;
 
 	public AnimalModel(Context ctx) {
-		animal = new Animal();
 		ani_adapter = new AnimalAdapter();
 	}
 
@@ -46,21 +44,21 @@ public class AnimalModel extends BancoService {
 		banco.close();
 		return listadd;
 	}
-	
+
 	public Animal selectByCodigo(Context ctx, Integer codigo) {
 		banco = new Banco(ctx);
-		
+
 		db = banco.getReadableDatabase();
-		
-		Cursor cursor = db.query("Animal", null, "id_auto=?", 
-				new String[] {codigo.toString()}, null, null, "id_auto");
-		
+
+		Cursor cursor = db.query("Animal", null, "id_auto=?",
+				new String[] { codigo.toString() }, null, null, "id_auto");
+
 		animal = ani_adapter.AnimalCursor(cursor);
-		
+
 		return animal;
-		
+
 	}
-	
+
 	public Animal selectByCodigo(Context ctx, String codigo) {
 		Cursor cursor = null;
 		Animal AnimalLinha = new Animal();
