@@ -29,7 +29,11 @@ public class MensagemUtil {
 	 * @param msg
 	 * @param icone
 	 */
+<<<<<<< HEAD
+	public static void addMsg(MesageDialog window, Activity activity, String msg, String titulo){
+=======
 	public static void addMsg(MessageDialog window, Activity activity, String msg, String titulo, int icone){
+>>>>>>> 62ba28b8d948d4dce1d3b2aaf931159ea3b86fde
 		AlertDialog.Builder builderDialog = new AlertDialog.Builder(activity);
 		builderDialog.setTitle(titulo);
 		builderDialog.setMessage(msg);

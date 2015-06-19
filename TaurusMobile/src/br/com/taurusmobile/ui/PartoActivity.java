@@ -54,14 +54,14 @@ public class PartoActivity extends Activity {
 
 		Spinner perdaGest = (Spinner) findViewById(R.id.spnPerda);
 		ArrayAdapter<String> adpPerda = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, PERDA);
-		adpPerda.setDropDownViewResource(android.R.layout.simple_spinner_item);
+				android.R.layout.simple_dropdown_item_1line, PERDA);
+		adpPerda.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		perdaGest.setAdapter(adpPerda);
 
 		Spinner spnSexo = (Spinner) findViewById(R.id.spnSexo);
 		ArrayAdapter<String> adpSexo = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, SEXO);
-		adpSexo.setDropDownViewResource(android.R.layout.simple_spinner_item);
+				android.R.layout.simple_dropdown_item_1line, SEXO);
+		adpSexo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spnSexo.setAdapter(adpSexo);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
