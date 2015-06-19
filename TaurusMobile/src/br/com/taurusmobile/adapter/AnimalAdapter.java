@@ -11,10 +11,10 @@ public class AnimalAdapter {
 	public AnimalAdapter() {
 
 	}
-	
+
 	public Animal AnimalCursor(Cursor c) {
 		Animal animal = new Animal();
-		
+
 		while (c.moveToNext()) {
 			animal.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
 			animal.setId_fk_cria(c.getLong(c.getColumnIndex("id_fk_cria")));

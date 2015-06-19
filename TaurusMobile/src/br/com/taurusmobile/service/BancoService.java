@@ -3,7 +3,7 @@ package br.com.taurusmobile.service;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
-import android.annotation.SuppressLint;
+
 import android.content.ContentValues;
 import android.content.Context;
 
