@@ -135,6 +135,6 @@ public class MainActivity extends Activity {
 
 	private void enviarDados() {
 		new PostAnimaisJSON(this).execute();
-		new PostAnimaisXML(this).execute();
+		//new PostAnimaisXML(this).execute();
 	}
 }

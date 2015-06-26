@@ -1,10 +1,14 @@
 package br.com.taurusmobile.task;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 import br.com.taurusmobile.TB.Parto;
 import br.com.taurusmobile.TB.Parto_Cria;
@@ -27,7 +31,7 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 	private Parto_CriaModel p_cria_model;
 	private List<Parto_Cria> partos_cria;
 	private String json;
-
+	
 	public PostAnimaisJSON(Context ctx) {
 		this.ctx = ctx;
 	}
@@ -40,7 +44,8 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 
 	@Override
 	protected String doInBackground(Object... params) {
-		PostJSON post_json = new PostJSON(Constantes.POST);
+		PostJSON post_json = new PostJSON(Constantes.POSTJSON);
+		//ArrayList<String> retornoJSON = new ArrayList<String>();
 		String retornoJSON = null;
 		parto_tb = new Parto();
 		parto_model = new PartoModel(ctx);
@@ -52,10 +57,14 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		try {
 			json = new PartoConverterJSON().toJSON(partos);
 			json += new PartoCriaConverterJSON().toJSON(partos_cria);
-			retornoJSON = post_json.postAnimais(json);
+			//ArrayList<String> Animais = new ArrayList<String>();
+			//Animais.add(json);
+			retornoJSON = post_json.postAnimais(Constantes.POSTJSON, json);
+			//Log.i("enviando JSON para servidor", retornoJSON);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//return null;
 		return retornoJSON;
 		// return retornoJSON;
 	}
