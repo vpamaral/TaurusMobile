@@ -8,10 +8,13 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 import br.com.taurusmobile.TB.Parto;
 import br.com.taurusmobile.TB.Parto_Cria;
+import br.com.taurusmobile.converter.PartoConverterJSON;
 import br.com.taurusmobile.converter.PartoConverterXML;
+import br.com.taurusmobile.converter.PartoCriaConverterJSON;
 import br.com.taurusmobile.converter.PartoCriaConverterXML;
 import br.com.taurusmobile.model.PartoModel;
 import br.com.taurusmobile.model.Parto_CriaModel;
+import br.com.taurusmobile.service.PostJSON;
 import br.com.taurusmobile.service.PostXML;
 import br.com.taurusmobile.util.Constantes;
 
@@ -39,7 +42,8 @@ public class PostAnimaisXML extends AsyncTask<Object, Object, String> {
 
 	@Override
 	protected String doInBackground(Object... params) {
-		PostXML post_xml = new PostXML(Constantes.POST);
+		
+		PostXML post_xml = new PostXML(Constantes.POSTJSON);
 		String retornoXML = null;
 		parto_tb = new Parto();
 		parto_model = new PartoModel(ctx);
@@ -47,11 +51,11 @@ public class PostAnimaisXML extends AsyncTask<Object, Object, String> {
 		p_cria_tb = new Parto_Cria();
 		p_cria_model = new Parto_CriaModel(ctx);
 		partos_cria = p_cria_model.selectAll(ctx, "Parto_Cria", p_cria_tb);
-
+		
 		try {
 			xml = new PartoConverterXML().toXML(partos);
 			xml += new PartoCriaConverterXML().toXML(partos_cria);
-			retornoXML = post_xml.postAnimais(xml);
+			retornoXML = post_xml.postAnimais(Constantes.POSTJSON, xml);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
