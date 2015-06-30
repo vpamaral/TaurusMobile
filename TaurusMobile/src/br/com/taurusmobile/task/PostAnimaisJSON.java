@@ -6,26 +6,18 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-import br.com.taurusmobile.TB.Parto;
-import br.com.taurusmobile.TB.Parto_Cria;
-import br.com.taurusmobile.converter.PartoConverterJSON;
-import br.com.taurusmobile.converter.PartoCriaConverterJSON;
-import br.com.taurusmobile.model.PartoModel;
-import br.com.taurusmobile.model.Parto_CriaModel;
+import br.com.taurusmobile.TB.Parto_PartoCria;
+import br.com.taurusmobile.converter.Parto_PartoCriaJSON;
+import br.com.taurusmobile.model.Parto_PartoCriaModel;
 import br.com.taurusmobile.service.PostJSON;
 import br.com.taurusmobile.util.Constantes;
 
 public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
-	// link serviço
-	// "http://192.168.0.235/TaurusWebService/TaurusService.svc/insertPartosXml"
 	private Context ctx;
 	private ProgressDialog progress;
-	private Parto parto_tb;
-	private PartoModel parto_model;
-	private List<Parto> partos;
-	private Parto_Cria p_cria_tb;
-	private Parto_CriaModel p_cria_model;
-	private List<Parto_Cria> partos_cria;
+	private List<Parto_PartoCria> partos_parto_cria;
+	private Parto_PartoCriaModel p_parto_cria_model;
+	private Parto_PartoCria p_parto_cria_tb;
 	private String json;
 
 	public PostAnimaisJSON(Context ctx) {
@@ -40,24 +32,20 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 
 	@Override
 	protected String doInBackground(Object... params) {
-		PostJSON post_json = new PostJSON(Constantes.POST);
+		PostJSON post_json = new PostJSON(Constantes.POSTJSON);
 		String retornoJSON = null;
-		parto_tb = new Parto();
-		parto_model = new PartoModel(ctx);
-		partos = parto_model.selectAll(ctx, "Parto", parto_tb);
-		p_cria_tb = new Parto_Cria();
-		p_cria_model = new Parto_CriaModel(ctx);
-		partos_cria = p_cria_model.selectAll(ctx, "Parto_Cria", p_cria_tb);
+		p_parto_cria_tb = new Parto_PartoCria();
+		p_parto_cria_model = new Parto_PartoCriaModel(ctx);
+		partos_parto_cria = p_parto_cria_model.selectAll(ctx, "Animal",
+				p_parto_cria_tb);
+		json = new Parto_PartoCriaJSON().toJSON(partos_parto_cria);
 
 		try {
-			json = new PartoConverterJSON().toJSON(partos);
-			json += new PartoCriaConverterJSON().toJSON(partos_cria);
-			retornoJSON = post_json.postAnimais(json);
+			retornoJSON = post_json.postAnimais(Constantes.POSTJSON, json);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return retornoJSON;
-		// return retornoJSON;
 	}
 
 	@Override

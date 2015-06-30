@@ -15,7 +15,6 @@ import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.task.GetAnimaisJSON;
 import br.com.taurusmobile.task.PostAnimaisJSON;
-import br.com.taurusmobile.task.PostAnimaisXML;
 
 public class MainActivity extends Activity {
 
@@ -135,6 +134,6 @@ public class MainActivity extends Activity {
 
 	private void enviarDados() {
 		new PostAnimaisJSON(this).execute();
-		new PostAnimaisXML(this).execute();
+		//new PostAnimaisXML(this).execute();
 	}
 }

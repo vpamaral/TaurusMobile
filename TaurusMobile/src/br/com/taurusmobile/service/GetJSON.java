@@ -20,7 +20,7 @@ public class GetJSON {
 		url = Constantes.GET;
 		AnimalAdapter ani_helper = new AnimalAdapter();
 		try {
-
+			
 			ConexaoHTTP conexaoServidor = new ConexaoHTTP();
 			String retornoDadosJSON = conexaoServidor.lerUrlServico(url);
 
