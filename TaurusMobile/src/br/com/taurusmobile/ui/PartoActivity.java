@@ -114,12 +114,19 @@ public class PartoActivity extends Activity {
 
 				parto_tb.setData_parto(editDataParto.getText().toString());
 				parto_tb.setPerda_gestacao(spinPerda.getSelectedItem().toString());
-				parto_tb.setSexo_parto(spinSexo.getSelectedItem().toString());
-				parto_tb.setId_fk_animal(Long.parseLong(txtidanimal.getText().toString()));
-				
+				if (spinSexo.getSelectedItem() == "FÊMEA") {
+					parto_tb.setSexo_parto("FE");
+				} else {
+					parto_tb.setSexo_parto("MA");
+				}
+				parto_tb.setId_fk_animal(Long.parseLong(txtidanimal.getText().toString()));				
 				cria_tb.setCodigo_cria(editCodCria.getText().toString());
 				cria_tb.setPeso_cria(editPeso.getText().toString());
-				cria_tb.setSexo(spinSexo.getSelectedItem().toString());
+				if (spinSexo.getSelectedItem() == "FÊMEA") {
+					cria_tb.setSexo("FE");
+				} else {
+					cria_tb.setSexo("MA");
+				}
 				cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal.getText().toString()));
 				
 				parto_model.insert(PartoActivity.this, "Parto", parto_tb);
