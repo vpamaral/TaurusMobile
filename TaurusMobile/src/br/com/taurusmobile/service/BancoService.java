@@ -22,9 +22,7 @@ public abstract class BancoService {
 
 		try {
 			Banco banco = new Banco(ctx);
-
 			ContentValues cv = new ContentValues();
-
 			Class<? extends Object> s = table.getClass();
 
 			for (Field f : s.getDeclaredFields()) {
@@ -32,20 +30,11 @@ public abstract class BancoService {
 			}
 
 			banco.getWritableDatabase().insert(Tabela, null, cv);
-
-			/*
-			 * Toast toast = Toast.makeText(ctx, Tabela +
-			 * " cadastrado com sucesso!!", 5); toast.show();
-			 */
 			banco.close();
 
 		} catch (Exception e) {
-			/*
-			 * Toast toast = Toast.makeText(ctx,
-			 * "Erro ao salvar informações no banco!", 5); toast.show();
-			 */
+			e.printStackTrace();
 		}
-
 	}
 
 	public void Update(Context ctx, String Tabela, Object table) {
@@ -69,8 +58,8 @@ public abstract class BancoService {
 			}
 			return "";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "Erro";
 		}
 	}
-
 }
