@@ -34,6 +34,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 		AnimalModel objModelAnimal = new AnimalModel(ctx);
 		GetJSON getJSON = new GetJSON(Constantes.GET);
 		try {
+			objModelAnimal.Delete(ctx, "Animal");
 			objListaAnimal = getJSON.listaAnimal();
 			aniHelper = new AnimalAdapter();
 			for (Animal animal : objListaAnimal) {
