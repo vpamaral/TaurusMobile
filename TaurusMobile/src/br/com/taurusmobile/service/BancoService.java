@@ -41,8 +41,24 @@ public abstract class BancoService {
 
 	}
 
-	public void Delete(Context ctx, String Tablea, Object table) {
+	public void Delete(Context ctx, String Tablela) {
+		try {
+			Banco banco = new Banco(ctx);
+			
+			banco.getWritableDatabase().delete(Tablela, null, null);
 
+			/*
+			 * Toast toast = Toast.makeText(ctx, Tabela +
+			 * " cadastrado com sucesso!!", 5); toast.show();
+			 */
+			banco.close();
+
+		} catch (Exception e) {
+			/*
+			 * Toast toast = Toast.makeText(ctx,
+			 * "Erro ao salvar informações no banco!", 5); toast.show();
+			 */
+		}
 	}
 
 	private static Object getValueAt(Object table, String column) {
