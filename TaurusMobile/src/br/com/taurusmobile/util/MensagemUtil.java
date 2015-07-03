@@ -2,6 +2,7 @@ package br.com.taurusmobile.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.widget.Toast;
 
@@ -18,6 +19,20 @@ public class MensagemUtil {
 		
 		if(window == MessageDialog.Toast){
 			Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	/**
+	 * Método de criação de mensagens rápidas.
+	 * 
+	 * @param Contexto
+	 * @param msg
+	 * 
+	 */
+	public static void addMsg(MessageDialog window, Context ctx, String msg) {
+		
+		if(window == MessageDialog.Toast){
+			Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
 
