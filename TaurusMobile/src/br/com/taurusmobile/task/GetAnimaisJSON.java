@@ -1,27 +1,25 @@
-package br.com.taurusmobile.service;
+package br.com.taurusmobile.task;
 
 import java.util.List;
 
-import br.com.taurusmobile.TB.Animal;
-import br.com.taurusmobile.adapter.AnimalAdapter;
-import br.com.taurusmobile.model.AnimalModel;
-import br.com.taurusmobile.util.MensagemUtil;
-import br.com.taurusmobile.util.MesageDialog;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
+import br.com.taurusmobile.TB.Animal;
+import br.com.taurusmobile.adapter.AnimalAdapter;
+import br.com.taurusmobile.model.AnimalModel;
+import br.com.taurusmobile.service.GetJSON;
+import br.com.taurusmobile.util.Constantes;
 
-public class GetAnimaisTask extends AsyncTask<Void, Void, Void> {
-	
+public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
+
 	List<Animal> objListaAnimal;
 	private Context ctx;
 	private ProgressDialog progress;
-	private ServicoRecebido objServicoRecebido;
 	private AnimalAdapter aniHelper;
 
-	public GetAnimaisTask(Context ctx) {
+	public GetAnimaisJSON(Context ctx) {
 		this.ctx = ctx;
 	}
 
@@ -34,9 +32,10 @@ public class GetAnimaisTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		AnimalModel objModelAnimal = new AnimalModel(ctx);
-		objServicoRecebido = new ServicoRecebido();
+		GetJSON getJSON = new GetJSON(Constantes.GET);
 		try {
-			objListaAnimal = objServicoRecebido.listaAnimal();
+			objModelAnimal.Delete(ctx, "Animal");
+			objListaAnimal = getJSON.listaAnimal();
 			aniHelper = new AnimalAdapter();
 			for (Animal animal : objListaAnimal) {
 				if (animal != null)
@@ -52,6 +51,7 @@ public class GetAnimaisTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPostExecute(Void result) {
 		progress.dismiss();
-		MensagemUtil.addMsg(MesageDialog.Toast, (Activity) ctx, "Dados atualizado com sucesso!");
+		Toast.makeText(ctx, "Dados atualizado com sucesso!", Toast.LENGTH_SHORT)
+				.show();
 	}
 }

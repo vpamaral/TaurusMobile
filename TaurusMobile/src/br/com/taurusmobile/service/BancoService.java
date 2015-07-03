@@ -3,7 +3,7 @@ package br.com.taurusmobile.service;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
-import android.annotation.SuppressLint;
+
 import android.content.ContentValues;
 import android.content.Context;
 
@@ -22,9 +22,7 @@ public abstract class BancoService {
 
 		try {
 			Banco banco = new Banco(ctx);
-
 			ContentValues cv = new ContentValues();
-
 			Class<? extends Object> s = table.getClass();
 
 			for (Field f : s.getDeclaredFields()) {
@@ -32,6 +30,22 @@ public abstract class BancoService {
 			}
 
 			banco.getWritableDatabase().insert(Tabela, null, cv);
+			banco.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void Update(Context ctx, String Tabela, Object table) {
+
+	}
+
+	public void Delete(Context ctx, String Tablela) {
+		try {
+			Banco banco = new Banco(ctx);
+			
+			banco.getWritableDatabase().delete(Tablela, null, null);
 
 			/*
 			 * Toast toast = Toast.makeText(ctx, Tabela +
@@ -45,15 +59,6 @@ public abstract class BancoService {
 			 * "Erro ao salvar informações no banco!", 5); toast.show();
 			 */
 		}
-
-	}
-
-	public void Update(Context ctx, String Tabela, Object table) {
-
-	}
-
-	public void Delete(Context ctx, String Tablea, Object table) {
-
 	}
 
 	private static Object getValueAt(Object table, String column) {
@@ -69,8 +74,8 @@ public abstract class BancoService {
 			}
 			return "";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "Erro";
 		}
 	}
-
 }

@@ -13,8 +13,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.adapter.AnimalAdapter;
-import br.com.taurusmobile.service.GetAnimaisTask;
-import br.com.taurusmobile.service.ServicoRecebido;
+import br.com.taurusmobile.task.GetAnimaisJSON;
+import br.com.taurusmobile.task.PostAnimaisJSON;
 
 public class MainActivity extends Activity {
 
@@ -22,20 +22,21 @@ public class MainActivity extends Activity {
 	private Button btn_animais;
 	private Button btn_parto;
 	private Button btn_lista_parto;
+	private Button btn_enviar_dados;
 	protected List<Animal> objListaAnimal;
 	ProgressDialog objProgressDialog;
 	AnimalAdapter aniHelper;
-	ServicoRecebido objServicoRecebido;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		btn_atualizar = (Button) findViewById(R.id.btn_atualiza);
-		btn_animais = (Button) findViewById(R.id.btn_animal);
-		btn_parto = (Button) findViewById(R.id.btn_parto);
-		btn_lista_parto = (Button) findViewById(R.id.btn_lista_parto);
+		btn_atualizar 		= (Button) findViewById(R.id.btn_atualiza);
+		btn_animais 		= (Button) findViewById(R.id.btn_animal);
+		btn_parto 			= (Button) findViewById(R.id.btn_parto);
+		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
+		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
 
 		btn_atualizar.setOnClickListener(new OnClickListener() {
 
@@ -68,6 +69,14 @@ public class MainActivity extends Activity {
 				listaPartos();
 			}
 		});
+		
+		btn_enviar_dados.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				enviarDados();
+			}
+		});
 	}
 
 	@Override
@@ -91,6 +100,9 @@ public class MainActivity extends Activity {
 			return false;
 		case R.id.menu_lista_partos:
 			listaPartos();
+			return false;
+		case R.id.menu_enviar_dados:
+			enviarDados();
 			return false;
 		default:
 			break;
@@ -117,6 +129,11 @@ public class MainActivity extends Activity {
 	}
 
 	private void atualizaDados() {
-		new GetAnimaisTask(this).execute();
+		new GetAnimaisJSON(this).execute();
+	}
+
+	private void enviarDados() {
+		new PostAnimaisJSON(this).execute();
+		//new PostAnimaisXML(this).execute();
 	}
 }

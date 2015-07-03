@@ -12,6 +12,32 @@ public class AnimalAdapter {
 
 	}
 
+	public Animal AnimalCursor(Cursor c) {
+		Animal animal = new Animal();
+
+		while (c.moveToNext()) {
+			animal.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
+			animal.setId_fk_cria(c.getLong(c.getColumnIndex("id_fk_cria")));
+			animal.setCodigo(c.getString(c.getColumnIndex("codigo")));
+			animal.setSisbov(c.getString(c.getColumnIndex("sisbov")));
+			animal.setIdentificador(c.getString(c
+					.getColumnIndex("identificador")));
+			if (c.getString(c.getColumnIndex("codigo_ferro")) != null) {
+				animal.setCodigo_ferro(c.getString(c
+						.getColumnIndex("codigo_ferro")));
+			} else {
+				animal.setCodigo_ferro("-");
+			}
+			animal.setData_nascimento(c.getString(c
+					.getColumnIndex("data_nascimento")));
+			animal.setCategoria(c.getString(c.getColumnIndex("categoria")));
+			animal.setRaca(c.getString(c.getColumnIndex("raca")));
+			animal.setPeso_atual(c.getDouble(c.getColumnIndex("peso_atual")));
+			animal.setRaca_reprod(c.getString(c.getColumnIndex("raca_reprod")));
+		}
+		return animal;
+	}
+
 	public List<Animal> AnimalPreencheArrayCursor(Cursor c) {
 		List<Animal> listaAnimal = new ArrayList<Animal>();
 		while (c.moveToNext()) {

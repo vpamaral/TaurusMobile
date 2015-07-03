@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.adapter.AnimalAdapter;
@@ -14,7 +15,9 @@ import br.com.taurusmobile.service.BancoService;
 public class AnimalModel extends BancoService {
 
 	private Banco banco;
-	AnimalAdapter ani_adapter;
+	private AnimalAdapter ani_adapter;
+	private SQLiteDatabase db;
+	private Animal animal;
 
 	public AnimalModel(Context ctx) {
 		ani_adapter = new AnimalAdapter();
@@ -40,6 +43,20 @@ public class AnimalModel extends BancoService {
 
 		banco.close();
 		return listadd;
+	}
+
+	public Animal selectByCodigo(Context ctx, Integer codigo) {
+		banco = new Banco(ctx);
+
+		db = banco.getReadableDatabase();
+
+		Cursor cursor = db.query("Animal", null, "id_auto=?",
+				new String[] { codigo.toString() }, null, null, "id_auto");
+
+		animal = ani_adapter.AnimalCursor(cursor);
+
+		return animal;
+
 	}
 
 	public Animal selectByCodigo(Context ctx, String codigo) {
