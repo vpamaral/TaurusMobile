@@ -11,12 +11,13 @@ import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.model.AnimalModel;
 import br.com.taurusmobile.service.GetJSON;
 import br.com.taurusmobile.util.Constantes;
+import br.com.taurusmobile.util.MensagemUtil;
+import br.com.taurusmobile.util.MessageDialog;
 
 public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 
 	List<Animal> objListaAnimal;
 	private Context ctx;
-	private ProgressDialog progress;
 	private AnimalAdapter aniHelper;
 
 	public GetAnimaisJSON(Context ctx) {
@@ -25,8 +26,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected void onPreExecute() {
-		progress = ProgressDialog.show(ctx, "Aguarde...",
-				"Recebendo dados do servidor.");
+		MensagemUtil.addMsg(ctx, "Aguarde...", "Recebendo dados do servidor.");
 	}
 
 	@Override
@@ -50,8 +50,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected void onPostExecute(Void result) {
-		progress.dismiss();
-		Toast.makeText(ctx, "Dados atualizado com sucesso!", Toast.LENGTH_SHORT)
-				.show();
+		MensagemUtil.closeProgress();
+		MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados atualizados com sucesso");
 	}
 }
