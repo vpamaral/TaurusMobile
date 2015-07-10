@@ -2,13 +2,27 @@ package br.com.taurusmobile.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.database.Cursor;
+import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.TB.Parto;
 
 public class PartoAdapter {
 
 	public PartoAdapter() {
 
+	}
+	
+	public Parto PartoCursor(Cursor c) {
+		Parto parto = new Parto();
+
+		while (c.moveToNext()) {
+			parto.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
+			parto.setData_parto(c.getString(c.getColumnIndex("data_parto")));
+			parto.setSexo_parto(c.getString(c.getColumnIndex("sexo_parto")));
+			parto.setPerda_gestacao(c.getString(c.getColumnIndex("perda_gestacao")));
+		}
+		return parto;
 	}
 
 	public List<Parto> PartoPreencheArrayCursor(Cursor c) {

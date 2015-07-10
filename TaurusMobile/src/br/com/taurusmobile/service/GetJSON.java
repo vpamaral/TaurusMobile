@@ -2,6 +2,7 @@ package br.com.taurusmobile.service;
 
 import java.util.ArrayList;
 
+import android.util.Log;
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.util.Constantes;
@@ -21,10 +22,11 @@ public class GetJSON {
 		try {			
 			ConexaoHTTP conexaoServidor = new ConexaoHTTP(url);
 			String retornoDadosJSON = conexaoServidor.lerUrlServico(url);
+			Log.i("URL", retornoDadosJSON);
 			Gson gson = new Gson();
 			Animal[] objArrayAnimal = gson.fromJson(retornoDadosJSON,
 					Animal[].class);
-
+			
 			return ani_helper.AnimalPreencheArrayHelper(objArrayAnimal);
 
 		} catch (Exception e) {
