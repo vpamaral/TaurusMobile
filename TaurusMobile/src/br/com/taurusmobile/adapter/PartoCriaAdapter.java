@@ -4,11 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.database.Cursor;
+import br.com.taurusmobile.TB.Parto;
 import br.com.taurusmobile.TB.Parto_Cria;
 
 public class PartoCriaAdapter {
 	public PartoCriaAdapter() {
 
+	}
+	
+	public Parto_Cria PartoCriaCursor(Cursor c) {
+		Parto_Cria parto_cria = new Parto_Cria();
+
+		while (c.moveToNext()) {
+			parto_cria.setId_fk_animal_mae(c.getLong(c.getColumnIndex("id_fk_animal_mae")));
+			parto_cria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));
+			parto_cria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
+			parto_cria.setSexo(c.getString(c.getColumnIndex("sexo")));
+		}
+		return parto_cria;
 	}
 
 	public List<Parto_Cria> PartoCriaPreencheArrayCursor(Cursor c) {
