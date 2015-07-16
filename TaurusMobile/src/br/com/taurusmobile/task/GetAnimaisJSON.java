@@ -2,10 +2,8 @@ package br.com.taurusmobile.task;
 
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.model.AnimalModel;
