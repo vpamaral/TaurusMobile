@@ -32,24 +32,32 @@ public class Banco extends SQLiteOpenHelper {
 				+ " );";
 		
 		String sql_parto = "CREATE TABLE 'Parto' ("
-				+ "'id_auto'	       INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'id_fk_animal'   INTEGER,"
-				+ "'data_parto'     varchar(45),"
-				+ "'sexo_parto'     varchar(45),"
-				+ "'perda_gestacao' varchar(45)"
+				+ "'id_auto'	       	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'id_fk_animal'   	INTEGER,"
+				+ "'data_parto'     	varchar(45),"
+				+ "'sexo_parto'     	varchar(45),"
+				+ "'perda_gestacao' 	varchar(45)"
 				+");";
 
 		String sql_parto_cria = "CREATE TABLE 'Parto_Cria' ("
-				+ "'id_auto'	         INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'id_fk_animal_mae' INTEGER,"
-				+ "'peso_cria'        varchar(45),"
-				+ "'codigo_cria'      varchar(45),"
-				+ "'sexo'             varchar(45)"
+				+ "'id_auto'	         	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'id_fk_animal_mae' 		INTEGER,"
+				+ "'peso_cria'        		varchar(45),"
+				+ "'codigo_cria'     	 	varchar(45),"
+				+ "'sexo'            	 	varchar(45)"
+				+");";
+		
+		String sql_configuracao = "CREATE TABLE 'Configuracao' ("
+				+ "'id_auto'	    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				//+ "'autorizacao'    varchar(45),"
+				+ "'tipo'        	varchar(45),"
+				+ "'endereco'      	varchar(45)"
 				+");";
 
 		db.execSQL(sql_animal);
 		db.execSQL(sql_parto);
 		db.execSQL(sql_parto_cria);
+		db.execSQL(sql_configuracao);
 	}
 
 	@Override

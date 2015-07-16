@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
 	private Button btn_parto;
 	private Button btn_lista_parto;
 	private Button btn_enviar_dados;
+	private Button btn_configurar;
 	protected List<Animal> objListaAnimal;
 	ProgressDialog objProgressDialog;
 	AnimalAdapter aniHelper;
@@ -37,6 +38,7 @@ public class MainActivity extends Activity {
 		btn_parto 			= (Button) findViewById(R.id.btn_parto);
 		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
 		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
+		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
 
 		btn_atualizar.setOnClickListener(new OnClickListener() {
 
@@ -75,6 +77,14 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				enviarDados();
+			}
+		});
+		
+		btn_configurar.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				configurarQRCode();
 			}
 		});
 	}
@@ -135,5 +145,11 @@ public class MainActivity extends Activity {
 	private void enviarDados() {
 		new PostAnimaisJSON(this).execute();
 		//new PostAnimaisXML(this).execute();
+	}
+	
+	private void configurarQRCode(){
+		Intent intent = new Intent(MainActivity.this,
+				ConfiguracoesQRCodeActivity.class);
+		startActivity(intent);
 	}
 }
