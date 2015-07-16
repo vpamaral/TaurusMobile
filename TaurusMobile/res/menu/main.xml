@@ -33,6 +33,11 @@
                 android:icon="@drawable/envia32"
                 android:showAsAction="always"
                 android:title="Enviar Dados Servidor"/>
+            <item
+                android:id="@+id/menu_QRCode"
+                android:icon="@drawable/envia32"
+                android:showAsAction="always"
+                android:title="Cadastrar QRCode"/>
         </menu>
     </item>
 
