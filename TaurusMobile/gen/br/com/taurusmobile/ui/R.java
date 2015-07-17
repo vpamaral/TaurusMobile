@@ -64,19 +64,26 @@ public final class R {
         public static final int spnPerda=0x7f080010;
         public static final int spnSexo=0x7f080014;
     }
+    public static final class id_capture {
+        public static final int preview_view=0x7f090000;
+        public static final int status_view=0x7f090002;
+        public static final int viewfinder_view=0x7f090001;
+    }
     public static final class layout {
         public static final int activity_configuracao=0x7f030000;
-        public static final int activity_lista_animais=0x7f030001;
-        public static final int activity_lista_partos_cria=0x7f030002;
-        public static final int activity_main=0x7f030003;
-        public static final int activity_parto=0x7f030004;
+        public static final int activity_leitor_qrcode=0x7f030001;
+        public static final int activity_lista_animais=0x7f030002;
+        public static final int activity_lista_partos_cria=0x7f030003;
+        public static final int activity_menu_principal=0x7f030004;
+        public static final int activity_parto=0x7f030005;
     }
     public static final class menu {
         public static final int enviar=0x7f070000;
         public static final int lista_animais=0x7f070001;
         public static final int lista_partos=0x7f070002;
-        public static final int main=0x7f070003;
-        public static final int parto=0x7f070004;
+        public static final int login=0x7f070003;
+        public static final int main=0x7f070004;
+        public static final int parto=0x7f070005;
     }
     public static final class string {
         public static final int action_settings=0x7f050002;
