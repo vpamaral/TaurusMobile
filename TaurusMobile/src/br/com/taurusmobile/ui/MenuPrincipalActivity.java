@@ -16,7 +16,7 @@ import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.task.GetAnimaisJSON;
 import br.com.taurusmobile.task.PostAnimaisJSON;
 
-public class MainActivity extends Activity {
+public class MenuPrincipalActivity extends Activity {
 
 	private Button btn_atualizar;
 	private Button btn_animais;
@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_menu_principal);
 
 		btn_atualizar 		= (Button) findViewById(R.id.btn_atualiza);
 		btn_animais 		= (Button) findViewById(R.id.btn_animal);
@@ -122,18 +122,18 @@ public class MainActivity extends Activity {
 	}
 
 	private void lancaParto() {
-		Intent intent = new Intent(MainActivity.this, PartoActivity.class);
+		Intent intent = new Intent(MenuPrincipalActivity.this, PartoActivity.class);
 		startActivity(intent);
 	}
 
 	private void listaAnimais() {
-		Intent intent = new Intent(MainActivity.this,
+		Intent intent = new Intent(MenuPrincipalActivity.this,
 				ListaAnimaisActivity.class);
 		startActivity(intent);
 	}
 	
 	private void listaPartos() {
-		Intent intent = new Intent(MainActivity.this,
+		Intent intent = new Intent(MenuPrincipalActivity.this,
 				ListaPartosCriaActivity.class);
 		startActivity(intent);
 	}
@@ -148,7 +148,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private void configurarQRCode(){
-		Intent intent = new Intent(MainActivity.this,
+		Intent intent = new Intent(MenuPrincipalActivity.this,
 				ConfiguracoesQRCodeActivity.class);
 		startActivity(intent);
 	}
