@@ -23,9 +23,6 @@ public class ConfiguracoesQRCodeActivity extends Activity {
 		edtTipo = (EditText) findViewById(R.id.edtTipo);
 		edtEndereco = (EditText) findViewById(R.id.edtEndereco);
 		
-		
-		
-		
 		btnSalvar.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -48,7 +45,7 @@ public class ConfiguracoesQRCodeActivity extends Activity {
 	
 	public void zerarInterface() {
 		edtTipo.setText("");
-		edtEndereco .setText("");
+		edtEndereco.setText("");
 		edtTipo.requestFocus();
 	}
 }
