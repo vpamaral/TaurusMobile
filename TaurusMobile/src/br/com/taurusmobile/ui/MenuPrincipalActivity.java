@@ -25,21 +25,27 @@ public class MenuPrincipalActivity extends Activity {
 	private Button btn_enviar_dados;
 	private Button btn_configurar;
 	protected List<Animal> objListaAnimal;
-	ProgressDialog objProgressDialog;
-	AnimalAdapter aniHelper;
+	public ProgressDialog objProgressDialog;
+	public AnimalAdapter aniHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu_principal);
-
+		source();
+		carregaListener();
+	}
+	
+	private void source() {
 		btn_atualizar 		= (Button) findViewById(R.id.btn_atualiza);
 		btn_animais 		= (Button) findViewById(R.id.btn_animal);
 		btn_parto 			= (Button) findViewById(R.id.btn_parto);
 		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
 		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
 		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
-
+	}
+	
+	private void carregaListener() {
 		btn_atualizar.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -91,7 +97,7 @@ public class MenuPrincipalActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.menu_principal, menu);
 		return super.onCreateOptionsMenu(menu);
 		// return true;
 	}
@@ -113,6 +119,9 @@ public class MenuPrincipalActivity extends Activity {
 			return false;
 		case R.id.menu_enviar_dados:
 			enviarDados();
+			return false;
+		case R.id.menu_QRCode:
+			configurarQRCode();
 			return false;
 		default:
 			break;
