@@ -82,7 +82,7 @@ public final class R {
         public static final int lista_animais=0x7f070001;
         public static final int lista_partos=0x7f070002;
         public static final int login=0x7f070003;
-        public static final int main=0x7f070004;
+        public static final int menu_principal=0x7f070004;
         public static final int parto=0x7f070005;
     }
     public static final class string {
