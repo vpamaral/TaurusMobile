@@ -4,21 +4,21 @@
     android:layout_height="fill_parent" >
 
     <SurfaceView
-        android:id="@+id_capture/preview_view"
+        android:id="@+id/preview_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true" >
     </SurfaceView>
 
     <jim.h.common.android.zxinglib.view.ViewfinderView
-        android:id="@+id_capture/viewfinder_view"
+        android:id="@+id/viewfinder_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#00000000" >
     </jim.h.common.android.zxinglib.view.ViewfinderView>
 
     <TextView
-        android:id="@+id_capture/status_view"
+        android:id="@+id/status_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"

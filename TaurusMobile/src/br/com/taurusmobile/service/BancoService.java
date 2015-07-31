@@ -38,7 +38,20 @@ public abstract class BancoService {
 	}
 
 	public void Update(Context ctx, String Tabela, Object table) {
+		try {
+			Banco banco = new Banco(ctx);
+			ContentValues cv = new ContentValues();
+			Class<? extends Object> s = table.getClass();
 
+			for (Field f : s.getDeclaredFields()) {
+				cv.put(f.getName(), getValueAt(table, "get" + f.getName()).toString());
+			}
+			banco.getWritableDatabase().update(Tabela, cv, null, null);
+			banco.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void Delete(Context ctx, String Tablela) {
@@ -46,18 +59,10 @@ public abstract class BancoService {
 			Banco banco = new Banco(ctx);
 			
 			banco.getWritableDatabase().delete(Tablela, null, null);
-
-			/*
-			 * Toast toast = Toast.makeText(ctx, Tabela +
-			 * " cadastrado com sucesso!!", 5); toast.show();
-			 */
 			banco.close();
 
 		} catch (Exception e) {
-			/*
-			 * Toast toast = Toast.makeText(ctx,
-			 * "Erro ao salvar informações no banco!", 5); toast.show();
-			 */
+			e.printStackTrace();
 		}
 	}
 

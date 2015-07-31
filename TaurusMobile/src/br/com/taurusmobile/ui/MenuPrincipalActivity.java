@@ -24,10 +24,11 @@ public class MenuPrincipalActivity extends Activity {
 	private Button btn_lista_parto;
 	private Button btn_enviar_dados;
 	private Button btn_configurar;
+	//private Button btn_buscar; 
 	protected List<Animal> objListaAnimal;
 	public ProgressDialog objProgressDialog;
 	public AnimalAdapter aniHelper;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class MenuPrincipalActivity extends Activity {
 		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
 		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
 		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
+		//btn_buscar			= (Button) findViewById(R.id.btn_busca); // Botão para testar a funcionlidade com o bluetooth
 	}
 	
 	private void carregaListener() {
@@ -93,8 +95,16 @@ public class MenuPrincipalActivity extends Activity {
 				configurarQRCode();
 			}
 		});
+		
+		/*btn_buscar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				buscarBluetooth();
+			}
+		});*/  // Botão para testar a funcionlidade com o bluetooth
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_principal, menu);
@@ -159,6 +169,12 @@ public class MenuPrincipalActivity extends Activity {
 	private void configurarQRCode(){
 		Intent intent = new Intent(MenuPrincipalActivity.this,
 				ConfiguracoesQRCodeActivity.class);
+		startActivity(intent);
+	}
+	
+	private void buscarBluetooth() {
+		Intent intent = new Intent(MenuPrincipalActivity.this, 
+				BucarAnimaisBluetoothActivity.class);
 		startActivity(intent);
 	}
 }

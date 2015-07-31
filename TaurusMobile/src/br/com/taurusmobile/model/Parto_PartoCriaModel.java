@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import br.com.taurusmobile.TB.Parto_PartoCria;
 import br.com.taurusmobile.adapter.Parto_PartoCriaAdapter;
 import br.com.taurusmobile.service.Banco;
@@ -14,6 +15,7 @@ public class Parto_PartoCriaModel extends BancoService {
 
 	private Banco banco;
 	Parto_PartoCriaAdapter partoCria_adapter;
+	private SQLiteDatabase db;
 
 	public Parto_PartoCriaModel(Context ctx) {
 		partoCria_adapter = new Parto_PartoCriaAdapter();
@@ -42,7 +44,7 @@ public class Parto_PartoCriaModel extends BancoService {
 		banco.close();
 		return listadd;
 	}
-
+	
 	@Override
 	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
 		return null;

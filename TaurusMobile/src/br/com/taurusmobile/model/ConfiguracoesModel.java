@@ -2,13 +2,10 @@ package br.com.taurusmobile.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import br.com.taurusmobile.TB.Animal;
 import br.com.taurusmobile.TB.Configuracoes;
-import br.com.taurusmobile.adapter.AnimalAdapter;
 import br.com.taurusmobile.adapter.ConfiguracoesAdapter;
 import br.com.taurusmobile.service.Banco;
 import br.com.taurusmobile.service.BancoService;
