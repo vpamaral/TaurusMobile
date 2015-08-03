@@ -24,6 +24,8 @@ import br.com.taurusmobile.adapter.PartoAdapter;
 import br.com.taurusmobile.model.AnimalModel;
 import br.com.taurusmobile.model.PartoModel;
 import br.com.taurusmobile.model.Parto_CriaModel;
+import br.com.taurusmobile.util.MensagemUtil;
+import br.com.taurusmobile.util.MessageDialog;
 
 public class PartoActivity extends Activity {
 
@@ -94,7 +96,9 @@ public class PartoActivity extends Activity {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (editMatriz.getText().toString() != "") {
-					final Animal animal = ani_model.selectByCodigo(PartoActivity.this, editMatriz.getText().toString());
+					final Animal animal = ani_model
+							.selectByCodigo(PartoActivity.this, editMatriz
+									.getText().toString());
 
 					editRacaPai.setText(animal.getRaca_reprod());
 					editCodCria.setText(animal.getCodigo() + "/"
@@ -109,32 +113,54 @@ public class PartoActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Parto parto_tb = new Parto();
-				Parto_Cria cria_tb = new Parto_Cria();
+				// validações temporarias
+				if (editMatriz.getText().toString().isEmpty()) {
+					MensagemUtil.addMsg(MessageDialog.Toast,
+							PartoActivity.this,
+							"É necessário preencher a matriz do animal");
+					editMatriz.requestFocus();
+				}
 
-				parto_tb.setData_parto(editDataParto.getText().toString());
-				parto_tb.setPerda_gestacao(spinPerda.getSelectedItem().toString());
-				if (spinSexo.getSelectedItem() == "FÊMEA") {
-					parto_tb.setSexo_parto("FE");
-				} else {
-					parto_tb.setSexo_parto("MA");
+				else if (editPeso.getText().toString().isEmpty()) {
+					MensagemUtil.addMsg(MessageDialog.Toast,
+							PartoActivity.this,
+							"É necessário preencher o peso de cria");
 				}
-				parto_tb.setId_fk_animal(Long.parseLong(txtidanimal.getText().toString()));				
-				cria_tb.setCodigo_cria(editCodCria.getText().toString());
-				cria_tb.setPeso_cria(editPeso.getText().toString());
-				if (spinSexo.getSelectedItem() == "FÊMEA") {
-					cria_tb.setSexo("FE");
-				} else {
-					cria_tb.setSexo("MA");
+
+				else {
+					Parto parto_tb = new Parto();
+					Parto_Cria cria_tb = new Parto_Cria();
+
+					parto_tb.setData_parto(editDataParto.getText().toString());
+					parto_tb.setPerda_gestacao(spinPerda.getSelectedItem()
+							.toString());
+					if (spinSexo.getSelectedItem() == "FÊMEA") {
+						parto_tb.setSexo_parto("FE");
+					} else {
+						parto_tb.setSexo_parto("MA");
+					}
+					parto_tb.setId_fk_animal(Long.parseLong(txtidanimal
+							.getText().toString()));
+					cria_tb.setCodigo_cria(editCodCria.getText().toString());
+					cria_tb.setPeso_cria(editPeso.getText().toString());
+					if (spinSexo.getSelectedItem() == "FÊMEA") {
+						cria_tb.setSexo("FE");
+					} else {
+						cria_tb.setSexo("MA");
+					}
+					cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal
+							.getText().toString()));
+
+					parto_model.insert(PartoActivity.this, "Parto", parto_tb);
+					cria_model
+							.insert(PartoActivity.this, "Parto_Cria", cria_tb);
+
+					zerarInterface();
+
+					Toast.makeText(PartoActivity.this,
+							"Parto cadastrados com sucesso!",
+							Toast.LENGTH_SHORT).show();
 				}
-				cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal.getText().toString()));
-				
-				parto_model.insert(PartoActivity.this, "Parto", parto_tb);
-				cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
-				
-				zerarInterface();
-				
-				Toast.makeText(PartoActivity.this, "Parto cadastrados com sucesso!", Toast.LENGTH_SHORT).show();
 			}
 		});
 

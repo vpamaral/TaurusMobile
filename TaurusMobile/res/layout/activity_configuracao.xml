@@ -14,20 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-		
-         <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tipo:            "
-                    android:textStyle="bold" />
-        
-         <EditText
-                    android:id="@+id/edtTipo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text">
-                    <requestFocus />
-         </EditText>
          
           <TextView
                     android:layout_width="wrap_content"
@@ -53,7 +39,7 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:text="Salvar"
+            android:text="Atualizar"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
         

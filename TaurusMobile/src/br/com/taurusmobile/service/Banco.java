@@ -51,7 +51,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'id_auto'	    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				//+ "'autorizacao'    varchar(45),"
 				+ "'tipo'        	varchar(45),"
-				+ "'endereco'      	varchar(45)"
+				+ "'endereco'      	varchar(200)"
 				+");";
 
 		db.execSQL(sql_animal);
