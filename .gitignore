@@ -72,5 +72,6 @@ local.properties
 *~
 *.swp
 
+*/.idea/
 
-
+*/app/build/
