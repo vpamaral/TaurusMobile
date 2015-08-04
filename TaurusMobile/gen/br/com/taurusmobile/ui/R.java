@@ -33,41 +33,38 @@ public final class R {
         public static final int logo_taurus=0x7f020008;
     }
     public static final class id {
-        public static final int action_settings=0x7f080017;
-        public static final int btnSalvarParto=0x7f080016;
-        public static final int btn_animal=0x7f080007;
-        public static final int btn_atualiza=0x7f080006;
-        public static final int btn_configuracoes=0x7f08000b;
-        public static final int btn_enviar_dados=0x7f08000a;
-        public static final int btn_lista_parto=0x7f080009;
-        public static final int btn_parto=0x7f080008;
-        public static final int btn_salvar=0x7f080003;
-        public static final int edtCria=0x7f080013;
-        public static final int edtDataParto=0x7f08000e;
-        public static final int edtEndereco=0x7f080002;
-        public static final int edtMatriz=0x7f08000d;
-        public static final int edtPesoCria=0x7f080015;
-        public static final int edtRacaPai=0x7f080012;
-        public static final int edtTipo=0x7f080001;
-        public static final int id_animal=0x7f08000c;
+        public static final int action_settings=0x7f080019;
+        public static final int btnSalvarParto=0x7f080018;
+        public static final int btn_animal=0x7f080009;
+        public static final int btn_atualiza=0x7f080008;
+        public static final int btn_configuracoes=0x7f08000d;
+        public static final int btn_enviar_dados=0x7f08000c;
+        public static final int btn_lista_parto=0x7f08000b;
+        public static final int btn_parto=0x7f08000a;
+        public static final int btn_salvar=0x7f080002;
+        public static final int edtCria=0x7f080015;
+        public static final int edtDataParto=0x7f080010;
+        public static final int edtEndereco=0x7f080001;
+        public static final int edtMatriz=0x7f08000f;
+        public static final int edtPesoCria=0x7f080017;
+        public static final int edtRacaPai=0x7f080014;
+        public static final int id_animal=0x7f08000e;
         public static final int linearLayout1=0x7f080000;
-        public static final int lista_animais=0x7f080004;
-        public static final int lista_partos=0x7f080005;
-        public static final int menu_QRCode=0x7f08001d;
-        public static final int menu_atualiza_dados=0x7f080018;
-        public static final int menu_enviar_dados=0x7f08001c;
-        public static final int menu_lista_animais=0x7f080019;
-        public static final int menu_lista_partos=0x7f08001b;
-        public static final int menu_novo_parto=0x7f08001a;
-        public static final int space2=0x7f08000f;
-        public static final int space7=0x7f080011;
-        public static final int spnPerda=0x7f080010;
-        public static final int spnSexo=0x7f080014;
-    }
-    public static final class id_capture {
-        public static final int preview_view=0x7f090000;
-        public static final int status_view=0x7f090002;
-        public static final int viewfinder_view=0x7f090001;
+        public static final int lista_animais=0x7f080006;
+        public static final int lista_partos=0x7f080007;
+        public static final int menu_QRCode=0x7f08001f;
+        public static final int menu_atualiza_dados=0x7f08001a;
+        public static final int menu_enviar_dados=0x7f08001e;
+        public static final int menu_lista_animais=0x7f08001b;
+        public static final int menu_lista_partos=0x7f08001d;
+        public static final int menu_novo_parto=0x7f08001c;
+        public static final int preview_view=0x7f080003;
+        public static final int space2=0x7f080011;
+        public static final int space7=0x7f080013;
+        public static final int spnPerda=0x7f080012;
+        public static final int spnSexo=0x7f080016;
+        public static final int status_view=0x7f080005;
+        public static final int viewfinder_view=0x7f080004;
     }
     public static final class layout {
         public static final int activity_configuracao=0x7f030000;
@@ -82,7 +79,7 @@ public final class R {
         public static final int lista_animais=0x7f070001;
         public static final int lista_partos=0x7f070002;
         public static final int login=0x7f070003;
-        public static final int main=0x7f070004;
+        public static final int menu_principal=0x7f070004;
         public static final int parto=0x7f070005;
     }
     public static final class string {
