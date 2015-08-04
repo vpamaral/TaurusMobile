@@ -27,7 +27,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         
         <activity
-            android:name=".LeitorQRCodeActivity"
+            android:name="br.com.prodap.taurusmobile.ui.LeitorQRCodeActivity"
             android:label="@string/app_name">
             <intent-filter>
             	<action android:name="android.intent.action.MAIN" />
@@ -37,29 +37,29 @@
         </activity>
         
         <activity
-            android:name=".ConfiguracoesQRCodeActivity"
+            android:name="br.com.prodap.taurusmobile.ui.ConfiguracoesQRCodeActivity"
             android:label="@string/title_activity_configuracoes" />
         
         <activity
-            android:name=".MenuPrincipalActivity"
+            android:name="br.com.prodap.taurusmobile.ui.MenuPrincipalActivity"
             android:label="@string/app_name">
             
        </activity>
              
         <activity
-            android:name=".ListaAnimaisActivity"
+            android:name="br.com.prodap.taurusmobile.ui.ListaAnimaisActivity"
             android:label="@string/title_activity_lista_animais" />
         
         <activity
-            android:name=".PartoActivity"
+            android:name="br.com.prodap.taurusmobile.ui.PartoActivity"
             android:label="@string/title_activity_parto" />
         
         <activity
-            android:name=".EnviarActivity"
+            android:name="br.com.prodap.taurusmobile.ui.EnviarActivity"
             android:label="@string/title_activity_enviar" />
         
         <activity
-            android:name=".ListaPartosCriaActivity"
+            android:name="br.com.prodap.taurusmobile.ui.ListaPartosCriaActivity"
             android:label="@string/title_activity_lista_partos" />
         
         <!--  <activity
