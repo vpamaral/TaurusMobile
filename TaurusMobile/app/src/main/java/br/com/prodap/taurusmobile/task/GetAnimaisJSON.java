@@ -17,7 +17,7 @@ import br.com.prodap.taurusmobile.util.MessageDialog;
 
 public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 
-	List<Animal> objListaAnimal;
+	private List<Animal> objListaAnimal;
 	private Context ctx;
 	private AnimalAdapter aniHelper;
 	private ConfiguracoesAdapter c_helper;
@@ -51,11 +51,10 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 		AnimalModel objModelAnimal = new AnimalModel(ctx);
 		GetJSON getJSON = new GetJSON(url + Constantes.METHODO_GET);
 		try {
-			objModelAnimal.Delete(ctx, "Animal");
 			objListaAnimal = getJSON.listaAnimal();
 			aniHelper = new AnimalAdapter();
 			for (Animal animal : objListaAnimal) {
-				if (animal != null)
+				if (objListaAnimal.size() != 0)
 					objModelAnimal.insert(ctx, "Animal",
 							aniHelper.AnimalHelper(animal));
 			}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.adapter.AnimalAdapter;
+import br.com.prodap.taurusmobile.model.AnimalModel;
+import br.com.prodap.taurusmobile.model.PartoModel;
+import br.com.prodap.taurusmobile.model.Parto_CriaModel;
 import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
 import br.com.prodap.taurusmobile.task.PostAnimaisJSON;
 
@@ -28,7 +32,8 @@ public class MenuPrincipalActivity extends Activity {
 	protected List<Animal> objListaAnimal;
 	public ProgressDialog objProgressDialog;
 	public AnimalAdapter aniHelper;
-	
+	private Context ctx;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -158,6 +163,8 @@ public class MenuPrincipalActivity extends Activity {
 	}
 
 	private void atualizaDados() {
+		AnimalModel objModelAnimal = new AnimalModel(ctx);
+		objModelAnimal.Delete(ctx, "Animal");
 		new GetAnimaisJSON(this).execute();
 	}
 
