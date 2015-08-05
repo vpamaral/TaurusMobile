@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Parto_Cria implements Serializable {
 
-	public long id_fk_animal_mae;
-	public String peso_cria;
-	public String codigo_cria;
-	public String sexo;
+	private long id_fk_animal_mae;
+	private String peso_cria;
+	private String codigo_cria;
+	private String sexo;
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;
@@ -40,5 +40,4 @@ public class Parto_Cria implements Serializable {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-
 }

@@ -54,11 +54,11 @@ public abstract class BancoService {
 		}
 	}
 
-	public void Delete(Context ctx, String Tablela) {
+	public void Delete(Context ctx, String Table) {
 		try {
 			Banco banco = new Banco(ctx);
 			
-			banco.getWritableDatabase().delete(Tablela, null, null);
+			banco.getWritableDatabase().delete(Table, null, null);
 			banco.close();
 
 		} catch (Exception e) {
