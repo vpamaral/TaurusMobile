@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Parto implements Serializable {
 
 	private long id_fk_animal;
+	private int fgStatus;
 	private String data_parto;
 	private String sexo_parto;
 	private String perda_gestacao;
@@ -39,5 +40,13 @@ public class Parto implements Serializable {
 
 	public void setPerda_gestacao(String perda_gestacao) {
 		this.perda_gestacao = perda_gestacao;
+	}
+
+	public int getFgStatus() {
+		return fgStatus;
+	}
+
+	public void setFgStatus(int fgStatus) {
+		this.fgStatus = fgStatus;
 	}
 }
