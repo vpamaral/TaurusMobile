@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 public class Configuracoes implements Serializable  {
 	
-	public String tipo;
-	
-	public String endereco;
+	private String tipo;
+	private String endereco;
 	
 	//public String autorizacao;
 	

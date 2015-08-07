@@ -4,27 +4,17 @@ import java.io.Serializable;
 
 public class Animal implements Serializable {
 	
-	public long id_pk;
-	
-	public long id_fk_cria;
-
-	public String codigo;
-	
-	public String sisbov;
-	
-	public String identificador;
-
-	public String codigo_ferro;
-	
-	public String data_nascimento;
-	
-	public String categoria;
-	
-	public String raca;
-	
-	public double peso_atual;
-	
-	public String raca_reprod;
+	private long id_pk;
+	private long id_fk_cria;
+	private String codigo;
+	private String sisbov;
+	private String identificador;
+	private String codigo_ferro;
+	private String data_nascimento;
+	private String categoria;
+	private String raca;
+	private double peso_atual;
+	private String raca_reprod;
 
 	public long getId_pk() {
 		return id_pk;

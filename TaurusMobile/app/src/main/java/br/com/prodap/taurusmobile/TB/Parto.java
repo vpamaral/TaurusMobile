@@ -4,13 +4,11 @@ import java.io.Serializable;
 
 public class Parto implements Serializable {
 
-	public long id_fk_animal;
-	
-	public String data_parto;
-	
-	public String sexo_parto;
-	
-	public String perda_gestacao;
+	private long id_fk_animal;
+	private int fgStatus;
+	private String data_parto;
+	private String sexo_parto;
+	private String perda_gestacao;
 
 	public long getId_fk_animal() {
 		return id_fk_animal;
@@ -44,4 +42,11 @@ public class Parto implements Serializable {
 		this.perda_gestacao = perda_gestacao;
 	}
 
+	public int getFgStatus() {
+		return fgStatus;
+	}
+
+	public void setFgStatus(int fgStatus) {
+		this.fgStatus = fgStatus;
+	}
 }
