@@ -164,7 +164,7 @@ public class MenuPrincipalActivity extends Activity {
 
 	private void atualizaDados() {
 		AnimalModel objModelAnimal = new AnimalModel(ctx);
-		objModelAnimal.Delete(ctx, "Animal");
+		objModelAnimal.Delete(this, "Animal");
 		new GetAnimaisJSON(this).execute();
 	}
 

@@ -60,9 +60,9 @@ public class LeitorQRCodeActivity extends Activity {
 	}
 	
 	private void carregaLeitorQRCode() {
-		setContentView(R.layout.activity_leitor_qrcode);
+		setContentView(R.layout.activity_leitor);
 		IntentIntegrator.initiateScan(this,
-				R.layout.activity_leitor_qrcode,
+				R.layout.activity_leitor,
 				R.id.viewfinder_view, R.id.preview_view,
 				false);
 	}

@@ -111,7 +111,7 @@ public class Parto_CriaModel extends BancoService {
 
 		Class classe = table.getClass();
 		List<Parto_Cria> listadd = new ArrayList<Parto_Cria>();
-		String sql = "SELECT * FROM " + Tabela;
+		String sql = String.format("SELECT * FROM %s ", Tabela);
 
 		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 

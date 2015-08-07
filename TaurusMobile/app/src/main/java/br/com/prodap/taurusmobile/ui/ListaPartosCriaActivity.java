@@ -72,7 +72,7 @@ public class ListaPartosCriaActivity extends Activity {
 	}
 
 	/**
-	 * Método executado quando algum item da lista é clicado
+	 * MÃ©todo executado quando algum item da lista Ã© clicado
 	 */
 	private void consultarPorIdClick() {
 		lista.setOnItemClickListener(new OnItemClickListener() {
@@ -83,7 +83,7 @@ public class ListaPartosCriaActivity extends Activity {
 				p_cria_tb = p_cria_model.selectByCodigo(
 						ListaPartosCriaActivity.this, position + 1);
 
-				String msg = "Código: " + p_cria_tb.getCodigo_cria()
+				String msg = "CÃ³digo: " + p_cria_tb.getCodigo_cria()
 						+ "\nPeso: " + p_cria_tb.getPeso_cria() + "\nSexo: "
 						+ p_cria_tb.getSexo();
 
@@ -115,7 +115,7 @@ public class ListaPartosCriaActivity extends Activity {
 				//p_cria_model.removerByCodigo(ListaPartosCriaActivity.this, id + 1);
 				//Parto_PartoCria parto_tb = 
 				
-				//MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto Excluído com sucesso!!");
+				//MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto Excluï¿½do com sucesso!!");
 				//Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
 				//startActivity(i);
 				//finish();
@@ -123,7 +123,7 @@ public class ListaPartosCriaActivity extends Activity {
 				startActivity(i);
 				finish();*/
 				//p_cria_model.removerByCodigo(ListaPartosCriaActivity.this, posicao);
-				//MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto Excluído com sucesso!!");
+				//MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto Excluï¿½do com sucesso!!");
 				
 				//setPosicao(id);
 				  //adapter.getItemAtPosition(id);
@@ -149,7 +149,7 @@ public class ListaPartosCriaActivity extends Activity {
 		switch(item.getItemId()){
 		case 1:
 			//p_cria_model.removerByCodigo(ListaPartosCriaActivity.this, posicao);
-			//MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto Excluído com sucesso!!");
+			//MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto Excluï¿½do com sucesso!!");
 			//lista.removeViewAt(posicao);
 			Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
 			startActivity(i);
