@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ public class PartoActivity extends Activity {
 	private EditText editCodCria;
 	private EditText editPeso;
 	private Button btnSalvar;
+	private Button btnLeitorCodBarras;
 	private Spinner spinPerda;
 	private Spinner spinSexo;
 	private TextView txtidanimal;
@@ -88,8 +90,23 @@ public class PartoActivity extends Activity {
 		editPeso = (EditText) findViewById(R.id.edtPesoCria);
 		txtidanimal = (TextView) findViewById(R.id.id_animal);
 		btnSalvar = (Button) findViewById(R.id.btnSalvarParto);
+		btnLeitorCodBarras = (Button) findViewById(R.id.btnLeitorCodBarras);
+
+		Intent intent  =  this.getIntent();
+		editCodCria.setText(intent.getStringExtra("editCodCria"));
+
+		btnLeitorCodBarras.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(PartoActivity.this,
+						LeitorActivity.class);
+				startActivity(intent);
+			}
+		});
 
 		editDataParto.setText(data_completa);
+
+
 
 		editMatriz.setOnFocusChangeListener(new OnFocusChangeListener() {
 
@@ -101,8 +118,8 @@ public class PartoActivity extends Activity {
 									.getText().toString());
 
 					editRacaPai.setText(animal.getRaca_reprod());
-					editCodCria.setText(animal.getCodigo() + "/"
-							+ cal.get(Calendar.YEAR));
+					//editCodCria.setText(animal.getCodigo() + "/"
+						//	+ cal.get(Calendar.YEAR));
 					editPeso.setText("40");
 					txtidanimal.setText(String.valueOf(animal.getId_pk()));
 				}
@@ -113,7 +130,7 @@ public class PartoActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// validações temporarias
+				// valida??es temporarias
 				if (editMatriz.getText().toString().isEmpty()) {
 					MensagemUtil.addMsg(MessageDialog.Toast,
 							PartoActivity.this,
@@ -151,6 +168,9 @@ public class PartoActivity extends Activity {
 					cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal
 							.getText().toString()));
 
+					parto_tb.setFgStatus(Integer.parseInt("1"));
+					cria_tb.setFgStatus(Integer.parseInt("1"));
+
 					parto_model.insert(PartoActivity.this, "Parto", parto_tb);
 					cria_model
 							.insert(PartoActivity.this, "Parto_Cria", cria_tb);
@@ -163,7 +183,6 @@ public class PartoActivity extends Activity {
 				}
 			}
 		});
-
 	}
 
 	@Override
