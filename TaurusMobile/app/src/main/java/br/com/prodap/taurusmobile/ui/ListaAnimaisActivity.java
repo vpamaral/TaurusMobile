@@ -20,8 +20,8 @@ import br.com.prodap.taurusmobile.util.MessageDialog;
 
 public class ListaAnimaisActivity extends Activity {
 
-	AnimalModel ani_model;
-	Animal ani_tb;
+	private AnimalModel ani_model;
+	private Animal ani_tb;
 	private ListView lista;
 	private List<Animal> listaani;
 	private List<String> animais;

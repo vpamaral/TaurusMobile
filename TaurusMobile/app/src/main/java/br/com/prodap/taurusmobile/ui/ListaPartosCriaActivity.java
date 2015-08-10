@@ -27,11 +27,11 @@ import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
 public class ListaPartosCriaActivity extends Activity {
-	Parto_CriaModel p_cria_model;
-	Parto_Cria p_cria_tb;
+	private Parto_CriaModel p_cria_model;
+	private Parto_Cria p_cria_tb;
 	private List<String> partos_cria;
-	ListView lista;
-	List<Parto_Cria> listaPartoCria;
+	private ListView lista;
+	private List<Parto_Cria> listaPartoCria;
 	//private long posicao;
 	
 	
