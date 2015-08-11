@@ -36,9 +36,9 @@ public class LeitorActivity extends Activity {
             case IntentIntegrator.REQUEST_CODE:
                 IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 final String result = scanResult.getContents();
-                if ((result != null) && (scanResult.getFormatName().toString().contentEquals("CODE_39"))) {
+                if ((result != null) && (scanResult.getFormatName().toString().contentEquals("CODE_39")) || (scanResult.getFormatName().toString().contentEquals("ITF")) ) {
                     Intent it = new Intent(getBaseContext(), PartoActivity.class);
-                    it.putExtra("editCodCria", result);
+                    it.putExtra("CodBarras", result);
                     this.finish();
                     startActivity(it);
 
