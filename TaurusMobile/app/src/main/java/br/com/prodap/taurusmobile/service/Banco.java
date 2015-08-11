@@ -45,6 +45,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'id_fk_animal_mae' 		INTEGER,"
 				+ "'sisbov'     	 		varchar(45),"
 				+ "'identificador'     	 	varchar(45),"
+				+ "'grupo_manejo'     	 	varchar(45),"
 				+ "'fgStatus'     			TINYINT DEFAULT 0,"
 				+ "'peso_cria'        		varchar(45),"
 				+ "'codigo_cria'     	 	varchar(45),"

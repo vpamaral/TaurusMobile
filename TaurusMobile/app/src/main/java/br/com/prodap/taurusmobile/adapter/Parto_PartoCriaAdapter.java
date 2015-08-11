@@ -19,6 +19,7 @@ public class Parto_PartoCriaAdapter {
 
 			p_partoCria.setId_fk_animal_mae(c.getLong(c.getColumnIndex("id_fk_animal_mae")));
 			p_partoCria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));
+			p_partoCria.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
 			p_partoCria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
 			p_partoCria.setSexo(c.getString(c.getColumnIndex("sexo")));
 			p_partoCria.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
@@ -27,6 +28,7 @@ public class Parto_PartoCriaAdapter {
 			p_partoCria.setSexo_parto(c.getString(c.getColumnIndex("sexo_parto")));
 			p_partoCria.setSisbov(c.getString(c.getColumnIndex("sisbov")));
 			p_partoCria.setIdentificador(c.getString(c.getColumnIndex("identificador")));
+			p_partoCria.setGrupo_manejo(c.getString(c.getColumnIndex("grupo_manejo")));
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -43,6 +45,7 @@ public class Parto_PartoCriaAdapter {
 
 			p_partoCria.setId_fk_animal_mae(PartoCriaArray[i].getId_fk_animal_mae());
 			p_partoCria.setPeso_cria(PartoCriaArray[i].getPeso_cria());
+			p_partoCria.setFgStatus(PartoCriaArray[i].getFgStatus());
 			p_partoCria.setCodigo_cria(PartoCriaArray[i].getCodigo_cria());
 			p_partoCria.setSexo(PartoCriaArray[i].getSexo());
 			p_partoCria.setId_fk_animal(PartoCriaArray[i].getId_fk_animal());
@@ -51,6 +54,7 @@ public class Parto_PartoCriaAdapter {
 			p_partoCria.setSexo_parto(PartoCriaArray[i].getSexo_parto());
 			p_partoCria.setSisbov(PartoCriaArray[i].getSisbov());
 			p_partoCria.setIdentificador(PartoCriaArray[i].getIdentificador());
+			p_partoCria.setGrupo_manejo(PartoCriaArray[i].getGrupo_manejo());
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -62,6 +66,7 @@ public class Parto_PartoCriaAdapter {
 
 		p_partoCria.setId_fk_animal_mae(p_partoCria_tb.getId_fk_animal_mae());
 		p_partoCria.setPeso_cria(p_partoCria_tb.getPeso_cria());
+		p_partoCria.setFgStatus(p_partoCria_tb.getFgStatus());
 		p_partoCria.setCodigo_cria(p_partoCria_tb.getCodigo_cria());
 		p_partoCria.setSexo(p_partoCria_tb.getSexo());
 		p_partoCria.setId_fk_animal(p_partoCria_tb.getId_fk_animal());
@@ -70,6 +75,7 @@ public class Parto_PartoCriaAdapter {
 		p_partoCria.setSexo_parto(p_partoCria_tb.getSexo_parto());
 		p_partoCria.setSisbov(p_partoCria_tb.getSisbov());
 		p_partoCria.setIdentificador(p_partoCria_tb.getIdentificador());
+		p_partoCria.setGrupo_manejo(p_partoCria_tb.getGrupo_manejo());
 
 		return p_partoCria;
 	}

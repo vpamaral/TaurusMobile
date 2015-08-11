@@ -33,6 +33,7 @@ public class MenuPrincipalActivity extends Activity {
 	public ProgressDialog objProgressDialog;
 	public AnimalAdapter aniHelper;
 	private Context ctx;
+	public static String idold;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -37,6 +37,8 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	
 	@Override
 	protected void onPreExecute() {
+		AnimalModel objModelAnimal = new AnimalModel(ctx);
+		objModelAnimal.Delete(ctx, "Animal");
 		MensagemUtil.addMsg(ctx, "Aguarde...", "Recebendo dados do servidor.");
 	}
 	
@@ -67,6 +69,11 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPostExecute(Void result) {
 		MensagemUtil.closeProgress();
-		MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados atualizados com sucesso");
+		if(objListaAnimal.isEmpty()){
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Erro ao atualizar os dados.");
+		}
+		else {
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados atualizados com sucesso.");
+		}
 	}
 }

@@ -17,6 +17,9 @@ public class PartoCriaAdapter {
 
 		while (c.moveToNext()) {
 			parto_cria.setId_fk_animal_mae(c.getLong(c.getColumnIndex("id_fk_animal_mae")));
+			parto_cria.setSisbov(c.getString(c.getColumnIndex("sisbov")));
+			parto_cria.setIdentificador(c.getString(c.getColumnIndex("identificador")));
+			parto_cria.setGrupo_manejo(c.getString(c.getColumnIndex("grupo_manejo")));
 			parto_cria.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
 			parto_cria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));
 			parto_cria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
@@ -34,6 +37,7 @@ public class PartoCriaAdapter {
 			parto_cria.setId_fk_animal_mae(c.getLong(c.getColumnIndex("id_fk_animal_mae")));
 			parto_cria.setSisbov(c.getString(c.getColumnIndex("sisbov")));
 			parto_cria.setIdentificador(c.getString(c.getColumnIndex("identificador")));
+			parto_cria.setGrupo_manejo(c.getString(c.getColumnIndex("grupo_manejo")));
 			parto_cria.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
 			parto_cria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));			
 			parto_cria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
@@ -54,6 +58,7 @@ public class PartoCriaAdapter {
 			parto_cria.setId_fk_animal_mae(PartoCriaArray[i].getId_fk_animal_mae());
 			parto_cria.setSisbov(PartoCriaArray[i].getSisbov());
 			parto_cria.setIdentificador(PartoCriaArray[i].getIdentificador());
+			parto_cria.setGrupo_manejo(PartoCriaArray[i].getGrupo_manejo());
 			parto_cria.setFgStatus(PartoCriaArray[i].getFgStatus());
 			parto_cria.setPeso_cria(PartoCriaArray[i].getPeso_cria());
 			parto_cria.setCodigo_cria(PartoCriaArray[i].getCodigo_cria());
@@ -70,6 +75,7 @@ public class PartoCriaAdapter {
 		parto_cria.setId_fk_animal_mae(parto_cria_tb.getId_fk_animal_mae());
 		parto_cria.setSisbov(parto_cria_tb.getSisbov());
 		parto_cria.setIdentificador(parto_cria_tb.getIdentificador());
+		parto_cria.setGrupo_manejo(parto_cria_tb.getGrupo_manejo());
 		parto_cria.setFgStatus(parto_cria_tb.getFgStatus());
 		parto_cria.setPeso_cria(parto_cria_tb.getPeso_cria());
 		parto_cria.setCodigo_cria(parto_cria_tb.getCodigo_cria());

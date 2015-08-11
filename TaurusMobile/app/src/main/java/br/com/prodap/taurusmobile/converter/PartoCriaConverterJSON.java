@@ -19,6 +19,9 @@ public class PartoCriaConverterJSON {
 				js.key("peso_cria").value(parto.getPeso_cria());
 				js.key("codigo_cria").value(parto.getCodigo_cria());
 				js.key("sexo").value(parto.getSexo());
+				js.key("sisbov").value(parto.getSisbov());
+				js.key("identificador").value(parto.getIdentificador());
+				js.key("fgStatus").value(parto.getFgStatus());
 				js.endObject();
 			}
 			js.endArray().endObject();
