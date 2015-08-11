@@ -49,7 +49,7 @@ public class MenuPrincipalActivity extends Activity {
 		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
 		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
 		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
-		//btn_buscar			= (Button) findViewById(R.id.btn_busca); // Botão para testar a funcionlidade com o bluetooth
+		//btn_buscar			= (Button) findViewById(R.id.btn_busca); // Botï¿½o para testar a funcionlidade com o bluetooth
 	}
 	
 	private void carregaListener() {
@@ -107,7 +107,7 @@ public class MenuPrincipalActivity extends Activity {
 			public void onClick(View v) {
 				buscarBluetooth();
 			}
-		});*/  // Botão para testar a funcionlidade com o bluetooth
+		});*/  // Botï¿½o para testar a funcionlidade com o bluetooth
 	}
 	
 	@Override
@@ -163,7 +163,7 @@ public class MenuPrincipalActivity extends Activity {
 	}
 
 	private void atualizaDados() {
-		AnimalModel objModelAnimal = new AnimalModel(ctx);
+		AnimalModel objModelAnimal = new AnimalModel(this);
 		objModelAnimal.Delete(this, "Animal");
 		new GetAnimaisJSON(this).execute();
 	}

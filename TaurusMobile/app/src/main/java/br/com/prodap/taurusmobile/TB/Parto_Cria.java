@@ -9,6 +9,8 @@ public class Parto_Cria implements Serializable {
 	private String peso_cria;
 	private String codigo_cria;
 	private String sexo;
+	private String sisbov;
+	private String identificador;
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;
@@ -48,5 +50,21 @@ public class Parto_Cria implements Serializable {
 
 	public void setFgStatus(int fgStatus) {
 		this.fgStatus = fgStatus;
+	}
+
+	public String getSisbov() {
+		return sisbov;
+	}
+
+	public void setSisbov(String sisbov) {
+		this.sisbov = sisbov;
+	}
+
+	public String getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
 	}
 }

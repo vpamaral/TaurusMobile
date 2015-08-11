@@ -13,8 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <!-- Dados da Matriz -->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,11 +27,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cód.Cria:        "
-                    android:textStyle="bold" />
+                    android:text="Identificador:  "
+                    android:textStyle="bold"
+                    android:id="@+id/lblIdentificador" />
 
                 <EditText
-                    android:id="@+id/edtCria"
+                    android:id="@+id/edtIdentificador"
                     android:layout_width="119dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.94" >
@@ -51,13 +50,70 @@
             <TextView
                 android:id="@+id/space3"
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sisbov:           "
+                    android:textStyle="bold"
+                    android:id="@+id/lblSisbov" />
+
+                <EditText
+                    android:id="@+id/edtSisbov"
+                    android:layout_width="119dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.94" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cod_barras"
+                    android:id="@+id/btnLeitorCodBarra" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/space4"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cód. Cria:       "
+                    android:textStyle="bold"
+                    android:id="@+id/lblCodCria" />
+
+                <EditText
+                    android:id="@+id/edtCria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/space2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1" >
 
                 <TextView
                     android:id="@+id/id_animal"
@@ -73,11 +129,14 @@
 
                 <EditText
                     android:id="@+id/edtMatriz"
-                    android:layout_width="107dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.96" />
-
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/space5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -97,7 +156,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/space2"
+                android:id="@+id/space6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -119,7 +178,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/space7"
+                android:id="@+id/space8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -127,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
-                <!-- Dados da Cria -->
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -139,6 +198,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/space7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -190,5 +254,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </ScrollView>
