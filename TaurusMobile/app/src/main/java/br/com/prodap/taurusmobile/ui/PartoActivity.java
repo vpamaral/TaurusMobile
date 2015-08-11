@@ -37,6 +37,8 @@ public class PartoActivity extends Activity {
 			"F.MUMIFICADO", "OUTRA" };
 	private static final String[] SEXO = new String[] { "FÊMEA", "MACHO" };
 
+	private static final String[] RACACRIA = new String[] {"Nelore", "Composto", "Hereford", "Braford", "Angus", "Brangus", "Gir"};
+
 	public String msg = "";
 
 	private EditText editMatriz;
@@ -47,11 +49,13 @@ public class PartoActivity extends Activity {
 	private EditText editSisbov;
 	private EditText editGrupoManejo;
 	private EditText editPeso;
+	private EditText editDataIdentificacao;
 	private Button btnSalvar;
 	private Button btnLeitorCodBarras;
 	private Button btnLeitorCodBarra;
 	private Spinner spinPerda;
 	private Spinner spinSexo;
+	private Spinner spinRacaCria;
 	private TextView txtidanimal;
 	String sisbov = null;
 	String identificador = null;
@@ -79,6 +83,12 @@ public class PartoActivity extends Activity {
 		adpSexo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spnSexo.setAdapter(adpSexo);
 
+		Spinner spnRaca = (Spinner) findViewById(R.id.spnRaca);
+		ArrayAdapter<String> adpRaca = new ArrayAdapter<String>(this,
+				android.R.layout.simple_dropdown_item_1line, RACACRIA);
+		adpRaca.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		spnRaca.setAdapter(adpRaca);
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 		Date data = new Date();
@@ -101,11 +111,13 @@ public class PartoActivity extends Activity {
 		spinPerda = (Spinner) findViewById(R.id.spnPerda);
 		spinSexo = (Spinner) findViewById(R.id.spnSexo);
 		editCodCria = (EditText) findViewById(R.id.edtCria);
+		spinRacaCria =(Spinner) findViewById(R.id.spnRaca);
 		editPeso = (EditText) findViewById(R.id.edtPesoCria);
 		txtidanimal = (TextView) findViewById(R.id.id_animal);
 		btnSalvar = (Button) findViewById(R.id.btnSalvarParto);
 		btnLeitorCodBarras = (Button) findViewById(R.id.btnLeitorCodBarras);
 		btnLeitorCodBarra = (Button) findViewById(R.id.btnLeitorCodBarra);
+		editDataIdentificacao = (EditText) findViewById(R.id.edtDataIdentificacao);
 
 		Parto_Cria pc_tb = new Parto_Cria();
 		final List<Parto_Cria> listaCria = cria_model.selectAll(this, "Parto_Cria", pc_tb);
@@ -246,6 +258,8 @@ public class PartoActivity extends Activity {
 
 					cria_tb.setSisbov(strsis);
 					cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
+					cria_tb.setData_identificacao(editDataIdentificacao.getText().toString());
+					cria_tb.setRaca_cria(spinRacaCria.getSelectedItem().toString());
 					parto_tb.setFgStatus(0);
 					cria_tb.setFgStatus(0);
 

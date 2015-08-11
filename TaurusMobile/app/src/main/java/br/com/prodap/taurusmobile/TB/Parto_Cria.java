@@ -12,6 +12,8 @@ public class Parto_Cria implements Serializable {
 	private String sisbov;
 	private String identificador;
 	private String grupo_manejo;
+	private String data_identificacao;
+	private String raca_cria;
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;
@@ -75,5 +77,21 @@ public class Parto_Cria implements Serializable {
 
 	public void setGrupo_manejo(String grupo_manejo) {
 		this.grupo_manejo = grupo_manejo;
+	}
+
+	public String getData_identificacao() {
+		return data_identificacao;
+	}
+
+	public void setData_identificacao(String data_identificacao) {
+		this.data_identificacao = data_identificacao;
+	}
+
+	public String getRaca_cria() {
+		return raca_cria;
+	}
+
+	public void setRaca_cria(String raca_cria) {
+		this.raca_cria = raca_cria;
 	}
 }

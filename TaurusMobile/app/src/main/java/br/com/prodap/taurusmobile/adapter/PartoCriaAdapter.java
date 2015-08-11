@@ -24,6 +24,9 @@ public class PartoCriaAdapter {
 			parto_cria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));
 			parto_cria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
 			parto_cria.setSexo(c.getString(c.getColumnIndex("sexo")));
+			parto_cria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
+			parto_cria.setData_identificacao(c.getString(c.getColumnIndex("data_identificador")));
+
 		}
 		return parto_cria;
 	}
@@ -42,6 +45,8 @@ public class PartoCriaAdapter {
 			parto_cria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));			
 			parto_cria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
 			parto_cria.setSexo(c.getString(c.getColumnIndex("sexo")));
+			parto_cria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
+			parto_cria.setData_identificacao(c.getString(c.getColumnIndex("data_identificacao")));
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -62,7 +67,9 @@ public class PartoCriaAdapter {
 			parto_cria.setFgStatus(PartoCriaArray[i].getFgStatus());
 			parto_cria.setPeso_cria(PartoCriaArray[i].getPeso_cria());
 			parto_cria.setCodigo_cria(PartoCriaArray[i].getCodigo_cria());
-			parto_cria.setSexo(PartoCriaArray[i].getSexo());			
+			parto_cria.setSexo(PartoCriaArray[i].getSexo());
+			parto_cria.setRaca_cria(PartoCriaArray[i].getRaca_cria());
+			parto_cria.setData_identificacao(PartoCriaArray[i].getData_identificacao());
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -80,6 +87,8 @@ public class PartoCriaAdapter {
 		parto_cria.setPeso_cria(parto_cria_tb.getPeso_cria());
 		parto_cria.setCodigo_cria(parto_cria_tb.getCodigo_cria());
 		parto_cria.setSexo(parto_cria_tb.getSexo());
+		parto_cria.setRaca_cria(parto_cria_tb.getRaca_cria());
+		parto_cria.setData_identificacao(parto_cria_tb.getData_identificacao());
 
 		return parto_cria;
 	}

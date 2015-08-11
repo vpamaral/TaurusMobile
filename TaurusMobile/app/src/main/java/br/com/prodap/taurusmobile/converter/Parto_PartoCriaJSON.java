@@ -26,6 +26,8 @@ public class Parto_PartoCriaJSON {
 				js.key("sisbov").value(p_partoCria.getSisbov());
 				js.key("identificador").value(p_partoCria.getIdentificador());
 				js.key("fgStatus").value(p_partoCria.getFgStatus());
+				js.key("raca_cria").value(p_partoCria.getRaca_cria());
+				js.key("data_identificacao").value(p_partoCria.getData_identificacao());
 				js.endObject();
 			}
 			js.endArray().endObject();

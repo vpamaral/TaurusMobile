@@ -41,16 +41,23 @@ public class LeitorActivity extends Activity {
                     Intent it = new Intent(getBaseContext(), PartoActivity.class);
                     it.putExtra("CodBarras", result);
                     it.putExtra("tipo", tipo);
-                    this.finish();
                     startActivity(it);
+                    finish();
 
                 } else {
                     Toast.makeText(getBaseContext(), "Código inválido ou inexistente.", Toast.LENGTH_SHORT).show();
-                    this.finish();
+                    finish();
                 }
                 break;
             default:
         }
+    }
+
+    public void mataLeitor() {
+        Intent newIntent = new Intent(LeitorActivity.this,PartoActivity.class);
+        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(newIntent);
+        finish();
     }
 
     @Override

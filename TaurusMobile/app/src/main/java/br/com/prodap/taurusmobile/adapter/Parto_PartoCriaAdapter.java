@@ -29,6 +29,8 @@ public class Parto_PartoCriaAdapter {
 			p_partoCria.setSisbov(c.getString(c.getColumnIndex("sisbov")));
 			p_partoCria.setIdentificador(c.getString(c.getColumnIndex("identificador")));
 			p_partoCria.setGrupo_manejo(c.getString(c.getColumnIndex("grupo_manejo")));
+			p_partoCria.setData_identificacao(c.getString(c.getColumnIndex("data_identificacao")));
+			p_partoCria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -55,6 +57,8 @@ public class Parto_PartoCriaAdapter {
 			p_partoCria.setSisbov(PartoCriaArray[i].getSisbov());
 			p_partoCria.setIdentificador(PartoCriaArray[i].getIdentificador());
 			p_partoCria.setGrupo_manejo(PartoCriaArray[i].getGrupo_manejo());
+			p_partoCria.setData_identificacao(PartoCriaArray[i].getData_identificacao());
+			p_partoCria.setRaca_cria(PartoCriaArray[i].getRaca_cria());
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -76,6 +80,8 @@ public class Parto_PartoCriaAdapter {
 		p_partoCria.setSisbov(p_partoCria_tb.getSisbov());
 		p_partoCria.setIdentificador(p_partoCria_tb.getIdentificador());
 		p_partoCria.setGrupo_manejo(p_partoCria_tb.getGrupo_manejo());
+		p_partoCria.setData_identificacao(p_partoCria_tb.getData_identificacao());
+		p_partoCria.setRaca_cria(p_partoCria_tb.getRaca_cria());
 
 		return p_partoCria;
 	}

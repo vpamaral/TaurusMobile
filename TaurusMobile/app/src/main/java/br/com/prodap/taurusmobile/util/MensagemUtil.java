@@ -13,8 +13,8 @@ public class MensagemUtil {
 
 	public MensagemUtil(){
 	}
-	
-	/**
+
+	/*
 	 * Método de criação de mensagens rápidas.
 	 * 
 	 * @param Toast
@@ -30,7 +30,7 @@ public class MensagemUtil {
 	}
 	
 	
-	/**
+	/*
 	 * Método de criação de mensagens rápidas.
 	 * 
 	 * @param Toast
@@ -45,7 +45,7 @@ public class MensagemUtil {
 		}
 	}
 
-	/**
+	/*
 	 * Método de criação de mensagens com botão "Ok"
 	 * 
 	 * @param messageDialog
@@ -70,7 +70,7 @@ public class MensagemUtil {
 		builderDialog.show();
 	}
 	
-	/**
+	/*
 	 * Método para criação de uma mensagem de diálogo com opções de sim ou não
 	 * 
 	 * @param alertDialogo
@@ -100,7 +100,7 @@ public class MensagemUtil {
 		builderDialog.show();
 	}
 
-	/**
+	/*
 	 * Método para criação de mensagens rápidas
 	 * 
 	 * @param ProgressDialog
@@ -114,7 +114,7 @@ public class MensagemUtil {
 		progress = ProgressDialog.show(ctx, titulo, msg);
 	}
 	
-	/**
+	/*
 	 * Método para criação de mensagens rápidas
 	 * 
 	 * @param ProgressDialog
