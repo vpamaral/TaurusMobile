@@ -108,7 +108,7 @@ public class MenuPrincipalActivity extends Activity {
 			public void onClick(View v) {
 				buscarBluetooth();
 			}
-		});*/  // Bot�o para testar a funcionlidade com o bluetooth
+		});*/  // Botão para testar a funcionlidade com o bluetooth
 	}
 	
 	@Override

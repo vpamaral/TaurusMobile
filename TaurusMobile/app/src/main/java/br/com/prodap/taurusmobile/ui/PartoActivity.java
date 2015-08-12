@@ -133,9 +133,10 @@ public class PartoActivity extends Activity {
 		if (resultCodBarras != null && resultCodBarras != "") {
 			if (tipo.equals("CODE_39")) {
 				identificador = resultCodBarras;
+
 				if(identificador != null) {
 					editIdentificador.setText(identificador);
-					if(MenuPrincipalActivity.idold == null)
+					if(MenuPrincipalActivity.idold == null || MenuPrincipalActivity.idold == "")
 					{
 						MenuPrincipalActivity.idold = identificador;
 					}
@@ -154,7 +155,7 @@ public class PartoActivity extends Activity {
 					String strsis = String.valueOf(sis);
 					editSisbov.setText(strsis);
 					editCodCria.setText(strsis.substring(8,14));
-					if(MenuPrincipalActivity.idold == null)
+					if(MenuPrincipalActivity.idold == null || MenuPrincipalActivity.idold == "")
 					{
 						MenuPrincipalActivity.idold = strsis;
 					}
@@ -213,7 +214,7 @@ public class PartoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				MenuPrincipalActivity.idold = null;
-				// valida??es temporarias
+				// validações temporarias
 				if (editMatriz.getText().toString().isEmpty()) {
 					MensagemUtil.addMsg(MessageDialog.Toast,
 							PartoActivity.this,
@@ -268,7 +269,7 @@ public class PartoActivity extends Activity {
 						parto_model.insert(PartoActivity.this, "Parto", parto_tb);
 						cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
 
-						zerarInterface();
+						zeraInterface();
 
 						Toast.makeText(PartoActivity.this,
 								"Parto cadastrados com sucesso!",
@@ -289,12 +290,12 @@ public class PartoActivity extends Activity {
 	{
 		if (listaCria.size() != 0) {
 			for (Parto_Cria cria : listaCria) {
-				if (cria.getSisbov().equals(cria_tb.getSisbov())) {
-					msg = "Sisbov da Cria não pode ser duplicado.\n";
-					return false;
-				}
 				if (cria.getIdentificador().equals(cria_tb.getIdentificador())) {
 					msg = "Identificador da Cria não pode ser duplicado.\n";
+					return false;
+				}
+				if (cria.getSisbov().equals(cria_tb.getSisbov())) {
+					msg = "Sisbov da Cria não pode ser duplicado.\n";
 					return false;
 				}
 
@@ -332,12 +333,14 @@ public class PartoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void zerarInterface() {
+	public void zeraInterface() {
 		editMatriz.setText("");
 		editRacaPai.setText("");
 		editCodCria.setText("");
 		txtidanimal.setText("");
 		editSisbov.setText("");
+		editGrupoManejo.setText("");
+		editDataIdentificacao.setText("");
 		editIdentificador.setText("");
 		editIdentificador.requestFocus();
 	}

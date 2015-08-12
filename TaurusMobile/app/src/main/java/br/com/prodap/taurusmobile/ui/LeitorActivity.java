@@ -37,27 +37,25 @@ public class LeitorActivity extends Activity {
                 IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 final String result = scanResult.getContents();
                 final String tipo   = scanResult.getFormatName();
-                if ((result != null) && (scanResult.getFormatName().toString().contentEquals("CODE_39")) || (scanResult.getFormatName().toString().contentEquals("ITF")) ) {
-                    Intent it = new Intent(getBaseContext(), PartoActivity.class);
-                    it.putExtra("CodBarras", result);
-                    it.putExtra("tipo", tipo);
-                    startActivity(it);
-                    finish();
-
-                } else {
-                    Toast.makeText(getBaseContext(), "Código inválido ou inexistente.", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+                //if ((result != null) || tipo != null && (scanResult.getFormatName().toString().contentEquals("CODE_39")) || (scanResult.getFormatName().toString().contentEquals("ITF")) ) {
+                    sendResult(result, tipo);
                 break;
             default:
         }
     }
 
-    public void mataLeitor() {
-        Intent newIntent = new Intent(LeitorActivity.this,PartoActivity.class);
-        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(newIntent);
-        finish();
+    public void sendResult(String result, String tipo) {
+        if (result != null || tipo != null) {
+            Intent intent = new Intent(getBaseContext(), PartoActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("CodBarras", result);
+            intent.putExtra("tipo", tipo);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(getBaseContext(), "Erro ao ler o código de barras.", Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 
     @Override

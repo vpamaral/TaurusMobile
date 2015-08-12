@@ -79,6 +79,7 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		if (json != null) {
 			MensagemUtil.closeProgress();
 			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso");
+			partos_parto_cria.clear();
 			objModelParto.Delete(ctx, "Parto");
 			objModelParto_Cria.Delete(ctx, "Parto_Cria");
 
