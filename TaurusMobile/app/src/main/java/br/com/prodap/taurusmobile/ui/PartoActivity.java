@@ -265,7 +265,6 @@ public class PartoActivity extends Activity {
 					cria_tb.setFgStatus(0);
 
 					if(validate(cria_tb, listaCria)) {
-						MenuPrincipalActivity.idold = "";
 						parto_model.insert(PartoActivity.this, "Parto", parto_tb);
 						cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
 
