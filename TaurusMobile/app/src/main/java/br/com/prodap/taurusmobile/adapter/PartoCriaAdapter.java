@@ -25,7 +25,7 @@ public class PartoCriaAdapter {
 			parto_cria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
 			parto_cria.setSexo(c.getString(c.getColumnIndex("sexo")));
 			parto_cria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
-			parto_cria.setData_identificacao(c.getString(c.getColumnIndex("data_identificador")));
+			parto_cria.setData_identificacao(c.getString(c.getColumnIndex("data_identificacao")));
 
 		}
 		return parto_cria;
