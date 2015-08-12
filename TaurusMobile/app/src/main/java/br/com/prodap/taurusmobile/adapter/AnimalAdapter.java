@@ -3,10 +3,20 @@ package br.com.prodap.taurusmobile.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.database.Cursor;
-import br.com.prodap.taurusmobile.TB.Animal;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 
-public class AnimalAdapter {
+import br.com.prodap.taurusmobile.TB.Animal;
+import br.com.prodap.taurusmobile.ui.R;
+
+public class AnimalAdapter extends BaseAdapter {
+	private List<Animal> animais;
+	private Activity activity;
 
 	public AnimalAdapter() {
 
@@ -114,5 +124,39 @@ public class AnimalAdapter {
 		animal.setRaca_reprod(animalTB.getRaca_reprod());
 
 		return animal;
+	}
+
+	@Override
+	public int getCount() {
+		return animais.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return animais.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return animais.get(position).getId_pk();
+	}
+
+	@SuppressLint("InflateParams")
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		Animal animal = animais.get(position);
+
+		LayoutInflater inflater = activity.getLayoutInflater();
+		View line = inflater.inflate(R.layout.activity_lista_animais, null);
+
+		if (position % 2 == 0) {
+			line.setBackgroundColor(activity.getResources().
+					getColor(R.color.linha_par));
+		}else
+		{
+			line.setBackgroundColor(activity.getResources().
+					getColor(R.color.linha_impar));
+		}
+		return line;
 	}
 }

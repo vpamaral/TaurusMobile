@@ -47,15 +47,15 @@ public class ListaAnimaisActivity extends Activity {
 		for (Animal a : listaani) {
 			animais.add(a.getCodigo());
 		}
-		
+
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, animais);
-		
+
 		lista.setAdapter(adapter);
 	}
-	
+
 	/**
-	 * Método executado quando algum item da lista é clicado
+	 * MÃ©todo executado quando algum item da lista Ã© clicado
 	 */
 	private void consultarPorIdClick(){
 				lista.setOnItemClickListener(new OnItemClickListener() {
@@ -66,7 +66,7 @@ public class ListaAnimaisActivity extends Activity {
 						ani_tb = ani_model.selectByCodigo(ListaAnimaisActivity.this,
 								(int) position + 1);
 
-						String msg = "Código: " + ani_tb.getCodigo() + "\nSisbov: "
+						String msg = "CÃ³digo: " + ani_tb.getCodigo() + "\nSisbov: "
 								+ ani_tb.getSisbov() + "\nIdentificador: "
 								+ ani_tb.getIdentificador() + "\nPeso Atual: "
 								+ ani_tb.getPeso_atual();
@@ -78,7 +78,7 @@ public class ListaAnimaisActivity extends Activity {
 	}
 	
 	/**
-	 * Método executado quando algum item da lista tem um click longo
+	 * MÃ©todo executado quando algum item da lista tem um click longo
 	 */
 	private void consultarPorIdClickLongo(){
 		lista.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -89,7 +89,7 @@ public class ListaAnimaisActivity extends Activity {
 				ani_tb = ani_model.selectByCodigo(ListaAnimaisActivity.this,
 						(int) position + 1);
 
-				String msg = "Código: " + ani_tb.getCodigo() + "\nSisbov: "
+				String msg = "CÃ³digo: " + ani_tb.getCodigo() + "\nSisbov: "
 						+ ani_tb.getSisbov() + "\nIdentificador: "
 						+ ani_tb.getIdentificador() + "\nPeso Atual: "
 						+ ani_tb.getPeso_atual();

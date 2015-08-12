@@ -57,6 +57,7 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		for (Configuracoes qrcode_tb : listQRCode) {
 			url = qrcode_tb.getEndereco();
 		}
+
 		p_parto_cria_tb = new Parto_PartoCria();
 		p_parto_cria_model = new Parto_PartoCriaModel(ctx);
 		partos_parto_cria = p_parto_cria_model.selectAll(
@@ -78,8 +79,10 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		if (json != null) {
 			MensagemUtil.closeProgress();
 			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso");
+			partos_parto_cria.clear();
 			objModelParto.Delete(ctx, "Parto");
 			objModelParto_Cria.Delete(ctx, "Parto_Cria");
+
 		} else {
 			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Nenhum dado para ser enviado.");
 			MensagemUtil.closeProgress();

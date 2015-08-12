@@ -34,7 +34,7 @@ public class Parto_PartoCriaModel extends BancoService {
 
 		Class classe = table.getClass();
 		List<Parto_PartoCria> listadd = new ArrayList<Parto_PartoCria>();
-		String sql = "SELECT p.*, c.* FROM "+Tabela+" a INNER JOIN Parto p ON a.id_pk = p.id_fk_animal INNER JOIN Parto_Cria c ON a.id_pk = c.id_fk_animal_mae";
+		String sql = "SELECT DISTINCT p.*, c.* FROM "+Tabela+" a INNER JOIN Parto p ON a.id_pk = p.id_fk_animal INNER JOIN Parto_Cria c ON a.id_pk = c.id_fk_animal_mae GROUP BY c.codigo_cria";
 		
 
 		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);

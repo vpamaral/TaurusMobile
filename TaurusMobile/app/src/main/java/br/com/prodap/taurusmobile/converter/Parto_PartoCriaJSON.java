@@ -20,8 +20,14 @@ public class Parto_PartoCriaJSON {
 				js.key("perda_gestacao").value(p_partoCria.getPerda_gestacao());
 				js.key("id_fk_animal_mae").value(p_partoCria.getId_fk_animal_mae());
 				js.key("peso_cria").value(p_partoCria.getPeso_cria());
+				js.key("grupo_manejo").value(p_partoCria.getGrupo_manejo());
 				js.key("codigo_cria").value(p_partoCria.getCodigo_cria());
 				js.key("sexo").value(p_partoCria.getSexo());
+				js.key("sisbov").value(p_partoCria.getSisbov());
+				js.key("identificador").value(p_partoCria.getIdentificador());
+				js.key("fgStatus").value(p_partoCria.getFgStatus());
+				js.key("raca_cria").value(p_partoCria.getRaca_cria());
+				js.key("data_identificacao").value(p_partoCria.getData_identificacao());
 				js.endObject();
 			}
 			js.endArray().endObject();

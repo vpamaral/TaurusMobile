@@ -33,6 +33,7 @@ public class MenuPrincipalActivity extends Activity {
 	public ProgressDialog objProgressDialog;
 	public AnimalAdapter aniHelper;
 	private Context ctx;
+	public static String idold;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class MenuPrincipalActivity extends Activity {
 			public void onClick(View v) {
 				buscarBluetooth();
 			}
-		});*/  // Bot�o para testar a funcionlidade com o bluetooth
+		});*/  // Botão para testar a funcionlidade com o bluetooth
 	}
 	
 	@Override

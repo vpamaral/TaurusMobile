@@ -36,18 +36,25 @@ public class LeitorActivity extends Activity {
             case IntentIntegrator.REQUEST_CODE:
                 IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 final String result = scanResult.getContents();
-                if ((result != null) && (scanResult.getFormatName().toString().contentEquals("CODE_39")) || (scanResult.getFormatName().toString().contentEquals("ITF")) ) {
-                    Intent it = new Intent(getBaseContext(), PartoActivity.class);
-                    it.putExtra("CodBarras", result);
-                    this.finish();
-                    startActivity(it);
-
-                } else {
-                    Toast.makeText(getBaseContext(), "Código inválido ou inexistente.", Toast.LENGTH_SHORT).show();
-                    this.finish();
-                }
+                final String tipo   = scanResult.getFormatName();
+                //if ((result != null) || tipo != null && (scanResult.getFormatName().toString().contentEquals("CODE_39")) || (scanResult.getFormatName().toString().contentEquals("ITF")) ) {
+                    sendResult(result, tipo);
                 break;
             default:
+        }
+    }
+
+    public void sendResult(String result, String tipo) {
+        if (result != null || tipo != null) {
+            Intent intent = new Intent(getBaseContext(), PartoActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("CodBarras", result);
+            intent.putExtra("tipo", tipo);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(getBaseContext(), "Erro ao ler o código de barras.", Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 

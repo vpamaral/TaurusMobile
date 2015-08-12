@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Parto_PartoCria implements Serializable {
 	private long id_fk_animal_mae;
+	private int fgStatus;
 	private String peso_cria;
 	private String codigo_cria;
 	private String sexo;
@@ -13,6 +14,9 @@ public class Parto_PartoCria implements Serializable {
 	private String perda_gestacao;
 	private String sisbov;
 	private String identificador;
+	private String grupo_manejo;
+	private String data_identificacao;
+	private String raca_cria;
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;
@@ -92,5 +96,37 @@ public class Parto_PartoCria implements Serializable {
 
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
+	}
+
+	public String getGrupo_manejo() {
+		return grupo_manejo;
+	}
+
+	public void setGrupo_manejo(String grupo_manejo) {
+		this.grupo_manejo = grupo_manejo;
+	}
+
+	public int getFgStatus() {
+		return fgStatus;
+	}
+
+	public void setFgStatus(int fgStatus) {
+		this.fgStatus = fgStatus;
+	}
+
+	public String getData_identificacao() {
+		return data_identificacao;
+	}
+
+	public void setData_identificacao(String data_identificacao) {
+		this.data_identificacao = data_identificacao;
+	}
+
+	public String getRaca_cria() {
+		return raca_cria;
+	}
+
+	public void setRaca_cria(String raca_cria) {
+		this.raca_cria = raca_cria;
 	}
 }

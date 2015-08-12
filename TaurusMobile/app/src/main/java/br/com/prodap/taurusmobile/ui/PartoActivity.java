@@ -37,6 +37,8 @@ public class PartoActivity extends Activity {
 			"F.MUMIFICADO", "OUTRA" };
 	private static final String[] SEXO = new String[] { "FÊMEA", "MACHO" };
 
+	private static final String[] RACACRIA = new String[] {"Nelore", "Composto", "Hereford", "Braford", "Angus", "Brangus", "Gir"};
+
 	public String msg = "";
 
 	private EditText editMatriz;
@@ -45,12 +47,15 @@ public class PartoActivity extends Activity {
 	private EditText editCodCria;
 	private EditText editIdentificador;
 	private EditText editSisbov;
+	private EditText editGrupoManejo;
 	private EditText editPeso;
+	private EditText editDataIdentificacao;
 	private Button btnSalvar;
 	private Button btnLeitorCodBarras;
 	private Button btnLeitorCodBarra;
 	private Spinner spinPerda;
 	private Spinner spinSexo;
+	private Spinner spinRacaCria;
 	private TextView txtidanimal;
 	String sisbov = null;
 	String identificador = null;
@@ -59,6 +64,7 @@ public class PartoActivity extends Activity {
 	private PartoModel parto_model;
 	private Parto_CriaModel cria_model;
 	private PartoAdapter p_helper;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +83,12 @@ public class PartoActivity extends Activity {
 		adpSexo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spnSexo.setAdapter(adpSexo);
 
+		Spinner spnRaca = (Spinner) findViewById(R.id.spnRaca);
+		ArrayAdapter<String> adpRaca = new ArrayAdapter<String>(this,
+				android.R.layout.simple_dropdown_item_1line, RACACRIA);
+		adpRaca.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		spnRaca.setAdapter(adpRaca);
+
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 		Date data = new Date();
@@ -92,17 +104,20 @@ public class PartoActivity extends Activity {
 
 		editIdentificador = (EditText) findViewById(R.id.edtIdentificador);
 		editSisbov = (EditText) findViewById(R.id.edtSisbov);
+		editGrupoManejo = (EditText) findViewById(R.id.edtGrupoManejo);
 		editMatriz = (EditText) findViewById(R.id.edtMatriz);
 		editDataParto = (EditText) findViewById(R.id.edtDataParto);
 		editRacaPai = (EditText) findViewById(R.id.edtRacaPai);
 		spinPerda = (Spinner) findViewById(R.id.spnPerda);
 		spinSexo = (Spinner) findViewById(R.id.spnSexo);
 		editCodCria = (EditText) findViewById(R.id.edtCria);
+		spinRacaCria =(Spinner) findViewById(R.id.spnRaca);
 		editPeso = (EditText) findViewById(R.id.edtPesoCria);
 		txtidanimal = (TextView) findViewById(R.id.id_animal);
 		btnSalvar = (Button) findViewById(R.id.btnSalvarParto);
 		btnLeitorCodBarras = (Button) findViewById(R.id.btnLeitorCodBarras);
-		btnLeitorCodBarra  = (Button) findViewById(R.id.btnLeitorCodBarra);
+		btnLeitorCodBarra = (Button) findViewById(R.id.btnLeitorCodBarra);
+		editDataIdentificacao = (EditText) findViewById(R.id.edtDataIdentificacao);
 
 		Parto_Cria pc_tb = new Parto_Cria();
 		final List<Parto_Cria> listaCria = cria_model.selectAll(this, "Parto_Cria", pc_tb);
@@ -110,19 +125,51 @@ public class PartoActivity extends Activity {
 		Intent intent  =  this.getIntent();
 
 		String resultCodBarras;
+		String tipo;
 
+		tipo			= intent.getStringExtra("tipo");
 		resultCodBarras = intent.getStringExtra("CodBarras");
 		//editCodCria.setText(intent.getStringExtra("editCodBarras"));
 		if (resultCodBarras != null && resultCodBarras != "") {
-			if (resultCodBarras.length() <= 11) {
+			if (tipo.equals("CODE_39")) {
 				identificador = resultCodBarras;
-			} else {
+
+				if(identificador != null) {
+					editIdentificador.setText(identificador);
+					if(MenuPrincipalActivity.idold == null || MenuPrincipalActivity.idold == "")
+					{
+						MenuPrincipalActivity.idold = identificador;
+					}
+					else
+					{
+						long sis = Long.parseLong(MenuPrincipalActivity.idold);
+						String strsis = String.valueOf(sis);
+						editSisbov.setText(MenuPrincipalActivity.idold);
+						editCodCria.setText(MenuPrincipalActivity.idold.substring(8,14));
+					}
+				}
+			} else if (tipo.equals("ITF")){
 				sisbov = resultCodBarras;
+				if(sisbov != null) {
+					long sis = Long.parseLong(sisbov);
+					String strsis = String.valueOf(sis);
+					editSisbov.setText(strsis);
+					editCodCria.setText(strsis.substring(8,14));
+					if(MenuPrincipalActivity.idold == null || MenuPrincipalActivity.idold == "")
+					{
+						MenuPrincipalActivity.idold = strsis;
+					}
+					else
+					{
+						editIdentificador.setText(MenuPrincipalActivity.idold);
+					}
+				}
+
 			}
 		}
 
-		editIdentificador.setText(identificador);
-		editSisbov.setText(sisbov);
+
+
 
 		btnLeitorCodBarras.setOnClickListener(new OnClickListener() {
 			@Override
@@ -155,7 +202,7 @@ public class PartoActivity extends Activity {
 
 					editRacaPai.setText(animal.getRaca_reprod());
 					//editCodCria.setText(animal.getCodigo() + "/"
-						//	+ cal.get(Calendar.YEAR));
+					//	+ cal.get(Calendar.YEAR));
 					editPeso.setText("40");
 					txtidanimal.setText(String.valueOf(animal.getId_pk()));
 				}
@@ -166,7 +213,8 @@ public class PartoActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// valida??es temporarias
+				MenuPrincipalActivity.idold = null;
+				// validações temporarias
 				if (editMatriz.getText().toString().isEmpty()) {
 					MensagemUtil.addMsg(MessageDialog.Toast,
 							PartoActivity.this,
@@ -205,16 +253,23 @@ public class PartoActivity extends Activity {
 							.getText().toString()));
 
 					cria_tb.setIdentificador(editIdentificador.getText().toString());
-					cria_tb.setSisbov(editSisbov.getText().toString());
 
+					long sis = Long.parseLong(editSisbov.getText().toString());
+					String strsis = String.valueOf(sis);
+
+					cria_tb.setSisbov(strsis);
+					cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
+					cria_tb.setData_identificacao(editDataIdentificacao.getText().toString());
+					cria_tb.setRaca_cria(spinRacaCria.getSelectedItem().toString());
 					parto_tb.setFgStatus(0);
 					cria_tb.setFgStatus(0);
 
 					if(validate(cria_tb, listaCria)) {
+						MenuPrincipalActivity.idold = "";
 						parto_model.insert(PartoActivity.this, "Parto", parto_tb);
 						cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
 
-						zerarInterface();
+						zeraInterface();
 
 						Toast.makeText(PartoActivity.this,
 								"Parto cadastrados com sucesso!",
@@ -226,7 +281,6 @@ public class PartoActivity extends Activity {
 								msg,
 								Toast.LENGTH_SHORT).show();
 					}
-
 				}
 			}
 		});
@@ -234,22 +288,24 @@ public class PartoActivity extends Activity {
 
 	private boolean validate(Parto_Cria cria_tb, List<Parto_Cria> listaCria)
 	{
-		if (listaCria.size() > 0) {
+		if (listaCria.size() != 0) {
 			for (Parto_Cria cria : listaCria) {
+				if (cria.getIdentificador().equals(cria_tb.getIdentificador())) {
+					msg = "Identificador da Cria não pode ser duplicado.\n";
+					return false;
+				}
 				if (cria.getSisbov().equals(cria_tb.getSisbov())) {
 					msg = "Sisbov da Cria não pode ser duplicado.\n";
 					return false;
 				}
-				if (cria.getIdentificador().equals(cria_tb.getIdentificador())) {
 
-					msg = "Identificador da Cria não pode ser duplicado.\n";
-					return false;
-				}
-				if (cria.getCodigo_cria().equals(cria_tb.getCodigo_cria())) {
+				return true;
+
+				/*if (cria.getCodigo_cria().equals(cria_tb.getCodigo_cria())) {
 
 					msg = "Codigo da Cria não pode ser duplicado.\n";
 					return false;
-				}
+				}*/
 			}
 			msg = "Nenhuma Cria foi lançada.";
 			return false;
@@ -277,13 +333,15 @@ public class PartoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void zerarInterface() {
+	public void zeraInterface() {
 		editMatriz.setText("");
 		editRacaPai.setText("");
 		editCodCria.setText("");
 		txtidanimal.setText("");
 		editSisbov.setText("");
+		editGrupoManejo.setText("");
+		editDataIdentificacao.setText("");
 		editIdentificador.setText("");
-		editMatriz.requestFocus();
+		editIdentificador.requestFocus();
 	}
 }
