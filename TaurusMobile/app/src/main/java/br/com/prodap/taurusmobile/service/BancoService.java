@@ -54,7 +54,7 @@ public abstract class BancoService {
 		}
 	}
 
-	public void Delete(Context ctx, String Table) {
+	public void delete(Context ctx, String Table) {
 		try {
 			Banco banco = new Banco(ctx);
 			

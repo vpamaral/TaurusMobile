@@ -103,5 +103,9 @@ public class Animal implements Serializable {
 	public void setRaca_reprod(String raca_reprod) {
 		this.raca_reprod = raca_reprod;
 	}
-	
+
+	@Override
+	public String toString() {
+		return codigo + " - " + sisbov;
+	}
 }

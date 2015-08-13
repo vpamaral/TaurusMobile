@@ -9,10 +9,11 @@
     tools:context="br.com.prodap.taurusmobile.ui.ListaAnimaisActivity" >
 
     <TextView
+        android:id="@+id/lblSisbov"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Código Animal"
-        android:textSize="20sp"
+        android:text="Código do Animal e Sisbov"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <ListView

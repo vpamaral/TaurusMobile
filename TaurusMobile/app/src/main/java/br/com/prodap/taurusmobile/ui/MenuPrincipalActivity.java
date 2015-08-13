@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,8 @@ import br.com.prodap.taurusmobile.model.PartoModel;
 import br.com.prodap.taurusmobile.model.Parto_CriaModel;
 import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
 import br.com.prodap.taurusmobile.task.PostAnimaisJSON;
+import br.com.prodap.taurusmobile.util.MensagemUtil;
+import br.com.prodap.taurusmobile.util.MessageDialog;
 
 public class MenuPrincipalActivity extends Activity {
 
@@ -32,7 +35,7 @@ public class MenuPrincipalActivity extends Activity {
 	protected List<Animal> objListaAnimal;
 	public ProgressDialog objProgressDialog;
 	public AnimalAdapter aniHelper;
-	private Context ctx;
+	private Context context;
 	public static String idold;
 
 	@Override
@@ -58,6 +61,7 @@ public class MenuPrincipalActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+
 				atualizaDados();
 			}
 		});
@@ -98,7 +102,7 @@ public class MenuPrincipalActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				configurarQRCode();
+				configuraQRCode();
 			}
 		});
 		
@@ -137,7 +141,7 @@ public class MenuPrincipalActivity extends Activity {
 			enviarDados();
 			return false;
 		case R.id.menu_QRCode:
-			configurarQRCode();
+			configuraQRCode();
 			return false;
 		default:
 			break;
@@ -164,20 +168,43 @@ public class MenuPrincipalActivity extends Activity {
 	}
 
 	private void atualizaDados() {
-		AnimalModel objModelAnimal = new AnimalModel(this);
-		objModelAnimal.Delete(this, "Animal");
-		new GetAnimaisJSON(this).execute();
+		if (checksConnection()) {
+			AnimalModel objModelAnimal = new AnimalModel(this);
+			objModelAnimal.delete(this, "Animal");
+			new GetAnimaisJSON(this).execute();
+		} else {
+			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
+			return;
+		}
 	}
 
 	private void enviarDados() {
-		new PostAnimaisJSON(this).execute();
-		//new PostAnimaisXML(this).execute();
+		if (checksConnection()) {
+			new PostAnimaisJSON(this).execute();
+			//new PostAnimaisXML(this).execute();
+		} else {
+			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
+			return;
+		}
 	}
 	
-	private void configurarQRCode(){
+	private void configuraQRCode(){
 		Intent intent = new Intent(MenuPrincipalActivity.this,
 				ConfiguracoesQRCodeActivity.class);
 		startActivity(intent);
+	}
+
+	public boolean checksConnection() {
+		boolean connected;
+		ConnectivityManager conectivtyManager = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (conectivtyManager.getActiveNetworkInfo() != null
+				&& conectivtyManager.getActiveNetworkInfo().isAvailable()
+				&& conectivtyManager.getActiveNetworkInfo().isConnected()) {
+			connected = true;
+		} else {
+			connected = false;
+		}
+		return connected;
 	}
 	
 	/*private void buscarBluetooth() {
