@@ -3,13 +3,30 @@ package br.com.prodap.taurusmobile.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.database.Cursor;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.TB.Parto;
 import br.com.prodap.taurusmobile.TB.Parto_Cria;
+import br.com.prodap.taurusmobile.ui.R;
 
-public class PartoCriaAdapter {
+public class PartoCriaAdapter extends BaseAdapter{
+	private List<Parto_Cria> partos_cria;
+	private Activity activity;
+
 	public PartoCriaAdapter() {
 
+	}
+
+	public PartoCriaAdapter(List<Parto_Cria> partos_cria, Activity activity) {
+		this.partos_cria = partos_cria;
+		this.activity = activity;
 	}
 	
 	public Parto_Cria PartoCriaCursor(Cursor c) {
@@ -91,5 +108,42 @@ public class PartoCriaAdapter {
 		parto_cria.setData_identificacao(parto_cria_tb.getData_identificacao());
 
 		return parto_cria;
+	}
+
+	@Override
+	public int getCount() {
+		return partos_cria.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return partos_cria.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return Long.parseLong(partos_cria.get(position).getCodigo_cria());
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		Parto_Cria parto_cria = partos_cria.get(position);
+
+		LayoutInflater inflater = activity.getLayoutInflater();
+		View line = inflater.inflate(R.layout.activity_lista_partos_cria, null);
+
+		/*if (position % 2 == 0) {
+			line.setBackgroundColor(activity.getResources().
+					getColor(R.color.linha_par));
+		}else
+		{
+			line.setBackgroundColor(activity.getResources().
+					getColor(R.color.linha_impar));
+		}*/
+
+		TextView sisbov = (TextView) line.findViewById(R.id.lblCodCria);
+		sisbov.setText(parto_cria.toString());
+
+		return line;
 	}
 }

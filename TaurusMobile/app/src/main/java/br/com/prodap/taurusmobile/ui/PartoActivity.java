@@ -190,6 +190,7 @@ public class PartoActivity extends Activity {
 		});
 
 		editDataParto.setText(data_completa);
+		editDataIdentificacao.setText(data_completa);
 
 		editMatriz.setOnFocusChangeListener(new OnFocusChangeListener() {
 
@@ -213,74 +214,72 @@ public class PartoActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				MenuPrincipalActivity.idold = null;
-				// validações temporarias
-				if (editMatriz.getText().toString().isEmpty()) {
-					MensagemUtil.addMsg(MessageDialog.Toast,
-							PartoActivity.this,
-							"É necessário preencher a matriz do animal");
-					editMatriz.requestFocus();
+			MenuPrincipalActivity.idold = null;
+			// validações temporarias
+			if (editMatriz.getText().toString().isEmpty()) {
+				MensagemUtil.addMsg(MessageDialog.Toast,
+						PartoActivity.this,
+						"É necessário preencher a matriz do animal");
+				editMatriz.requestFocus();
+			}
+
+			else if (editPeso.getText().toString().isEmpty()) {
+				MensagemUtil.addMsg(MessageDialog.Toast,
+						PartoActivity.this,
+						"É necessário preencher o peso de cria");
+			}
+
+			else {
+				Parto parto_tb = new Parto();
+				Parto_Cria cria_tb = new Parto_Cria();
+
+				parto_tb.setData_parto(editDataParto.getText().toString());
+				parto_tb.setPerda_gestacao(spinPerda.getSelectedItem()
+						.toString());
+				if (spinSexo.getSelectedItem() == "FÊMEA") {
+					parto_tb.setSexo_parto("FE");
+				} else {
+					parto_tb.setSexo_parto("MA");
 				}
-
-				else if (editPeso.getText().toString().isEmpty()) {
-					MensagemUtil.addMsg(MessageDialog.Toast,
-							PartoActivity.this,
-							"É necessário preencher o peso de cria");
+				parto_tb.setId_fk_animal(Long.parseLong(txtidanimal
+						.getText().toString()));
+				cria_tb.setCodigo_cria(editCodCria.getText().toString());
+				cria_tb.setPeso_cria(editPeso.getText().toString());
+				if (spinSexo.getSelectedItem() == "FÊMEA") {
+					cria_tb.setSexo("FE");
+				} else {
+					cria_tb.setSexo("MA");
 				}
+				cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal
+						.getText().toString()));
 
-				else {
-					Parto parto_tb = new Parto();
-					Parto_Cria cria_tb = new Parto_Cria();
+				cria_tb.setIdentificador(editIdentificador.getText().toString());
 
-					parto_tb.setData_parto(editDataParto.getText().toString());
-					parto_tb.setPerda_gestacao(spinPerda.getSelectedItem()
-							.toString());
-					if (spinSexo.getSelectedItem() == "FÊMEA") {
-						parto_tb.setSexo_parto("FE");
-					} else {
-						parto_tb.setSexo_parto("MA");
-					}
-					parto_tb.setId_fk_animal(Long.parseLong(txtidanimal
-							.getText().toString()));
-					cria_tb.setCodigo_cria(editCodCria.getText().toString());
-					cria_tb.setPeso_cria(editPeso.getText().toString());
-					if (spinSexo.getSelectedItem() == "FÊMEA") {
-						cria_tb.setSexo("FE");
-					} else {
-						cria_tb.setSexo("MA");
-					}
-					cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal
-							.getText().toString()));
+				long sis = Long.parseLong(editSisbov.getText().toString());
+				String strsis = String.valueOf(sis);
 
-					cria_tb.setIdentificador(editIdentificador.getText().toString());
+				cria_tb.setSisbov(strsis);
+				cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
+				cria_tb.setData_identificacao(editDataIdentificacao.getText().toString());
+				cria_tb.setRaca_cria(spinRacaCria.getSelectedItem().toString());
+				parto_tb.setFgStatus(0);
+				cria_tb.setFgStatus(0);
 
-					long sis = Long.parseLong(editSisbov.getText().toString());
-					String strsis = String.valueOf(sis);
+				if(validate(cria_tb, listaCria)) {
+					parto_model.insert(PartoActivity.this, "Parto", parto_tb);
+					cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
 
-					cria_tb.setSisbov(strsis);
-					cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
-					cria_tb.setData_identificacao(editDataIdentificacao.getText().toString());
-					cria_tb.setRaca_cria(spinRacaCria.getSelectedItem().toString());
-					parto_tb.setFgStatus(0);
-					cria_tb.setFgStatus(0);
+					zeraInterface();
 
-					if(validate(cria_tb, listaCria)) {
-						parto_model.insert(PartoActivity.this, "Parto", parto_tb);
-						cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
-
-						zeraInterface();
-
-						Toast.makeText(PartoActivity.this,
-								"Parto cadastrados com sucesso!",
-								Toast.LENGTH_SHORT).show();
-					}
-					else
-					{
-						Toast.makeText(PartoActivity.this,
-								msg,
-								Toast.LENGTH_SHORT).show();
-					}
+					Toast.makeText(PartoActivity.this,
+							"Parto cadastrados com sucesso!",
+							Toast.LENGTH_SHORT).show();
 				}
+				else
+				{
+					Toast.makeText(PartoActivity.this,	msg, Toast.LENGTH_SHORT).show();
+				}
+			}
 			}
 		});
 	}
@@ -297,7 +296,6 @@ public class PartoActivity extends Activity {
 					msg = "Sisbov da Cria não pode ser duplicado.\n";
 					return false;
 				}
-
 				return true;
 
 				/*if (cria.getCodigo_cria().equals(cria_tb.getCodigo_cria())) {

@@ -1,91 +1,82 @@
 package br.com.prodap.taurusmobile.ui;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import android.app.Activity;
-import android.content.ClipData.Item;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
 import br.com.prodap.taurusmobile.TB.Parto;
 import br.com.prodap.taurusmobile.TB.Parto_Cria;
-import br.com.prodap.taurusmobile.TB.Parto_PartoCria;
+import br.com.prodap.taurusmobile.adapter.PartoCriaAdapter;
+import br.com.prodap.taurusmobile.model.PartoModel;
 import br.com.prodap.taurusmobile.model.Parto_CriaModel;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
 public class ListaPartosCriaActivity extends Activity {
+	private PartoModel parto_model;
+	private Parto parto_tb;
 	private Parto_CriaModel p_cria_model;
 	private Parto_Cria p_cria_tb;
-	private List<String> partos_cria;
-	private ListView lista;
-	private List<Parto_Cria> listaPartoCria;
-	//private long posicao;
-	
-	
-	ArrayAdapter<String> adapter;
-	List<Parto_Cria> listaPartos;
+	private ListView list;
+	private PartoCriaAdapter p_cria_adapter;
+	private List<Parto_Cria> p_cria_list;
+	private List<Parto> parto_list;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lista_partos_cria);
+		loadList();
+		source();
+	}
 
-		p_cria_tb = new Parto_Cria();
-		p_cria_model = new Parto_CriaModel(getBaseContext());
-		partos_cria = new ArrayList<String>();
-		lista = (ListView) findViewById(R.id.lista_partos);
-		listaPartoCria = new ArrayList<Parto_Cria>();
-		listaPartoCria.add(p_cria_tb);
-		listaPartos = new ArrayList<Parto_Cria>();
-		p_cria_model = new Parto_CriaModel(this);
-		
-		this.listarPartos();
-		this.consultarPorIdClick();
-		//this.ExcluirClickLongo();
+	private void source() {
+		parto_tb		= new Parto();
+		p_cria_tb 		= new Parto_Cria();
+		p_cria_model	= new Parto_CriaModel(getBaseContext());
+		parto_model 	= new PartoModel(getBaseContext());
+		this.partoCriaList();
+		this.partoCriaDetails();
+		this.partoCriaDelete();
+	}
+
+	private void loadList() {
+		list = (ListView) findViewById(R.id.lista_partos);
+		registerForContextMenu(list);
 	}
 	
-	private void listarPartos() {
-		List<Parto_Cria> lista_partos = p_cria_model.selectAll(this,
+	private void partoCriaList() {
+		parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
+		p_cria_list = p_cria_model.selectAll(getBaseContext(),
 				"Parto_Cria", p_cria_tb);
 
-		for (Parto_Cria p_cria : lista_partos) {
-			partos_cria.add(p_cria.getCodigo_cria());
-		}
+		p_cria_adapter = new PartoCriaAdapter(p_cria_list, this);
 
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, partos_cria);
-
-		lista.setAdapter(adapter);
+		list.setAdapter(p_cria_adapter);
 	}
 
-	/**
+	/*
 	 * Método executado quando algum item da lista é clicado
 	 */
-	private void consultarPorIdClick() {
-		lista.setOnItemClickListener(new OnItemClickListener() {
+	private void partoCriaDetails() {
+		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> adapter, View view,
-					int position, long id) {
-				p_cria_tb = p_cria_model.selectByCodigo(
-						ListaPartosCriaActivity.this, position + 1);
+			public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+				p_cria_tb = (Parto_Cria) p_cria_adapter.getItem(position);
 
 				String msg = "Código: " + p_cria_tb.getCodigo_cria()
-						+ "\nPeso: " + p_cria_tb.getPeso_cria() + "\nSexo: "
-						+ p_cria_tb.getSexo();
+							+ "\nIdentificador: " + p_cria_tb.getIdentificador()
+							+ "\nSisbov: " +p_cria_tb.getSisbov()
+							+ "\nPeso: " + p_cria_tb.getPeso_cria()
+							+ "\nSexo: " +p_cria_tb.getSexo();
 
 				MensagemUtil.addMsg(MessageDialog.Yes,
 						ListaPartosCriaActivity.this, msg, "Parto", position);
@@ -93,75 +84,15 @@ public class ListaPartosCriaActivity extends Activity {
 		});
 	}
 
-	/*private void ExcluirClickLongo() {
-		lista.setOnItemLongClickListener(new OnItemLongClickListener() {
-
+	private void partoCriaDelete() {
+		list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 			@Override
-			public boolean onItemLongClick(AdapterView<?> adapter, View view,
-					int id, long position) {
-				setPosicao(position);
-				if(p_cria_tb.getCodigo_cria() == null){
-					p_cria_model.removerByCodigo(ListaPartosCriaActivity.this, p_cria_tb.getId_fk_animal_mae());
-				}
-				else{
-					p_cria_tb.getId_fk_animal_mae();
-					p_cria_model.removerByCodigo(ListaPartosCriaActivity.this, p_cria_tb.getId_fk_animal_mae());
-				}
-				Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
-				startActivity(i);
-				finish();
-				//p_cria_tb = listaPartos.get((int) posicao);
-				//p_cria_model.removerByCodigo(ListaPartosCriaActivity.this, p_cria_tb.getId_fk_animal_mae());
-				//p_cria_model.removerByCodigo(ListaPartosCriaActivity.this, id + 1);
-				//Parto_PartoCria parto_tb = 
-				
-				//MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto Exclu�do com sucesso!!");
-				//Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
-				//startActivity(i);
-				//finish();
-				/*Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
-				startActivity(i);
-				finish();*/
-				//p_cria_model.removerByCodigo(ListaPartosCriaActivity.this, posicao);
-				//MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto Exclu�do com sucesso!!");
-				
-				//setPosicao(id);
-				  //adapter.getItemAtPosition(id);
-				  //lista.removeAllViews();
-				 
-				//return false;
-			//}
-		//});
-	//}
-		
-		/*lista.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-			
-			@Override
-			public void onCreateContextMenu(ContextMenu menu, View v,
-					ContextMenuInfo menuInfo) {
-				menu.add(0, 1, 1, "Deletar");
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				p_cria_tb = (Parto_Cria) p_cria_adapter.getItem(position);
+				return false;
 			}
 		});
 	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		switch(item.getItemId()){
-		case 1:
-			//p_cria_model.removerByCodigo(ListaPartosCriaActivity.this, posicao);
-			//MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto Exclu�do com sucesso!!");
-			//lista.removeViewAt(posicao);
-			Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
-			startActivity(i);
-			finish();
-			break; 
-		case 2:
-			break;
-		default:
-			break;
-		}
-		return super.onContextItemSelected(item);
-	}*/
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -181,13 +112,23 @@ public class ListaPartosCriaActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	/*public long getPosicao() {
-		return posicao;
-	}
 
-	public void setPosicao(long posicao) {
-		this.posicao = posicao;
-	}*/
-	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuItem miDelete = menu.add("Excluir");
+		miDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
+		{
+
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				//parto_model.deleteById(getBaseContext(), "Parto", parto_tb.getId_fk_animal());
+				//p_cria_model.deleteById(getBaseContext(), "Parto_Cria", p_cria_tb.getId_fk_animal_mae());
+				partoCriaList();
+
+				return false;
+			}
+		});
+
+	}
 }

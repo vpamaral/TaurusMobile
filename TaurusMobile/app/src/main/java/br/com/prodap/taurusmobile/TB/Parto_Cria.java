@@ -94,4 +94,9 @@ public class Parto_Cria implements Serializable {
 	public void setRaca_cria(String raca_cria) {
 		this.raca_cria = raca_cria;
 	}
+
+	@Override
+	public String toString() {
+		return codigo_cria + " - " + identificador;
+	}
 }

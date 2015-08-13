@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.ui.R;
@@ -18,8 +19,11 @@ public class AnimalAdapter extends BaseAdapter {
 	private List<Animal> animais;
 	private Activity activity;
 
-	public AnimalAdapter() {
+	public AnimalAdapter() {}
 
+	public AnimalAdapter(List<Animal> animais, Activity activity) {
+		this.animais = animais;
+		this.activity = activity;
 	}
 
 	public Animal AnimalCursor(Cursor c) {
@@ -149,14 +153,18 @@ public class AnimalAdapter extends BaseAdapter {
 		LayoutInflater inflater = activity.getLayoutInflater();
 		View line = inflater.inflate(R.layout.activity_lista_animais, null);
 
-		if (position % 2 == 0) {
+		/*if (position % 2 == 0) {
 			line.setBackgroundColor(activity.getResources().
 					getColor(R.color.linha_par));
 		}else
 		{
 			line.setBackgroundColor(activity.getResources().
 					getColor(R.color.linha_impar));
-		}
+		}*/
+
+		TextView sisbov = (TextView) line.findViewById(R.id.lblSisbov);
+		sisbov.setText(animal.toString());
+
 		return line;
 	}
 }

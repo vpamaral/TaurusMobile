@@ -9,9 +9,10 @@
     tools:context="br.com.prodap.taurusmobile.ui.ListaPartosCriaActivity" >
 
     <TextView
+        android:id="@+id/lblCodCria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Código da Cria"
+        android:text="Código da Cria e Identificador"
         android:textSize="20sp"
         android:textStyle="bold" />
 
