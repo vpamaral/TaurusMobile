@@ -35,7 +35,9 @@
                     android:id="@+id/edtIdentificador"
                     android:layout_width="119dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.94" >
+                    android:layout_weight="0.94"
+                    android:inputType="number"
+                    android:maxLength="15" >
                     <requestFocus />
                 </EditText>
 
@@ -69,7 +71,9 @@
                     android:id="@+id/edtSisbov"
                     android:layout_width="119dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.94" />
+                    android:layout_weight="0.94"
+                    android:inputType="number"
+                    android:maxLength="15" />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
@@ -100,7 +104,9 @@
                 <EditText
                     android:id="@+id/edtCria"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="6"/>
 
             </LinearLayout>
 
@@ -125,14 +131,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Matriz:            "
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtMatriz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:maxLength="6" />
             </LinearLayout>
 
             <TextView
@@ -154,7 +160,9 @@
                 <EditText
                     android:id="@+id/edtDataParto"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="datetime"
+                    android:maxLength="10" />
             </LinearLayout>
 
             <TextView
@@ -215,7 +223,8 @@
                 <EditText
                     android:id="@+id/edtRacaPai"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <TextView
@@ -266,12 +275,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Data Ident.:      "
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:enabled="false"/>
 
                 <EditText
                     android:id="@+id/edtDataIdentificacao"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="datetime"
+                    android:maxLength="10"/>
             </LinearLayout>
 
             <LinearLayout
@@ -288,7 +300,8 @@
                 <EditText
                     android:id="@+id/edtPesoCria"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
             </LinearLayout>
 
             <LinearLayout

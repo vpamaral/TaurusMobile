@@ -44,6 +44,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'id_auto'	         	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'id_fk_animal_mae' 		INTEGER,"
 				+ "'data_identificacao'     varchar(45),"
+				+ "'repasse'     			varchar(10),"
 				+ "'sisbov'     	 		varchar(45),"
 				+ "'raca_cria'     	 		varchar(45),"
 				+ "'identificador'     	 	varchar(45),"

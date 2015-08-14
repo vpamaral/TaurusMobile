@@ -45,7 +45,7 @@ public class LeitorActivity extends Activity {
     }
 
     public void sendResult(String result, String tipo) {
-        if (result != null || tipo != null) {
+        if (result != null || tipo != null ) {
             Intent intent = new Intent(getBaseContext(), PartoActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("CodBarras", result);

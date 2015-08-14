@@ -31,6 +31,7 @@ public class Parto_PartoCriaAdapter {
 			p_partoCria.setGrupo_manejo(c.getString(c.getColumnIndex("grupo_manejo")));
 			p_partoCria.setData_identificacao(c.getString(c.getColumnIndex("data_identificacao")));
 			p_partoCria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
+			p_partoCria.setRepasse(c.getString(c.getColumnIndex("repasse")));
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -59,6 +60,7 @@ public class Parto_PartoCriaAdapter {
 			p_partoCria.setGrupo_manejo(PartoCriaArray[i].getGrupo_manejo());
 			p_partoCria.setData_identificacao(PartoCriaArray[i].getData_identificacao());
 			p_partoCria.setRaca_cria(PartoCriaArray[i].getRaca_cria());
+			p_partoCria.setRepasse(PartoCriaArray[i].getRepasse());
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -82,6 +84,7 @@ public class Parto_PartoCriaAdapter {
 		p_partoCria.setGrupo_manejo(p_partoCria_tb.getGrupo_manejo());
 		p_partoCria.setData_identificacao(p_partoCria_tb.getData_identificacao());
 		p_partoCria.setRaca_cria(p_partoCria_tb.getRaca_cria());
+		p_partoCria.setRepasse(p_partoCria_tb.getRepasse());
 
 		return p_partoCria;
 	}

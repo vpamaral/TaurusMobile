@@ -17,6 +17,7 @@ public class Parto_PartoCria implements Serializable {
 	private String grupo_manejo;
 	private String data_identificacao;
 	private String raca_cria;
+	private String repasse;
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;
@@ -128,5 +129,13 @@ public class Parto_PartoCria implements Serializable {
 
 	public void setRaca_cria(String raca_cria) {
 		this.raca_cria = raca_cria;
+	}
+
+	public String getRepasse() {
+		return repasse;
+	}
+
+	public void setRepasse(String repasse) {
+		this.repasse = repasse;
 	}
 }

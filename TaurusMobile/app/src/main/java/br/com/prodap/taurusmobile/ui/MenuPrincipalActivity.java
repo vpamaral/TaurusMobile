@@ -3,8 +3,10 @@ package br.com.prodap.taurusmobile.ui;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -169,13 +171,12 @@ public class MenuPrincipalActivity extends Activity {
 
 	private void atualizaDados() {
 		if (checksConnection()) {
-			AnimalModel objModelAnimal = new AnimalModel(this);
-			objModelAnimal.delete(this, "Animal");
-			new GetAnimaisJSON(this).execute();
+			alertMsg();
 		} else {
 			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
+		/**/
 	}
 
 	private void enviarDados() {
@@ -192,6 +193,20 @@ public class MenuPrincipalActivity extends Activity {
 		Intent intent = new Intent(MenuPrincipalActivity.this,
 				ConfiguracoesQRCodeActivity.class);
 		startActivity(intent);
+	}
+
+	private void alertMsg(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Alerta").setMessage("Deseja Atualizar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
+			.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					AnimalModel objModelAnimal = new AnimalModel(MenuPrincipalActivity.this);
+					objModelAnimal.delete(MenuPrincipalActivity.this, "Animal");
+					new GetAnimaisJSON(MenuPrincipalActivity.this).execute();
+				}
+			})
+			.setNegativeButton("Não", null)
+			.show();
 	}
 
 	public boolean checksConnection() {

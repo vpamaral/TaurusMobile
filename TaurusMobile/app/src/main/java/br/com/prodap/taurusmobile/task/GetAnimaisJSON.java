@@ -37,8 +37,8 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	
 	@Override
 	protected void onPreExecute() {
-		AnimalModel objModelAnimal = new AnimalModel(ctx);
-		objModelAnimal.Delete(ctx, "Animal");
+		//AnimalModel objModelAnimal = new AnimalModel(ctx);
+		//objModelAnimal.delete(ctx, "Animal");
 		MensagemUtil.addMsg(ctx, "Aguarde...", "Recebendo dados do servidor.");
 	}
 	

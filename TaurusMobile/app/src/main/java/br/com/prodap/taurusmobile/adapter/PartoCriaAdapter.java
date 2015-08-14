@@ -43,6 +43,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 			parto_cria.setSexo(c.getString(c.getColumnIndex("sexo")));
 			parto_cria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
 			parto_cria.setData_identificacao(c.getString(c.getColumnIndex("data_identificacao")));
+			parto_cria.setRepasse(c.getString(c.getColumnIndex("repasse")));
 
 		}
 		return parto_cria;
@@ -64,6 +65,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 			parto_cria.setSexo(c.getString(c.getColumnIndex("sexo")));
 			parto_cria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
 			parto_cria.setData_identificacao(c.getString(c.getColumnIndex("data_identificacao")));
+			parto_cria.setRepasse(c.getString(c.getColumnIndex("repasse")));
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -87,6 +89,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 			parto_cria.setSexo(PartoCriaArray[i].getSexo());
 			parto_cria.setRaca_cria(PartoCriaArray[i].getRaca_cria());
 			parto_cria.setData_identificacao(PartoCriaArray[i].getData_identificacao());
+			parto_cria.setRepasse(PartoCriaArray[i].getRepasse());
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -106,6 +109,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 		parto_cria.setSexo(parto_cria_tb.getSexo());
 		parto_cria.setRaca_cria(parto_cria_tb.getRaca_cria());
 		parto_cria.setData_identificacao(parto_cria_tb.getData_identificacao());
+		parto_cria.setRepasse(parto_cria_tb.getRepasse());
 
 		return parto_cria;
 	}
