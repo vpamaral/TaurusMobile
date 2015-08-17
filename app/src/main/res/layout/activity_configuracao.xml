@@ -13,21 +13,43 @@
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:orientation="vertical" >
          
-          <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Endereco:            "
-                    android:textStyle="bold" />
-        
-         <EditText
-                    android:id="@+id/edtEndereco"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text">
-         </EditText>
+       <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Endereco:            "
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtEndereco"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Autoriza Identificador: "
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spnIdentificador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Autoriza Grupo Manejo: "
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spnManejo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         
          <Button
             android:id="@+id/btn_salvar"

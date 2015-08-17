@@ -19,6 +19,8 @@ public class ConfiguracoesAdapter {
 			//config.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
 			config.setTipo(c.getString(c.getColumnIndex("tipo")));
 			config.setEndereco(c.getString(c.getColumnIndex("endereco")));
+			config.setValidaId(c.getString(c.getColumnIndex("validaId")));
+			config.setValidaManejo(c.getString(c.getColumnIndex("validaManejo")));
 			//config.setAutorizacao(c.getString(c.getColumnIndex("autorizacao")));
 		}
 		return config;
@@ -32,6 +34,8 @@ public class ConfiguracoesAdapter {
 			//config.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
 			config.setTipo(c.getString(c.getColumnIndex("tipo")));
 			config.setEndereco(c.getString(c.getColumnIndex("endereco")));
+			config.setValidaId(c.getString(c.getColumnIndex("validaId")));
+			config.setValidaManejo(c.getString(c.getColumnIndex("validaManejo")));
 			//config.setAutorizacao(c.getString(c.getColumnIndex("autorizacao")));
 
 			listaConfiguracoes.add(config);
@@ -48,6 +52,8 @@ public class ConfiguracoesAdapter {
 			//config.setId_pk(configurarArray[i].getId_pk());
 			config.setTipo(configurarArray[i].getTipo());
 			config.setEndereco(configurarArray[i].getEndereco());
+			config.setValidaId(configurarArray[i].getValidaId());
+			config.setValidaManejo(configurarArray[i].getValidaManejo());
 			//config.setAutorizacao(configurarArray[i].getAutorizacao());
 			
 			listaConfigurar.add(config);
@@ -60,6 +66,9 @@ public class ConfiguracoesAdapter {
 		//config.setId_pk(configurarTB.getId_pk());
 		config.setTipo(configurarTB.getTipo());
 		config.setEndereco(configurarTB.getEndereco());
+		config.setValidaId(configurarTB.getValidaId());
+		config.setValidaManejo(configurarTB.getValidaManejo());
+
 		//config.setAutorizacao(configurarTB.getAutorizacao());
 		
 		return config;

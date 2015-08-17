@@ -36,9 +36,14 @@ public class LeitorActivity extends Activity {
             case IntentIntegrator.REQUEST_CODE:
                 IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 final String result = scanResult.getContents();
-                final String tipo   = scanResult.getFormatName();
-                //if ((result != null) || tipo != null && (scanResult.getFormatName().toString().contentEquals("CODE_39")) || (scanResult.getFormatName().toString().contentEquals("ITF")) ) {
+                final String tipo = scanResult.getFormatName();
+                if (result.length() < 15) {
+                    Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(getBaseContext(), "Erro ao ler o código de barras.", Toast.LENGTH_LONG).show();
+                } else {
                     sendResult(result, tipo);
+                }
                 break;
             default:
         }
