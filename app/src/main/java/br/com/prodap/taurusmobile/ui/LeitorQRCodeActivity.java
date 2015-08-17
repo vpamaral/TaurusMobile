@@ -99,6 +99,8 @@ public class LeitorQRCodeActivity extends Activity {
 	private void gravaConfiguracoes(String urlServidor, String tipo) {
 		qrcode_tb.setEndereco(urlServidor);
 		qrcode_tb.setTipo(tipo);
+		qrcode_tb.setValidaId("S");
+		qrcode_tb.setValidaManejo("S");
 
 		qrcode_model.insert(this, "Configuracao",
 				c_helper.configurarHelper(qrcode_tb));

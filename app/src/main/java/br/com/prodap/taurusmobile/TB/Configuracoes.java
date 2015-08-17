@@ -6,6 +6,8 @@ public class Configuracoes implements Serializable  {
 	
 	private String tipo;
 	private String endereco;
+	private String validaId;
+	private String validaManejo;
 	
 	//public String autorizacao;
 	
@@ -24,6 +26,23 @@ public class Configuracoes implements Serializable  {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+
+	public String getValidaId() {
+		return validaId;
+	}
+
+	public void setValidaId(String validaId) {
+		this.validaId = validaId;
+	}
+
+	public String getValidaManejo() {
+		return validaManejo;
+	}
+
+	public void setValidaManejo(String validaManejo) {
+		this.validaManejo = validaManejo;
+	}
+
 
 	//public String getAutorizacao() {
 		//return autorizacao;

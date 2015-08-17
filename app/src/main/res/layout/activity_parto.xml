@@ -166,6 +166,25 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/space55"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+           <!-- <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TimePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Data Parto:     "
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>-->
+
+            <TextView
                 android:id="@+id/space6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -275,15 +294,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Data Ident.:      "
-                    android:textStyle="bold"
-                    android:enabled="false"/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtDataIdentificacao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="datetime"
-                    android:maxLength="10"/>
+                    android:maxLength="10" />
             </LinearLayout>
 
             <LinearLayout
