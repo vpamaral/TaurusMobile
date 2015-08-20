@@ -163,6 +163,28 @@
                     android:maxLength="10" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/space88"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo parto: "
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spnTipoParto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
 
 
            <!-- <LinearLayout
