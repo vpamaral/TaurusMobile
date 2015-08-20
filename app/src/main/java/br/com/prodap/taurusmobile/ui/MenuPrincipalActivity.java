@@ -209,7 +209,7 @@ public class MenuPrincipalActivity extends Activity {
 
 	private void msgAtualizarDados(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Alerta").setMessage("Deseja Atualizar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
+		builder.setTitle("Aviso").setMessage("Deseja Atualizar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
 			.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					AnimalModel objModelAnimal = new AnimalModel(MenuPrincipalActivity.this);
@@ -223,7 +223,7 @@ public class MenuPrincipalActivity extends Activity {
 
 	private void msgEnviarDados(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Alerta").setMessage("Deseja Enviar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
+		builder.setTitle("Aviso").setMessage("Deseja Enviar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
 				.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						new PostAnimaisJSON(MenuPrincipalActivity.this).execute();

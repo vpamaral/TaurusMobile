@@ -163,30 +163,6 @@
                     android:maxLength="10" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/space88"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tipo parto: "
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/spnTipoParto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-
-
            <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -222,6 +198,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/space16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:id="@+id/ll_manejo"
@@ -303,6 +284,11 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/space66"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -321,6 +307,28 @@
                     android:inputType="datetime"
                     android:maxLength="10"
                     android:enabled="false" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/space88"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo parto: "
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spnTipoParto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <TextView
