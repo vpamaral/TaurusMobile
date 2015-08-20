@@ -28,10 +28,10 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 	private Configuracoes qrcode_tb;
 	private ConfiguracoesModel qrcode_model;
 	private String json;
-	private Auxiliar objeto;
+	private Auxiliar auxiliar;
 	private Gson gson;
-	PartoModel objModelParto;
-	Parto_CriaModel objModelParto_Cria;
+	private PartoModel objModelParto;
+	private Parto_CriaModel objModelParto_Cria;
 
 	public PostAnimaisJSON(Context ctx) {
 		this.ctx = ctx;
@@ -65,9 +65,9 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		if (partos_parto_cria.size() != 0) {
 			json = new Parto_PartoCriaJSON()
 					.toJSON(partos_parto_cria);
-			objeto = new Auxiliar(json);
+			auxiliar = new Auxiliar(json);
 			gson = new Gson();
-			String retornoJSON = gson.toJson(objeto);
+			String retornoJSON = gson.toJson(auxiliar);
 			new ConexaoHTTP(url + Constantes.METHODO_POST).postJson(retornoJSON);
 			return retornoJSON;
 		}
