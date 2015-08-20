@@ -240,7 +240,7 @@ public class PartoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(PartoActivity.this,
-						LeitorActivity.class);
+						LeitorCodBarrasActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -249,7 +249,7 @@ public class PartoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(PartoActivity.this,
-						LeitorActivity.class);
+						LeitorCodBarrasActivity.class);
 				startActivity(intent);
 			}
 		});

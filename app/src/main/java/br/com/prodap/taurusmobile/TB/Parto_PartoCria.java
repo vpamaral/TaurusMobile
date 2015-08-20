@@ -18,6 +18,7 @@ public class Parto_PartoCria implements Serializable {
 	private String data_identificacao;
 	private String raca_cria;
 	private String repasse;
+	private String tipo_parto;
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;
@@ -137,5 +138,13 @@ public class Parto_PartoCria implements Serializable {
 
 	public void setRepasse(String repasse) {
 		this.repasse = repasse;
+	}
+
+	public String getTipo_parto() {
+		return tipo_parto;
+	}
+
+	public void setTipo_parto(String tipo_parto) {
+		this.tipo_parto = tipo_parto;
 	}
 }

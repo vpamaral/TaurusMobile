@@ -53,6 +53,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'peso_cria'        		varchar(45),"
 				+ "'codigo_cria'     	 	varchar(45),"
 				+ "'sexo'            	 	varchar(45)"
+				+ "'tipo_parto'     	 	varchar(45),"
 				+");";
 		
 		String sql_configuracao = "CREATE TABLE 'Configuracao' ("
