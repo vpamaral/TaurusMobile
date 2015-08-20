@@ -339,11 +339,11 @@ public class PartoActivity extends Activity {
 							PartoActivity.this, "É necessário preencher a data do parto.", "Aviso", 1);
 
 					editDataParto.requestFocus();
-				} //else if (editPeso.getText().toString().isEmpty()) {
-					//MensagemUtil.addMsg(MessageDialog.Yes,
-							//PartoActivity.this,
-							//"É necessário preencher o peso de cria.", "Aviso", 1);
-				//}
+				} else if (editPeso.getText().toString().isEmpty()) {
+					MensagemUtil.addMsg(MessageDialog.Yes,
+							PartoActivity.this,
+							"É necessário preencher o peso de cria.", "Aviso", 1);
+				}
 				else if (editSisbov.getText().toString().isEmpty())	{
 					MensagemUtil.addMsg(MessageDialog.Yes,
 							PartoActivity.this,
