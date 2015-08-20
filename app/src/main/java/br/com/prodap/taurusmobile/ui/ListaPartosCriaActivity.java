@@ -2,6 +2,9 @@ package br.com.prodap.taurusmobile.ui;
 
 import java.util.List;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -13,9 +16,12 @@ import android.widget.ListView;
 
 import br.com.prodap.taurusmobile.TB.Parto;
 import br.com.prodap.taurusmobile.TB.Parto_Cria;
+import br.com.prodap.taurusmobile.adapter.PartoAdapter;
 import br.com.prodap.taurusmobile.adapter.PartoCriaAdapter;
+import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.PartoModel;
 import br.com.prodap.taurusmobile.model.Parto_CriaModel;
+import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
@@ -26,6 +32,7 @@ public class ListaPartosCriaActivity extends Activity {
 	private Parto_Cria p_cria_tb;
 	private ListView list;
 	private PartoCriaAdapter p_cria_adapter;
+	private PartoAdapter parto_adapter;
 	private List<Parto_Cria> p_cria_list;
 	private List<Parto> parto_list;
 	
@@ -56,8 +63,10 @@ public class ListaPartosCriaActivity extends Activity {
 		parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
 		p_cria_list = p_cria_model.selectAll(getBaseContext(),
 				"Parto_Cria", p_cria_tb);
+		parto_list = parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
 
 		p_cria_adapter = new PartoCriaAdapter(p_cria_list, this);
+		parto_adapter = new PartoAdapter(parto_list, this);
 
 		list.setAdapter(p_cria_adapter);
 	}
@@ -73,10 +82,10 @@ public class ListaPartosCriaActivity extends Activity {
 				p_cria_tb = (Parto_Cria) p_cria_adapter.getItem(position);
 
 				String msg = "Código: " + p_cria_tb.getCodigo_cria()
-							+ "\nIdentificador: " + p_cria_tb.getIdentificador()
-							+ "\nSisbov: " +p_cria_tb.getSisbov()
-							+ "\nPeso: " + p_cria_tb.getPeso_cria()
-							+ "\nSexo: " +p_cria_tb.getSexo();
+						+ "\nIdentificador: " + p_cria_tb.getIdentificador()
+						+ "\nSisbov: " + p_cria_tb.getSisbov()
+						+ "\nPeso: " + p_cria_tb.getPeso_cria()
+						+ "\nSexo: " + p_cria_tb.getSexo();
 
 				MensagemUtil.addMsg(MessageDialog.Yes,
 						ListaPartosCriaActivity.this, msg, "Parto", position);
@@ -89,6 +98,7 @@ public class ListaPartosCriaActivity extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				p_cria_tb = (Parto_Cria) p_cria_adapter.getItem(position);
+				parto_tb = (Parto) parto_adapter.getItem(position);
 				return false;
 			}
 		});
@@ -122,13 +132,41 @@ public class ListaPartosCriaActivity extends Activity {
 
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(ListaPartosCriaActivity.this);
+				builder.setTitle("Alerta").setMessage("Deseja Excluir o lançamento de parto?").setIcon(android.R.drawable.ic_dialog_alert)
+						.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								Long fk_animal_mae = p_cria_tb.getId_fk_animal_mae();
+								p_cria_model.removerByMae(ListaPartosCriaActivity.this, fk_animal_mae);
+								Long fk_animal = parto_tb.getId_fk_animal();
+								parto_model.removerByAnimal(ListaPartosCriaActivity.this, fk_animal);
+								MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto excluído com sucesso.");
+								Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
+								startActivity(i);
+								finish();
+							}
+						})
+						.setNegativeButton("Não", null)
+						.show();
+
 				//parto_model.deleteById(getBaseContext(), "Parto", parto_tb.getId_fk_animal());
 				//p_cria_model.deleteById(getBaseContext(), "Parto_Cria", p_cria_tb.getId_fk_animal_mae());
-				partoCriaList();
+				//partoCriaList();
 
 				return false;
 			}
 		});
+	}
 
+	private void alertMsg(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Alerta").setMessage("Deseja Atualizar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				})
+				.setNegativeButton("Não", null)
+				.show();
 	}
 }
