@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.content.Intent;
 import android.widget.Toast;
 
+import br.com.prodap.taurusmobile.util.MensagemUtil;
+import br.com.prodap.taurusmobile.util.MessageDialog;
 import jim.h.common.android.zxinglib.integrator.IntentIntegrator;
 import jim.h.common.android.zxinglib.integrator.IntentResult;
 
@@ -37,28 +39,37 @@ public class LeitorActivity extends Activity {
                 IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 final String result = scanResult.getContents();
                 final String tipo = scanResult.getFormatName();
-                if (result.length() < 15) {
-                    Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(getBaseContext(), "Erro ao ler o código de barras.", Toast.LENGTH_LONG).show();
-                } else {
                     sendResult(result, tipo);
-                }
                 break;
             default:
         }
     }
 
     public void sendResult(String result, String tipo) {
-        if (result != null || tipo != null ) {
+        if (result != null || tipo != null) {
+            if (tipo.contentEquals("CODE_39") || tipo.contentEquals("ITF")) {
+                if (result.length() > 0 && result.length() < 15) {
+                    Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
+                                        "O leitor não conseguir ler todo o código de barras!");
+                } else {
+                    Intent intent = new Intent(getBaseContext(), PartoActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("CodBarras", result);
+                    intent.putExtra("tipo", tipo);
+                    startActivity(intent);
+                    finish();
+                }
+            } else {
+                MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
+                                    "Código inválido!\nÉ esperado um Identificador ou Sisbov!");
+            }
+        } else {
             Intent intent = new Intent(getBaseContext(), PartoActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("CodBarras", result);
-            intent.putExtra("tipo", tipo);
             startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(getBaseContext(), "Erro ao ler o código de barras.", Toast.LENGTH_LONG).show();
             finish();
         }
     }

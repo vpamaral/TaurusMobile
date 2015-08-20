@@ -38,6 +38,10 @@
                 android:icon="@drawable/envia32"
                 android:showAsAction="always"
                 android:title="Configuraçoes"/>
+            <item
+                android:id="@+id/menu_versao"
+                android:showAsAction="always"
+                android:title="Versão v16"/>
         </menu>
     </item>
 

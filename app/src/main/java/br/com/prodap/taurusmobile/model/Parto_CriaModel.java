@@ -33,7 +33,7 @@ public class Parto_CriaModel extends BancoService {
 		return false;
 	}
 	
-	public void removerByCodigo(Context ctx, Long codigo){
+	public void removerByMae(Context ctx, Long codigo){
 		banco = new Banco(ctx);
 		
 		db = banco.getWritableDatabase();

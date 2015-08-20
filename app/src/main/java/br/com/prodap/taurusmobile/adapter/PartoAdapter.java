@@ -3,14 +3,29 @@ package br.com.prodap.taurusmobile.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+
 import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.TB.Parto;
+import br.com.prodap.taurusmobile.TB.Parto_Cria;
 
-public class PartoAdapter {
+public class PartoAdapter extends BaseAdapter{
+
+	private List<Parto> partos;
+	private Activity activity;
 
 	public PartoAdapter() {
 
+	}
+
+	public PartoAdapter(List<Parto> partos, Activity activity) {
+		this.partos = partos;
+		this.activity = activity;
 	}
 	
 	public Parto PartoCursor(Cursor c) {
@@ -72,5 +87,25 @@ public class PartoAdapter {
 		parto.setSexo_parto(parto_tb.getSexo_parto());
 
 		return parto;
+	}
+
+	@Override
+	public int getCount() {
+		return 0;
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return partos.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return Long.parseLong(String.valueOf(partos.get(position).getId_fk_animal()));
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		return null;
 	}
 }

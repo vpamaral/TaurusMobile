@@ -16,12 +16,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import br.com.prodap.taurusmobile.TB.Animal;
+import br.com.prodap.taurusmobile.TB.Configuracoes;
 import br.com.prodap.taurusmobile.adapter.AnimalAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
+import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
 import br.com.prodap.taurusmobile.model.PartoModel;
 import br.com.prodap.taurusmobile.model.Parto_CriaModel;
 import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
 import br.com.prodap.taurusmobile.task.PostAnimaisJSON;
+import br.com.prodap.taurusmobile.util.Auxiliar;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
@@ -33,17 +36,17 @@ public class MenuPrincipalActivity extends Activity {
 	private Button btn_lista_parto;
 	private Button btn_enviar_dados;
 	private Button btn_configurar;
-	//private Button btn_buscar; 
-	protected List<Animal> objListaAnimal;
-	public ProgressDialog objProgressDialog;
-	public AnimalAdapter aniHelper;
-	private Context context;
 	public static String idold;
+	private List<Configuracoes> lista_conf;
+	private ConfiguracoesModel configuracao_model;
+	private Configuracoes configuracao_tb;
+	private String url;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu_principal);
+		idold = "";
 		source();
 		carregaListener();
 	}
@@ -55,7 +58,13 @@ public class MenuPrincipalActivity extends Activity {
 		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
 		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
 		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
+		configuracao_model 	= new ConfiguracoesModel(this);
+		configuracao_tb 	= new Configuracoes();
 		//btn_buscar			= (Button) findViewById(R.id.btn_busca); // Bot�o para testar a funcionlidade com o bluetooth
+		lista_conf = configuracao_model.selectAll(getBaseContext(), "Configuracao", configuracao_model);
+		for (Configuracoes conf_tb : lista_conf) {
+			url = conf_tb.getEndereco();
+		}
 	}
 	
 	private void carregaListener() {
@@ -63,10 +72,10 @@ public class MenuPrincipalActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
 				atualizaDados();
 			}
 		});
+
 
 		btn_animais.setOnClickListener(new OnClickListener() {
 
@@ -171,7 +180,9 @@ public class MenuPrincipalActivity extends Activity {
 
 	private void atualizaDados() {
 		if (checksConnection()) {
-			alertMsg();
+			if (validateServer(url)){
+				msgAtualizarDados();
+			}
 		} else {
 			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
@@ -181,8 +192,9 @@ public class MenuPrincipalActivity extends Activity {
 
 	private void enviarDados() {
 		if (checksConnection()) {
-			new PostAnimaisJSON(this).execute();
-			//new PostAnimaisXML(this).execute();
+			if (validateServer(url)){
+				msgEnviarDados();
+			}
 		} else {
 			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
@@ -195,7 +207,7 @@ public class MenuPrincipalActivity extends Activity {
 		startActivity(intent);
 	}
 
-	private void alertMsg(){
+	private void msgAtualizarDados(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Alerta").setMessage("Deseja Atualizar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
 			.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
@@ -209,6 +221,18 @@ public class MenuPrincipalActivity extends Activity {
 			.show();
 	}
 
+	private void msgEnviarDados(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Alerta").setMessage("Deseja Enviar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						new PostAnimaisJSON(MenuPrincipalActivity.this).execute();
+					}
+				})
+				.setNegativeButton("Não", null)
+				.show();
+	}
+
 	public boolean checksConnection() {
 		boolean connected;
 		ConnectivityManager conectivtyManager = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -220,6 +244,22 @@ public class MenuPrincipalActivity extends Activity {
 			connected = false;
 		}
 		return connected;
+	}
+
+	public boolean validateServer(String urlServer) {
+		int count = 0;
+		for (int i = 0; i < urlServer.length(); i++) {
+			if (urlServer.charAt(i) == '/') {
+				count++;
+			}
+		}
+		if (count != 5) {
+			MensagemUtil.addMsg(MessageDialog.Toast, this
+					, "O URL do Servidor está inválido!" +
+					"\nFavor configurar o servidor.");
+			return false;
+		}
+		return true;
 	}
 	
 	/*private void buscarBluetooth() {

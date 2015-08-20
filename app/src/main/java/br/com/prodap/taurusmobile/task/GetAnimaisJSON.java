@@ -2,6 +2,7 @@ package br.com.prodap.taurusmobile.task;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import br.com.prodap.taurusmobile.TB.Animal;
@@ -11,6 +12,7 @@ import br.com.prodap.taurusmobile.adapter.ConfiguracoesAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
 import br.com.prodap.taurusmobile.service.GetJSON;
+import br.com.prodap.taurusmobile.util.Auxiliar;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
@@ -23,6 +25,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	private ConfiguracoesAdapter c_helper;
 	private Configuracoes qrcode_tb;
 	private ConfiguracoesModel qrcode_model;
+	private Auxiliar auxiliar;
 
 	public GetAnimaisJSON(Context ctx) {
 		this.ctx = ctx;
@@ -37,8 +40,6 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	
 	@Override
 	protected void onPreExecute() {
-		//AnimalModel objModelAnimal = new AnimalModel(ctx);
-		//objModelAnimal.delete(ctx, "Animal");
 		MensagemUtil.addMsg(ctx, "Aguarde...", "Recebendo dados do servidor.");
 	}
 	
@@ -49,7 +50,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 		for (Configuracoes qrcode_tb : listQRCode) {
 			url = qrcode_tb.getEndereco();
 		}
-		
+
 		AnimalModel objModelAnimal = new AnimalModel(ctx);
 		GetJSON getJSON = new GetJSON(url + Constantes.METHODO_GET);
 		try {
@@ -70,7 +71,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	protected void onPostExecute(Void result) {
 		MensagemUtil.closeProgress();
 		if(objListaAnimal.isEmpty()){
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Erro ao atualizar os dados.");
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível atualizar os dados.");
 		}
 		else {
 			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados atualizados com sucesso.");
