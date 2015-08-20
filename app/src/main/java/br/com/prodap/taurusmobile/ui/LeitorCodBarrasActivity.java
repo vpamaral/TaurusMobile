@@ -2,11 +2,9 @@ package br.com.prodap.taurusmobile.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
-import android.widget.Toast;
 
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
@@ -14,7 +12,7 @@ import jim.h.common.android.zxinglib.integrator.IntentIntegrator;
 import jim.h.common.android.zxinglib.integrator.IntentResult;
 
 
-public class LeitorActivity extends Activity {
+public class LeitorCodBarrasActivity extends Activity {
 
     //private IntentResult scanResult;
     //private String tipo;
@@ -49,10 +47,10 @@ public class LeitorActivity extends Activity {
         if (result != null || tipo != null) {
             if (tipo.contentEquals("CODE_39") || tipo.contentEquals("ITF")) {
                 if (result.length() > 0 && result.length() < 15) {
-                    Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
+                    Intent intent = new Intent(getBaseContext(), LeitorCodBarrasActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
+                    MensagemUtil.addMsg(MessageDialog.Toast, LeitorCodBarrasActivity.this,
                                         "O leitor não conseguir ler todo o código de barras!");
                 } else {
                     Intent intent = new Intent(getBaseContext(), PartoActivity.class);
@@ -63,7 +61,7 @@ public class LeitorActivity extends Activity {
                     finish();
                 }
             } else {
-                MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
+                MensagemUtil.addMsg(MessageDialog.Toast, LeitorCodBarrasActivity.this,
                                     "Código inválido!\nÉ esperado um Identificador ou Sisbov!");
             }
         } else {

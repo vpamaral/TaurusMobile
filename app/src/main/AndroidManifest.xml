@@ -57,7 +57,7 @@
             android:label="@string/title_activity_lista_animais" />
 
         <activity
-            android:name=".LeitorActivity"
+            android:name=".LeitorCodBarrasActivity"
             android:label="@string/title_activity_lista_partos" />
 
         <!--<activity
