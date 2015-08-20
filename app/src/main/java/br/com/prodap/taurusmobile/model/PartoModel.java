@@ -6,7 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import br.com.prodap.taurusmobile.TB.Animal;
+
 import br.com.prodap.taurusmobile.TB.Parto;
 import br.com.prodap.taurusmobile.adapter.PartoAdapter;
 import br.com.prodap.taurusmobile.service.Banco;
@@ -40,6 +40,14 @@ public class PartoModel extends BancoService {
 		parto = parto_adapter.PartoCursor(cursor);
 
 		return parto;
+	}
+
+	public void removerByAnimal(Context ctx, Long codigo){
+		banco = new Banco(ctx);
+
+		db = banco.getWritableDatabase();
+
+		db.delete("Parto", "id_fk_animal=?", new String[]{codigo.toString()});
 	}
 
 	@Override
