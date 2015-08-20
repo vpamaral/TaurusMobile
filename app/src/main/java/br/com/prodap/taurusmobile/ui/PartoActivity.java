@@ -1,5 +1,7 @@
 package br.com.prodap.taurusmobile.ui;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +9,8 @@ import java.util.List;
 
 import android.app.DatePickerDialog;
 import java.util.Calendar;
+
+import android.text.Editable;
 import android.widget.DatePicker;
 
 import android.app.Activity;
@@ -81,6 +85,7 @@ public class PartoActivity extends Activity {
 	private PartoAdapter p_helper;
 	private String strsis;
 	private List<Configuracoes> listConf;
+	Date dataParto = null;
 
 
 	@Override
@@ -106,14 +111,14 @@ public class PartoActivity extends Activity {
 		adpRaca.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spnRaca.setAdapter(adpRaca);
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 		Date data = new Date();
 
 		final Calendar cal = Calendar.getInstance();
 		cal.setTime(data);
 		final Date data_atual = cal.getTime();
-		String data_completa = dateFormat.format(data_atual);
+		final String data_completa = dateFormat.format(data_atual);
 		final long id_animal;
 		ani_model = new AnimalModel(this);
 		parto_model = new PartoModel(this);
@@ -310,221 +315,231 @@ public class PartoActivity extends Activity {
 				}
 			}
 			// validações temporarias
-			if (editCodCria.getText().toString().isEmpty()) {
-				MensagemUtil.addMsg(MessageDialog.Yes,
-						PartoActivity.this, "É necessário preencher o código da cria.", "Aviso", 1);
-
-				editCodCria.requestFocus();
-			} else if (editMatriz.getText().toString().isEmpty()) {
-				MensagemUtil.addMsg(MessageDialog.Yes,
-						PartoActivity.this, "É necessário preencher o código matriz.", "Aviso", 1);
-
-				editMatriz.requestFocus();
-			} else if (editDataParto.getText().toString().isEmpty()) {
-				MensagemUtil.addMsg(MessageDialog.Yes,
-						PartoActivity.this, "É necessário preencher a data do parto.", "Aviso", 1);
-
-				editDataParto.requestFocus();
-			} else if (editPeso.getText().toString().isEmpty()) {
-				MensagemUtil.addMsg(MessageDialog.Yes,
-						PartoActivity.this,
-						"É necessário preencher o peso de cria.", "Aviso", 1);
-			} else if (editSisbov.getText().toString().isEmpty())	{
-				MensagemUtil.addMsg(MessageDialog.Yes,
-						PartoActivity.this,
-						"É necessário preencher o Sisbov de cria.", "Aviso", 1);
-			} else if (editIdentificador.getText().toString().isEmpty())	{
-				MensagemUtil.addMsg(MessageDialog.Yes,
-						PartoActivity.this,
-						"É necessário preencher o Identificador de cria.", "Aviso", 1);
-			} else {
-				parto_tb.setData_parto(editDataParto.getText().toString());
-				parto_tb.setPerda_gestacao(spinPerda.getSelectedItem()
-						.toString());
-				if (spinSexo.getSelectedItem() == "FÊMEA") {
-					parto_tb.setSexo_parto("FE");
-				} else {
-					parto_tb.setSexo_parto("MA");
-				}
-				parto_tb.setId_fk_animal(Long.parseLong(txtidanimal
-						.getText().toString()));
-				cria_tb.setCodigo_cria(editCodCria.getText().toString());
-				cria_tb.setPeso_cria(editPeso.getText().toString());
-
-				if(!editRacaPai.getText().equals(spinRacaCria.getSelectedItem().toString())) {
-					cria_tb.setRepasse("SIM");
-				}
-				else {
-					cria_tb.setRepasse("NAO");
+				try {
+					dataParto = dateFormat.parse(editDataParto.getText().toString());
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
 
-				if (spinSexo.getSelectedItem() == "FÊMEA") {
-					cria_tb.setSexo("FE");
-				} else {
-					cria_tb.setSexo("MA");
-				}
-				cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal.getText().toString()));
+				if (editCodCria.getText().toString().isEmpty()) {
+					MensagemUtil.addMsg(MessageDialog.Yes,
+							PartoActivity.this, "É necessário preencher o código da cria.", "Aviso", 1);
 
-				cria_tb.setIdentificador(editIdentificador.getText().toString());
-				long sis = Long.parseLong(editSisbov.getText().toString());
-				String strsis = String.valueOf(sis);
-				cria_tb.setSisbov(strsis);
-				cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
+					editCodCria.requestFocus();
+				} else if (editMatriz.getText().toString().isEmpty()) {
+					MensagemUtil.addMsg(MessageDialog.Yes,
+							PartoActivity.this, "É necessário preencher o código matriz.", "Aviso", 1);
 
-				cria_tb.setData_identificacao(editDataIdentificacao.getText().toString());
-				cria_tb.setRaca_cria(spinRacaCria.getSelectedItem().toString());
-				parto_tb.setFgStatus(0);
-				cria_tb.setFgStatus(0);
-
-				if (listaMatriz.size() == 0) {
-					alertMsg();
-					//MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this, "Esse animal não existe no banco");
-					//editMatriz.setText("");
 					editMatriz.requestFocus();
-					return;
+				} else if(dataParto.after(data_atual)) {
+					MensagemUtil.addMsg(MessageDialog.Yes,
+							PartoActivity.this, "Data do parto não pode ser maior do que a data de identificação", "Aviso", 1);
+				} else if (editDataParto.getText().toString().isEmpty()) {
+					MensagemUtil.addMsg(MessageDialog.Yes,
+							PartoActivity.this, "É necessário preencher a data do parto.", "Aviso", 1);
+
+					editDataParto.requestFocus();
+				} else if (editPeso.getText().toString().isEmpty()) {
+					MensagemUtil.addMsg(MessageDialog.Yes,
+							PartoActivity.this,
+							"É necessário preencher o peso de cria.", "Aviso", 1);
 				}
-
-				if (validate(cria_tb, listaCria)) {
-					parto_model.insert(PartoActivity.this, "Parto", parto_tb);
-					cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
-
-					zeraInterface();
-
-					MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this,
-							"Parto cadastrado com sucesso!");
+				else if (editSisbov.getText().toString().isEmpty())	{
+					MensagemUtil.addMsg(MessageDialog.Yes,
+							PartoActivity.this,
+							"É necessário preencher o Sisbov de cria.", "Aviso", 1);
+				} else if (editIdentificador.getText().toString().isEmpty())	{
+					MensagemUtil.addMsg(MessageDialog.Yes,
+							PartoActivity.this,
+							"É necessário preencher o Identificador de cria.", "Aviso", 1);
 				} else {
-					Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
+					parto_tb.setData_parto(editDataParto.getText().toString());
+					parto_tb.setPerda_gestacao(spinPerda.getSelectedItem()
+							.toString());
+					if (spinSexo.getSelectedItem() == "FÊMEA") {
+						parto_tb.setSexo_parto("FE");
+					} else {
+						parto_tb.setSexo_parto("MA");
+					}
+					parto_tb.setId_fk_animal(Long.parseLong(txtidanimal
+							.getText().toString()));
+					cria_tb.setCodigo_cria(editCodCria.getText().toString());
+					cria_tb.setPeso_cria(editPeso.getText().toString());
+
+					if(!editRacaPai.getText().equals(spinRacaCria.getSelectedItem().toString())) {
+						cria_tb.setRepasse("SIM");
+					}
+					else {
+						cria_tb.setRepasse("NAO");
+					}
+
+					if (spinSexo.getSelectedItem() == "FÊMEA") {
+						cria_tb.setSexo("FE");
+					} else {
+						cria_tb.setSexo("MA");
+					}
+					cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal.getText().toString()));
+
+					cria_tb.setIdentificador(editIdentificador.getText().toString());
+					long sis = Long.parseLong(editSisbov.getText().toString());
+					String strsis = String.valueOf(sis);
+					cria_tb.setSisbov(strsis);
+					cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
+
+					cria_tb.setData_identificacao(editDataIdentificacao.getText().toString());
+					cria_tb.setRaca_cria(spinRacaCria.getSelectedItem().toString());
+					parto_tb.setFgStatus(0);
+					cria_tb.setFgStatus(0);
+
+					if (listaMatriz.size() == 0) {
+						alertMsg();
+						//MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this, "Esse animal não existe no banco");
+						//editMatriz.setText("");
+						editMatriz.requestFocus();
+						return;
+					}
+
+					if (validate(cria_tb, listaCria)) {
+						parto_model.insert(PartoActivity.this, "Parto", parto_tb);
+						cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
+
+						zeraInterface();
+
+						MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this,
+								"Parto cadastrado com sucesso!");
+					} else {
+						Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
+					}
 				}
-			}
-			}
-		});
-	}
+				}
+			});
+		}
 
-	private void alertMsg(){
-		MensagemUtil.addMsg(MessageDialog.Yes,
-				PartoActivity.this, "Matriz não existe na base de dados!", "Aviso", 1);
-	}
+		private void alertMsg(){
+			MensagemUtil.addMsg(MessageDialog.Yes,
+					PartoActivity.this, "Matriz não existe na base de dados!", "Aviso", 1);
+		}
 
-	public  Boolean sisbovCorreto(String sisbov)
-	{
-
-		int valor = 0;
-		int ultimo_digito;
-		String retorno = "";
-		if (sisbov != "")
+		public  Boolean sisbovCorreto(String sisbov)
 		{
-			char[] cvetor = sisbov.toCharArray();
 
-
-			sisbov = retorno;
-
-			if (sisbov.length() < 15)
-				return false;
-
-			valor = ((Integer.valueOf(cvetor[0])  * 7) + (Integer.valueOf(cvetor[1])*  6) + (Integer.valueOf(cvetor[2]) * 5));
-			valor += ((Integer.valueOf(cvetor[3]) * 4) + (Integer.valueOf(cvetor[4])*  3) + (Integer.valueOf(cvetor[5]) * 2));
-			valor += ((Integer.valueOf(cvetor[6]) * 9) + (Integer.valueOf(cvetor[7]) * 8) + (Integer.valueOf(cvetor[8]) * 7));
-			valor += ((Integer.valueOf(cvetor[9]) * 6) + (Integer.valueOf(cvetor[10]) * 5) + (Integer.valueOf(cvetor[11]) * 4));
-			valor += ((Integer.valueOf(cvetor[12]) * 3) + (Integer.valueOf(cvetor[13]) * 2));
-
-			valor = valor % 11;
-			if (valor <= 1)
+			int valor = 0;
+			int ultimo_digito;
+			String retorno = "";
+			if (sisbov != "")
 			{
-				ultimo_digito = 0;
-			}
-			else
-			{
-				ultimo_digito = (11 - valor);
-			}
+				char[] cvetor = sisbov.toCharArray();
 
 
-			if (ultimo_digito == Integer.valueOf(cvetor[sisbov.length() - 1] + "") && sisbov.length() == 15)
-				return true;
-		}
-		return false;
+				sisbov = retorno;
 
-	}
-
-	private boolean validate(Parto_Cria cria_tb, List<Parto_Cria> listaCria)
-	{
-		if (listaCria.size() != 0) {
-			for (Parto_Cria cria : listaCria) {
-				if (cria.getIdentificador().equals(cria_tb.getIdentificador())) {
-					msg = "Identificador da Cria não pode ser duplicado.\n";
+				if (sisbov.length() < 15)
 					return false;
+
+				valor = ((Integer.valueOf(cvetor[0])  * 7) + (Integer.valueOf(cvetor[1])*  6) + (Integer.valueOf(cvetor[2]) * 5));
+				valor += ((Integer.valueOf(cvetor[3]) * 4) + (Integer.valueOf(cvetor[4])*  3) + (Integer.valueOf(cvetor[5]) * 2));
+				valor += ((Integer.valueOf(cvetor[6]) * 9) + (Integer.valueOf(cvetor[7]) * 8) + (Integer.valueOf(cvetor[8]) * 7));
+				valor += ((Integer.valueOf(cvetor[9]) * 6) + (Integer.valueOf(cvetor[10]) * 5) + (Integer.valueOf(cvetor[11]) * 4));
+				valor += ((Integer.valueOf(cvetor[12]) * 3) + (Integer.valueOf(cvetor[13]) * 2));
+
+				valor = valor % 11;
+				if (valor <= 1)
+				{
+					ultimo_digito = 0;
 				}
-				if (cria.getSisbov().equals(cria_tb.getSisbov())) {
-					msg = "Sisbov da Cria não pode ser duplicado.\n";
-					return false;
+				else
+				{
+					ultimo_digito = (11 - valor);
 				}
-				return true;
 
-				/*if (cria.getCodigo_cria().equals(cria_tb.getCodigo_cria())) {
 
-					msg = "Codigo da Cria não pode ser duplicado.\n";
-					return false;
-				}*/
+				if (ultimo_digito == Integer.valueOf(cvetor[sisbov.length() - 1] + "") && sisbov.length() == 15)
+					return true;
 			}
-			msg = "Nenhuma Cria foi lançada.";
 			return false;
-		} else {
-			return true;
+
 		}
-	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.parto, menu);
-		return true;
-	}
+		private boolean validate(Parto_Cria cria_tb, List<Parto_Cria> listaCria)
+		{
+			if (listaCria.size() != 0) {
+				for (Parto_Cria cria : listaCria) {
+					if (cria.getIdentificador().equals(cria_tb.getIdentificador())) {
+						msg = "Identificador da Cria não pode ser duplicado.\n";
+						return false;
+					}
+					if (cria.getSisbov().equals(cria_tb.getSisbov())) {
+						msg = "Sisbov da Cria não pode ser duplicado.\n";
+						return false;
+					}
+					return true;
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+					/*if (cria.getCodigo_cria().equals(cria_tb.getCodigo_cria())) {
+
+						msg = "Codigo da Cria não pode ser duplicado.\n";
+						return false;
+					}*/
+				}
+				msg = "Nenhuma Cria foi lançada.";
+				return false;
+			} else {
+				return true;
+			}
 		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	public void showCalendar() {
-		new DatePickerDialog(PartoActivity.this, listner , calendario.get(Calendar.YEAR)
-														, calendario.get(Calendar.MONTH)
-														, calendario.get(Calendar.DAY_OF_MONTH)).show();
-	}
-
-	private DatePickerDialog.OnDateSetListener listner
-			= new DatePickerDialog.OnDateSetListener() {
 
 		@Override
-		public void onDateSet(DatePicker view, int year, int month, int day) {
-			String date = String.format("%s-%s-%d"	, day < 10 ? "0" + (day) : (day)
-													, month < 10 ? "0" + (++month) : (++month)
-													, year);
-
-			editDataParto.setText(date);
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate(R.menu.parto, menu);
+			return true;
 		}
-	};
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        MenuPrincipalActivity.idold = null;
-    }
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			// Handle action bar item clicks here. The action bar will
+			// automatically handle clicks on the Home/Up button, so long
+			// as you specify a parent activity in AndroidManifest.xml.
+			int id = item.getItemId();
+			if (id == R.id.action_settings) {
+				return true;
+			}
+			return super.onOptionsItemSelected(item);
+		}
 
-    public void zeraInterface() {
-		editMatriz.setText("");
-		editRacaPai.setText("");
-		editCodCria.setText("");
-		txtidanimal.setText("");
-		editSisbov.setText("");
-		editGrupoManejo.setText("");
-		editDataIdentificacao.setText("");
-		editIdentificador.setText("");
-		editIdentificador.requestFocus();
+		public void showCalendar() {
+			new DatePickerDialog(PartoActivity.this, listner , calendario.get(Calendar.YEAR)
+															, calendario.get(Calendar.MONTH)
+															, calendario.get(Calendar.DAY_OF_MONTH)).show();
+		}
+
+		private DatePickerDialog.OnDateSetListener listner
+				= new DatePickerDialog.OnDateSetListener() {
+
+			@Override
+			public void onDateSet(DatePicker view, int year, int month, int day) {
+				String date = String.format("%s-%s-%d"	, day < 10 ? "0" + (day) : (day)
+														, month < 10 ? "0" + (++month) : (++month)
+														, year);
+
+				editDataParto.setText(date);
+			}
+		};
+
+		@Override
+		public void onBackPressed() {
+			super.onBackPressed();
+			MenuPrincipalActivity.idold = null;
+		}
+
+		public void zeraInterface() {
+			editMatriz.setText("");
+			editRacaPai.setText("");
+			editCodCria.setText("");
+			txtidanimal.setText("");
+			editSisbov.setText("");
+			editGrupoManejo.setText("");
+			editDataIdentificacao.setText("");
+			editIdentificador.setText("");
+			editIdentificador.requestFocus();
+		}
 	}
-}
