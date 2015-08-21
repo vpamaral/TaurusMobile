@@ -3,12 +3,53 @@ package br.com.prodap.taurusmobile.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.database.Cursor;
-import br.com.prodap.taurusmobile.TB.Parto_PartoCria;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
 
-public class Parto_PartoCriaAdapter {
+import br.com.prodap.taurusmobile.TB.Parto_PartoCria;
+import br.com.prodap.taurusmobile.ui.R;
+
+public class Parto_PartoCriaAdapter extends BaseAdapter {
+	private List<Parto_PartoCria> partos_cria;
+	private Activity activity;
+
 	public Parto_PartoCriaAdapter() {
 
+	}
+
+	public Parto_PartoCriaAdapter(List<Parto_PartoCria> partos_cria, Activity activity) {
+
+		this.partos_cria = partos_cria;
+		this.activity = activity;
+	}
+
+	public Parto_PartoCria P_PartoCriaCursor(Cursor c) {
+		Parto_PartoCria p_partoCria = new Parto_PartoCria();
+		while (c.moveToNext()) {
+			p_partoCria.setId_fk_animal_mae(c.getLong(c.getColumnIndex("id_fk_animal_mae")));
+			p_partoCria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));
+			p_partoCria.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
+			p_partoCria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
+			p_partoCria.setSexo(c.getString(c.getColumnIndex("sexo")));
+			p_partoCria.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
+			p_partoCria.setData_parto(c.getString(c.getColumnIndex("data_parto")));
+			p_partoCria.setPerda_gestacao(c.getString(c.getColumnIndex("perda_gestacao")));
+			p_partoCria.setSexo_parto(c.getString(c.getColumnIndex("sexo_parto")));
+			p_partoCria.setSisbov(c.getString(c.getColumnIndex("sisbov")));
+			p_partoCria.setIdentificador(c.getString(c.getColumnIndex("identificador")));
+			p_partoCria.setGrupo_manejo(c.getString(c.getColumnIndex("grupo_manejo")));
+			p_partoCria.setData_identificacao(c.getString(c.getColumnIndex("data_identificacao")));
+			p_partoCria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
+			p_partoCria.setRepasse(c.getString(c.getColumnIndex("repasse")));
+			p_partoCria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
+		}
+
+		return p_partoCria;
 	}
 
 	public List<Parto_PartoCria> P_PartoCriaPreencheArrayCursor(Cursor c) {
@@ -90,5 +131,42 @@ public class Parto_PartoCriaAdapter {
 		p_partoCria.setTipo_parto(p_partoCria_tb.getTipo_parto());
 
 		return p_partoCria;
+	}
+
+	@Override
+	public int getCount() {
+		return 0;
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return partos_cria.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return Integer.valueOf(partos_cria.get(position).getCodigo_cria());
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		Parto_PartoCria p_pCria_tb = partos_cria.get(position);
+
+		LayoutInflater inflater = activity.getLayoutInflater();
+		View line = inflater.inflate(R.layout.activity_lista_partos_cria, null);
+
+		/*if (position % 2 == 0) {
+			line.setBackgroundColor(activity.getResources().
+					getColor(R.color.linha_par));
+		}else
+		{
+			line.setBackgroundColor(activity.getResources().
+					getColor(R.color.linha_impar));
+		}*/
+
+		TextView sisbov = (TextView) line.findViewById(R.id.lblCodCria);
+		sisbov.setText(p_pCria_tb.toString());
+
+		return line;
 	}
 }

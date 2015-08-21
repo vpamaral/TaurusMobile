@@ -1,5 +1,6 @@
 package br.com.prodap.taurusmobile.ui;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,6 +88,7 @@ public class PartoActivity extends Activity {
 	private String strsis;
 	private List<Configuracoes> listConf;
 	private List<Parto_Cria> listaCria;
+	Date dataParto = null;
 
 
 	@Override
@@ -120,7 +122,7 @@ public class PartoActivity extends Activity {
 
 		calendario = Calendar.getInstance();
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 		Date data = new Date();
 
@@ -322,10 +324,12 @@ public class PartoActivity extends Activity {
 					}
 				}
 
-
-
-
 				// validações temporarias
+				try {
+					dataParto = dateFormat.parse(editDataParto.getText().toString());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 				if (editCodCria.getText().toString().isEmpty()) {
 					MensagemUtil.addMsg(MessageDialog.Yes,
 							PartoActivity.this, "É necessário preencher o código da cria.", "Aviso", 1);
@@ -353,6 +357,9 @@ public class PartoActivity extends Activity {
 					MensagemUtil.addMsg(MessageDialog.Yes,
 							PartoActivity.this,
 							"É necessário preencher o Identificador de cria.", "Aviso", 1);
+				} else if(dataParto.after(data_atual)) {
+					MensagemUtil.addMsg(MessageDialog.Yes,
+							PartoActivity.this, "Data do parto não pode ser maior do que a data de identificação", "Aviso", 1);
 				} else if (editGrupoManejo.getText().toString().isEmpty())	{
 					MensagemUtil.addMsg(MessageDialog.Yes,
 							PartoActivity.this,
@@ -402,8 +409,8 @@ public class PartoActivity extends Activity {
 
 					cria_tb.setData_identificacao(editDataIdentificacao.getText().toString());
 					cria_tb.setRaca_cria(spinRacaCria.getSelectedItem().toString());
-					parto_tb.setFgStatus(0);
-					cria_tb.setFgStatus(0);
+					parto_tb.setFgStatus(Integer.parseInt("0"));
+					cria_tb.setFgStatus(Integer.parseInt("0"));
 
 					if (listaMatriz.size() == 0) {
 						alertMsg();
@@ -415,20 +422,14 @@ public class PartoActivity extends Activity {
 
 					if (lista_cria.size() != 0) {
 						if (validate(cria_tb, listaCria)) {
-							criaGemelar();
+							criaGemelar(parto_tb, cria_tb);
 						}
 						else {
 							Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
 						}
 					}
 					else if (validate(cria_tb, listaCria)) {
-						parto_model.insert(PartoActivity.this, "Parto", parto_tb);
-						cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
-
-						zeraInterface();
-
-						MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this,
-								"Parto cadastrado com sucesso!");
+						insertParto(parto_tb, cria_tb);
 					} else {
 						Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
 					}
@@ -436,6 +437,16 @@ public class PartoActivity extends Activity {
 				}
 			}
 		});
+	}
+
+	public void insertParto (Parto parto_tb, Parto_Cria cria_tb) {
+		parto_model.insert(PartoActivity.this, "Parto", parto_tb);
+		cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
+
+		zeraInterface();
+
+		MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this,
+				"Parto cadastrado com sucesso!");
 	}
 
 	private void alertMsg(){
@@ -446,12 +457,9 @@ public class PartoActivity extends Activity {
 	public  Boolean sisbovCorreto(String sisbov) {
 		int valor = 0;
 		int ultimo_digito;
-		String retorno = "";
 		if (sisbov != "")
 		{
 			char[] cvetor = sisbov.toCharArray();
-
-			//sisbov = retorno;
 
 			if (cvetor.length < 15)
 				return false;
@@ -479,8 +487,7 @@ public class PartoActivity extends Activity {
 		return false;
 	}
 
-	private void criaGemelar(){
-
+	public void criaGemelar(final Parto parto_tb, final Parto_Cria cria_tb){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Aviso").setMessage( "Matriz com cria já cadastrada deseja cadastrar "
 											+ "outra cria para essa Matriz?")
@@ -488,13 +495,7 @@ public class PartoActivity extends Activity {
 											.setPositiveButton("Sim", new DialogInterface
 											.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				parto_model.insert(PartoActivity.this, "Parto", parto_tb);
-				cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
-
-				zeraInterface();
-
-				MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this,
-						"Parto cadastrado com sucesso!");
+				insertParto(parto_tb, cria_tb);
 			}
 		})
 		.setNegativeButton("Não", null)
@@ -513,6 +514,9 @@ public class PartoActivity extends Activity {
 				}
 				if (cria.getSisbov().equals(cria_tb.getSisbov())) {
 					msg = "Sisbov da Cria não pode ser duplicado.\n";
+					return false;
+				}if (cria.getCodigo_cria().equals(cria_tb.getCodigo_cria())) {
+					msg = "Codigo da Cria não pode ser duplicado.\n";
 					return false;
 				}
 				return true;
@@ -581,7 +585,6 @@ public class PartoActivity extends Activity {
 		txtidanimal.setText("");
 		editSisbov.setText("");
 		editGrupoManejo.setText("");
-		editDataIdentificacao.setText("");
 		editIdentificador.setText("");
 		editIdentificador.requestFocus();
 	}

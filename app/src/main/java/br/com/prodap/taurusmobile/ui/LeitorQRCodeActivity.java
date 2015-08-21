@@ -23,6 +23,7 @@ public class LeitorQRCodeActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
  		source();
+		//gravaConfiguracoes("http://192.168.0.150/TaurusWebService/TaurusService.svc/", "QR_CODE");
 		getCelular();		
 	}
 	

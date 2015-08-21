@@ -14,8 +14,8 @@ import br.com.prodap.taurusmobile.service.BancoService;
 public class Parto_PartoCriaModel extends BancoService {
 
 	private Banco banco;
-	Parto_PartoCriaAdapter partoCria_adapter;
 	private SQLiteDatabase db;
+	private Parto_PartoCriaAdapter partoCria_adapter;
 
 	public Parto_PartoCriaModel(Context ctx) {
 		partoCria_adapter = new Parto_PartoCriaAdapter();
@@ -25,6 +25,14 @@ public class Parto_PartoCriaModel extends BancoService {
 	public boolean validate(Context ctx, String Tabela, Object table,
 			int VALIDATION_TYPE) {
 		return false;
+	}
+
+	public void deleteByCria(Context ctx, String codigo_cria){
+		banco = new Banco(ctx);
+
+		db = banco.getWritableDatabase();
+
+		db.delete("Parto_Cria", "codigo_cria=?", new String[]{codigo_cria});
 	}
 
 	@Override

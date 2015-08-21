@@ -33,8 +33,8 @@ public class PartoAdapter extends BaseAdapter{
 
 		while (c.moveToNext()) {
 			parto.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
-			parto.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
 			parto.setData_parto(c.getString(c.getColumnIndex("data_parto")));
+			parto.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
 			parto.setSexo_parto(c.getString(c.getColumnIndex("sexo_parto")));
 			parto.setPerda_gestacao(c.getString(c.getColumnIndex("perda_gestacao")));
 		}
@@ -48,10 +48,9 @@ public class PartoAdapter extends BaseAdapter{
 			Parto parto = new Parto();
 
 			parto.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
-			parto.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
 			parto.setData_parto(c.getString(c.getColumnIndex("data_parto")));
-			parto.setPerda_gestacao(c.getString(c
-					.getColumnIndex("perda_gestacao")));
+			parto.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
+			parto.setPerda_gestacao(c.getString(c.getColumnIndex("perda_gestacao")));
 			parto.setSexo_parto(c.getString(c.getColumnIndex("sexo_parto")));
 
 			listaParto.add(parto);
@@ -67,8 +66,8 @@ public class PartoAdapter extends BaseAdapter{
 			Parto parto = new Parto();
 
 			parto.setId_fk_animal(PartoArray[i].getId_fk_animal());
-			parto.setFgStatus(PartoArray[i].getFgStatus());
 			parto.setData_parto(PartoArray[i].getData_parto());
+			parto.setFgStatus(PartoArray[i].getFgStatus());
 			parto.setPerda_gestacao(PartoArray[i].getPerda_gestacao());
 			parto.setSexo_parto(PartoArray[i].getSexo_parto());
 
@@ -81,8 +80,8 @@ public class PartoAdapter extends BaseAdapter{
 		Parto parto = new Parto();
 
 		parto.setId_fk_animal(parto_tb.getId_fk_animal());
-		parto.setFgStatus(parto_tb.getFgStatus());
 		parto.setData_parto(parto_tb.getData_parto());
+		parto.setFgStatus(parto_tb.getFgStatus());
 		parto.setPerda_gestacao(parto_tb.getPerda_gestacao());
 		parto.setSexo_parto(parto_tb.getSexo_parto());
 
