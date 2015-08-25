@@ -181,7 +181,13 @@ public class MenuPrincipalActivity extends Activity {
 	private void atualizaDados() {
 		if (checksConnection()) {
 			if (validateServer(url)){
-				msgAtualizarDados();
+				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Deseja atualizar os dados?"
+									, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						new GetAnimaisJSON(MenuPrincipalActivity.this).execute();
+					}
+				});
 			}
 		} else {
 			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
@@ -193,7 +199,13 @@ public class MenuPrincipalActivity extends Activity {
 	private void enviarDados() {
 		if (checksConnection()) {
 			if (validateServer(url)){
-				msgEnviarDados();
+				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Deseja enviar os dados?"
+									, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						new PostAnimaisJSON(MenuPrincipalActivity.this).execute();
+					}
+				});
 			}
 		} else {
 			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
@@ -205,32 +217,6 @@ public class MenuPrincipalActivity extends Activity {
 		Intent intent = new Intent(MenuPrincipalActivity.this,
 				ConfiguracoesQRCodeActivity.class);
 		startActivity(intent);
-	}
-
-	private void msgAtualizarDados(){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Aviso").setMessage("Deseja Atualizar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
-			.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					AnimalModel objModelAnimal = new AnimalModel(MenuPrincipalActivity.this);
-					objModelAnimal.delete(MenuPrincipalActivity.this, "Animal");
-					new GetAnimaisJSON(MenuPrincipalActivity.this).execute();
-				}
-			})
-			.setNegativeButton("Não", null)
-			.show();
-	}
-
-	private void msgEnviarDados(){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Aviso").setMessage("Deseja Enviar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						new PostAnimaisJSON(MenuPrincipalActivity.this).execute();
-					}
-				})
-				.setNegativeButton("Não", null)
-				.show();
 	}
 
 	public boolean checksConnection() {
@@ -261,7 +247,13 @@ public class MenuPrincipalActivity extends Activity {
 		}
 		return true;
 	}
-	
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		finish();
+	}
+
 	/*private void buscarBluetooth() {
 		Intent intent = new Intent(MenuPrincipalActivity.this, 
 				BuscarAnimaisBluetoothActivity.class);
