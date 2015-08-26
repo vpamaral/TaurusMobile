@@ -14,6 +14,7 @@ import android.widget.ListView;
 import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.adapter.AnimalAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
+import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
@@ -24,6 +25,7 @@ public class ListaAnimaisActivity extends Activity {
 	private ListView list;
 	private AnimalAdapter animal_adapter;
 	private List<Animal> animais_list;
+	private Constantes constantes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,8 @@ public class ListaAnimaisActivity extends Activity {
 		ani_tb = new Animal();
 		ani_model = new AnimalModel(getBaseContext());
 		list = (ListView) findViewById(R.id.lista_animais);
-		
+
+		constantes = new Constantes();
 		this.AnimalList();
 		this.consultarPorIdClick();
 		this.consultarPorIdClickLongo();
@@ -81,7 +84,8 @@ public class ListaAnimaisActivity extends Activity {
 					int position, long id) {
 				ani_tb = (Animal) animal_adapter.getItem(position);
 
-				String msg = "Código: " + ani_tb.getCodigo() + "\nSisbov: "
+				String msg = "Total de Matriz: " + constantes.TOTAL_ANIMAIS
+						+ "\n\n\nCódigo: " + ani_tb.getCodigo() + "\nSisbov: "
 						+ ani_tb.getSisbov() + "\nIdentificador: "
 						+ ani_tb.getIdentificador() + "\nPeso Atual: "
 						+ ani_tb.getPeso_atual();

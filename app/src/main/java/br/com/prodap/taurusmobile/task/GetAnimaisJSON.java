@@ -26,6 +26,8 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	private Configuracoes qrcode_tb;
 	private ConfiguracoesModel qrcode_model;
 	private Auxiliar auxiliar;
+	private int count = 0;
+	private Constantes constantes;
 
 	public GetAnimaisJSON(Context ctx) {
 		this.ctx = ctx;
@@ -36,6 +38,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 		qrcode_tb 		= new Configuracoes();
 		qrcode_model = new ConfiguracoesModel(ctx);
 		c_helper 		= new ConfiguracoesAdapter();
+		constantes		= new Constantes();
 	}
 	
 	@Override
@@ -45,6 +48,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	
 	@Override
 	protected Void doInBackground(Void... params) {
+		constantes.TOTAL_ANIMAIS = 0;
 		String url = "";
 		List<Configuracoes> listQRCode = qrcode_model.selectAll(ctx, "Configuracao", qrcode_tb);
 		for (Configuracoes qrcode_tb : listQRCode) {
@@ -56,6 +60,8 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 		try {
 			objListaAnimal = getJSON.listaAnimal();
 			aniHelper = new AnimalAdapter();
+			count = objListaAnimal.size();
+			Constantes.TOTAL_ANIMAIS = count;
 			for (Animal animal : objListaAnimal) {
 				if (objListaAnimal.size() != 0)
 					objModelAnimal.insert(ctx, "Animal",

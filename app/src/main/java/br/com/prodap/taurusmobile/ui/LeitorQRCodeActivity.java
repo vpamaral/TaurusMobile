@@ -2,6 +2,8 @@ package br.com.prodap.taurusmobile.ui;
 
 import java.util.List;
 
+import br.com.prodap.taurusmobile.util.MensagemUtil;
+import br.com.prodap.taurusmobile.util.MessageDialog;
 import jim.h.common.android.zxinglib.integrator.IntentIntegrator;
 import jim.h.common.android.zxinglib.integrator.IntentResult;
 import android.app.Activity;
@@ -23,6 +25,7 @@ public class LeitorQRCodeActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
  		source();
+		//gravaConfiguracoes("http://192.168.0.150/TaurusWebService/TaurusService.svc/", "QR_CODE");
 		getCelular();		
 	}
 	
@@ -84,16 +87,51 @@ public class LeitorQRCodeActivity extends Activity {
 					resultCode, data);
 			urlServidor = scanResult.getContents();
 			tipo 		= scanResult.getFormatName();
-			
-			if (urlServidor == null && tipo == null) {
-				this.finish();
+
+			int count = 0;
+			if (urlServidor != null && tipo != null) {
+				if (tipo.contentEquals("QR_CODE") ) {
+					for (int i = 0; i < urlServidor.length(); i++) {
+						if (urlServidor.charAt(i) == '/') {
+							count++;
+						}
+					}
+					if (count != 5) {
+						Intent intent = new Intent(getBaseContext(), LeitorQRCodeActivity.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent);
+						MensagemUtil.addMsg(MessageDialog.Toast, LeitorQRCodeActivity.this,
+								"O URL do Servidor está inválido!\nPosicione o leitor novamente.");
+					} else {
+						Intent intent = new Intent(getBaseContext(), MenuPrincipalActivity.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						//intent.putExtra("QRCode", urlServidor);
+						//intent.putExtra("tipo", tipo);
+						gravaConfiguracoes(urlServidor, tipo);
+						existCelular(urlServidor, tipo);
+						startActivity(intent);
+						finish();
+					}
+				} else {
+					Intent intent = new Intent(getBaseContext(), LeitorQRCodeActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+					MensagemUtil.addMsg(MessageDialog.Toast, LeitorQRCodeActivity.this,
+							"Código inválido!\nÉ esperado um QR_CODE!");
+				}
 			} else {
-				gravaConfiguracoes(urlServidor, tipo);
-				existCelular(urlServidor, tipo);
+
+				onBackPressed();
 			}
 			break;
 		default:			
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		finish();
 	}
 
 	private void gravaConfiguracoes(String urlServidor, String tipo) {

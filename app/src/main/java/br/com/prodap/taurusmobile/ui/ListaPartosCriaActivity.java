@@ -126,7 +126,7 @@ public class ListaPartosCriaActivity extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuItem miDelete = menu.add("Excluir");
+		MenuItem miDelete = menu.add("Excluir Parto");
 		miDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
 		{
 
@@ -140,7 +140,7 @@ public class ListaPartosCriaActivity extends Activity {
 								p_cria_model.removerByMae(ListaPartosCriaActivity.this, fk_animal_mae);
 								Long fk_animal = parto_tb.getId_fk_animal();
 								parto_model.removerByAnimal(ListaPartosCriaActivity.this, fk_animal);
-								MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Parto excluído com sucesso.");
+								MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Lançamento de Parto excluído com sucesso.");
 								Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
 								startActivity(i);
 								finish();
