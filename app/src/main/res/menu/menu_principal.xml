@@ -35,7 +35,7 @@
                 android:title="Enviar Dados Servidor"/>
             <item
                 android:id="@+id/menu_QRCode"
-                android:icon="@drawable/envia32"
+                android:icon="@drawable/settings"
                 android:showAsAction="always"
                 android:title="Configuraçoes"/>
             <item
