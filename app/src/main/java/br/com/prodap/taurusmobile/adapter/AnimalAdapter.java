@@ -1,8 +1,5 @@
 package br.com.prodap.taurusmobile.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.ui.R;
@@ -116,11 +116,7 @@ public class AnimalAdapter extends BaseAdapter {
 		animal.setCodigo(animalTB.getCodigo());
 		animal.setSisbov(animalTB.getSisbov());
 		animal.setIdentificador(animalTB.getIdentificador());
-		if (animalTB.getCodigo_ferro() != null) {
-			animal.setCodigo_ferro(animalTB.getCodigo_ferro());
-		} else {
-			animal.setCodigo_ferro("-");
-		}
+		animal.setCodigo_ferro(animalTB.getCodigo_ferro() != null ? animalTB.getCodigo_ferro() : "-");
 		animal.setData_nascimento(animalTB.getData_nascimento());
 		animal.setCategoria(animalTB.getCategoria());
 		animal.setRaca(animalTB.getRaca());

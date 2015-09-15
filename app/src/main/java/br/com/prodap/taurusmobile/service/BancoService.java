@@ -1,25 +1,21 @@
 package br.com.prodap.taurusmobile.service;
 
+import android.content.ContentValues;
+import android.content.Context;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import android.content.ContentValues;
-import android.content.Context;
-
 public abstract class BancoService {
 
-	public abstract boolean validate(Context ctx, String Tabela, Object table,
-			int VALIDATION_TYPE);
+	public abstract boolean validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE);
 
-	public abstract <T> List<T> selectAll(Context ctx, String Tabela,
-			Object table);
+	public abstract <T> List<T> selectAll(Context ctx, String Tabela, Object table);
 
-	public abstract <T> T selectID(Context ctx, String Tabela, Object table,
-			long id);
+	public abstract <T> T selectID(Context ctx, String Tabela, Object table, long id);
 
 	public void insert(Context ctx, String Tabela, Object table) {
-
 		try {
 			Banco banco = new Banco(ctx);
 			ContentValues cv = new ContentValues();
@@ -37,7 +33,7 @@ public abstract class BancoService {
 		}
 	}
 
-	public void Update(Context ctx, String Tabela, Object table) {
+	public void update(Context ctx, String Tabela, Object table) {
 		try {
 			Banco banco = new Banco(ctx);
 			ContentValues cv = new ContentValues();
@@ -67,7 +63,6 @@ public abstract class BancoService {
 	}
 
 	private static Object getValueAt(Object table, String column) {
-
 		try {
 			Object obj = table;
 			Class<?> classe = obj.getClass();

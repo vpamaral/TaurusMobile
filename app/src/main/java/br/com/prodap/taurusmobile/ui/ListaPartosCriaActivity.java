@@ -1,6 +1,5 @@
 package br.com.prodap.taurusmobile.ui;
 
-import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,14 +13,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import java.util.List;
+
 import br.com.prodap.taurusmobile.TB.Parto;
 import br.com.prodap.taurusmobile.TB.Parto_Cria;
 import br.com.prodap.taurusmobile.adapter.PartoAdapter;
 import br.com.prodap.taurusmobile.adapter.PartoCriaAdapter;
-import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.PartoModel;
 import br.com.prodap.taurusmobile.model.Parto_CriaModel;
-import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
@@ -85,7 +84,8 @@ public class ListaPartosCriaActivity extends Activity {
 						+ "\nIdentificador: " + p_cria_tb.getIdentificador()
 						+ "\nSisbov: " + p_cria_tb.getSisbov()
 						+ "\nPeso: " + p_cria_tb.getPeso_cria()
-						+ "\nSexo: " + p_cria_tb.getSexo();
+						+ "\nSexo: " + p_cria_tb.getSexo()
+						+ "\nPasto: " + p_cria_tb.getPasto();
 
 				MensagemUtil.addMsg(MessageDialog.Yes,
 						ListaPartosCriaActivity.this, msg, "Parto", position);
@@ -98,37 +98,17 @@ public class ListaPartosCriaActivity extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				p_cria_tb = (Parto_Cria) p_cria_adapter.getItem(position);
-				parto_tb = (Parto) parto_adapter.getItem(position);
+				//parto_tb = (Parto) parto_adapter.getItem(position);
 				return false;
 			}
 		});
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.lista_partos, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuItem miDelete = menu.add("Excluir Parto");
-		miDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
-		{
+		miDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
@@ -140,9 +120,9 @@ public class ListaPartosCriaActivity extends Activity {
 								p_cria_model.removerByMae(ListaPartosCriaActivity.this, fk_animal_mae);
 								Long fk_animal = parto_tb.getId_fk_animal();
 								parto_model.removerByAnimal(ListaPartosCriaActivity.this, fk_animal);
-								MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Lançamento de Parto excluído com sucesso.");
 								Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
 								startActivity(i);
+								MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Lançamento de Parto excluído com sucesso.");
 								finish();
 							}
 						})
@@ -169,4 +149,23 @@ public class ListaPartosCriaActivity extends Activity {
 				.setNegativeButton("Não", null)
 				.show();
 	}
+/*
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.lista_partos, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}*/
 }

@@ -1,9 +1,9 @@
 package br.com.prodap.taurusmobile.converter;
 
-import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONStringer;
+
+import java.util.List;
 
 import br.com.prodap.taurusmobile.TB.Parto_PartoCria;
 
@@ -25,11 +25,12 @@ public class Parto_PartoCriaJSON {
 				js.key("sexo").value(p_partoCria.getSexo());
 				js.key("sisbov").value(p_partoCria.getSisbov());
 				js.key("identificador").value(p_partoCria.getIdentificador());
-				js.key("fgStatus").value(p_partoCria.getFgStatus());
+				js.key("sync_status").value(p_partoCria.getSync_status());
 				js.key("raca_cria").value(p_partoCria.getRaca_cria());
 				js.key("data_identificacao").value(p_partoCria.getData_identificacao());
 				js.key("repasse").value(p_partoCria.getRepasse());
 				js.key("tipo_parto").value(p_partoCria.getTipo_parto());
+				js.key("pasto").value(p_partoCria.getPasto());
 				js.endObject();
 			}
 			js.endArray().endObject();

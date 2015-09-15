@@ -1,9 +1,9 @@
 package br.com.prodap.taurusmobile.converter;
 
-import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONStringer;
+
+import java.util.List;
 
 import br.com.prodap.taurusmobile.TB.Parto_Cria;
 
@@ -21,7 +21,8 @@ public class PartoCriaConverterJSON {
 				js.key("sexo").value(parto.getSexo());
 				js.key("sisbov").value(parto.getSisbov());
 				js.key("identificador").value(parto.getIdentificador());
-				js.key("fgStatus").value(parto.getFgStatus());
+				js.key("sync_status").value(parto.getSync_status());
+				js.key("pasto").value(parto.getPasto());
 				js.endObject();
 			}
 			js.endArray().endObject();
