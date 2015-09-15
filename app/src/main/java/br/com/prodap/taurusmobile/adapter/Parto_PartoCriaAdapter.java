@@ -1,8 +1,5 @@
 package br.com.prodap.taurusmobile.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.prodap.taurusmobile.TB.Parto_PartoCria;
 import br.com.prodap.taurusmobile.ui.R;
@@ -33,7 +33,7 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 		while (c.moveToNext()) {
 			p_partoCria.setId_fk_animal_mae(c.getLong(c.getColumnIndex("id_fk_animal_mae")));
 			p_partoCria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));
-			p_partoCria.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
+			p_partoCria.setSync_status(c.getInt(c.getColumnIndex("sync_status")));
 			p_partoCria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
 			p_partoCria.setSexo(c.getString(c.getColumnIndex("sexo")));
 			p_partoCria.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
@@ -47,6 +47,7 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 			p_partoCria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
 			p_partoCria.setRepasse(c.getString(c.getColumnIndex("repasse")));
 			p_partoCria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
+			p_partoCria.setPasto(c.getString(c.getColumnIndex("pasto")));
 		}
 
 		return p_partoCria;
@@ -60,7 +61,7 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 
 			p_partoCria.setId_fk_animal_mae(c.getLong(c.getColumnIndex("id_fk_animal_mae")));
 			p_partoCria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));
-			p_partoCria.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
+			p_partoCria.setSync_status(c.getInt(c.getColumnIndex("sync_status")));
 			p_partoCria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
 			p_partoCria.setSexo(c.getString(c.getColumnIndex("sexo")));
 			p_partoCria.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
@@ -74,6 +75,7 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 			p_partoCria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
 			p_partoCria.setRepasse(c.getString(c.getColumnIndex("repasse")));
 			p_partoCria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
+			p_partoCria.setPasto(c.getString(c.getColumnIndex("pasto")));
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -88,9 +90,10 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 
 			Parto_PartoCria p_partoCria = new Parto_PartoCria();
 
+			//p_partoCria.setId_auto(PartoCriaArray[i].getId_auto());
 			p_partoCria.setId_fk_animal_mae(PartoCriaArray[i].getId_fk_animal_mae());
 			p_partoCria.setPeso_cria(PartoCriaArray[i].getPeso_cria());
-			p_partoCria.setFgStatus(PartoCriaArray[i].getFgStatus());
+			p_partoCria.setSync_status(PartoCriaArray[i].getSync_status());
 			p_partoCria.setCodigo_cria(PartoCriaArray[i].getCodigo_cria());
 			p_partoCria.setSexo(PartoCriaArray[i].getSexo());
 			p_partoCria.setId_fk_animal(PartoCriaArray[i].getId_fk_animal());
@@ -104,6 +107,7 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 			p_partoCria.setRaca_cria(PartoCriaArray[i].getRaca_cria());
 			p_partoCria.setRepasse(PartoCriaArray[i].getRepasse());
 			p_partoCria.setTipo_parto(PartoCriaArray[i].getTipo_parto());
+			p_partoCria.setPasto(PartoCriaArray[i].getPasto());
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -115,7 +119,7 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 
 		p_partoCria.setId_fk_animal_mae(p_partoCria_tb.getId_fk_animal_mae());
 		p_partoCria.setPeso_cria(p_partoCria_tb.getPeso_cria());
-		p_partoCria.setFgStatus(p_partoCria_tb.getFgStatus());
+		p_partoCria.setSync_status(p_partoCria_tb.getSync_status());
 		p_partoCria.setCodigo_cria(p_partoCria_tb.getCodigo_cria());
 		p_partoCria.setSexo(p_partoCria_tb.getSexo());
 		p_partoCria.setId_fk_animal(p_partoCria_tb.getId_fk_animal());
@@ -129,6 +133,7 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 		p_partoCria.setRaca_cria(p_partoCria_tb.getRaca_cria());
 		p_partoCria.setRepasse(p_partoCria_tb.getRepasse());
 		p_partoCria.setTipo_parto(p_partoCria_tb.getTipo_parto());
+		p_partoCria.setPasto(p_partoCria_tb.getPasto());
 
 		return p_partoCria;
 	}
@@ -145,7 +150,7 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return Integer.valueOf(partos_cria.get(position).getCodigo_cria());
+		return Long.parseLong(partos_cria.get(position).getCodigo_cria());
 	}
 
 	@Override

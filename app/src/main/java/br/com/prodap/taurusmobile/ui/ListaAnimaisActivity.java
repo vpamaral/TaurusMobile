@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.adapter.AnimalAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
@@ -26,6 +28,8 @@ public class ListaAnimaisActivity extends Activity {
 	private AnimalAdapter animal_adapter;
 	private List<Animal> animais_list;
 	private Constantes constantes;
+	private long quantdAnimais;
+	private TextView txtContador;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +39,22 @@ public class ListaAnimaisActivity extends Activity {
 		ani_tb = new Animal();
 		ani_model = new AnimalModel(getBaseContext());
 		list = (ListView) findViewById(R.id.lista_animais);
+		txtContador = (TextView) findViewById(R.id.lblSisbov);
 
 		constantes = new Constantes();
 		this.AnimalList();
 		this.consultarPorIdClick();
 		this.consultarPorIdClickLongo();
+
+		//setTitle("Quantidade de Animais: " + quantdAnimais);
+		//txtContador.setText("Quantidade de Animais: " + Constantes.TOTAL_ANIMAIS +  "\n" + "Código" " - " );
 	}
-	
+
 	private void AnimalList(){
 		animais_list = ani_model.selectAll(getBaseContext(), "Animal",
 				ani_tb);
+
+		//quantdAnimais = animais_list.size();
 
 		animal_adapter = new AnimalAdapter(animais_list, this);
 
@@ -81,21 +91,21 @@ public class ListaAnimaisActivity extends Activity {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> adapter, View view,
-					int position, long id) {
+										   int position, long id) {
 				ani_tb = (Animal) animal_adapter.getItem(position);
 
-				String msg = "Total de Matriz: " + constantes.TOTAL_ANIMAIS
+				String msg = "Total de Matriz: " + Constantes.TOTAL_ANIMAIS
 						+ "\n\n\nCódigo: " + ani_tb.getCodigo() + "\nSisbov: "
 						+ ani_tb.getSisbov() + "\nIdentificador: "
 						+ ani_tb.getIdentificador() + "\nPeso Atual: "
 						+ ani_tb.getPeso_atual();
-				MensagemUtil.addMsg(MessageDialog.Yes, ListaAnimaisActivity.this, msg, "Animal", position); 
-						
+				MensagemUtil.addMsg(MessageDialog.Yes, ListaAnimaisActivity.this, msg, "Animal", position);
+
 				return true;
 			}
 		});
 	}
-	
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -113,5 +123,5 @@ public class ListaAnimaisActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	}*/
 }

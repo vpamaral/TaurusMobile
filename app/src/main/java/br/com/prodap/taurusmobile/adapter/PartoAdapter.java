@@ -1,18 +1,15 @@
 package br.com.prodap.taurusmobile.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
-import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import br.com.prodap.taurusmobile.TB.Animal;
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.prodap.taurusmobile.TB.Parto;
-import br.com.prodap.taurusmobile.TB.Parto_Cria;
 
 public class PartoAdapter extends BaseAdapter{
 
@@ -34,7 +31,7 @@ public class PartoAdapter extends BaseAdapter{
 		while (c.moveToNext()) {
 			parto.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
 			parto.setData_parto(c.getString(c.getColumnIndex("data_parto")));
-			parto.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
+			parto.setSync_status(c.getInt(c.getColumnIndex("sync_status")));
 			parto.setSexo_parto(c.getString(c.getColumnIndex("sexo_parto")));
 			parto.setPerda_gestacao(c.getString(c.getColumnIndex("perda_gestacao")));
 		}
@@ -49,7 +46,7 @@ public class PartoAdapter extends BaseAdapter{
 
 			parto.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
 			parto.setData_parto(c.getString(c.getColumnIndex("data_parto")));
-			parto.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
+			parto.setSync_status(c.getInt(c.getColumnIndex("sync_status")));
 			parto.setPerda_gestacao(c.getString(c.getColumnIndex("perda_gestacao")));
 			parto.setSexo_parto(c.getString(c.getColumnIndex("sexo_parto")));
 
@@ -67,7 +64,7 @@ public class PartoAdapter extends BaseAdapter{
 
 			parto.setId_fk_animal(PartoArray[i].getId_fk_animal());
 			parto.setData_parto(PartoArray[i].getData_parto());
-			parto.setFgStatus(PartoArray[i].getFgStatus());
+			parto.setSync_status(PartoArray[i].getSync_status());
 			parto.setPerda_gestacao(PartoArray[i].getPerda_gestacao());
 			parto.setSexo_parto(PartoArray[i].getSexo_parto());
 
@@ -81,7 +78,7 @@ public class PartoAdapter extends BaseAdapter{
 
 		parto.setId_fk_animal(parto_tb.getId_fk_animal());
 		parto.setData_parto(parto_tb.getData_parto());
-		parto.setFgStatus(parto_tb.getFgStatus());
+		parto.setSync_status(parto_tb.getSync_status());
 		parto.setPerda_gestacao(parto_tb.getPerda_gestacao());
 		parto.setSexo_parto(parto_tb.getSexo_parto());
 
@@ -90,7 +87,7 @@ public class PartoAdapter extends BaseAdapter{
 
 	@Override
 	public int getCount() {
-		return 0;
+		return partos.size();
 	}
 
 	@Override
@@ -100,7 +97,7 @@ public class PartoAdapter extends BaseAdapter{
 
 	@Override
 	public long getItemId(int position) {
-		return Long.parseLong(String.valueOf(partos.get(position).getId_fk_animal()));
+		return Long.parseLong(String.valueOf(partos.get(position).getId_auto()));
 	}
 
 	@Override

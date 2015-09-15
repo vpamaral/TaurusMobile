@@ -35,13 +35,13 @@
                 android:title="Enviar Dados Servidor"/>
             <item
                 android:id="@+id/menu_QRCode"
-                android:icon="@drawable/settings"
+                android:icon="@drawable/setting"
                 android:showAsAction="always"
                 android:title="Configuraçoes"/>
             <item
                 android:id="@+id/menu_versao"
                 android:showAsAction="always"
-                android:title="Versão v18"/>
+                android:title="Versão v19"/>
         </menu>
     </item>
 

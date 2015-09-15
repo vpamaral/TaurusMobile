@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class Parto_Cria implements Serializable {
 
+	//private long id_auto;
 	private long id_fk_animal_mae;
-	private int fgStatus;
+	private int sync_status;
 	private String peso_cria;
 	private String codigo_cria;
 	private String sexo;
@@ -16,6 +17,15 @@ public class Parto_Cria implements Serializable {
 	private String raca_cria;
 	private String repasse;
 	private String tipo_parto;
+	private String pasto;
+
+	/*public long getId_auto() {
+		return id_auto;
+	}
+
+	public void setId_auto(long id_auto) {
+		this.id_auto = id_auto;
+	}*/
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;
@@ -47,14 +57,6 @@ public class Parto_Cria implements Serializable {
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
-	}
-
-	public int getFgStatus() {
-		return fgStatus;
-	}
-
-	public void setFgStatus(int fgStatus) {
-		this.fgStatus = fgStatus;
 	}
 
 	public String getSisbov() {
@@ -116,5 +118,21 @@ public class Parto_Cria implements Serializable {
 
 	public void setTipo_parto(String tipo_parto) {
 		this.tipo_parto = tipo_parto;
+	}
+
+	public int getSync_status() {
+		return sync_status;
+	}
+
+	public void setSync_status(int sync_status) {
+		this.sync_status = sync_status;
+	}
+
+	public String getPasto() {
+		return pasto;
+	}
+
+	public void setPasto(String pasto) {
+		this.pasto = pasto;
 	}
 }

@@ -1,8 +1,5 @@
 package br.com.prodap.taurusmobile.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -11,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import br.com.prodap.taurusmobile.TB.Animal;
-import br.com.prodap.taurusmobile.TB.Parto;
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.prodap.taurusmobile.TB.Parto_Cria;
 import br.com.prodap.taurusmobile.ui.R;
 
@@ -37,7 +35,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 			parto_cria.setSisbov(c.getString(c.getColumnIndex("sisbov")));
 			parto_cria.setIdentificador(c.getString(c.getColumnIndex("identificador")));
 			parto_cria.setGrupo_manejo(c.getString(c.getColumnIndex("grupo_manejo")));
-			parto_cria.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
+			parto_cria.setSync_status(c.getInt(c.getColumnIndex("sync_status")));
 			parto_cria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));
 			parto_cria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
 			parto_cria.setSexo(c.getString(c.getColumnIndex("sexo")));
@@ -45,6 +43,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 			parto_cria.setData_identificacao(c.getString(c.getColumnIndex("data_identificacao")));
 			parto_cria.setRepasse(c.getString(c.getColumnIndex("repasse")));
 			parto_cria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
+			parto_cria.setPasto(c.getString(c.getColumnIndex("pasto")));
 
 		}
 		return parto_cria;
@@ -60,7 +59,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 			parto_cria.setSisbov(c.getString(c.getColumnIndex("sisbov")));
 			parto_cria.setIdentificador(c.getString(c.getColumnIndex("identificador")));
 			parto_cria.setGrupo_manejo(c.getString(c.getColumnIndex("grupo_manejo")));
-			parto_cria.setFgStatus(c.getInt(c.getColumnIndex("fgStatus")));
+			parto_cria.setSync_status(c.getInt(c.getColumnIndex("sync_status")));
 			parto_cria.setPeso_cria(c.getString(c.getColumnIndex("peso_cria")));			
 			parto_cria.setCodigo_cria(c.getString(c.getColumnIndex("codigo_cria")));
 			parto_cria.setSexo(c.getString(c.getColumnIndex("sexo")));
@@ -68,6 +67,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 			parto_cria.setData_identificacao(c.getString(c.getColumnIndex("data_identificacao")));
 			parto_cria.setRepasse(c.getString(c.getColumnIndex("repasse")));
 			parto_cria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
+			parto_cria.setPasto(c.getString(c.getColumnIndex("pasto")));
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -85,7 +85,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 			parto_cria.setSisbov(PartoCriaArray[i].getSisbov());
 			parto_cria.setIdentificador(PartoCriaArray[i].getIdentificador());
 			parto_cria.setGrupo_manejo(PartoCriaArray[i].getGrupo_manejo());
-			parto_cria.setFgStatus(PartoCriaArray[i].getFgStatus());
+			parto_cria.setSync_status(PartoCriaArray[i].getSync_status());
 			parto_cria.setPeso_cria(PartoCriaArray[i].getPeso_cria());
 			parto_cria.setCodigo_cria(PartoCriaArray[i].getCodigo_cria());
 			parto_cria.setSexo(PartoCriaArray[i].getSexo());
@@ -93,6 +93,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 			parto_cria.setData_identificacao(PartoCriaArray[i].getData_identificacao());
 			parto_cria.setRepasse(PartoCriaArray[i].getRepasse());
 			parto_cria.setTipo_parto(PartoCriaArray[i].getTipo_parto());
+			parto_cria.setPasto(PartoCriaArray[i].getPasto());
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -106,7 +107,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 		parto_cria.setSisbov(parto_cria_tb.getSisbov());
 		parto_cria.setIdentificador(parto_cria_tb.getIdentificador());
 		parto_cria.setGrupo_manejo(parto_cria_tb.getGrupo_manejo());
-		parto_cria.setFgStatus(parto_cria_tb.getFgStatus());
+		parto_cria.setSync_status(parto_cria_tb.getSync_status());
 		parto_cria.setPeso_cria(parto_cria_tb.getPeso_cria());
 		parto_cria.setCodigo_cria(parto_cria_tb.getCodigo_cria());
 		parto_cria.setSexo(parto_cria_tb.getSexo());
@@ -114,6 +115,7 @@ public class PartoCriaAdapter extends BaseAdapter{
 		parto_cria.setData_identificacao(parto_cria_tb.getData_identificacao());
 		parto_cria.setRepasse(parto_cria_tb.getRepasse());
 		parto_cria.setTipo_parto(parto_cria_tb.getTipo_parto());
+		parto_cria.setPasto(parto_cria_tb.getPasto());
 
 		return parto_cria;
 	}

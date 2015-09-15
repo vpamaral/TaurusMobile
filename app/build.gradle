@@ -27,6 +27,7 @@ dependencies {
     compile 'com.github.kevinsawicki:http-request:6.0'
     compile 'com.google.zxing:core:1.7'
     compile 'com.thoughtworks.xstream:xstream:1.1.3'
+    compile 'com.mcxiaoke.volley:library:1.0.18'
 
     compile files('libs/zxingjar-1.1.jar')
 }

@@ -1,27 +1,39 @@
 package br.com.prodap.taurusmobile.adapter;
 
+import android.app.Activity;
+import android.database.Cursor;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import android.database.Cursor;
 import br.com.prodap.taurusmobile.TB.Configuracoes;
 
-public class ConfiguracoesAdapter {
-	
-	public ConfiguracoesAdapter(){
-		
+public class ConfiguracoesAdapter extends BaseAdapter {
+	private List<Configuracoes> configuracoesList;
+	private Activity activity;
+
+	public ConfiguracoesAdapter() {
+
+	}
+
+	public ConfiguracoesAdapter(List<Configuracoes> configuracoesList, Activity activity) {
+		this.configuracoesList = configuracoesList;
+		this.activity = activity;
 	}
 	
 	public Configuracoes configurarCursor(Cursor c) {
 		Configuracoes config = new Configuracoes();
 		
 		while (c.moveToNext()) {
-			//config.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
+			config.setId_auto(c.getLong(c.getColumnIndex("id_auto")));
 			config.setTipo(c.getString(c.getColumnIndex("tipo")));
 			config.setEndereco(c.getString(c.getColumnIndex("endereco")));
-			config.setValidaId(c.getString(c.getColumnIndex("validaId")));
-			config.setValidaManejo(c.getString(c.getColumnIndex("validaManejo")));
-			//config.setAutorizacao(c.getString(c.getColumnIndex("autorizacao")));
+			config.setValida_identificador(c.getString(c.getColumnIndex("valida_identificador")));
+			config.setValida_manejo(c.getString(c.getColumnIndex("valida_manejo")));
+			config.setValida_sisbov(c.getString(c.getColumnIndex("valida_sisbov")));
 		}
 		return config;
 	}
@@ -29,14 +41,13 @@ public class ConfiguracoesAdapter {
 	public List<Configuracoes> configurarPreencheArrayCursor(Cursor c) {
 		List<Configuracoes> listaConfiguracoes = new ArrayList<Configuracoes>();
 		while (c.moveToNext()) {
-
 			Configuracoes config = new Configuracoes();
-			//config.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
+			config.setId_auto(c.getLong(c.getColumnIndex("id_auto")));
 			config.setTipo(c.getString(c.getColumnIndex("tipo")));
 			config.setEndereco(c.getString(c.getColumnIndex("endereco")));
-			config.setValidaId(c.getString(c.getColumnIndex("validaId")));
-			config.setValidaManejo(c.getString(c.getColumnIndex("validaManejo")));
-			//config.setAutorizacao(c.getString(c.getColumnIndex("autorizacao")));
+			config.setValida_identificador(c.getString(c.getColumnIndex("valida_identificador")));
+			config.setValida_manejo(c.getString(c.getColumnIndex("valida_manejo")));
+			config.setValida_sisbov(c.getString(c.getColumnIndex("valida_sisbov")));
 
 			listaConfiguracoes.add(config);
 		}
@@ -52,9 +63,9 @@ public class ConfiguracoesAdapter {
 			//config.setId_pk(configurarArray[i].getId_pk());
 			config.setTipo(configurarArray[i].getTipo());
 			config.setEndereco(configurarArray[i].getEndereco());
-			config.setValidaId(configurarArray[i].getValidaId());
-			config.setValidaManejo(configurarArray[i].getValidaManejo());
-			//config.setAutorizacao(configurarArray[i].getAutorizacao());
+			config.setValida_identificador(configurarArray[i].getValida_identificador());
+			config.setValida_manejo(configurarArray[i].getValida_manejo());
+			config.setValida_sisbov(configurarArray[i].getValida_sisbov());
 			
 			listaConfigurar.add(config);
 		}
@@ -63,15 +74,33 @@ public class ConfiguracoesAdapter {
 
 	public Configuracoes configurarHelper(Configuracoes configurarTB) {
 		Configuracoes config = new Configuracoes();
-		//config.setId_pk(configurarTB.getId_pk());
+
 		config.setTipo(configurarTB.getTipo());
 		config.setEndereco(configurarTB.getEndereco());
-		config.setValidaId(configurarTB.getValidaId());
-		config.setValidaManejo(configurarTB.getValidaManejo());
-
-		//config.setAutorizacao(configurarTB.getAutorizacao());
+		config.setValida_identificador(configurarTB.getValida_identificador());
+		config.setValida_manejo(configurarTB.getValida_manejo());
+		config.setValida_sisbov(configurarTB.getValida_sisbov());
 		
 		return config;
 	}
 
+	@Override
+	public int getCount() {
+		return configuracoesList.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return configuracoesList.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return configuracoesList.get(position).getId_auto();
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		return null;
+	}
 }
