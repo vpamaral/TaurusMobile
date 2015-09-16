@@ -26,8 +26,6 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	private Configuracoes qrcode_tb;
 	private ConfiguracoesModel qrcode_model;
 	private Auxiliar auxiliar;
-	private int count = 0;
-	private int quantInserida = 0;
 	private Constantes constantes;
 
 	public GetAnimaisJSON(Context ctx) {
@@ -49,7 +47,6 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	
 	@Override
 	protected Void doInBackground(Void... params) {
-		constantes.TOTAL_ANIMAIS = 0;
 		String url = "";
 		List<Configuracoes> listQRCode = qrcode_model.selectAll(ctx, "Configuracao", qrcode_tb);
 		for (Configuracoes qrcode_tb : listQRCode) {
@@ -62,15 +59,9 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 
 			objListaAnimal = getJSON.listaAnimal();
 			aniHelper = new AnimalAdapter();
-			count = objListaAnimal.size();
-			Constantes.TOTAL_ANIMAIS = count;
 			for (Animal animal : objListaAnimal) {
 				if (objListaAnimal.size() != 0)
 					objModelAnimal.insert(ctx, "Animal", aniHelper.AnimalHelper(animal));
-				quantInserida++;
-				if (quantInserida >= 13200) {
-					int inserir = quantInserida;
-				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,9 +72,6 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected void onPostExecute(Void result) {
 		MensagemUtil.closeProgress();
-		if (quantInserida <= 24924) {
-
-		}
 		if(objListaAnimal.isEmpty()){
 			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível atualizar os dados.");
 		}
