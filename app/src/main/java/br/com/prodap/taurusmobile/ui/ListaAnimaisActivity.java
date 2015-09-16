@@ -46,7 +46,7 @@ public class ListaAnimaisActivity extends Activity {
 		this.consultarPorIdClick();
 		this.consultarPorIdClickLongo();
 
-		//setTitle("Quantidade de Animais: " + quantdAnimais);
+		setTitle("Quantidade de Animais: " + quantdAnimais);
 		//txtContador.setText("Quantidade de Animais: " + Constantes.TOTAL_ANIMAIS +  "\n" + "Código" " - " );
 	}
 
@@ -54,7 +54,7 @@ public class ListaAnimaisActivity extends Activity {
 		animais_list = ani_model.selectAll(getBaseContext(), "Animal",
 				ani_tb);
 
-		//quantdAnimais = animais_list.size();
+		quantdAnimais = animais_list.size();
 
 		animal_adapter = new AnimalAdapter(animais_list, this);
 
@@ -94,8 +94,7 @@ public class ListaAnimaisActivity extends Activity {
 										   int position, long id) {
 				ani_tb = (Animal) animal_adapter.getItem(position);
 
-				String msg = "Total de Matriz: " + Constantes.TOTAL_ANIMAIS
-						+ "\n\n\nCódigo: " + ani_tb.getCodigo() + "\nSisbov: "
+				String msg = "Código: " + ani_tb.getCodigo() + "\nSisbov: "
 						+ ani_tb.getSisbov() + "\nIdentificador: "
 						+ ani_tb.getIdentificador() + "\nPeso Atual: "
 						+ ani_tb.getPeso_atual();

@@ -92,11 +92,8 @@ public class AnimalAdapter extends BaseAdapter {
 			animal.setCodigo(AnimalArray[i].getCodigo());
 			animal.setSisbov(AnimalArray[i].getSisbov());
 			animal.setIdentificador(AnimalArray[i].getIdentificador());
-			if (AnimalArray[i].getCodigo_ferro() != null) {
-				animal.setCodigo_ferro(AnimalArray[i].getCodigo_ferro());
-			} else {
-				animal.setCodigo_ferro("-");
-			}
+			animal.setCodigo_ferro(AnimalArray[i].getCodigo_ferro() != null
+									? AnimalArray[i].getCodigo_ferro() : "");
 			animal.setData_nascimento(AnimalArray[i].getData_nascimento());
 			animal.setCategoria(AnimalArray[i].getCategoria());
 			animal.setRaca(AnimalArray[i].getRaca());
@@ -114,9 +111,9 @@ public class AnimalAdapter extends BaseAdapter {
 		animal.setId_pk(animalTB.getId_pk());
 		animal.setId_fk_cria(animalTB.getId_fk_cria());
 		animal.setCodigo(animalTB.getCodigo());
-		animal.setSisbov(animalTB.getSisbov());
-		animal.setIdentificador(animalTB.getIdentificador());
-		animal.setCodigo_ferro(animalTB.getCodigo_ferro() != null ? animalTB.getCodigo_ferro() : "-");
+		animal.setSisbov(animalTB.getSisbov() != null ? animalTB.getSisbov() : "");
+		animal.setIdentificador(animalTB.getIdentificador() != null ? animalTB.getIdentificador() : "");
+		animal.setCodigo_ferro(animalTB.getCodigo_ferro() != null ? animalTB.getCodigo_ferro() : "");
 		animal.setData_nascimento(animalTB.getData_nascimento());
 		animal.setCategoria(animalTB.getCategoria());
 		animal.setRaca(animalTB.getRaca());
