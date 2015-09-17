@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.TB.Parto;
+import br.com.prodap.taurusmobile.TB.Parto_Cria;
 
 public class PartoAdapter extends BaseAdapter{
 
@@ -83,6 +84,33 @@ public class PartoAdapter extends BaseAdapter{
 		parto.setSexo_parto(parto_tb.getSexo_parto());
 
 		return parto;
+	}
+
+	public String PartoArqHelper(Parto parto_tb, Parto_Cria cria){
+		 String conteudo = "";
+
+		conteudo = String.valueOf(parto_tb.getId_fk_animal()) + ","
+		+ String.valueOf(parto_tb.getData_parto()) + ","
+		+ String.valueOf(parto_tb.getSync_status()) + ","
+		+ String.valueOf(parto_tb.getPerda_gestacao()) + ","
+		+ String.valueOf(parto_tb.getSexo_parto()) + ","
+		+ String.valueOf(cria.getId_fk_animal_mae()) + ","
+		+ String.valueOf(cria.getSisbov()) + ","
+		+ String.valueOf(cria.getIdentificador()) + ","
+		+ String.valueOf(cria.getGrupo_manejo()) + ","
+		+ String.valueOf(cria.getSync_status()) + ","
+		+ String.valueOf(cria.getPeso_cria()) + ","
+		+ String.valueOf(cria.getCodigo_cria()) + ","
+		+ String.valueOf(cria.getSexo()) + ","
+		+ String.valueOf(cria.getRaca_cria()) + ","
+		+ String.valueOf(cria.getData_identificacao()) + ","
+		+ String.valueOf(cria.getRepasse()) + ","
+		+ String.valueOf(cria.getTipo_parto())+ ","
+		+ String.valueOf(cria.getPasto())+ "|";
+
+
+		return conteudo;
+
 	}
 
 	@Override
