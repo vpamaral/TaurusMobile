@@ -4,20 +4,11 @@ import java.io.Serializable;
 
 public class Parto implements Serializable {
 
-	private long id_auto;
 	private long id_fk_animal;
 	private int sync_status;
 	private String data_parto;
 	private String sexo_parto;
 	private String perda_gestacao;
-
-	public long getId_auto() {
-		return id_auto;
-	}
-
-	public void setId_auto(long id_auto) {
-		this.id_auto = id_auto;
-	}
 
 	public long getId_fk_animal() {
 		return id_fk_animal;

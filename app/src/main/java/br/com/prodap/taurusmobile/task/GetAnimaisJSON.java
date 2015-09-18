@@ -2,7 +2,6 @@ package br.com.prodap.taurusmobile.task;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import br.com.prodap.taurusmobile.TB.Animal;
@@ -12,7 +11,6 @@ import br.com.prodap.taurusmobile.adapter.ConfiguracoesAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
 import br.com.prodap.taurusmobile.service.GetJSON;
-import br.com.prodap.taurusmobile.util.Auxiliar;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
@@ -25,8 +23,6 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	private ConfiguracoesAdapter c_helper;
 	private Configuracoes qrcode_tb;
 	private ConfiguracoesModel qrcode_model;
-	private Auxiliar auxiliar;
-	private Constantes constantes;
 
 	public GetAnimaisJSON(Context ctx) {
 		this.ctx = ctx;
@@ -37,7 +33,6 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 		qrcode_tb 		= new Configuracoes();
 		qrcode_model 	= new ConfiguracoesModel(ctx);
 		c_helper 		= new ConfiguracoesAdapter();
-		constantes		= new Constantes();
 	}
 	
 	@Override

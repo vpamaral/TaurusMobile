@@ -34,13 +34,16 @@ public class ListaPartosCriaActivity extends Activity {
 	private PartoAdapter parto_adapter;
 	private List<Parto_Cria> p_cria_list;
 	private List<Parto> parto_list;
-	
+	private int quantdPartos;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lista_partos_cria);
 		loadList();
 		source();
+
+		setTitle("Partos a serem enviados " + quantdPartos);
 	}
 
 	private void source() {
@@ -64,6 +67,7 @@ public class ListaPartosCriaActivity extends Activity {
 				"Parto_Cria", p_cria_tb);
 		parto_list = parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
 
+		quantdPartos = p_cria_list.size();
 		p_cria_adapter = new PartoCriaAdapter(p_cria_list, this);
 		parto_adapter = new PartoAdapter(parto_list, this);
 

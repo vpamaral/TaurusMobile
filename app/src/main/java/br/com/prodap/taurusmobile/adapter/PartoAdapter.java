@@ -97,7 +97,7 @@ public class PartoAdapter extends BaseAdapter{
 
 	@Override
 	public long getItemId(int position) {
-		return Long.parseLong(String.valueOf(partos.get(position).getId_auto()));
+		return Long.parseLong(String.valueOf(partos.get(position).getId_fk_animal()));
 	}
 
 	@Override

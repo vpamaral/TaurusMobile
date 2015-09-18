@@ -66,6 +66,14 @@ public class PartoModel extends BancoService {
 		return listadd;
 	}
 
+	public void deletingLogic (Context ctx) {
+		banco = new Banco(ctx);
+
+		db = banco.getWritableDatabase();
+		db.execSQL("UPDATE Parto SET sync_status ='1'");
+		db.execSQL("UPDATE Parto_Cria SET sync_status ='1'");
+	}
+
 	@Override
 	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
 		// TODO Auto-generated method stub
