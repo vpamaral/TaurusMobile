@@ -6,12 +6,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.TB.Configuracoes;
@@ -42,6 +49,11 @@ public class MenuPrincipalActivity extends Activity {
 
 		setContentView(R.layout.activity_menu_principal);
 		idold = "";
+		try {
+			createFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		source();
 		loadListener();
 	}
@@ -275,5 +287,47 @@ public class MenuPrincipalActivity extends Activity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private String obterDiretorio()
+	{
+		File root = android.os.Environment.getExternalStorageDirectory();
+		return root.toString();
+	}
+
+	private void createFile() throws IOException {
+
+		Date data = new Date();
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(data);
+
+		String filename = "backup.txt";
+		String conteudo = "";
+
+		File diretorio = new File(obterDiretorio(), "Prodap");
+
+		if(!diretorio.exists()) {
+			diretorio.mkdir();
+		}
+		File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
+
+		FileOutputStream outputStream = null;
+		try
+		{
+			if(!arquivo.exists()) {
+				outputStream = new FileOutputStream(arquivo);
+				outputStream.write(conteudo.getBytes());
+				outputStream.close();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+
+
+
+
 	}
 }
