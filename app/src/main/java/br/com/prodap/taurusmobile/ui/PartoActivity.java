@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -499,6 +506,9 @@ public class PartoActivity extends Activity {
         parto_model.insert(PartoActivity.this, "Parto", p_helper.PartoHelper(parto_tb));
         cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
         zeraInterface();
+        if(writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb)))
+            MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this, "Arquivo preenchido com sucesso!");
+
         MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this,
                 "Parto cadastrado com sucesso!");
     }
@@ -506,6 +516,27 @@ public class PartoActivity extends Activity {
     private void alertMsg() {
         MensagemUtil.addMsg(MessageDialog.Yes,
                 PartoActivity.this, "Matriz não existe na base de dados!", "Aviso", 1);
+    }
+
+    private boolean writeInFile(String text)
+    {
+        BufferedReader input = null;
+        File file = null;
+
+        try{
+            file = new File(Environment.getExternalStorageDirectory()+"/Prodap","backup.txt");
+            FileOutputStream in = new FileOutputStream(file, true);
+            in.write(text.getBytes());
+            in.write("\n".getBytes());
+            in.flush();
+            in.close();
+
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public Boolean sisbovCorreto(String sisbov) {
