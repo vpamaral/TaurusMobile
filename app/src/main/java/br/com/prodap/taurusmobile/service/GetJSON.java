@@ -25,7 +25,6 @@ public class GetJSON {
 			Log.i("URL", retornoDadosJSON);
 			Gson gson = new Gson();
 			Animal[] objArrayAnimal = gson.fromJson(retornoDadosJSON, Animal[].class);
-			
 			return ani_helper.AnimalPreencheArrayHelper(objArrayAnimal);
 
 		} catch (Exception e) {

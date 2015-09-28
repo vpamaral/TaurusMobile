@@ -58,14 +58,6 @@
             android:label="@string/app_name">
         </activity>
 
-        <!--<activity
-            android:name=".EnviarActivity"
-            android:label="@string/title_activity_enviar" />
-
-        <activity
-            android:name=".BucarAnimaisBluetoothActivity"
-            android:label="@string/title_activity_busca_animais" /> -->
-
     </application>
 
 </manifest>

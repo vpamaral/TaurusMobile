@@ -90,10 +90,11 @@ public class AnimalAdapter extends BaseAdapter {
 			animal.setId_pk(AnimalArray[i].getId_pk());
 			animal.setId_fk_cria(AnimalArray[i].getId_fk_cria());
 			animal.setCodigo(AnimalArray[i].getCodigo());
-			animal.setSisbov(AnimalArray[i].getSisbov());
-			animal.setIdentificador(AnimalArray[i].getIdentificador());
-			animal.setCodigo_ferro(AnimalArray[i].getCodigo_ferro() != null
-									? AnimalArray[i].getCodigo_ferro() : "");
+			animal.setSisbov(AnimalArray[i].getSisbov() != null	? AnimalArray[i].getSisbov() : "");
+			//animal.setSisbov(AnimalArray[i].getSisbov());
+			animal.setIdentificador(AnimalArray[i].getIdentificador() != null	? AnimalArray[i].getIdentificador() : "");
+			//animal.setIdentificador(AnimalArray[i].getIdentificador());
+			animal.setCodigo_ferro(AnimalArray[i].getCodigo_ferro() != null	? AnimalArray[i].getCodigo_ferro() : "");
 			animal.setData_nascimento(AnimalArray[i].getData_nascimento());
 			animal.setCategoria(AnimalArray[i].getCategoria());
 			animal.setRaca(AnimalArray[i].getRaca());

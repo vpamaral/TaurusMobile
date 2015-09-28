@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Parto_PartoCria implements Serializable {
 
-	//private long id_auto;
+	private long id_auto;
 	private long id_fk_animal_mae;
 	private int sync_status;
 	private String peso_cria;
@@ -159,11 +159,11 @@ public class Parto_PartoCria implements Serializable {
 		this.pasto = pasto;
 	}
 
-	/*public long getId_auto() {
+	public long getId_auto() {
 		return id_auto;
 	}
 
 	public void setId_auto(long id_auto) {
 		this.id_auto = id_auto;
-	}*/
+	}
 }

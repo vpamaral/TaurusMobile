@@ -324,10 +324,5 @@ public class MenuPrincipalActivity extends Activity {
 		{
 			e.printStackTrace();
 		}
-
-
-
-
-
 	}
 }

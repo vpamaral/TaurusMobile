@@ -36,14 +36,13 @@ public class Parto_PartoCriaModel extends BancoService {
 	}
 
 	@Override
-	public List<Parto_PartoCria> selectAll(Context ctx, String Tabela,
-			Object table) {
+	public List<Parto_PartoCria> selectAll(Context ctx, String Tabela, Object table) {
 		Banco banco = new Banco(ctx);
 
 		Class classe = table.getClass();
 		List<Parto_PartoCria> listadd = new ArrayList<Parto_PartoCria>();
-		String sql = "SELECT DISTINCT p.*, c.* FROM "+Tabela+" a INNER JOIN Parto p ON a.id_pk = p.id_fk_animal INNER JOIN Parto_Cria c ON a.id_pk = c.id_fk_animal_mae GROUP BY c.codigo_cria";
-		
+		String sql = String.format("SELECT DISTINCT p.*, c.* FROM %s a INNER JOIN Parto p ON a.id_pk = p.id_fk_animal INNER JOIN Parto_Cria c ON a.id_pk = c.id_fk_animal_mae where c.sync_status = 0 AND p.sync_status = 0 GROUP BY c.codigo_cria", Tabela);
+
 
 		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
@@ -51,6 +50,12 @@ public class Parto_PartoCriaModel extends BancoService {
 
 		banco.close();
 		return listadd;
+	}
+
+	public void delete(Parto_PartoCria parto_partoCria) {
+		String[] args = {Long.valueOf(parto_partoCria.getId_auto()).toString()};
+
+
 	}
 	
 	@Override
