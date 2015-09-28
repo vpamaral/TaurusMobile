@@ -40,10 +40,10 @@ public class ConexaoHTTP {
 			objUrlConnection = (HttpURLConnection) url.openConnection();
 			objUrlConnection.connect();
 			objDadosInputStream = objUrlConnection.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					objDadosInputStream));
+			BufferedReader br = new BufferedReader(new InputStreamReader(objDadosInputStream));
 			StringBuffer sb = new StringBuffer();
 			String linha = "";
+
 			while ((linha = br.readLine()) != null) {
 				sb.append(linha);
 			}

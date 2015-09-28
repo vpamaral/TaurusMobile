@@ -484,6 +484,7 @@ public class PartoActivity extends Activity {
                 MensagemUtil.addMsg(MessageDialog.Yes,
                         PartoActivity.this,
                         "É necessário preencher o Identificador da cria.", "Aviso", 1);
+                return;
             }
         }
         if (validaSisbov == true) {
@@ -491,6 +492,7 @@ public class PartoActivity extends Activity {
                 MensagemUtil.addMsg(MessageDialog.Yes,
                         PartoActivity.this,
                         "É necessário preencher o Sisbov de cria.", "Aviso", 1);
+                return;
             }
         }
         if (validaManejo == true) {
@@ -498,6 +500,7 @@ public class PartoActivity extends Activity {
                 MensagemUtil.addMsg(MessageDialog.Yes,
                         PartoActivity.this,
                         "É necessário preencher o Grupo de Manejo.", "Aviso", 1);
+                return;
             }
         }
     }
@@ -573,8 +576,7 @@ public class PartoActivity extends Activity {
         builder.setTitle("Aviso").setMessage("Matriz com cria já cadastrada deseja cadastrar "
                 + "outra cria para essa Matriz?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Sim", new DialogInterface
-                        .OnClickListener() {
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         insertParto(parto_tb, cria_tb);
                     }

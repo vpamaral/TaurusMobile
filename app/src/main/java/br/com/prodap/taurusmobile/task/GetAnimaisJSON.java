@@ -47,11 +47,9 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 		for (Configuracoes qrcode_tb : listQRCode) {
 			url = qrcode_tb.getEndereco();
 		}
-
 		AnimalModel objModelAnimal = new AnimalModel(ctx);
 		GetJSON getJSON = new GetJSON(url + Constantes.METHODO_GET);
 		try {
-
 			objListaAnimal = getJSON.listaAnimal();
 			aniHelper = new AnimalAdapter();
 			for (Animal animal : objListaAnimal) {

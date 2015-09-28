@@ -51,6 +51,12 @@ public class Parto_PartoCriaModel extends BancoService {
 		banco.close();
 		return listadd;
 	}
+
+	public void delete(Parto_PartoCria parto_partoCria) {
+		String[] args = {Long.valueOf(parto_partoCria.getId_auto()).toString()};
+
+
+	}
 	
 	@Override
 	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
