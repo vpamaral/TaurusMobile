@@ -22,7 +22,7 @@ public abstract class BancoService {
 			Class<? extends Object> s = table.getClass();
 
 			for (Field f : s.getDeclaredFields()) {
-				cv.put(f.getName(), getValueAt(table, "get" + f.getName()).toString());
+                          				cv.put(f.getName(), getValueAt(table, "get" + f.getName()).toString());
 			}
 
 			banco.getWritableDatabase().insert(Tabela, null, cv);

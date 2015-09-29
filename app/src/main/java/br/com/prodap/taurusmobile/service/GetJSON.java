@@ -24,8 +24,14 @@ public class GetJSON {
 			String retornoDadosJSON = conexaoServidor.lerUrlServico(url);
 			Log.i("URL", retornoDadosJSON);
 			Gson gson = new Gson();
+			ArrayList<Animal> animais = null;
 			Animal[] objArrayAnimal = gson.fromJson(retornoDadosJSON, Animal[].class);
-			return ani_helper.AnimalPreencheArrayHelper(objArrayAnimal);
+			if (objArrayAnimal.length > 0) {
+				 animais = ani_helper.AnimalPreencheArrayHelper(objArrayAnimal);
+				return animais;
+			} else {
+				return animais;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

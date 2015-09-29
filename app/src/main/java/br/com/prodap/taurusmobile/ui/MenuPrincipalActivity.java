@@ -14,8 +14,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,6 +26,7 @@ import java.util.List;
 import br.com.prodap.taurusmobile.TB.Configuracoes;
 import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
+import br.com.prodap.taurusmobile.task.GetAnimaisARQUIVO;
 import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
 import br.com.prodap.taurusmobile.task.PostAnimaisJSON;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
@@ -31,7 +34,9 @@ import br.com.prodap.taurusmobile.util.MessageDialog;
 
 public class MenuPrincipalActivity extends Activity {
 
+	public static String JSONANIMAIS;
 	private Button btn_atualizar;
+	private Button btn_atualizar_dados;
 	private Button btn_animais;
 	private Button btn_parto;
 	private Button btn_lista_parto;
@@ -60,6 +65,7 @@ public class MenuPrincipalActivity extends Activity {
 	
 	private void source() {
 		btn_atualizar 		= (Button) findViewById(R.id.btn_atualiza);
+		btn_atualizar_dados	= (Button) findViewById(R.id.btn_atualiza_dados);
 		btn_animais 		= (Button) findViewById(R.id.btn_animal);
 		btn_parto 			= (Button) findViewById(R.id.btn_parto);
 		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
@@ -80,6 +86,19 @@ public class MenuPrincipalActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				updateDados();
+			}
+		});
+
+		btn_atualizar_dados.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					JSONANIMAIS = createListAnimais();
+					msgUpdateDadosViaArquivo();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -189,6 +208,26 @@ public class MenuPrincipalActivity extends Activity {
 		/**/
 	}
 
+	private void msgUpdateDadosViaArquivo() {
+		if (checksConnection()) {
+			if (validateServer(url)){
+				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Deseja atualizar os dados?"
+						, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						AnimalModel objModelAnimal = new AnimalModel(MenuPrincipalActivity.this);
+						objModelAnimal.delete(MenuPrincipalActivity.this, "Animal");
+						new GetAnimaisARQUIVO(MenuPrincipalActivity.this).execute();
+					}
+				});
+			}
+		} else {
+			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao atulaizar via arquivo!");
+			return;
+		}
+		/**/
+	}
+
 	private void msgPostDados() {
 		if (checksConnection()) {
 			if (validateServer(url)){
@@ -293,6 +332,22 @@ public class MenuPrincipalActivity extends Activity {
 	{
 		File root = android.os.Environment.getExternalStorageDirectory();
 		return root.toString();
+	}
+
+	private String createListAnimais () throws IOException {
+		String texto = "";
+
+		try {
+			File textfile = new File(Environment.getExternalStorageDirectory()+"/Prodap/","arquivo_parto.txt");
+			BufferedReader br = new BufferedReader(new FileReader(textfile));
+
+			texto = br.readLine();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		MensagemUtil.addMsg(MessageDialog.Toast, this, "Lista criada com sucesso.");
+		return texto;
 	}
 
 	private void createFile() throws IOException {
