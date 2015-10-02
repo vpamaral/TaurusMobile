@@ -104,6 +104,21 @@
             android:text="Configurações"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_atualiza_dados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_selector"
+            android:drawableLeft="@drawable/atualiza32"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Atualizar Dados via arquivo"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
          
           <!--<Button
             android:id="@+id/btn_busca"

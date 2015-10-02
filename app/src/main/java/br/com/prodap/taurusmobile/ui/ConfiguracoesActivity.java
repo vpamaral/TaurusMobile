@@ -39,6 +39,9 @@ public class ConfiguracoesActivity extends Activity {
 	private List<Configuracoes> lista_conf;
 	private List<String> configuracoes;
 	private int updateServer= 0;
+	private String resultQRCode;
+	private String resultTipo;
+	private String url;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +52,14 @@ public class ConfiguracoesActivity extends Activity {
 		lista_conf = configuracaoModel.selectAll(getBaseContext(), "Configuracao", configuracaoTB);
 
 		for (Configuracoes conf_tb : lista_conf) {
-			edtEndereco.setText(conf_tb.getEndereco());
+			url = conf_tb.getEndereco();
+			edtEndereco.setText(url);
 			spnIdentificador.setSelection(conf_tb.getValida_identificador().equals("S") ? 0 : 1);
 			spnManejo.setSelection(conf_tb.getValida_manejo().equals("S") ? 0 : 1);
 			spnSisbov.setSelection(conf_tb.getValida_sisbov().equals("S") ? 0 : 1);
 		}
 
 		if (lista_conf.size() == 0) {
-			Intent intent  =  this.getIntent();
-
-			String resultQRCode;
-			String resultTipo;
-
-			resultTipo   = intent.getStringExtra("tipo");
-			resultQRCode = intent.getStringExtra("QRCode");
-
 			edtEndereco.setText(resultQRCode);
 			qrcode_tb.setEndereco(resultQRCode);
 			qrcode_tb.setTipo(resultTipo);
@@ -74,6 +70,13 @@ public class ConfiguracoesActivity extends Activity {
 			insertConfiguracoes(qrcode_tb);
 		}
 
+		if (resultQRCode != null) {
+			if (resultQRCode.equals(url)) {
+				edtEndereco.setText(url);
+			} else {
+				edtEndereco.setText(resultQRCode);
+			}
+		}
 		btnLeitorQRCode.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -141,6 +144,11 @@ public class ConfiguracoesActivity extends Activity {
 				android.R.layout.simple_dropdown_item_1line, Validar);
 		adpValidaSisbov.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spnSisbov.setAdapter(adpValidaSisbov);
+
+		Intent intent  =  this.getIntent();
+
+		resultTipo   = intent.getStringExtra("tipo");
+		resultQRCode = intent.getStringExtra("QRCode");
 	}
 
 	private void insertConfiguracoes(Configuracoes qrcode_tb) {

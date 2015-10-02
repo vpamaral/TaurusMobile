@@ -1,10 +1,11 @@
 package br.com.prodap.taurusmobile.task;
 
-import java.util.List;
-
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
+
+import com.google.gson.Gson;
+
+import java.util.List;
 
 import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.TB.Configuracoes;
@@ -12,13 +13,11 @@ import br.com.prodap.taurusmobile.adapter.AnimalAdapter;
 import br.com.prodap.taurusmobile.adapter.ConfiguracoesAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
-import br.com.prodap.taurusmobile.service.GetJSON;
-import br.com.prodap.taurusmobile.util.Constantes;
+import br.com.prodap.taurusmobile.ui.MenuPrincipalActivity;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
-import br.com.prodap.taurusmobile.util.ValidatorException;
 
-public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
+public class GetAnimaisARQUIVO extends AsyncTask<Void, Void, Void> {
 
 	private List<Animal> objListaAnimal;
 	private Context ctx;
@@ -27,7 +26,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	private Configuracoes qrcode_tb;
 	private ConfiguracoesModel qrcode_model;
 
-	public GetAnimaisJSON(Context ctx) {
+	public GetAnimaisARQUIVO(Context ctx) {
 		this.ctx = ctx;
 		source();	
 	}
@@ -40,29 +39,24 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	
 	@Override
 	protected void onPreExecute() {
-		MensagemUtil.addMsg(ctx, "Aguarde...", "Recebendo dados do servidor.");
+		MensagemUtil.addMsg(ctx, "Aguarde...", "Recebendo dados do arquivo.");
 	}
 	
 	@Override
 	protected Void doInBackground(Void... params) {
 		String url = "";
-		List<Configuracoes> listQRCode = qrcode_model.selectAll(ctx, "Configuracao", qrcode_tb);
-		for (Configuracoes qrcode_tb : listQRCode) {
-			url = qrcode_tb.getEndereco();
-		}
+		AnimalModel objModelAnimal = new AnimalModel(ctx);
 		try {
-			AnimalModel objModelAnimal = new AnimalModel(ctx);
-			GetJSON getJSON = new GetJSON(url + Constantes.METHODO_GET, ctx);
-			objListaAnimal = getJSON.listaAnimal();
+			Gson gson = new Gson();
 			aniHelper = new AnimalAdapter();
+			Animal[] objArrayAnimal = gson.fromJson(MenuPrincipalActivity.JSONANIMAIS, Animal[].class);
+			objListaAnimal = aniHelper.AnimalPreencheArrayHelper(objArrayAnimal);
+
 			for (Animal animal : objListaAnimal) {
 				if (objListaAnimal.size() != 0)
 					objModelAnimal.insert(ctx, "Animal", aniHelper.AnimalHelper(animal));
 			}
-
-		} catch (ValidatorException e) {
-			Log.i("TAG", e.toString());
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
