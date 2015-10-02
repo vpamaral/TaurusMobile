@@ -21,38 +21,59 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
+import br.com.prodap.taurusmobile.util.MensagemUtil;
+import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.ValidatorException;
 
 public class ConexaoHTTP {
 	private String url;
+	Context ctx;
 
-	public ConexaoHTTP(String url) {
+	public ConexaoHTTP(String url,  Context ctx) {
 		this.url = url;
+		this.ctx = ctx;
 	}
 
-	public String lerUrlServico(String urlServico) throws IOException {
+	public String lerUrlServico(String urlServico) throws IOException{
 		String dados = "";
 		InputStream objDadosInputStream = null;
 		HttpURLConnection objUrlConnection = null;
+		BufferedReader br = null;
 
 		try {
 			URL url = new URL(urlServico);
 			objUrlConnection = (HttpURLConnection) url.openConnection();
 			objUrlConnection.connect();
 			objDadosInputStream = objUrlConnection.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(objDadosInputStream));
+			br = new BufferedReader(new InputStreamReader(objDadosInputStream));
 			StringBuffer sb = new StringBuffer();
+
 			String linha = "";
 			while ((linha = br.readLine()) != null) {
 				sb.append(linha);
 			}
 			dados = sb.toString();
-			br.close();
-		} catch (Exception e) {
+			//br.close();
+		} catch (IOException e) {
 			Log.i("TAG", e.toString());
+			e.printStackTrace();
 		} finally {
-			objDadosInputStream.close();
-			objUrlConnection.disconnect();
+			if(br != null){
+				try{
+					br.close();
+					throw new ValidatorException("");
+				}
+				catch (ValidatorException e){
+					e.printStackTrace();
+					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
+				}
+			}
+			//objDadosInputStream.close();
+			//objUrlConnection.disconnect();
 		}
 		return dados;
 	}

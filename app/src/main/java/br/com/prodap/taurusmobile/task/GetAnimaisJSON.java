@@ -52,19 +52,18 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 		}
 		try {
 			AnimalModel objModelAnimal = new AnimalModel(ctx);
-			GetJSON getJSON = new GetJSON(url + Constantes.METHODO_GET);
+			GetJSON getJSON = new GetJSON(url + Constantes.METHODO_GET, ctx);
 			objListaAnimal = getJSON.listaAnimal();
 			aniHelper = new AnimalAdapter();
 			for (Animal animal : objListaAnimal) {
 				if (objListaAnimal.size() != 0)
 					objModelAnimal.insert(ctx, "Animal", aniHelper.AnimalHelper(animal));
 			}
-		}catch (ValidatorException e) {
-			Log.i("ERRO:", e.toString());
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar os dados.");
-			e.printStackTrace();
-		} catch (Exception e) {
+
+		} catch (ValidatorException e) {
 			Log.i("TAG", e.toString());
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
+			e.printStackTrace();
 		}
 		return null;
 	}
