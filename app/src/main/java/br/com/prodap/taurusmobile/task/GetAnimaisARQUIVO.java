@@ -48,7 +48,6 @@ public class GetAnimaisARQUIVO extends AsyncTask<Void, Void, Void> {
 		AnimalModel objModelAnimal = new AnimalModel(ctx);
 		try {
 			Gson gson = new Gson();
-			//ArrayList<Animal> animais = null;
 			aniHelper = new AnimalAdapter();
 			Animal[] objArrayAnimal = gson.fromJson(MenuPrincipalActivity.JSONANIMAIS, Animal[].class);
 			objListaAnimal = aniHelper.AnimalPreencheArrayHelper(objArrayAnimal);

@@ -45,7 +45,6 @@ public class ConexaoHTTP {
 			String linha = "";
 			while ((linha = br.readLine()) != null) {
 				sb.append(linha);
-
 			}
 			dados = sb.toString();
 			br.close();

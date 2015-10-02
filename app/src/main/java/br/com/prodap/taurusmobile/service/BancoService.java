@@ -2,6 +2,7 @@ package br.com.prodap.taurusmobile.service;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -30,6 +31,7 @@ public abstract class BancoService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			Log.i("BancoService", e.toString());
 		}
 	}
 
@@ -47,6 +49,7 @@ public abstract class BancoService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			Log.i("BancoService", e.toString());
 		}
 	}
 
@@ -59,6 +62,7 @@ public abstract class BancoService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			Log.i("BancoService", e.toString());
 		}
 	}
 
@@ -75,6 +79,7 @@ public abstract class BancoService {
 			return "";
 		} catch (Exception e) {
 			e.printStackTrace();
+			Log.i("BancoService", e.toString());
 			return "Erro";
 		}
 	}

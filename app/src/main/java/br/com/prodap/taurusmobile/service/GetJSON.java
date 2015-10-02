@@ -1,11 +1,13 @@
 package br.com.prodap.taurusmobile.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.util.Log;
 import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.adapter.AnimalAdapter;
 import br.com.prodap.taurusmobile.util.Constantes;
+import br.com.prodap.taurusmobile.util.ValidatorException;
 
 import com.google.gson.Gson;
 
@@ -16,7 +18,7 @@ public class GetJSON {
 		this.url = url;
 	}
 
-	public ArrayList<Animal> listaAnimal() throws Exception {
+	public ArrayList<Animal> listaAnimal() throws ValidatorException {
 		AnimalAdapter ani_helper = new AnimalAdapter();
 		
 		try {			
@@ -33,9 +35,13 @@ public class GetJSON {
 				return animais;
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ValidatorException e) {
+			Log.i("ERRO:", e.toString());
 			throw e;
+		} catch (IOException e) {
+			e.printStackTrace();
+			//throw e;
 		}
+		return null;
 	}
 }

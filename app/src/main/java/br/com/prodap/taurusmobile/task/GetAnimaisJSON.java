@@ -16,6 +16,7 @@ import br.com.prodap.taurusmobile.service.GetJSON;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.ValidatorException;
 
 public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 
@@ -49,17 +50,21 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 		for (Configuracoes qrcode_tb : listQRCode) {
 			url = qrcode_tb.getEndereco();
 		}
-		AnimalModel objModelAnimal = new AnimalModel(ctx);
-		GetJSON getJSON = new GetJSON(url + Constantes.METHODO_GET);
 		try {
+			AnimalModel objModelAnimal = new AnimalModel(ctx);
+			GetJSON getJSON = new GetJSON(url + Constantes.METHODO_GET);
 			objListaAnimal = getJSON.listaAnimal();
 			aniHelper = new AnimalAdapter();
 			for (Animal animal : objListaAnimal) {
 				if (objListaAnimal.size() != 0)
 					objModelAnimal.insert(ctx, "Animal", aniHelper.AnimalHelper(animal));
 			}
-		} catch (Exception e) {
+		}catch (ValidatorException e) {
+			Log.i("ERRO:", e.toString());
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar os dados.");
 			e.printStackTrace();
+		} catch (Exception e) {
+			Log.i("TAG", e.toString());
 		}
 		return null;
 	}
