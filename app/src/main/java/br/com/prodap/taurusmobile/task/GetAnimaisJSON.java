@@ -18,7 +18,7 @@ import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 import br.com.prodap.taurusmobile.util.ValidatorException;
 
-public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
+public class GetAnimaisJSON extends AsyncTask<Void, Void, List<Animal>> {
 
 	private List<Animal> objListaAnimal;
 	private Context ctx;
@@ -44,7 +44,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 	}
 	
 	@Override
-	protected Void doInBackground(Void... params) {
+	protected List<Animal> doInBackground(Void... params) {
 		String url = "";
 		List<Configuracoes> listQRCode = qrcode_model.selectAll(ctx, "Configuracao", qrcode_tb);
 		for (Configuracoes qrcode_tb : listQRCode) {
@@ -59,23 +59,28 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, Void> {
 				if (objListaAnimal.size() != 0)
 					objModelAnimal.insert(ctx, "Animal", aniHelper.AnimalHelper(animal));
 			}
+			//return  objListaAnimal;
 
 		} catch (ValidatorException e) {
 			Log.i("TAG", e.toString());
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
+			//MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
 			e.printStackTrace();
 		}
-		return null;
+		return objListaAnimal;
 	}
 
 	@Override
-	protected void onPostExecute(Void result) {
-		MensagemUtil.closeProgress();
-		if(objListaAnimal.isEmpty()){
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível atualizar os dados.");
-		}
-		else {
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados atualizados com sucesso.");
+	protected void onPostExecute(List<Animal> result) {
+		if (result != null) {
+			MensagemUtil.closeProgress();
+			if (objListaAnimal.isEmpty()) {
+				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível atualizar os dados.");
+			} else {
+				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados atualizados com sucesso.");
+			}
+		} else {
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "SERVIDOR não encontrado verifique as configurações e tente novamente!");
+			MensagemUtil.closeProgress();
 		}
 	}
 }

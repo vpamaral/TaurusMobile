@@ -25,7 +25,8 @@
                 android:layout_height="wrap_content"
                 android:text="Identificador:    "
                 android:textStyle="bold"
-                android:id="@+id/lblIdentificador" />
+                android:id="@+id/lblIdentificador"
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/edtIdentificador"
@@ -67,7 +68,8 @@
                 android:layout_height="wrap_content"
                 android:text="Sisbov:              "
                 android:textStyle="bold"
-                android:id="@+id/lblSisbov" />
+                android:id="@+id/lblSisbov"
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/edtSisbov"
@@ -106,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:text="Cód. Cria:          "
                 android:textStyle="bold"
-                android:id="@+id/lblCodCria" />
+                android:id="@+id/lblCodCria"
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/edtCria"
@@ -139,7 +142,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Matriz:               "
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/edtMatriz"
@@ -149,10 +153,25 @@
                 android:maxLength="6" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/space5"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="60dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descarte:         "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cbDescarte"
+                android:enabled="true"
+                android:layout_gravity="center" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,7 +182,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Data Parto:       "
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/edtDataParto"
@@ -187,7 +207,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Data Ident.:       "
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/edtDataIdentificacao"
@@ -213,12 +234,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Grupo Manejo:"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/edtGrupoManejo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="number" />
         </LinearLayout>
 
         <TextView
@@ -234,15 +257,35 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Pasto:                "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtBuscaPasto"
+                android:completionThreshold="1"/>
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Raça Reprod:   "
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center" />
 
             <EditText
                 android:id="@+id/edtRacaPai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"/>
-        </LinearLayout>
+        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -300,25 +343,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pasto:                "
-                android:textStyle="bold"
-                android:layout_gravity="center" />
-
-            <Spinner
-                android:id="@+id/spnPasto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:orientation="horizontal" >
 
             <TextView
@@ -328,16 +353,15 @@
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 
-            <Spinner
-                android:id="@+id/spnTipoParto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GENÉTICA"
+                android:id="@+id/cbTipoParto"
+                android:enabled="true"
+                android:layout_gravity="center" />
 
-        <TextView
-            android:id="@+id/space55"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

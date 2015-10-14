@@ -41,9 +41,10 @@ public class GetJSON {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
+			throw  new ValidatorException("Ocorreu um erro ao atualizar Servidor...");
+			//MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
 			//throw e;
 		}
-		return null;
+		//return null;
 	}
 }

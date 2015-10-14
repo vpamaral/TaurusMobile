@@ -1,5 +1,7 @@
 package br.com.prodap.taurusmobile.ui;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +33,8 @@ public class ListaAnimaisActivity extends Activity {
 	private List<Animal> animais_list;
 	private Constantes constantes;
 	private long quantdAnimais;
-	private TextView txtContador;
+	private EditText edtBuscaMatriz;
+	private Button btnBusca;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,8 @@ public class ListaAnimaisActivity extends Activity {
 		ani_tb = new Animal();
 		ani_model = new AnimalModel(getBaseContext());
 		list = (ListView) findViewById(R.id.lista_animais);
-		txtContador = (TextView) findViewById(R.id.lblSisbov);
+		//edtBuscaMatriz = (EditText) findViewById(R.id.edtBuscaMatriz);
+		//btnBusca = (Button) findViewById(R.id.btn_busca);
 
 		constantes = new Constantes();
 		this.AnimalList();
@@ -47,18 +53,37 @@ public class ListaAnimaisActivity extends Activity {
 		this.consultarPorIdClickLongo();
 
 		setTitle("Quantidade de Animais: " + quantdAnimais);
-		//txtContador.setText("Quantidade de Animais: " + Constantes.TOTAL_ANIMAIS +  "\n" + "Código" " - " );
 	}
 
-	private void AnimalList(){
-		animais_list = ani_model.selectAll(getBaseContext(), "Animal",
-				ani_tb);
+	private void AnimalList() {
+		animais_list = ani_model.selectAll(getBaseContext(), "Animal", ani_tb);
 
 		quantdAnimais = animais_list.size();
 
 		animal_adapter = new AnimalAdapter(animais_list, this);
 
 		list.setAdapter(animal_adapter);
+
+/*
+		btnBusca.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String matriz = edtBuscaMatriz.getText().toString();
+				List<Animal> aniConsulta = new ArrayList<Animal>();
+				for(Animal a : animais_list)
+				{
+					if(matriz.equals(a.getCodigo()))
+					{
+						aniConsulta.add(a);
+						animal_adapter = new AnimalAdapter(aniConsulta,getParent());
+
+
+					}
+					break;
+				}
+				list.setAdapter(animal_adapter);
+			}
+		});*/
 	}
 
 	/*
@@ -72,10 +97,9 @@ public class ListaAnimaisActivity extends Activity {
 					int position, long id) {
 				ani_tb = (Animal) animal_adapter.getItem(position);
 
-				String msg = "Código: " + ani_tb.getCodigo() + "\nSisbov: "
-						+ ani_tb.getSisbov() + "\nIdentificador: "
-						+ ani_tb.getIdentificador() + "\nPeso Atual: "
-						+ ani_tb.getPeso_atual();
+				String msg = "Código: " + ani_tb.getCodigo() + "\nCódigo Ferro: "
+						+ ani_tb.getCodigo_ferro() + "\nIdentificador: "
+						+ ani_tb.getIdentificador();
 
 				MensagemUtil.addMsg(MessageDialog.Yes,
 						ListaAnimaisActivity.this, msg, "Animal", position);
@@ -94,10 +118,9 @@ public class ListaAnimaisActivity extends Activity {
 										   int position, long id) {
 				ani_tb = (Animal) animal_adapter.getItem(position);
 
-				String msg = "Código: " + ani_tb.getCodigo() + "\nSisbov: "
-						+ ani_tb.getSisbov() + "\nIdentificador: "
-						+ ani_tb.getIdentificador() + "\nPeso Atual: "
-						+ ani_tb.getPeso_atual();
+				String msg = "Código: " + ani_tb.getCodigo() + "\nCódigo Ferro: "
+						+ ani_tb.getCodigo_ferro() + "\nIdentificador: "
+						+ ani_tb.getIdentificador();
 				MensagemUtil.addMsg(MessageDialog.Yes, ListaAnimaisActivity.this, msg, "Animal", position);
 
 				return true;

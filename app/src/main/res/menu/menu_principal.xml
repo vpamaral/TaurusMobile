@@ -24,6 +24,11 @@
                 android:showAsAction="always"
                 android:title="Lançar Parto"/>
             <item
+                android:id="@+id/menu_novo_pasto"
+                android:icon="@drawable/adiciona32"
+                android:showAsAction="always"
+                android:title="Cadastrar Pasto"/>
+            <item
                 android:id="@+id/menu_lista_partos"
                 android:icon="@drawable/lista32"
                 android:showAsAction="always"
@@ -38,10 +43,15 @@
                 android:icon="@drawable/setting"
                 android:showAsAction="always"
                 android:title="Configuraçoes"/>
+            <!--<item
+                android:id="@+id/menu_recover_sent_partos"
+                android:icon="@drawable/setting"
+                android:showAsAction="always"
+                android:title="Recupera Partos Lançados"/>-->
             <item
                 android:id="@+id/menu_versao"
                 android:showAsAction="always"
-                android:title="Versão v20"/>
+                android:title="Versão v23"/>
         </menu>
     </item>
 

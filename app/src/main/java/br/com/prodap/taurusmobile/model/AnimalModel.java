@@ -35,7 +35,7 @@ public class AnimalModel extends BancoService {
 
 		Class classe = table.getClass();
 		List<Animal> listadd = new ArrayList<Animal>();
-		String sql = "SELECT * FROM " + Tabela;
+		String sql = "SELECT * FROM " + Tabela + " ORDER BY codigo ";
 
 		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 

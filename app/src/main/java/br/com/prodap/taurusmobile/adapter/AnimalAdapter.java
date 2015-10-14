@@ -31,9 +31,9 @@ public class AnimalAdapter extends BaseAdapter {
 
 		while (c.moveToNext()) {
 			animal.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
-			animal.setId_fk_cria(c.getLong(c.getColumnIndex("id_fk_cria")));
+			//animal.setId_fk_cria(c.getLong(c.getColumnIndex("id_fk_cria")));
 			animal.setCodigo(c.getString(c.getColumnIndex("codigo")));
-			animal.setSisbov(c.getString(c.getColumnIndex("sisbov")));
+			//animal.setSisbov(c.getString(c.getColumnIndex("sisbov")));
 			animal.setIdentificador(c.getString(c
 					.getColumnIndex("identificador")));
 			if (c.getString(c.getColumnIndex("codigo_ferro")) != null) {
@@ -44,10 +44,10 @@ public class AnimalAdapter extends BaseAdapter {
 			}
 			animal.setData_nascimento(c.getString(c
 					.getColumnIndex("data_nascimento")));
-			animal.setCategoria(c.getString(c.getColumnIndex("categoria")));
-			animal.setRaca(c.getString(c.getColumnIndex("raca")));
-			animal.setPeso_atual(c.getDouble(c.getColumnIndex("peso_atual")));
-			animal.setRaca_reprod(c.getString(c.getColumnIndex("raca_reprod")));
+			//animal.setCategoria(c.getString(c.getColumnIndex("categoria")));
+			//animal.setRaca(c.getString(c.getColumnIndex("raca")));
+			//animal.setPeso_atual(c.getDouble(c.getColumnIndex("peso_atual")));
+			//animal.setRaca_reprod(c.getString(c.getColumnIndex("raca_reprod")));
 		}
 		return animal;
 	}
@@ -58,9 +58,9 @@ public class AnimalAdapter extends BaseAdapter {
 
 			Animal animal = new Animal();
 			animal.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
-			animal.setId_fk_cria(c.getLong(c.getColumnIndex("id_fk_cria")));
+			//animal.setId_fk_cria(c.getLong(c.getColumnIndex("id_fk_cria")));
 			animal.setCodigo(c.getString(c.getColumnIndex("codigo")));
-			animal.setSisbov(c.getString(c.getColumnIndex("sisbov")));
+			//animal.setSisbov(c.getString(c.getColumnIndex("sisbov")));
 			animal.setIdentificador(c.getString(c
 					.getColumnIndex("identificador")));
 			if (c.getString(c.getColumnIndex("codigo_ferro")) != null) {
@@ -71,10 +71,10 @@ public class AnimalAdapter extends BaseAdapter {
 			}
 			animal.setData_nascimento(c.getString(c
 					.getColumnIndex("data_nascimento")));
-			animal.setCategoria(c.getString(c.getColumnIndex("categoria")));
-			animal.setRaca(c.getString(c.getColumnIndex("raca")));
-			animal.setPeso_atual(c.getDouble(c.getColumnIndex("peso_atual")));
-			animal.setRaca_reprod(c.getString(c.getColumnIndex("raca_reprod")));
+			//animal.setCategoria(c.getString(c.getColumnIndex("categoria")));
+			//animal.setRaca(c.getString(c.getColumnIndex("raca")));
+			//animal.setPeso_atual(c.getDouble(c.getColumnIndex("peso_atual")));
+			//animal.setRaca_reprod(c.getString(c.getColumnIndex("raca_reprod")));
 
 			listaAnimal.add(animal);
 		}
@@ -88,18 +88,16 @@ public class AnimalAdapter extends BaseAdapter {
 
 			Animal animal = new Animal();
 			animal.setId_pk(AnimalArray[i].getId_pk());
-			animal.setId_fk_cria(AnimalArray[i].getId_fk_cria());
+			//animal.setId_fk_cria(AnimalArray[i].getId_fk_cria());
 			animal.setCodigo(AnimalArray[i].getCodigo());
-			animal.setSisbov(AnimalArray[i].getSisbov() != null	? AnimalArray[i].getSisbov() : "");
-			//animal.setSisbov(AnimalArray[i].getSisbov());
+			//animal.setSisbov(AnimalArray[i].getSisbov() != null	? AnimalArray[i].getSisbov() : "");
 			animal.setIdentificador(AnimalArray[i].getIdentificador() != null	? AnimalArray[i].getIdentificador() : "");
-			//animal.setIdentificador(AnimalArray[i].getIdentificador());
 			animal.setCodigo_ferro(AnimalArray[i].getCodigo_ferro() != null	? AnimalArray[i].getCodigo_ferro() : "");
 			animal.setData_nascimento(AnimalArray[i].getData_nascimento());
-			animal.setCategoria(AnimalArray[i].getCategoria());
-			animal.setRaca(AnimalArray[i].getRaca());
-			animal.setPeso_atual(AnimalArray[i].getPeso_atual());
-			animal.setRaca_reprod(AnimalArray[i].getRaca_reprod());
+			//animal.setCategoria(AnimalArray[i].getCategoria());
+			//animal.setRaca(AnimalArray[i].getRaca());
+			//animal.setPeso_atual(AnimalArray[i].getPeso_atual());
+			//animal.setRaca_reprod(AnimalArray[i].getRaca_reprod());
 
 			listaAnimal.add(animal);
 		}
@@ -110,16 +108,16 @@ public class AnimalAdapter extends BaseAdapter {
 		Animal animal = new Animal();
 
 		animal.setId_pk(animalTB.getId_pk());
-		animal.setId_fk_cria(animalTB.getId_fk_cria());
+		//animal.setId_fk_cria(animalTB.getId_fk_cria());
 		animal.setCodigo(animalTB.getCodigo());
-		animal.setSisbov(animalTB.getSisbov() != null ? animalTB.getSisbov() : "");
+		//animal.setSisbov(animalTB.getSisbov() != null ? animalTB.getSisbov() : "");
 		animal.setIdentificador(animalTB.getIdentificador() != null ? animalTB.getIdentificador() : "");
 		animal.setCodigo_ferro(animalTB.getCodigo_ferro() != null ? animalTB.getCodigo_ferro() : "");
 		animal.setData_nascimento(animalTB.getData_nascimento());
-		animal.setCategoria(animalTB.getCategoria());
-		animal.setRaca(animalTB.getRaca());
-		animal.setPeso_atual(animalTB.getPeso_atual());
-		animal.setRaca_reprod(animalTB.getRaca_reprod());
+		//animal.setCategoria(animalTB.getCategoria());
+		//animal.setRaca(animalTB.getRaca());
+		//animal.setPeso_atual(animalTB.getPeso_atual());
+		//animal.setRaca_reprod(animalTB.getRaca_reprod());
 
 		return animal;
 	}
@@ -157,7 +155,7 @@ public class AnimalAdapter extends BaseAdapter {
 		}*/
 
 		TextView sisbov = (TextView) line.findViewById(R.id.lblSisbov);
-		sisbov.setText(animal.toString());
+		sisbov.setText(animal.getCodigo());
 
 		return line;
 	}

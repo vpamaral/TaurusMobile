@@ -104,9 +104,9 @@ public class PartoAdapter extends BaseAdapter{
 		+ String.valueOf(cria.getSexo()) + ","
 		+ String.valueOf(cria.getRaca_cria()) + ","
 		+ String.valueOf(cria.getData_identificacao()) + ","
-		+ String.valueOf(cria.getRepasse()) + ","
-		+ String.valueOf(cria.getTipo_parto())+ ","
-		+ String.valueOf(cria.getPasto())+ "|";
+		//+ String.valueOf(cria.getRepasse()) + ","
+		+ String.valueOf(cria.getTipo_parto())+ "|";
+		//+ String.valueOf(cria.getPasto())+ "|";
 
 
 		return conteudo;
