@@ -73,6 +73,19 @@ public class PartoModel extends BancoService {
 		db.execSQL("UPDATE Parto_Cria SET sync_status ='1'");
 	}
 
+	public void recoverSentPartos (Context ctx) {
+		banco = new Banco(ctx);
+		db = banco.getWritableDatabase();
+		db.execSQL("UPDATE Parto SET sync_status ='0'");
+		db.execSQL("UPDATE Parto_Cria SET sync_status ='0'");
+	}
+
+	public void recoverDescarte (Context ctx) {
+		banco = new Banco(ctx);
+		db = banco.getWritableDatabase();
+		db.execSQL("UPDATE Parto_Cria SET repasse = 'NAO' WHERE repasse = 'NÃO'");
+	}
+
 	@Override
 	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
 		// TODO Auto-generated method stub

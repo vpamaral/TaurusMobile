@@ -15,10 +15,12 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import br.com.prodap.taurusmobile.TB.Animal;
 import br.com.prodap.taurusmobile.TB.Parto;
 import br.com.prodap.taurusmobile.TB.Parto_Cria;
 import br.com.prodap.taurusmobile.adapter.PartoAdapter;
 import br.com.prodap.taurusmobile.adapter.PartoCriaAdapter;
+import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.PartoModel;
 import br.com.prodap.taurusmobile.model.Parto_CriaModel;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
@@ -34,7 +36,12 @@ public class ListaPartosCriaActivity extends Activity {
 	private PartoAdapter parto_adapter;
 	private List<Parto_Cria> p_cria_list;
 	private List<Parto> parto_list;
+	private List<Animal> animal_list;
+	private AnimalModel ani_model;
+	private Animal matriz_tb;
 	private int quantdPartos;
+	private int quantMachos;
+	private int quantFemeas;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +50,7 @@ public class ListaPartosCriaActivity extends Activity {
 		loadList();
 		source();
 
-		setTitle("Partos a serem enviados " + quantdPartos);
+		setTitle("MA.: " + quantMachos + "  |  FE.: " + quantFemeas + "  |  Total: " + quantdPartos);
 	}
 
 	private void source() {
@@ -51,6 +58,10 @@ public class ListaPartosCriaActivity extends Activity {
 		p_cria_tb 		= new Parto_Cria();
 		p_cria_model	= new Parto_CriaModel(getBaseContext());
 		parto_model 	= new PartoModel(getBaseContext());
+		ani_model 		= new AnimalModel(getBaseContext());
+		matriz_tb 		= new Animal();
+		animal_list = ani_model.selectAll(getBaseContext(),"Animal", matriz_tb);
+
 		this.partoCriaList();
 		this.partoCriaDetails();
 		this.partoCriaDelete();
@@ -62,16 +73,27 @@ public class ListaPartosCriaActivity extends Activity {
 	}
 	
 	private void partoCriaList() {
+		quantFemeas = 0;
+		quantMachos = 0;
 		parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
 		p_cria_list = p_cria_model.selectAll(getBaseContext(),
 				"Parto_Cria", p_cria_tb);
 		parto_list = parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
+		for (Parto_Cria parto_cria_tb : p_cria_list) {
+			if (parto_cria_tb.getSexo().toString().equals("MA")) {
+				quantMachos++;
+			} else {
+				quantFemeas++;
+			}
+		}
 
 		quantdPartos = p_cria_list.size();
+
 		p_cria_adapter = new PartoCriaAdapter(p_cria_list, this);
 		parto_adapter = new PartoAdapter(parto_list, this);
 
 		list.setAdapter(p_cria_adapter);
+		//list.setAdapter(parto_adapter);
 	}
 
 	/*
@@ -83,13 +105,39 @@ public class ListaPartosCriaActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
 				p_cria_tb = (Parto_Cria) p_cria_adapter.getItem(position);
+				String matriz = "";
+				String data_parto = "";
 
-				String msg = "Código: " + p_cria_tb.getCodigo_cria()
-						+ "\nIdentificador: " + p_cria_tb.getIdentificador()
+				for(Animal a : animal_list)
+				{
+					if(p_cria_tb.getId_fk_animal_mae() == a.getId_pk())
+					{
+						matriz = a.getCodigo();
+					}
+				}
+
+				for(Parto p : parto_list)
+				{
+					if(p_cria_tb.getId_fk_animal_mae() == p.getId_fk_animal())
+					{
+						data_parto = p.getData_parto();
+					}
+				}
+
+				String msg = "Dados da Matriz\n"
+						+ "\nCódigo da Matriz: " + matriz
+						+ "\nDescarte: " + p_cria_tb.getRepasse()
+						+ "\n\nDados da Cria\n"
+						+ "\nCódigo da Cria: " + p_cria_tb.getCodigo_cria()
+						+ "\nData do Parto: " + data_parto
+						+ "\nData da Identif.: " + p_cria_tb.getData_identificacao()
+						+ "\nIdentif.: " + p_cria_tb.getIdentificador()
 						+ "\nSisbov: " + p_cria_tb.getSisbov()
 						+ "\nPeso: " + p_cria_tb.getPeso_cria()
 						+ "\nSexo: " + p_cria_tb.getSexo()
-						+ "\nPasto: " + p_cria_tb.getPasto();
+						+ "\nTipo de Parto: " + p_cria_tb.getTipo_parto()
+						+ "\nPasto: " + p_cria_tb.getPasto()
+						+ "\nGrupo de Manejo: " + p_cria_tb.getGrupo_manejo();
 
 				MensagemUtil.addMsg(MessageDialog.Yes,
 						ListaPartosCriaActivity.this, msg, "Parto", position);
@@ -140,6 +188,7 @@ public class ListaPartosCriaActivity extends Activity {
 				return false;
 			}
 		});
+		//MenuItem recoverSentPartos = menu.add("Recuperar Partos enviados");
 	}
 
 	private void alertMsg(){

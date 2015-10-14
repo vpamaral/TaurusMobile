@@ -19,17 +19,17 @@ public class Banco extends SQLiteOpenHelper {
 		String sql_animal = "CREATE TABLE 'Animal' ("
 				+ "'id_auto'			INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'id_pk'				INTEGER,"
-				+ "'id_fk_cria'			INTEGER,"
 				+ "'codigo'				varchar(45),"
-				+ "'sisbov'				varchar(45),"
-				+ "'identificador'		varchar(45),"
 				+ "'codigo_ferro'		varchar(45),"
-				+ "'data_nascimento'	varchar(45),"
+				+ "'identificador'		varchar(45),"
+				+ "'data_nascimento'	varchar(45)"
+				+ " );";
+				/*+ "'sisbov'			varchar(45),"
+				+ "'id_fk_cria'			INTEGER,"
 				+ "'categoria'			varchar(45),"
 				+ "'raca'				varchar(45),"
 				+ "'peso_atual'			double(45),"
-				+ "'raca_reprod'		varchar(45)"
-				+ " );";
+				+ "'raca_reprod'		varchar(45)"*/
 		
 		String sql_parto = "CREATE TABLE 'Parto' ("
 				+ "'id_auto'	       	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
@@ -56,7 +56,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'tipo_parto'     	 	varchar(45),"
 				+ "'pasto'					varchar(45)"
 				+");";
-		
+
 		String sql_configuracao = "CREATE TABLE 'Configuracao' ("
 				+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'tipo'        			varchar(45),"
@@ -66,10 +66,16 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'valida_manejo'   		varchar(5)"
 				+");";
 
+		String sql_pasto = "CREATE TABLE 'Pasto' ("
+				+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'pasto'        			varchar(100)"
+				+");";
+
 		db.execSQL(sql_animal);
 		db.execSQL(sql_parto);
 		db.execSQL(sql_parto_cria);
 		db.execSQL(sql_configuracao);
+		db.execSQL(sql_pasto);
 	}
 
 	@Override

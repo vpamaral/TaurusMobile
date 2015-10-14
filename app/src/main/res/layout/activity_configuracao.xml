@@ -54,11 +54,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <Button
+            android:id="@+id/btn_salvar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_selector"
+            android:drawableLeft="@drawable/envia32"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Atualizar"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
         <LinearLayout
             android:id="@+id/ll_identificador"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:visibility="invisible" >
 
             <TextView
                 android:layout_width="156dp"
@@ -84,7 +100,8 @@
             android:id="@+id/ll_sisbov"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:visibility="invisible" >
 
             <TextView
                 android:layout_width="156dp"
@@ -110,7 +127,8 @@
             android:id="@+id/ll_manejo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:visibility="invisible" >
 
             <TextView
                 android:layout_width="156dp"
@@ -126,21 +144,6 @@
                 android:layout_weight="1" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_salvar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/envia32"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Atualizar"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
         
     </LinearLayout>
 

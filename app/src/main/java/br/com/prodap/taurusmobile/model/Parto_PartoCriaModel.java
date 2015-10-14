@@ -53,7 +53,7 @@ public class Parto_PartoCriaModel extends BancoService {
 	}
 
 	public void delete(Parto_PartoCria parto_partoCria) {
-		String[] args = {Long.valueOf(parto_partoCria.getId_auto()).toString()};
+		String[] args = {Long.valueOf(parto_partoCria.getCodigo_cria()).toString()};
 
 
 	}

@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.concurrent.TimeoutException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -38,7 +39,35 @@ public class ConexaoHTTP {
 		this.ctx = ctx;
 	}
 
-	public String lerUrlServico(String urlServico) throws IOException{
+	public String lerUrlServico(String urlServico) throws IOException, TimeoutException {
+		String dados = "";
+		InputStream objDadosInputStream = null;
+		HttpURLConnection objUrlConnection = null;
+
+		try {
+			URL url = new URL(urlServico);
+			objUrlConnection = (HttpURLConnection) url.openConnection();
+			objUrlConnection.connect();
+			objDadosInputStream = objUrlConnection.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(objDadosInputStream));
+			StringBuffer sb = new StringBuffer();
+			String linha = "";
+			while ((linha = br.readLine()) != null) {
+				sb.append(linha);
+			}
+			dados = sb.toString();
+			br.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.i("TAG", e.toString());
+		} finally {
+			objDadosInputStream.close();
+			objUrlConnection.disconnect();
+		}
+		return dados;
+	}
+
+	/*public String lerUrlServico(String urlServico) throws IOException{
 		String dados = "";
 		InputStream objDadosInputStream = null;
 		HttpURLConnection objUrlConnection = null;
@@ -76,7 +105,7 @@ public class ConexaoHTTP {
 			//objUrlConnection.disconnect();
 		}
 		return dados;
-	}
+	}*/
 	
 	public String postRequest(String urlServico, ArrayList<String> postDataParams) throws Exception{
 	  HttpURLConnection objUrlConnection = null;
@@ -107,7 +136,7 @@ public class ConexaoHTTP {
 		  else {
 			  response="";
 		  }
-	  } 
+	  }
 	  catch (Exception e) {
 		  Log.i("TAG", e.toString());
 		  e.printStackTrace();

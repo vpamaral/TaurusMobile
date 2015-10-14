@@ -155,7 +155,7 @@ public class Parto_PartoCriaAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return partos_cria.get(position).getId_auto();
+		return Long.parseLong(partos_cria.get(position).getCodigo_cria());
 	}
 
 	@Override

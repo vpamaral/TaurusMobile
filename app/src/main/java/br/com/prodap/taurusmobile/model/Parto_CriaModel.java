@@ -57,7 +57,7 @@ public class Parto_CriaModel extends BancoService {
 
 		Class classe = table.getClass();
 		List<Parto_Cria> listadd = new ArrayList<Parto_Cria>();
-		String sql = String.format("SELECT * FROM %s WHERE sync_status = 0", Tabela);
+		String sql = String.format("SELECT * FROM %s WHERE sync_status = 0  ORDER BY codigo_cria ", Tabela);
 
 		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 

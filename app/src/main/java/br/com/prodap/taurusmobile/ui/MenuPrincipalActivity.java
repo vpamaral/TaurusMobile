@@ -19,14 +19,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.TB.Configuracoes;
+import br.com.prodap.taurusmobile.TB.Parto;
+import br.com.prodap.taurusmobile.TB.Pasto;
+import br.com.prodap.taurusmobile.adapter.PastoAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
-import br.com.prodap.taurusmobile.task.GetAnimaisARQUIVO;
+import br.com.prodap.taurusmobile.model.PartoModel;
+import br.com.prodap.taurusmobile.model.PastoModel;
+import br.com.prodap.taurusmobile.task.GetPastoARQUIVO;
 import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
 import br.com.prodap.taurusmobile.task.PostAnimaisJSON;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
@@ -34,7 +40,7 @@ import br.com.prodap.taurusmobile.util.MessageDialog;
 
 public class MenuPrincipalActivity extends Activity {
 
-	public static String JSONANIMAIS;
+	public static String JSONPASTO;
 	private Button btn_atualizar;
 	private Button btn_atualizar_dados;
 	private Button btn_animais;
@@ -47,6 +53,7 @@ public class MenuPrincipalActivity extends Activity {
 	private ConfiguracoesModel configuracao_model;
 	private Configuracoes configuracao_tb;
 	private String url;
+	private PartoModel parto_model;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,8 @@ public class MenuPrincipalActivity extends Activity {
 			e.printStackTrace();
 		}
 		source();
+		parto_model.recoverDescarte(getBaseContext());
+		atualizarBotoes();
 		loadListener();
 	}
 	
@@ -73,11 +82,30 @@ public class MenuPrincipalActivity extends Activity {
 		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
 		configuracao_model 	= new ConfiguracoesModel(this);
 		configuracao_tb 	= new Configuracoes();
+		parto_model			= new PartoModel(this);
 		lista_conf = configuracao_model.selectAll(getBaseContext(), "Configuracao", configuracao_model);
+
+
 		for (Configuracoes conf_tb : lista_conf) {
 			url = conf_tb.getEndereco();
 		}
 		existCelular(lista_conf, configuracao_tb);
+	}
+
+	private void atualizarBotoes()
+	{
+		final List<Pasto> pasto_list;
+		final List<String> nome_pasto_list = new ArrayList<String>();
+		final Pasto pasto_tb = new Pasto();
+		PastoModel pasto_model = new PastoModel(getBaseContext());
+		PastoAdapter pasto_adapter = new PastoAdapter();
+
+		pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
+		if(pasto_list.size() > 0) {
+			btn_atualizar_dados.setVisibility(View.INVISIBLE);
+		} else {
+			btn_atualizar_dados.setVisibility(View.VISIBLE);
+		}
 	}
 	
 	private void loadListener() {
@@ -94,8 +122,8 @@ public class MenuPrincipalActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
-					JSONANIMAIS = createListAnimais();
-					msgUpdateDadosViaArquivo();
+					JSONPASTO = createListAnimais();
+					msgUpdatePastoViaArquivo();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -146,6 +174,11 @@ public class MenuPrincipalActivity extends Activity {
 	private void lancaParto() {
 		Intent intent = new Intent(MenuPrincipalActivity.this, PartoActivity.class);
 		startActivity(intent);
+	}
+
+	private void novoPasto() {
+		Intent pasto = new Intent(MenuPrincipalActivity.this, PastoActivity.class);
+		startActivity(pasto);
 	}
 
 	private void animaisList() {
@@ -205,19 +238,20 @@ public class MenuPrincipalActivity extends Activity {
 			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
-		/**/
 	}
 
-	private void msgUpdateDadosViaArquivo() {
+	private void msgUpdatePastoViaArquivo() {
 		if (checksConnection()) {
 			if (validateServer(url)){
-				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Deseja atualizar os dados?"
+				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Deseja ?"
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						AnimalModel objModelAnimal = new AnimalModel(MenuPrincipalActivity.this);
-						objModelAnimal.delete(MenuPrincipalActivity.this, "Animal");
-						new GetAnimaisARQUIVO(MenuPrincipalActivity.this).execute();
+						PastoModel pasto_model = new PastoModel(getBaseContext());
+						pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
+
+						new GetPastoARQUIVO(MenuPrincipalActivity.this).execute();
+						btn_atualizar_dados.setVisibility(View.INVISIBLE);
 					}
 				});
 			}
@@ -225,7 +259,6 @@ public class MenuPrincipalActivity extends Activity {
 			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao atulaizar via arquivo!");
 			return;
 		}
-		/**/
 	}
 
 	private void msgPostDados() {
@@ -312,6 +345,9 @@ public class MenuPrincipalActivity extends Activity {
 			case R.id.menu_novo_parto:
 				lancaParto();
 				return false;
+			case R.id.menu_novo_pasto:
+				novoPasto();
+				return false;
 			case R.id.menu_lista_partos:
 				partosList();
 				return false;
@@ -321,6 +357,9 @@ public class MenuPrincipalActivity extends Activity {
 			case R.id.menu_QRCode:
 				loadConfiguracoes();
 				return false;
+			/*case R.id.menu_recover_sent_partos:
+				parto_model.recoverSentPartos(getBaseContext());
+				return false;*/
 			default:
 				break;
 		}
@@ -338,7 +377,7 @@ public class MenuPrincipalActivity extends Activity {
 		String texto = "";
 
 		try {
-			File textfile = new File(Environment.getExternalStorageDirectory()+"/Prodap/","arquivo_parto.txt");
+			File textfile = new File(Environment.getExternalStorageDirectory()+"/Prodap/","pasto.txt");
 			BufferedReader br = new BufferedReader(new FileReader(textfile));
 
 			texto = br.readLine();

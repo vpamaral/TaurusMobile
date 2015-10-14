@@ -2,6 +2,7 @@ package br.com.prodap.taurusmobile.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -58,16 +59,23 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		for (Configuracoes qrcode_tb : configuracoes_list) {
 			url = qrcode_tb.getEndereco();
 		}
-		p_parto_cria_list = p_parto_cria_model.selectAll(ctx, "Animal", p_parto_cria_tb);
-		if (p_parto_cria_list.size() != 0) {
-			json = new Parto_PartoCriaJSON().toJSON(p_parto_cria_list);
-			auxiliar = new Auxiliar(json);
-			gson = new Gson();
-			retornoJSON = gson.toJson(auxiliar);
-			new ConexaoHTTP(url + Constantes.METHODO_POST, ctx).postJson(retornoJSON);
-			return retornoJSON;
+
+		try {
+			p_parto_cria_list = p_parto_cria_model.selectAll(ctx, "Animal", p_parto_cria_tb);
+			if (p_parto_cria_list.size() != 0) {
+				json = new Parto_PartoCriaJSON().toJSON(p_parto_cria_list);
+				auxiliar = new Auxiliar(json);
+				gson = new Gson();
+				retornoJSON = gson.toJson(auxiliar);
+				new ConexaoHTTP(url + Constantes.METHODO_POST, ctx).postJson(retornoJSON);
+				return retornoJSON;
+			}
+
+		}catch (Exception e) {
+			Log.i("POSTJSON", e.toString());
+			e.printStackTrace();
 		}
-		return null;
+		return retornoJSON;
 	}
 
 	@Override
