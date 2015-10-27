@@ -62,12 +62,14 @@ public class LeitorActivity extends Activity {
                     MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
                                         "O leitor não conseguir ler todo o código de barras!");
                 } else {
-                    Intent intent = new Intent(getBaseContext(), PartoActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("CodBarras", result);
-                    intent.putExtra("tipo", tipo);
-                    startActivity(intent);
-                    finish();
+                    if (!validaIdentificador(result)) {
+                        Intent intent = new Intent(getBaseContext(), PartoActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("CodBarras", result);
+                        intent.putExtra("tipo", tipo);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             } else {
                 MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
@@ -79,6 +81,21 @@ public class LeitorActivity extends Activity {
             startActivity(intent);
             finish();
         }
+    }
+
+    public boolean validaIdentificador(String result){
+        for (int i = 0; i < result.length(); i++) {
+            if (result.charAt(i) == '%') {
+                Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
+                        "O código de barras do Identificador da cria " + result + " é inválido.");
+                return true;
+                //break;
+            }
+        }
+        return false;
     }
 
     public void sendResultQRCode(String urlServidor, String tipo) {
@@ -115,39 +132,4 @@ public class LeitorActivity extends Activity {
             onBackPressed();
         }
     }
-    /*private boolean thereServer() {
-        List<Configuracoes> lista_conf;
-        ConfiguracoesModel configuracao_model 	= new ConfiguracoesModel(this);
-        Configuracoes configuracao_tb 	= new Configuracoes();
-        lista_conf = configuracao_model.selectAll(getBaseContext(), "Configuracao", configuracao_tb);
-
-        if (lista_conf.size() != 0) {
-            thereServer = true;
-        } else {
-            thereServer = false;
-        }
-        return thereServer;
-    }*/
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_leitor, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }

@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +38,6 @@ import br.com.prodap.taurusmobile.TB.Parto;
 import br.com.prodap.taurusmobile.TB.Parto_Cria;
 import br.com.prodap.taurusmobile.TB.Pasto;
 import br.com.prodap.taurusmobile.adapter.PartoAdapter;
-import br.com.prodap.taurusmobile.adapter.PastoAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
 import br.com.prodap.taurusmobile.model.PartoModel;
@@ -423,6 +419,11 @@ public class PartoActivity extends Activity {
                         parto_tb.setSync_status(0);
                         cria_tb.setPasto(editBuscaPasto.getText().toString());
 
+                        if (cria_tb.getId_fk_animal_mae() == 0){
+                            editMatriz.clearFocus();
+                            return;
+                        }
+
                         if (listaMatriz.size() == 0) {
                             alertMsg();
                             editMatriz.requestFocus();
@@ -538,12 +539,10 @@ public class PartoActivity extends Activity {
     public void insertParto(Parto parto_tb, Parto_Cria cria_tb) {
         parto_model.insert(PartoActivity.this, "Parto", p_helper.PartoHelper(parto_tb));
         cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
-        zeraInterface();
-        if(writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb)))
+        writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
             //MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this, "Arquivo preenchido com sucesso!");
-
-        MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this,
-                "Parto cadastrado com sucesso!");
+        MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this, "Parto cadastrado com sucesso!");
+        zeraInterface();
     }
 
     private void alertMsg() {
@@ -671,7 +670,7 @@ public class PartoActivity extends Activity {
         txtidanimal.setText("");
         editSisbov.setText("");
         editPeso.setText("");
-        editGrupoManejo.setText("");
+       // editGrupoManejo.setText("");
         editIdentificador.setText("");
         editDataParto.setText("");
         editIdentificador.requestFocus();

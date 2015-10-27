@@ -243,7 +243,7 @@ public class MenuPrincipalActivity extends Activity {
 	private void msgUpdatePastoViaArquivo() {
 		if (checksConnection()) {
 			if (validateServer(url)){
-				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Deseja ?"
+				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Criar tabela de Pasto?"
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -385,7 +385,7 @@ public class MenuPrincipalActivity extends Activity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		MensagemUtil.addMsg(MessageDialog.Toast, this, "Lista criada com sucesso.");
+		//MensagemUtil.addMsg(MessageDialog.Toast, this, "Lista criada com sucesso.");
 		return texto;
 	}
 

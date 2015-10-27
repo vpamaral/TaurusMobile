@@ -25,7 +25,7 @@ public class GetPastoARQUIVO extends AsyncTask<Void, Void, List<Pasto>> {
 
 	@Override
 	protected void onPreExecute() {
-		MensagemUtil.addMsg(ctx, "Aguarde...", "Recebendo dados do arquivo.");
+		MensagemUtil.addMsg(ctx, "Aguarde...", "Tranferindo dados para tabela de Pasto.");
 	}
 	
 	@Override
@@ -53,10 +53,10 @@ public class GetPastoARQUIVO extends AsyncTask<Void, Void, List<Pasto>> {
 		MensagemUtil.closeProgress();
 
 		if(pastoList.isEmpty()){
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível atualizar os dados.");
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível transferir os dados.");
 		}
 		else {
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados atualizados com sucesso.");
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados transferidos com sucesso.");
 		}
 	}
 }
