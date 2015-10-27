@@ -129,15 +129,15 @@ public class ListaPartosCriaActivity extends Activity {
 						+ "\nDescarte: " + p_cria_tb.getRepasse()
 						+ "\n\nDados da Cria\n"
 						+ "\nCódigo da Cria: " + p_cria_tb.getCodigo_cria()
-						+ "\nData do Parto: " + data_parto
-						+ "\nData da Identif.: " + p_cria_tb.getData_identificacao()
 						+ "\nIdentif.: " + p_cria_tb.getIdentificador()
 						+ "\nSisbov: " + p_cria_tb.getSisbov()
-						+ "\nPeso: " + p_cria_tb.getPeso_cria()
-						+ "\nSexo: " + p_cria_tb.getSexo()
+						+ "\nData do Parto: " + data_parto
+						+ "\nData da Identif.: " + p_cria_tb.getData_identificacao()
 						+ "\nTipo de Parto: " + p_cria_tb.getTipo_parto()
-						+ "\nPasto: " + p_cria_tb.getPasto()
-						+ "\nGrupo de Manejo: " + p_cria_tb.getGrupo_manejo();
+						+ "\nSexo: " + p_cria_tb.getSexo()
+						+ "\nPeso: " + p_cria_tb.getPeso_cria()
+						+ "\nGrupo de Manejo: " + p_cria_tb.getGrupo_manejo()
+						+ "\nPasto: " + p_cria_tb.getPasto();
 
 				MensagemUtil.addMsg(MessageDialog.Yes,
 						ListaPartosCriaActivity.this, msg, "Parto", position);

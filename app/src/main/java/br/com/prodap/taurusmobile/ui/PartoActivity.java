@@ -251,6 +251,7 @@ public class PartoActivity extends Activity {
                         } else {
                             String codCria = editSisbov.getText().toString();
                             editCodCria.setText(codCria.substring(8, 14));
+                            spinPerda.setEnabled(false);
                         }
                     }
                 }

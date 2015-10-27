@@ -2,10 +2,17 @@ package br.com.prodap.taurusmobile.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.TB.Configuracoes;
@@ -83,10 +90,32 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		if (json != null) {
 			MensagemUtil.closeProgress();
 			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso");
+			//writeInFileSendPartos(json);
 			parto_model.deletingLogic(ctx);
 		} else {
 			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Nenhum dado para ser enviado.");
 			MensagemUtil.closeProgress();
 		}
+	}
+
+	private boolean writeInFileSendPartos(String text)
+	{
+		BufferedReader input = null;
+		File file = null;
+
+		try{
+			file = new File(Environment.getExternalStorageDirectory()+"/Prodap","partos_enviados.txt");
+			FileOutputStream in = new FileOutputStream(file, true);
+			in.write(text.getBytes());
+			in.write("\n".getBytes());
+			in.flush();
+			in.close();
+
+			return true;
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
