@@ -63,7 +63,7 @@ public class MenuPrincipalActivity extends Activity {
 		idold = "";
 		try {
 			createFile();
-			//createFileParto();
+			createFileParto();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

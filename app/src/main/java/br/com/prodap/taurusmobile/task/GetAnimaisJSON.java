@@ -79,7 +79,7 @@ public class GetAnimaisJSON extends AsyncTask<Void, Void, List<Animal>> {
 				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados atualizados com sucesso.");
 			}
 		} else {
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "SERVIDOR não encontrado verifique as configurações e tente novamente!");
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 			MensagemUtil.closeProgress();
 		}
 	}

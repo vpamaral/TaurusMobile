@@ -41,7 +41,7 @@ public class GetJSON {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw  new ValidatorException("Ocorreu um erro ao atualizar Servidor...");
+			throw  new ValidatorException("Impossível estabelecer conexão com o Banco Dados do Servidor.");
 			//MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
 			//throw e;
 		}

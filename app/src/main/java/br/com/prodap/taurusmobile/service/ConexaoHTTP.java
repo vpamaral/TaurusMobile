@@ -173,11 +173,17 @@ public class ConexaoHTTP {
 
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpResponse resposta = client.execute(post);
-
-			return EntityUtils.toString(resposta.getEntity());
+			int validaServer = resposta.getStatusLine().getStatusCode();
+			if (validaServer != 200) {
+				json = null;
+			} else {
+				return EntityUtils.toString(resposta.getEntity());
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			Log.i("TAG", e.toString());
+			json = null;
 		}
 		return json;
 	}
