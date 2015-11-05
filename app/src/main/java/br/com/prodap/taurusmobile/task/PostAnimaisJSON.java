@@ -89,11 +89,15 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 	protected void onPostExecute(String json) {
 		if (json != null) {
 			MensagemUtil.closeProgress();
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso");
-			//writeInFileSendPartos(json);
-			parto_model.deletingLogic(ctx);
+			if (retornoJSON.isEmpty()) {
+				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Nenhum dado para ser enviado.");
+			} else {
+				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso.");
+				writeInFileSendPartos(json);
+				parto_model.deletingLogic(ctx);
+			}
 		} else {
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Nenhum dado para ser enviado.");
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 			MensagemUtil.closeProgress();
 		}
 	}

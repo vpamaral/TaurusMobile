@@ -318,130 +318,139 @@ public class PartoActivity extends Activity {
                         }
                     }
 
-                    // validações temporarias
-                    //ifIdentificadorSisbovManejoHide();
-                    try {
-                        dataParto = dateFormat.parse(editDataParto.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    if (editIdentificador.getText().toString().isEmpty()) {
-                        MensagemUtil.addMsg(MessageDialog.Yes,
-                                PartoActivity.this,
-                                "É necessário preencher o Identificador da cria.", "Aviso", 1);
-                        editIdentificador.requestFocus();
-                    } else if (editSisbov.getText().toString().isEmpty()) {
-                        MensagemUtil.addMsg(MessageDialog.Yes,
-                                PartoActivity.this,
-                                "É necessário preencher o Sisbov de cria.", "Aviso", 1);
-                        editSisbov.requestFocus();
-                    } else if (editCodCria.getText().toString().isEmpty()) {
-                        MensagemUtil.addMsg(MessageDialog.Yes,
-                                PartoActivity.this, "É necessário preencher o código da cria.", "Aviso", 1);
-                        editCodCria.requestFocus();
-                    } else if (editMatriz.getText().toString().isEmpty()) {
-                        MensagemUtil.addMsg(MessageDialog.Yes,
-                                PartoActivity.this, "É necessário preencher o código matriz.", "Aviso", 1);
-                        editMatriz.requestFocus();
-                    } else if (editDataParto.getText().toString().isEmpty()) {
-                        MensagemUtil.addMsg(MessageDialog.Yes,
-                                PartoActivity.this, "É necessário preencher a data do parto.", "Aviso", 1);
-                    } else if (editGrupoManejo.getText().toString().isEmpty()) {
-                        MensagemUtil.addMsg(MessageDialog.Yes,
-                                PartoActivity.this, "É necessário preencher o Grupo de Manejo.", "Aviso", 1);
-                        editGrupoManejo.requestFocus();
-                    } else if (editBuscaPasto.getText().toString().isEmpty()) {
-                        MensagemUtil.addMsg(MessageDialog.Yes,
-                                PartoActivity.this, "É necessário preencher o Pasto.", "Aviso", 1);
-                        editBuscaPasto.requestFocus();
-                    } else if (editPeso.getText().toString().isEmpty()) {
-                        MensagemUtil.addMsg(MessageDialog.Yes,
-                                PartoActivity.this, "É necessário preencher o peso de cria.", "Aviso", 1);
-                    } else if (dataParto.after(data_atual)) {
-                        MensagemUtil.addMsg(MessageDialog.Yes,
-                                PartoActivity.this, "Data do parto não pode ser maior do que a data de identificação", "Aviso", 1);
-                    } else {
-                        parto_tb.setData_parto(editDataParto.getText().toString());
-                        parto_tb.setPerda_gestacao(spinPerda.getSelectedItem()
-                                .toString());
-                        if (spinSexo.getSelectedItem() == "FÊMEA") {
-                            parto_tb.setSexo_parto("FE");
-                        } else {
-                            parto_tb.setSexo_parto("MA");
+                    if (listaAnimal.size() != 0) {
+
+                        // validações temporarias
+                        //ifIdentificadorSisbovManejoHide();
+                        try {
+                            dataParto = dateFormat.parse(editDataParto.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                        parto_tb.setId_fk_animal(Long.parseLong(txtidanimal.getText().toString()));
-                        cria_tb.setCodigo_cria(editCodCria.getText().toString());
-                        cria_tb.setPeso_cria(editPeso.getText().toString());
-
-                        List<Long> lista_cria = new ArrayList<Long>();
-                        for (Parto_Cria p_cria : listaCria) {
-                            if (p_cria.getId_fk_animal_mae() == parto_tb.getId_fk_animal()) {
-                                lista_cria.add(p_cria.getId_fk_animal_mae());
-                            }
-                        }
-
-                        //cria_tb.setTipo_parto(spinTipoParto.getSelectedItem().toString());
-
-                        if (cbTipoParto.isChecked()) {
-                            cria_tb.setTipo_parto("GENETICA");
-                        } else {
-                            cria_tb.setTipo_parto("ESTIMADO");
-                        }
-
-                        if (cbDescarte.isChecked()) {
-                            cria_tb.setRepasse("SIM");
-                        } else {
-                            cria_tb.setRepasse("NAO");
-                        }
-
-                        //String racaCria = spinRacaCria.getSelectedItem().toString();
-                        //cria_tb.setRepasse(racaCria.equals(editRacaPai.getText().toString()) ? "NAO" : "SIM");
-
-                        if (spinSexo.getSelectedItem() == "FÊMEA") {
-                            cria_tb.setSexo("FE");
-                        } else {
-                            cria_tb.setSexo("MA");
-                        }
-                        cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal.getText().toString()));
-                        cria_tb.setData_identificacao(editDataIdentificacao.getText().toString());
-                        cria_tb.setRaca_cria(spinRacaCria.getSelectedItem().toString());
-
-                        cria_tb.setIdentificador(editIdentificador.getText().toString());
-                        if (validaSisbov == true) {
-                            long sis = Long.parseLong(editSisbov.getText().toString());
-                            String strsis = String.valueOf(sis);
-                            cria_tb.setSisbov(strsis);
-                        } else {
-                            cria_tb.setSisbov(editSisbov.getText().toString());
-                        }
-                        cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
-
-                        cria_tb.setSync_status(0);
-                        parto_tb.setSync_status(0);
-                        cria_tb.setPasto(editBuscaPasto.getText().toString());
-
-                        if (cria_tb.getId_fk_animal_mae() == 0){
-                            editMatriz.clearFocus();
-                            return;
-                        }
-
-                        if (listaMatriz.size() == 0) {
-                            alertMsg();
+                        if (editIdentificador.getText().toString().isEmpty()) {
+                            MensagemUtil.addMsg(MessageDialog.Yes,
+                                    PartoActivity.this,
+                                    "É necessário preencher o Identificador da cria.", "Aviso", 1);
+                            editIdentificador.requestFocus();
+                        } else if (editSisbov.getText().toString().isEmpty()) {
+                            MensagemUtil.addMsg(MessageDialog.Yes,
+                                    PartoActivity.this,
+                                    "É necessário preencher o Sisbov de cria.", "Aviso", 1);
+                            editSisbov.requestFocus();
+                        } else if (editCodCria.getText().toString().isEmpty()) {
+                            MensagemUtil.addMsg(MessageDialog.Yes,
+                                    PartoActivity.this, "É necessário preencher o código da cria.", "Aviso", 1);
+                            editCodCria.requestFocus();
+                        } else if (editMatriz.getText().toString().isEmpty()) {
+                            MensagemUtil.addMsg(MessageDialog.Yes,
+                                    PartoActivity.this, "É necessário preencher o código matriz.", "Aviso", 1);
                             editMatriz.requestFocus();
-                            return;
-                        }
-
-                        if (lista_cria.size() != 0) {
-                            if (validate(cria_tb, listaCria)) {
-                                criaGemelar(parto_tb, cria_tb);
-                            } else {
-                                Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
-                        } else if (validate(cria_tb, listaCria)) {
-                            insertParto(parto_tb, cria_tb);
+                        } else if (editDataParto.getText().toString().isEmpty()) {
+                            MensagemUtil.addMsg(MessageDialog.Yes,
+                                    PartoActivity.this, "É necessário preencher a data do parto.", "Aviso", 1);
+                        } else if (editGrupoManejo.getText().toString().isEmpty()) {
+                            MensagemUtil.addMsg(MessageDialog.Yes,
+                                    PartoActivity.this, "É necessário preencher o Grupo de Manejo.", "Aviso", 1);
+                            editGrupoManejo.requestFocus();
+                        } else if (editBuscaPasto.getText().toString().isEmpty()) {
+                            MensagemUtil.addMsg(MessageDialog.Yes,
+                                    PartoActivity.this, "É necessário preencher o Pasto.", "Aviso", 1);
+                            editBuscaPasto.requestFocus();
+                        } else if (editPeso.getText().toString().isEmpty()) {
+                            MensagemUtil.addMsg(MessageDialog.Yes,
+                                    PartoActivity.this, "É necessário preencher o peso de cria.", "Aviso", 1);
+                        } else if (dataParto.after(data_atual)) {
+                            MensagemUtil.addMsg(MessageDialog.Yes,
+                                    PartoActivity.this, "Data do parto não pode ser maior do que a data de identificação", "Aviso", 1);
                         } else {
-                            Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            parto_tb.setData_parto(editDataParto.getText().toString());
+                            parto_tb.setPerda_gestacao(spinPerda.getSelectedItem()
+                                    .toString());
+                            if (spinSexo.getSelectedItem() == "FÊMEA") {
+                                parto_tb.setSexo_parto("FE");
+                            } else {
+                                parto_tb.setSexo_parto("MA");
+                            }
+                            parto_tb.setId_fk_animal(Long.parseLong(txtidanimal.getText().toString()));
+                            cria_tb.setCodigo_cria(editCodCria.getText().toString());
+                            cria_tb.setPeso_cria(editPeso.getText().toString());
+
+                            List<Long> lista_cria = new ArrayList<Long>();
+                            for (Parto_Cria p_cria : listaCria) {
+                                if (p_cria.getId_fk_animal_mae() == parto_tb.getId_fk_animal()) {
+                                    lista_cria.add(p_cria.getId_fk_animal_mae());
+                                }
+                            }
+
+                            //cria_tb.setTipo_parto(spinTipoParto.getSelectedItem().toString());
+
+                            if (cbTipoParto.isChecked()) {
+                                cria_tb.setTipo_parto("GENETICA");
+                            } else {
+                                cria_tb.setTipo_parto("ESTIMADO");
+                            }
+
+                            if (cbDescarte.isChecked()) {
+                                cria_tb.setRepasse("SIM");
+                            } else {
+                                cria_tb.setRepasse("NAO");
+                            }
+
+                            //String racaCria = spinRacaCria.getSelectedItem().toString();
+                            //cria_tb.setRepasse(racaCria.equals(editRacaPai.getText().toString()) ? "NAO" : "SIM");
+
+                            if (spinSexo.getSelectedItem() == "FÊMEA") {
+                                cria_tb.setSexo("FE");
+                            } else {
+                                cria_tb.setSexo("MA");
+                            }
+                            cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal.getText().toString()));
+                            cria_tb.setData_identificacao(editDataIdentificacao.getText().toString());
+                            cria_tb.setRaca_cria(spinRacaCria.getSelectedItem().toString());
+
+                            cria_tb.setIdentificador(editIdentificador.getText().toString());
+                            if (validaSisbov == true) {
+                                long sis = Long.parseLong(editSisbov.getText().toString());
+                                String strsis = String.valueOf(sis);
+                                cria_tb.setSisbov(strsis);
+                            } else {
+                                cria_tb.setSisbov(editSisbov.getText().toString());
+                            }
+                            cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
+
+                            cria_tb.setSync_status(0);
+                            parto_tb.setSync_status(0);
+                            cria_tb.setPasto(editBuscaPasto.getText().toString());
+
+                            if (cria_tb.getId_fk_animal_mae() == 0) {
+                                editMatriz.clearFocus();
+                                return;
+                            }
+
+                            if (listaMatriz.size() == 0) {
+                                alertMsg();
+                                editMatriz.requestFocus();
+                                return;
+                            }
+
+                            if (lista_cria.size() != 0) {
+                                if (validate(cria_tb, listaCria)) {
+                                    criaGemelar(parto_tb, cria_tb);
+                                } else {
+                                    MensagemUtil.addMsg(MessageDialog.Toast, getBaseContext(), msg);
+                                    //Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                }
+                            } else if (validate(cria_tb, listaCria)) {
+                                insertParto(parto_tb, cria_tb);
+                            } else {
+                                MensagemUtil.addMsg(MessageDialog.Toast, getBaseContext(), msg);
+                                //Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
                         }
+                    } else {
+                        MensagemUtil.addMsg(MessageDialog.Yes, PartoActivity.this
+                                , "O Aparelho não foi preparado para o lançamento de Partos, favor propara-lo!.", "Aviso", 1);
+                        //MensagemUtil.addMsg(MessageDialog.Toast, getBaseContext(), "O Celular não foi preparado para o lançamentos de Partos, favor propara-lo!.");
                     }
                 }
             });
