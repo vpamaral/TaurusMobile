@@ -303,6 +303,11 @@ public class PartoActivity extends Activity {
             }
         });
 
+        if (!editIdentificador.getText().equals("") || !editSisbov.getText().equals("")
+                && !editIdentificador.getText().equals(null) || !editSisbov.getText().equals(null)) {
+            spinPerda.setEnabled(false);
+        }
+
         try {
 
             btnSalvar.setOnClickListener(new OnClickListener() {
@@ -422,14 +427,12 @@ public class PartoActivity extends Activity {
                             parto_tb.setSync_status(0);
                             cria_tb.setPasto(editBuscaPasto.getText().toString());
 
-                            if (cria_tb.getId_fk_animal_mae() == 0) {
-                                editMatriz.clearFocus();
-                                return;
-                            }
-
                             if (listaMatriz.size() == 0) {
                                 alertMsg();
                                 editMatriz.requestFocus();
+                                return;
+                            } else if (cria_tb.getId_fk_animal_mae() == 0) {
+                                editMatriz.clearFocus();
                                 return;
                             }
 
