@@ -40,6 +40,7 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 	private Auxiliar auxiliar;
 	private Gson gson;
 	private String retornoJSON;
+	public  ConexaoHTTP c_http;
 
 	public PostAnimaisJSON(Context ctx) {
 		this.ctx = ctx;
@@ -52,6 +53,7 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		configuracoes_model		= new ConfiguracoesModel(ctx);
 		p_parto_cria_model 		= new Parto_PartoCriaModel(ctx);
 		parto_model				= new PartoModel(ctx);
+		c_http					= new ConexaoHTTP();
 	}
 
 	@Override
@@ -77,7 +79,6 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 				new ConexaoHTTP(url + Constantes.METHODO_POST, ctx).postJson(retornoJSON);
 				return retornoJSON;
 			}
-
 		}catch (Exception e) {
 			Log.i("POSTJSON", e.toString());
 			e.printStackTrace();
@@ -88,16 +89,20 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 	@Override
 	protected void onPostExecute(String json) {
 		if (json != null) {
-			MensagemUtil.closeProgress();
-			if (retornoJSON.isEmpty()) {
-				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Nenhum dado para ser enviado.");
+			if (c_http.servResult != 200) {
+				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 			} else {
-				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso.");
-				writeInFileSendPartos(json);
-				parto_model.deletingLogic(ctx);
+				MensagemUtil.closeProgress();
+				if (retornoJSON.isEmpty()) {
+					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Nenhum dado para ser enviado.");
+				} else {
+					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso.");
+					writeInFileSendPartos(json);
+					parto_model.deletingLogic(ctx);
+				}
 			}
 		} else {
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
+			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não existem dados para serem enviados.");
 			MensagemUtil.closeProgress();
 		}
 	}

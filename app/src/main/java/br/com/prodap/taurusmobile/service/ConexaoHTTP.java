@@ -16,23 +16,23 @@ import java.util.concurrent.TimeoutException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
-import br.com.prodap.taurusmobile.util.ValidatorException;
 
 public class ConexaoHTTP {
 	private String url;
-	Context ctx;
+	private Context ctx;
+	public int servResult;
+	private HttpResponse resposta;
+
+	public ConexaoHTTP() {
+	}
 
 	public ConexaoHTTP(String url,  Context ctx) {
 		this.url = url;
@@ -164,7 +164,7 @@ public class ConexaoHTTP {
 		return result.toString();
 	}
 
-	public String postJson(String json) {
+	public String postJson(String json) throws IOException {
 		try {
 			HttpPost post = new HttpPost(url);
 			post.setEntity(new StringEntity(json));
@@ -172,19 +172,18 @@ public class ConexaoHTTP {
 			post.setHeader("Accept", "application/json");
 
 			DefaultHttpClient client = new DefaultHttpClient();
-			HttpResponse resposta = client.execute(post);
-			int validaServer = resposta.getStatusLine().getStatusCode();
-			if (validaServer != 200) {
+			resposta = client.execute(post);
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.i("TAG", e.toString());
+		}
+			this.servResult = resposta.getStatusLine().getStatusCode();
+			if (servResult != 200) {
 				json = null;
 			} else {
 				return EntityUtils.toString(resposta.getEntity());
 			}
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			Log.i("TAG", e.toString());
-			json = null;
-		}
 		return json;
 	}
 }
