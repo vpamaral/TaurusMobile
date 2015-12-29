@@ -114,8 +114,7 @@ public class ListaAnimaisActivity extends Activity {
 		list.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> adapter, View view,
-										   int position, long id) {
+			public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
 				ani_tb = (Animal) animal_adapter.getItem(position);
 
 				String msg = "Código: " + ani_tb.getCodigo() + "\nCódigo Ferro: "

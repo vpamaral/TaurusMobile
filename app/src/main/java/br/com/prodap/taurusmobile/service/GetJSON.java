@@ -25,7 +25,6 @@ public class GetJSON {
 
 	public ArrayList<Animal> listaAnimal() throws ValidatorException{
 		AnimalAdapter ani_helper = new AnimalAdapter();
-
 		try {
 			ConexaoHTTP conexaoServidor = new ConexaoHTTP(url, ctx);
 			String retornoDadosJSON = conexaoServidor.lerUrlServico(url);
@@ -34,7 +33,7 @@ public class GetJSON {
 			ArrayList<Animal> animais = null;
 			Animal[] objArrayAnimal = gson.fromJson(retornoDadosJSON, Animal[].class);
 			if (objArrayAnimal.length > 0) {
-				 animais = ani_helper.AnimalPreencheArrayHelper(objArrayAnimal);
+				 animais = ani_helper.arrayAnimais(objArrayAnimal);
 				return animais;
 			} else {
 				return animais;

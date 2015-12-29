@@ -39,7 +39,7 @@ public class AnimalModel extends BancoService {
 
 		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
-		listadd = ani_adapter.AnimalPreencheArrayCursor(c);
+		listadd = ani_adapter.arrayCursorAnimais(c);
 
 		banco.close();
 		return listadd;
@@ -53,7 +53,7 @@ public class AnimalModel extends BancoService {
 		Cursor cursor = db.query("Animal", null, "id_auto=?",
 				new String[] { codigo.toString() }, null, null, "id_auto");
 
-		animal = ani_adapter.AnimalCursor(cursor);
+		animal = ani_adapter.cursorAnimais(cursor);
 
 		return animal;
 
@@ -72,7 +72,7 @@ public class AnimalModel extends BancoService {
 
 			cursor = banco.getWritableDatabase().rawQuery(query, null);
 
-			listadd = ani_adapter.AnimalPreencheArrayCursor(cursor);
+			listadd = ani_adapter.arrayCursorAnimais(cursor);
 
 			AnimalLinha = listadd.get(0);
 
