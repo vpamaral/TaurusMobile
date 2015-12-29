@@ -17,6 +17,7 @@ import java.util.concurrent.TimeoutException;
 import javax.net.ssl.HttpsURLConnection;
 
 import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
@@ -28,7 +29,8 @@ import android.util.Log;
 public class ConexaoHTTP {
 	private String url;
 	private Context ctx;
-	public int servResult;
+	public static int servResultGet;
+	public static int servResultPost;
 	private HttpResponse resposta;
 
 	public ConexaoHTTP() {
@@ -48,6 +50,7 @@ public class ConexaoHTTP {
 			URL url = new URL(urlServico);
 			objUrlConnection = (HttpURLConnection) url.openConnection();
 			objUrlConnection.connect();
+			this.servResultGet = objUrlConnection.getResponseCode();
 			objDadosInputStream = objUrlConnection.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(objDadosInputStream));
 			StringBuffer sb = new StringBuffer();
@@ -165,25 +168,19 @@ public class ConexaoHTTP {
 	}
 
 	public String postJson(String json) throws IOException {
-		try {
-			HttpPost post = new HttpPost(url);
-			post.setEntity(new StringEntity(json));
-			post.setHeader("Content-type", "application/json");
-			post.setHeader("Accept", "application/json");
+		DefaultHttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(url);
+		post.setEntity(new StringEntity(json));
+		post.setHeader("Content-type", "application/json");
+		post.setHeader("Accept", "application/json");
 
-			DefaultHttpClient client = new DefaultHttpClient();
+		try {
 			resposta = client.execute(post);
-		} catch (IOException e) {
+		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			Log.i("TAG", e.toString());
 		}
-			this.servResult = resposta.getStatusLine().getStatusCode();
-			if (servResult != 200) {
-				json = null;
-			} else {
-				return EntityUtils.toString(resposta.getEntity());
-			}
-
-		return json;
+		this.servResultPost = resposta.getStatusLine().getStatusCode();
+		return EntityUtils.toString(resposta.getEntity());
 	}
 }

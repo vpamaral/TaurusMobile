@@ -1,6 +1,7 @@
 package br.com.prodap.taurusmobile.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -231,7 +232,7 @@ public class MenuPrincipalActivity extends Activity {
 					public void onClick(DialogInterface dialog, int which) {
 						AnimalModel objModelAnimal = new AnimalModel(MenuPrincipalActivity.this);
 						objModelAnimal.delete(MenuPrincipalActivity.this, "Animal");
-						new GetAnimaisJSON(MenuPrincipalActivity.this).execute();
+						new GetAnimaisJSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 					}
 				});
 			}
@@ -251,7 +252,7 @@ public class MenuPrincipalActivity extends Activity {
 						PastoModel pasto_model = new PastoModel(getBaseContext());
 						pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
 
-						new GetPastoARQUIVO(MenuPrincipalActivity.this).execute();
+						new GetPastoARQUIVO(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 						btn_atualizar_dados.setVisibility(View.INVISIBLE);
 					}
 				});

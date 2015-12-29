@@ -1,5 +1,6 @@
 package br.com.prodap.taurusmobile.task;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -13,19 +14,36 @@ import br.com.prodap.taurusmobile.ui.MenuPrincipalActivity;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
-public class GetPastoARQUIVO extends AsyncTask<Void, Void, List<Pasto>> {
+public class GetPastoARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 
 	private List<Pasto> pastoList;
 	private Context ctx;
 	private PastoAdapter pastoAdapter;
+	private ProgressDialog mProgress;
+	private int mProgressDialog=0;
 
-	public GetPastoARQUIVO(Context ctx) {
+	public GetPastoARQUIVO(Context ctx, int progressDialog){
 		this.ctx = ctx;
+		this.mProgressDialog = progressDialog;
 	}
 
 	@Override
 	protected void onPreExecute() {
-		MensagemUtil.addMsg(ctx, "Aguarde...", "Tranferindo dados para tabela de Pasto.");
+		mProgress = new ProgressDialog(ctx);
+		mProgress.setTitle("Aguarde ...");
+		mProgress.setMessage("Tranferindo dados para tabela de Pasto.");
+		mProgress.setIndeterminate(false);
+		mProgress.setMax(0);
+		mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		mProgress.setCancelable(true);
+		mProgress.show();
+	}
+
+	@Override
+	protected void onProgressUpdate(Integer... values) {
+		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+			mProgress.setProgress(values[0]);
+		}
 	}
 	
 	@Override
@@ -37,10 +55,15 @@ public class GetPastoARQUIVO extends AsyncTask<Void, Void, List<Pasto>> {
 			pastoAdapter = new PastoAdapter();
 			Pasto[] arrayPasto = gson.fromJson(MenuPrincipalActivity.JSONPASTO, Pasto[].class);
 			pastoList = pastoAdapter.PastoPreencheArrayHelper(arrayPasto);
-
+			int i = 0;
+			mProgress.setMax(pastoList.size());
 			for (Pasto pasto_tb : pastoList) {
-				if (pastoList.size() != 0)
+				if (pastoList.size() != 0) {
 					pastoModel.insert(ctx, "Pasto", pastoAdapter.PastoHelper(pasto_tb));
+					publishProgress(i * 1);
+					//Thread.sleep(500);
+				}
+				i++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,8 +73,7 @@ public class GetPastoARQUIVO extends AsyncTask<Void, Void, List<Pasto>> {
 
 	@Override
 	protected void onPostExecute(List<Pasto> result) {
-		MensagemUtil.closeProgress();
-
+		mProgress.dismiss();
 		if(pastoList.isEmpty()){
 			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível transferir os dados.");
 		}

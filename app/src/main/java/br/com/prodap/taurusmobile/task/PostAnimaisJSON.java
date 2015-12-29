@@ -89,7 +89,7 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 	@Override
 	protected void onPostExecute(String json) {
 		if (json != null) {
-			if (c_http.servResult != 200) {
+			if (c_http.servResultPost != 200) {
 				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 			} else {
 				MensagemUtil.closeProgress();
