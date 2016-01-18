@@ -1,5 +1,6 @@
 package br.com.prodap.taurusmobile.task;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -10,13 +11,10 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Configuracoes;
-import br.com.prodap.taurusmobile.TB.Parto_PartoCria;
+import br.com.prodap.taurusmobile.tb.Configuracoes;
+import br.com.prodap.taurusmobile.tb.Parto_PartoCria;
 import br.com.prodap.taurusmobile.converter.Parto_PartoCriaJSON;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
 import br.com.prodap.taurusmobile.model.PartoModel;
@@ -27,7 +25,7 @@ import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
-public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
+public class PostAnimaisJSON extends AsyncTask<Object, Integer, String> {
 	private Context ctx;
 	private Configuracoes configuracoes_tb;
 	private Parto_PartoCria p_parto_cria_tb;
@@ -41,9 +39,12 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 	private Gson gson;
 	private String retornoJSON;
 	public  ConexaoHTTP c_http;
+	public ProgressDialog mProgress;
+	private int mProgressDialog=0;
 
-	public PostAnimaisJSON(Context ctx) {
+	public PostAnimaisJSON(Context ctx, int progressDialog) {
 		this.ctx = ctx;
+		this.mProgressDialog = progressDialog;
 		source();
 	}
 
@@ -58,7 +59,23 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 
 	@Override
 	protected void onPreExecute() {
-		MensagemUtil.addMsg(ctx, "Aguarde...", "Enviando dados para o servidor.");
+		mProgress = new ProgressDialog(ctx);
+		mProgress.setTitle("Aguarde ...");
+		mProgress.setMessage("Enviando dados para o servidor ...");
+		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+			mProgress.setIndeterminate(false);
+			mProgress.setMax(0);
+			mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			mProgress.setCancelable(false);
+		}
+		mProgress.show();
+	}
+
+	@Override
+	protected void onProgressUpdate(Integer... values) {
+		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+			mProgress.setProgress(values[0]);
+		}
 	}
 
 	@Override
@@ -72,6 +89,10 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		try {
 			p_parto_cria_list = p_parto_cria_model.selectAll(ctx, "Animal", p_parto_cria_tb);
 			if (p_parto_cria_list.size() != 0) {
+				mProgress.setMax(p_parto_cria_list.size());
+				for(int i = 0; p_parto_cria_list.size() < i; i++){
+					publishProgress(i * 1);
+				}
 				json = new Parto_PartoCriaJSON().toJSON(p_parto_cria_list);
 				auxiliar = new Auxiliar(json);
 				gson = new Gson();
@@ -91,19 +112,21 @@ public class PostAnimaisJSON extends AsyncTask<Object, Object, String> {
 		if (json != null) {
 			if (c_http.servResultPost != 200) {
 				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
+				mProgress.dismiss();
 			} else {
-				MensagemUtil.closeProgress();
 				if (retornoJSON.isEmpty()) {
+					mProgress.dismiss();
 					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Nenhum dado para ser enviado.");
 				} else {
-					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso.");
 					writeInFileSendPartos(json);
 					parto_model.deletingLogic(ctx);
+					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso.");
+					mProgress.dismiss();
 				}
 			}
 		} else {
 			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não existem dados para serem enviados.");
-			MensagemUtil.closeProgress();
+			mProgress.dismiss();
 		}
 	}
 

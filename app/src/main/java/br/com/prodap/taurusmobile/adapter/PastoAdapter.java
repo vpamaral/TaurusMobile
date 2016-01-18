@@ -1,6 +1,7 @@
 package br.com.prodap.taurusmobile.adapter;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Pasto;
+import br.com.prodap.taurusmobile.tb.Pasto;
 
 /**
  * Created by Suporte on 07/10/2015.
@@ -32,6 +33,7 @@ public class PastoAdapter extends BaseAdapter {
         Pasto pasto = new Pasto();
 
         while (c.moveToNext()) {
+
             pasto.setPasto(c.getString(c.getColumnIndex("pasto")));
         }
         return pasto;
@@ -42,7 +44,6 @@ public class PastoAdapter extends BaseAdapter {
         while (c.moveToNext()) {
 
             Pasto pasto = new Pasto();
-
             pasto.setPasto(c.getString(c.getColumnIndex("pasto")));
 
             listaPasto.add(pasto);
@@ -70,6 +71,12 @@ public class PastoAdapter extends BaseAdapter {
         pasto.setPasto(pasto_tb.getPasto());
 
         return pasto;
+    }
+
+    public ContentValues getDadosPasto(Pasto pasto) {
+        ContentValues dados = new ContentValues();
+        dados.put("nome", pasto.getPasto());
+        return dados;
     }
 
     public String PastoArqHelper(Pasto pasto_tb){

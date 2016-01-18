@@ -1,16 +1,16 @@
 package br.com.prodap.taurusmobile.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import br.com.prodap.taurusmobile.TB.Parto;
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.prodap.taurusmobile.adapter.PartoAdapter;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.tb.Parto;
 
 public class PartoModel extends BancoService {
 
@@ -24,22 +24,8 @@ public class PartoModel extends BancoService {
 	}
 	
 	@Override
-	public boolean validate(Context ctx, String Tabela, Object table,int VALIDATION_TYPE) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	public Parto selectByCodigo(Context ctx, Integer codigo) {
-		banco = new Banco(ctx);
+	public void validate(Context ctx, String Tabela, Object table,int VALIDATION_TYPE) {
 
-		db = banco.getReadableDatabase();
-
-		Cursor cursor = db.query("Parto", null, "id_auto=?",
-				new String[] { codigo.toString() }, null, null, "id_auto");
-
-		parto = parto_adapter.PartoCursor(cursor);
-
-		return parto;
 	}
 
 	public void removerByAnimal(Context ctx, Long codigo){

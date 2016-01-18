@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,17 +24,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Configuracoes;
-import br.com.prodap.taurusmobile.TB.Parto;
-import br.com.prodap.taurusmobile.TB.Pasto;
 import br.com.prodap.taurusmobile.adapter.PastoAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
 import br.com.prodap.taurusmobile.model.PartoModel;
 import br.com.prodap.taurusmobile.model.PastoModel;
-import br.com.prodap.taurusmobile.task.GetPastoARQUIVO;
 import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
+import br.com.prodap.taurusmobile.task.GetPastoARQUIVO;
 import br.com.prodap.taurusmobile.task.PostAnimaisJSON;
+import br.com.prodap.taurusmobile.tb.Configuracoes;
+import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
@@ -52,7 +50,7 @@ public class MenuPrincipalActivity extends Activity {
 	public static String idold;
 	private List<Configuracoes> lista_conf;
 	private ConfiguracoesModel configuracao_model;
-	private Configuracoes configuracao_tb;
+	private Configuracoes c_tb;
 	private String url;
 	private PartoModel parto_model;
 
@@ -83,15 +81,14 @@ public class MenuPrincipalActivity extends Activity {
 		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
 		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
 		configuracao_model 	= new ConfiguracoesModel(this);
-		configuracao_tb 	= new Configuracoes();
+		c_tb 				= new Configuracoes();
 		parto_model			= new PartoModel(this);
-		lista_conf = configuracao_model.selectAll(getBaseContext(), "Configuracao", configuracao_model);
-
+		lista_conf = configuracao_model.selectAll(getBaseContext(), "Configuracao", c_tb);
 
 		for (Configuracoes conf_tb : lista_conf) {
 			url = conf_tb.getEndereco();
 		}
-		existCelular(lista_conf, configuracao_tb);
+		existCelular(lista_conf, c_tb);
 	}
 
 	private void atualizarBotoes()
@@ -270,7 +267,7 @@ public class MenuPrincipalActivity extends Activity {
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						new PostAnimaisJSON(MenuPrincipalActivity.this).execute();
+						new PostAnimaisJSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 					}
 				});
 			}

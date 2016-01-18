@@ -3,9 +3,8 @@ package br.com.prodap.taurusmobile.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import br.com.prodap.taurusmobile.tb.Leitor;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 import jim.h.common.android.zxinglib.integrator.IntentIntegrator;
@@ -13,15 +12,14 @@ import jim.h.common.android.zxinglib.integrator.IntentResult;
 
 
 public class LeitorActivity extends Activity {
+    private Leitor leitor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leitor);
-        IntentIntegrator.initiateScan(this,
-                R.layout.activity_leitor,
-                R.id.viewfinder_view, R.id.preview_view,
-                false);
+        leitor = new Leitor();
+        IntentIntegrator.initiateScan(this, R.layout.activity_leitor, R.id.viewfinder_view, R.id.preview_view, false);
     }
 
     @Override
@@ -30,13 +28,13 @@ public class LeitorActivity extends Activity {
         switch (requestCode) {
             case IntentIntegrator.REQUEST_CODE:
                 IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-                final String result = scanResult.getContents();
-                final String tipo = scanResult.getFormatName();
-                if (tipo != null) {
-                    if (tipo.contentEquals("CODE_39") || tipo.contentEquals("ITF")) {
-                        sendResultCodBarras(result, tipo);
-                    } else if (tipo.contentEquals("QR_CODE")) {
-                        sendResultQRCode(result, tipo);
+                leitor.setTipo(scanResult.getFormatName());
+                leitor.setScanResult(scanResult.getContents());
+                if (leitor.getTipo() != null) {
+                    if (leitor.getTipo().equals("CODE_39") || leitor.getTipo().equals("ITF")) {
+                        sendResultCodBarras(leitor);
+                    } else if (leitor.getTipo().contentEquals("QR_CODE")) {
+                        sendResultQRCode(leitor);
                     }
                 } else {
                     onBackPressed();
@@ -52,21 +50,20 @@ public class LeitorActivity extends Activity {
         finish();
     }
 
-    public void sendResultCodBarras(String result, String tipo) {
-        if (result != null || tipo != null) {
-            if (tipo.contentEquals("CODE_39") || tipo.contentEquals("ITF")) {
-                if (result.length() > 0 && result.length() < 15) {
+    public void sendResultCodBarras(Leitor leitor) {
+        if (leitor.getTipo() != null) {
+            if (leitor.getTipo().contentEquals("CODE_39") || leitor.getTipo().contentEquals("ITF")) {
+                if (leitor.getScanResult().length() > 0 && leitor.getScanResult().length() < 15) {
                     Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
                                         "O leitor não conseguir ler todo o código de barras!");
                 } else {
-                    if (!validaIdentificador(result)) {
+                    if (!validaIdentificador(leitor.getScanResult())) {
                         Intent intent = new Intent(getBaseContext(), PartoActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.putExtra("CodBarras", result);
-                        intent.putExtra("tipo", tipo);
+                        intent.putExtra("leitor", leitor);
                         startActivity(intent);
                         finish();
                     }
@@ -98,12 +95,12 @@ public class LeitorActivity extends Activity {
         return false;
     }
 
-    public void sendResultQRCode(String urlServidor, String tipo) {
+    public void sendResultQRCode(Leitor leitor) {
         int count = 0;
-        if (urlServidor != null && tipo != null) {
-            if (tipo.contentEquals("QR_CODE")) {
-                for (int i = 0; i < urlServidor.length(); i++) {
-                    if (urlServidor.charAt(i) == '/') {
+        if (leitor.getScanResult() != null) {
+            if (leitor.getTipo().contentEquals("QR_CODE")) {
+                for (int i = 0; i < leitor.getScanResult().length(); i++) {
+                    if (leitor.getScanResult().charAt(i) == '/') {
                         count++;
                     }
                 }
@@ -116,8 +113,7 @@ public class LeitorActivity extends Activity {
                 } else {
                     Intent intent = new Intent(getBaseContext(), ConfiguracoesActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("QRCode", urlServidor);
-                    intent.putExtra("tipo", tipo);
+                    intent.putExtra("leitor", leitor);
                     startActivity(intent);
                     finish();
                 }

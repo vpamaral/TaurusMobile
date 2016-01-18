@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Parto_Cria;
+import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.adapter.PartoCriaAdapter;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.service.BancoService;
@@ -25,10 +25,8 @@ public class Parto_CriaModel extends BancoService {
 	
 	
 	@Override
-	public boolean validate(Context ctx, String Tabela, Object table,
-			int VALIDATION_TYPE) {
-		
-		return false;
+	public void validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE) {
+
 	}
 	
 	public void removerByMae(Context ctx, Long codigo){

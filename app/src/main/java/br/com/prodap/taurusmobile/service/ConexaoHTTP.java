@@ -29,8 +29,8 @@ import android.util.Log;
 public class ConexaoHTTP {
 	private String url;
 	private Context ctx;
-	public static int servResultGet;
 	public static int servResultPost;
+	public static int servResultGet;
 	private HttpResponse resposta;
 
 	public ConexaoHTTP() {
@@ -69,46 +69,6 @@ public class ConexaoHTTP {
 		}
 		return dados;
 	}
-
-	/*public String lerUrlServico(String urlServico) throws IOException{
-		String dados = "";
-		InputStream objDadosInputStream = null;
-		HttpURLConnection objUrlConnection = null;
-		BufferedReader br = null;
-
-		try {
-			URL url = new URL(urlServico);
-			objUrlConnection = (HttpURLConnection) url.openConnection();
-			objUrlConnection.connect();
-			objDadosInputStream = objUrlConnection.getInputStream();
-			br = new BufferedReader(new InputStreamReader(objDadosInputStream));
-			StringBuffer sb = new StringBuffer();
-
-			String linha = "";
-			while ((linha = br.readLine()) != null) {
-				sb.append(linha);
-			}
-			dados = sb.toString();
-			//br.close();
-		} catch (IOException e) {
-			Log.i("TAG", e.toString());
-			e.printStackTrace();
-		} finally {
-			if(br != null){
-				try{
-					br.close();
-					throw new ValidatorException("");
-				}
-				catch (ValidatorException e){
-					e.printStackTrace();
-					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
-				}
-			}
-			//objDadosInputStream.close();
-			//objUrlConnection.disconnect();
-		}
-		return dados;
-	}*/
 	
 	public String postRequest(String urlServico, ArrayList<String> postDataParams) throws Exception{
 	  HttpURLConnection objUrlConnection = null;

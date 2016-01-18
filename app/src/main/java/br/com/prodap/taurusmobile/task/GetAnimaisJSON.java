@@ -13,8 +13,8 @@ import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
 import br.com.prodap.taurusmobile.service.ConexaoHTTP;
 import br.com.prodap.taurusmobile.service.GetJSON;
-import br.com.prodap.taurusmobile.TB.Animal;
-import br.com.prodap.taurusmobile.TB.Configuracoes;
+import br.com.prodap.taurusmobile.tb.Animal;
+import br.com.prodap.taurusmobile.tb.Configuracoes;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
@@ -26,10 +26,10 @@ public class GetAnimaisJSON extends AsyncTask<Void, Integer, List<Animal>> {
 	private Context ctx;
 	private AnimalAdapter aniHelper;
 	private ConfiguracoesAdapter c_helper;
-	private Configuracoes qrcode_tb;
-	private ConfiguracoesModel qrcode_model;
-	private ConexaoHTTP c_http;
-	private ProgressDialog mProgress;
+	private Configuracoes c_tb;
+	private ConfiguracoesModel c_model;
+	public ConexaoHTTP c_http;
+	public ProgressDialog mProgress;
 	private int mProgressDialog=0;
 
 	public GetAnimaisJSON(Context ctx, int progressDialog) {
@@ -39,8 +39,8 @@ public class GetAnimaisJSON extends AsyncTask<Void, Integer, List<Animal>> {
 	}
 	
 	private void source() {
-		qrcode_tb 		= new Configuracoes();
-		qrcode_model 	= new ConfiguracoesModel(ctx);
+		c_tb 		= new Configuracoes();
+		c_model 	= new ConfiguracoesModel(ctx);
 		c_helper 		= new ConfiguracoesAdapter();
 		c_http			= new ConexaoHTTP();
 	}
@@ -49,11 +49,13 @@ public class GetAnimaisJSON extends AsyncTask<Void, Integer, List<Animal>> {
 	protected void onPreExecute() {
 		mProgress = new ProgressDialog(ctx);
 		mProgress.setTitle("Aguarde ...");
-		mProgress.setMessage("Recebendo dados do servidor.");
-		mProgress.setIndeterminate(false);
-		mProgress.setMax(0);
-		mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		mProgress.setCancelable(true);
+		mProgress.setMessage("Recebendo dados do servidor ...");
+		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+			mProgress.setIndeterminate(false);
+			mProgress.setMax(0);
+			mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			mProgress.setCancelable(false);
+		}
 		mProgress.show();
 	}
 
@@ -67,8 +69,8 @@ public class GetAnimaisJSON extends AsyncTask<Void, Integer, List<Animal>> {
 	@Override
 	protected List<Animal> doInBackground(Void... params) {
 		String url = "";
-		List<Configuracoes> listQRCode = qrcode_model.selectAll(ctx, "Configuracao", qrcode_tb);
-		for (Configuracoes qrcode_tb : listQRCode) {
+		List<Configuracoes> c_list = c_model.selectAll(ctx, "Configuracao", c_tb);
+		for (Configuracoes qrcode_tb : c_list) {
 			url = qrcode_tb.getEndereco();
 		}
 		try {
@@ -76,16 +78,15 @@ public class GetAnimaisJSON extends AsyncTask<Void, Integer, List<Animal>> {
 			GetJSON getJSON 			= new GetJSON(url + Constantes.METHODO_GET, ctx);
 			objListaAnimal 				= getJSON.listaAnimal();
 			aniHelper 					= new AnimalAdapter();
-			int i = 0;
+			int i 						= 0;
 			mProgress.setMax(objListaAnimal.size());
 			for (Animal animal : objListaAnimal) {
 				if (objListaAnimal.size() != 0) {
-					objModelAnimal.insert(ctx, "Animal", aniHelper.AnimalHelper(animal));
-					publishProgress(i);
+					objModelAnimal.insert(ctx, "Animal", animal);
+					publishProgress(i * 1);
 				}
 				i++;
 			}
-
 		} catch (ValidatorException e) {
 			Log.i("TAG", e.toString());
 			e.printStackTrace();
