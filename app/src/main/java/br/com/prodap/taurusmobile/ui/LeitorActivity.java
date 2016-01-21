@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.prodap.taurusmobile.tb.Leitor;
+import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 import jim.h.common.android.zxinglib.integrator.IntentIntegrator;
@@ -13,6 +17,7 @@ import jim.h.common.android.zxinglib.integrator.IntentResult;
 
 public class LeitorActivity extends Activity {
     private Leitor leitor;
+    private MensagemUtil md;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,34 +100,44 @@ public class LeitorActivity extends Activity {
         return false;
     }
 
+    //http://192.168.1.19/TaurusWebService/TaurusService.svc/
     public void sendResultQRCode(Leitor leitor) {
+        String result = "";
         int count = 0;
+        List<char[]> val = new ArrayList<>();
         if (leitor.getScanResult() != null) {
             if (leitor.getTipo().contentEquals("QR_CODE")) {
                 for (int i = 0; i < leitor.getScanResult().length(); i++) {
                     if (leitor.getScanResult().charAt(i) == '/') {
                         count++;
                     }
+                    if (count >= 3) {
+                        char[] url = new char[]{leitor.getScanResult().charAt(i)};
+                        val.add(url);
+                    }
                 }
-                if (count != 5) {
-                    Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
-                            "O URL do Servidor está inválido!\nPosicione o leitor novamente.");
-                } else {
+
+                for (char[] c : val) {
+                    result += String.valueOf(c);
+                }
+
+                if (count == 5 && result.equals(Constantes.TAURUS_URL)) {
                     Intent intent = new Intent(getBaseContext(), ConfiguracoesActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("leitor", leitor);
                     startActivity(intent);
                     finish();
+                } else {
+                    Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    md.addMsg(MessageDialog.Toast, LeitorActivity.this, "O URL do Servidor está inválido!");
                 }
             } else {
                 Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
-                        "Código inválido!\nÉ esperado um QR_CODE!");
+                md.addMsg(MessageDialog.Toast, LeitorActivity.this, "Código inválido!\nÉ esperado um QR_CODE!");
             }
         } else {
             onBackPressed();

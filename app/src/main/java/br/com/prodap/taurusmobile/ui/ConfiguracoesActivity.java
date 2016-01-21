@@ -123,7 +123,6 @@ public class ConfiguracoesActivity extends Activity {
 		c_helper 		 	= new ConfiguracoesAdapter();
 		configuracaoModel 	= new ConfiguracoesModel(getBaseContext());
 		config_adapter 		= new ConfiguracoesAdapter();
-		//configuracaoTB 		= new Configuracoes();
 		configuracoes 		= new ArrayList<String>();
 		spnIdentificador 	= (Spinner) findViewById (R.id.spnIdentificador);
 		spnManejo 			= (Spinner) findViewById(R.id.spnManejo);
