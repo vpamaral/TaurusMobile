@@ -23,7 +23,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".ConfiguracoesActivity"
+            android:name=".ConfiguracaoActivity"
             android:label="@string/title_activity_configuracoes"
             android:screenOrientation="portrait" />
         <activity
@@ -33,7 +33,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -55,6 +55,14 @@
         <activity
             android:name=".PastoActivity"
             android:label="@string/title_activity_pasto" >
+        </activity>
+        <activity
+            android:name=".Splash"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
