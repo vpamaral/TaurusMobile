@@ -68,7 +68,7 @@ public class Banco extends SQLiteOpenHelper {
 
 		String sql_pasto = "CREATE TABLE 'Pasto' ("
 				+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'pasto'        			varchar(100)"
+				+ "'nome'        			varchar(100)"
 				+");";
 
 		db.execSQL(sql_animal);

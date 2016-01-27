@@ -14,7 +14,7 @@ import br.com.prodap.taurusmobile.ui.MenuPrincipalActivity;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
-public class GetPastoARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
+public class GetARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 
 	private List<Pasto> pastoList;
 	private Context ctx;
@@ -22,7 +22,7 @@ public class GetPastoARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 	ProgressDialog mProgress;
 	private int mProgressDialog=0;
 
-	public GetPastoARQUIVO(Context ctx, int progressDialog){
+	public GetARQUIVO(Context ctx, int progressDialog){
 		this.ctx = ctx;
 		this.mProgressDialog = progressDialog;
 	}
@@ -56,7 +56,7 @@ public class GetPastoARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 			Gson gson = new Gson();
 			pastoAdapter = new PastoAdapter();
 			Pasto[] arrayPasto = gson.fromJson(MenuPrincipalActivity.JSONPASTO, Pasto[].class);
-			pastoList = pastoAdapter.PastoPreencheArrayHelper(arrayPasto);
+			pastoList = pastoAdapter.arrayPasto(arrayPasto);
 			int i = 0;
 			mProgress.setMax(pastoList.size());
 			for (Pasto pasto_tb : pastoList) {

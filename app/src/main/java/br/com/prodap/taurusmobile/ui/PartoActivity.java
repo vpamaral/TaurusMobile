@@ -241,6 +241,7 @@ public class PartoActivity extends Activity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (!editSisbov.getText().toString().equals("")) {
+                        spinPerda.setEnabled(false);
                         if (!sisbovCorreto(editSisbov.getText().toString()) || editSisbov.length() < 15) {
 
                             Toast.makeText(PartoActivity.this, "Sisbov inválido!", Toast.LENGTH_SHORT).show();
@@ -250,8 +251,10 @@ public class PartoActivity extends Activity {
                         } else {
                             String codCria = editSisbov.getText().toString();
                             editCodCria.setText(codCria.substring(8, 14));
-                            spinPerda.setEnabled(false);
                         }
+                    } else {
+                        spinPerda.setEnabled(true);
+                        editCodCria.setText("");
                     }
                 }
             }
@@ -302,13 +305,7 @@ public class PartoActivity extends Activity {
             }
         });
 
-        if (!editIdentificador.getText().equals("") || !editSisbov.getText().equals("")
-                && !editIdentificador.getText().equals(null) || !editSisbov.getText().equals(null)) {
-            spinPerda.setEnabled(false);
-        }
-
         try {
-
             btnSalvar.setOnClickListener(new OnClickListener() {
 
                 @Override
@@ -472,7 +469,7 @@ public class PartoActivity extends Activity {
         //pasto_adapter = new PastoAdapter(pasto_list, this);
 
         for(Pasto p : pasto_list) {
-                nome_pasto_list.add(p.getPasto().toString());
+                nome_pasto_list.add(p.getNome().toString());
         }
         editBuscaPasto=(AutoCompleteTextView)findViewById(R.id.edtBuscaPasto);
 

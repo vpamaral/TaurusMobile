@@ -24,13 +24,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.adapter.PastoAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
 import br.com.prodap.taurusmobile.model.PartoModel;
 import br.com.prodap.taurusmobile.model.PastoModel;
 import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
-import br.com.prodap.taurusmobile.task.GetPastoARQUIVO;
+import br.com.prodap.taurusmobile.task.GetPastosJSON;
 import br.com.prodap.taurusmobile.task.PostAnimaisJSON;
 import br.com.prodap.taurusmobile.tb.Configuracoes;
 import br.com.prodap.taurusmobile.tb.Pasto;
@@ -74,7 +73,7 @@ public class MenuPrincipalActivity extends Activity {
 	
 	private void source() {
 		btn_atualizar 		= (Button) findViewById(R.id.btn_atualiza);
-		btn_atualizar_dados	= (Button) findViewById(R.id.btn_atualiza_dados);
+//		btn_atualizar_dados	= (Button) findViewById(R.id.btn_atualiza_dados);
 		btn_animais 		= (Button) findViewById(R.id.btn_animal);
 		btn_parto 			= (Button) findViewById(R.id.btn_parto);
 		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
@@ -96,15 +95,15 @@ public class MenuPrincipalActivity extends Activity {
 		final List<Pasto> pasto_list;
 		final List<String> nome_pasto_list = new ArrayList<String>();
 		final Pasto pasto_tb = new Pasto();
-		PastoModel pasto_model = new PastoModel(getBaseContext());
-		PastoAdapter pasto_adapter = new PastoAdapter();
-
-		pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
-		if(pasto_list.size() > 0) {
-			btn_atualizar_dados.setVisibility(View.INVISIBLE);
-		} else {
-			btn_atualizar_dados.setVisibility(View.VISIBLE);
-		}
+//		PastoModel pasto_model = new PastoModel(getBaseContext());
+//		PastoAdapter pasto_adapter = new PastoAdapter();
+//
+//		pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
+//		if(pasto_list.size() > 0) {
+//			btn_atualizar_dados.setVisibility(View.INVISIBLE);
+//		} else {
+//			btn_atualizar_dados.setVisibility(View.VISIBLE);
+//		}
 	}
 	
 	private void loadListener() {
@@ -116,18 +115,18 @@ public class MenuPrincipalActivity extends Activity {
 			}
 		});
 
-		btn_atualizar_dados.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				try {
-					JSONPASTO = createListAnimais();
-					msgUpdatePastoViaArquivo();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//		btn_atualizar_dados.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				try {
+//					JSONPASTO = createListAnimais();
+//					msgUpdatePastoViaArquivo();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
 
 		btn_animais.setOnClickListener(new OnClickListener() {
 
@@ -195,7 +194,7 @@ public class MenuPrincipalActivity extends Activity {
 	private void updateDados() {
 		if (checksConnection()) {
 			if (validateServer(url)){
-				msgUpdateDados();
+				msgUpdateAnimais();
 			}
 		} else {
 			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
@@ -220,13 +219,14 @@ public class MenuPrincipalActivity extends Activity {
 		startActivity(intent);
 	}
 
-	private void msgUpdateDados() {
+	private void msgUpdateAnimais() {
 		if (checksConnection()) {
 			if (validateServer(url)){
 				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Deseja atualizar os dados?"
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						UpdatePastos();
 						AnimalModel objModelAnimal = new AnimalModel(MenuPrincipalActivity.this);
 						objModelAnimal.delete(MenuPrincipalActivity.this, "Animal");
 						new GetAnimaisJSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
@@ -239,26 +239,32 @@ public class MenuPrincipalActivity extends Activity {
 		}
 	}
 
-	private void msgUpdatePastoViaArquivo() {
-		if (checksConnection()) {
-			if (validateServer(url)){
-				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Criar tabela de Pasto?"
-						, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						PastoModel pasto_model = new PastoModel(getBaseContext());
-						pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
-
-						new GetPastoARQUIVO(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
-						btn_atualizar_dados.setVisibility(View.INVISIBLE);
-					}
-				});
-			}
-		} else {
-			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao atulaizar via arquivo!");
-			return;
-		}
+	private void UpdatePastos() {
+		PastoModel pasto_model 		= new PastoModel(MenuPrincipalActivity.this);
+		pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
+		new GetPastosJSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
+
+//	private void msgUpdatePastoViaArquivo() {
+//		if (checksConnection()) {
+//			if (validateServer(url)){
+//				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Criar tabela de Pasto?"
+//						, new DialogInterface.OnClickListener() {
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						PastoModel pasto_model = new PastoModel(getBaseContext());
+//						pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
+//
+//						new GetARQUIVO(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+//						btn_atualizar_dados.setVisibility(View.INVISIBLE);
+//					}
+//				});
+//			}
+//		} else {
+//			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao atulaizar via arquivo!");
+//			return;
+//		}
+//	}
 
 	private void msgPostDados() {
 		if (checksConnection()) {

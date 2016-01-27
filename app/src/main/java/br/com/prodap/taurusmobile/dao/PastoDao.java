@@ -80,7 +80,7 @@ public class PastoDao extends Banco {
 
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
-        pasto_list = pasto_adapter.PastoPreencheArrayCursor(c);
+        pasto_list = pasto_adapter.pastoCursor(c);
 
         banco.close();
         return pasto_list;
