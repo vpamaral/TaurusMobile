@@ -23,7 +23,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".ConfiguracaoActivity"
+            android:name=".ConfiguracoesActivity"
             android:label="@string/title_activity_configuracoes"
             android:screenOrientation="portrait" />
         <activity
