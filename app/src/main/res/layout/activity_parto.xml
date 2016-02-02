@@ -237,11 +237,12 @@
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 
-            <EditText
-                android:id="@+id/edtGrupoManejo"
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:id="@+id/edtGrupoManejo"
+                android:completionThreshold="1" />
+
         </LinearLayout>
 
         <TextView
