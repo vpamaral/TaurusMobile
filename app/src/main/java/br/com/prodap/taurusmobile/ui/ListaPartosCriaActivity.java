@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,9 +14,9 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Animal;
-import br.com.prodap.taurusmobile.TB.Parto;
-import br.com.prodap.taurusmobile.TB.Parto_Cria;
+import br.com.prodap.taurusmobile.tb.Animal;
+import br.com.prodap.taurusmobile.tb.Parto;
+import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.adapter.PartoAdapter;
 import br.com.prodap.taurusmobile.adapter.PartoCriaAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;

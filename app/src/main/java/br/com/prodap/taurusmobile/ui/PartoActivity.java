@@ -32,11 +32,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Animal;
-import br.com.prodap.taurusmobile.TB.Configuracoes;
-import br.com.prodap.taurusmobile.TB.Parto;
-import br.com.prodap.taurusmobile.TB.Parto_Cria;
-import br.com.prodap.taurusmobile.TB.Pasto;
+import br.com.prodap.taurusmobile.adapter.PartoCriaAdapter;
+import br.com.prodap.taurusmobile.tb.Animal;
+import br.com.prodap.taurusmobile.tb.Configuracoes;
+import br.com.prodap.taurusmobile.tb.Leitor;
+import br.com.prodap.taurusmobile.tb.Parto;
+import br.com.prodap.taurusmobile.tb.Parto_Cria;
+import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.adapter.PartoAdapter;
 import br.com.prodap.taurusmobile.model.AnimalModel;
 import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
@@ -98,6 +100,7 @@ public class PartoActivity extends Activity {
     private Parto parto_tb;
     private Parto_Cria cria_tb;
     private PartoAdapter p_helper;
+    private PartoCriaAdapter c_helper;
     private String strsis;
     private List<Configuracoes> listConf;
     private List<Parto_Cria> listaCria;
@@ -160,6 +163,7 @@ public class PartoActivity extends Activity {
         cria_model = new Parto_CriaModel(this);
         conf_model = new ConfiguracoesModel(this);
         p_helper = new PartoAdapter();
+        c_helper = new PartoCriaAdapter();
         final Parto parto_tb = new Parto();
         final Parto_Cria cria_tb = new Parto_Cria();
 
@@ -192,19 +196,14 @@ public class PartoActivity extends Activity {
 
         try {
             Intent intent = this.getIntent();
-
-            String resultCodBarras;
-            String tipo;
-
-            tipo = intent.getStringExtra("tipo");
-            resultCodBarras = intent.getStringExtra("CodBarras");
+            Leitor leitor = (Leitor) intent.getSerializableExtra("leitor");
             editCodCria.setText(intent.getStringExtra("editCodBarras"));
 
             if (listConf.get(0).getValida_identificador().equals("S")) {
                 editIdentificador.setEnabled(true);
                 ll_identificador.setVisibility(LinearLayout.VISIBLE);
                 validaIdentificador = true;
-                ifIdentificadorAtivo(resultCodBarras, tipo);
+                ifIdentificadorAtivo(leitor);
             } else {
                 editIdentificador.setEnabled(false);
                 ll_identificador.setVisibility(LinearLayout.GONE);
@@ -215,7 +214,7 @@ public class PartoActivity extends Activity {
                 editSisbov.setEnabled(true);
                 ll_sisbov.setVisibility(LinearLayout.VISIBLE);
                 validaSisbov = true;
-                ifSisbov(resultCodBarras, tipo);
+                ifSisbov(leitor);
             } else {
                 editSisbov.setEnabled(false);
                 ll_sisbov.setVisibility(LinearLayout.GONE);
@@ -242,6 +241,7 @@ public class PartoActivity extends Activity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if (!editSisbov.getText().toString().equals("")) {
+                        spinPerda.setEnabled(false);
                         if (!sisbovCorreto(editSisbov.getText().toString()) || editSisbov.length() < 15) {
 
                             Toast.makeText(PartoActivity.this, "Sisbov inválido!", Toast.LENGTH_SHORT).show();
@@ -251,8 +251,10 @@ public class PartoActivity extends Activity {
                         } else {
                             String codCria = editSisbov.getText().toString();
                             editCodCria.setText(codCria.substring(8, 14));
-                            spinPerda.setEnabled(false);
                         }
+                    } else {
+                        spinPerda.setEnabled(true);
+                        editCodCria.setText("");
                     }
                 }
             }
@@ -303,13 +305,7 @@ public class PartoActivity extends Activity {
             }
         });
 
-        if (!editIdentificador.getText().equals("") || !editSisbov.getText().equals("")
-                && !editIdentificador.getText().equals(null) || !editSisbov.getText().equals(null)) {
-            spinPerda.setEnabled(false);
-        }
-
         try {
-
             btnSalvar.setOnClickListener(new OnClickListener() {
 
                 @Override
@@ -473,7 +469,7 @@ public class PartoActivity extends Activity {
         //pasto_adapter = new PastoAdapter(pasto_list, this);
 
         for(Pasto p : pasto_list) {
-                nome_pasto_list.add(p.getPasto().toString());
+                nome_pasto_list.add(p.getNome().toString());
         }
         editBuscaPasto=(AutoCompleteTextView)findViewById(R.id.edtBuscaPasto);
 
@@ -483,10 +479,10 @@ public class PartoActivity extends Activity {
         editBuscaPasto.setThreshold(1);
     }
 
-    private void ifSisbov(String resultCodBarras, String tipo) {
-        if (resultCodBarras != null && resultCodBarras != "") {
-            if (tipo.equals("ITF")) {
-                sisbov = resultCodBarras;
+    private void ifSisbov(Leitor leitor) {
+        if (leitor != null) {
+            if (leitor.getTipo().equals("ITF")) {
+                sisbov = leitor.getScanResult();
                 if (sisbov != null) {
                     long sis = Long.parseLong(sisbov);
                     String strsis = String.valueOf(sis);
@@ -502,11 +498,11 @@ public class PartoActivity extends Activity {
         }
     }
 
-    private void ifIdentificadorAtivo(String resultCodBarras, String tipo) {
-        if (resultCodBarras != null && resultCodBarras != "") {
-            if (tipo.equals("CODE_39")) {
-                identificador = resultCodBarras;
-
+    private void ifIdentificadorAtivo(Leitor leitor) {
+        if (leitor != null) {
+            if (leitor.getTipo().equals("CODE_39")) {
+                //identificador = resultCodBarras;
+                identificador = leitor.getScanResult();
                 if (identificador != null) {
                     editIdentificador.setText(identificador);
                     if (MenuPrincipalActivity.idold == null || MenuPrincipalActivity.idold == "") {
@@ -550,7 +546,7 @@ public class PartoActivity extends Activity {
     }
 
     public void insertParto(Parto parto_tb, Parto_Cria cria_tb) {
-        parto_model.insert(PartoActivity.this, "Parto", p_helper.PartoHelper(parto_tb));
+        parto_model.insert(PartoActivity.this, "Parto", parto_tb);
         cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
         writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
             //MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this, "Arquivo preenchido com sucesso!");

@@ -1,4 +1,4 @@
-package br.com.prodap.taurusmobile.TB;
+package br.com.prodap.taurusmobile.tb;
 
 import java.io.Serializable;
 

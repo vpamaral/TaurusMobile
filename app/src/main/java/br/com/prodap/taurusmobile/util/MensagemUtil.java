@@ -123,7 +123,7 @@ public class MensagemUtil {
 	 * @param msg
 	 *
 	 */
-	public static void addMsg(Activity activity, String titulo, String msg) {
+	public static void addMsg(MessageDialog yesOk, Activity activity, String titulo, String msg, OnClickListener onClickListener) {
 		progress = ProgressDialog.show(activity, titulo, msg);
 	}
 	

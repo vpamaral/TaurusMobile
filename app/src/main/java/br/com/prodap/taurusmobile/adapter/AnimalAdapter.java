@@ -1,22 +1,16 @@
 package br.com.prodap.taurusmobile.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Animal;
-import br.com.prodap.taurusmobile.ui.R;
+import br.com.prodap.taurusmobile.tb.Animal;
 
-public class AnimalAdapter extends BaseAdapter {
+public class AnimalAdapter {
 	private List<Animal> animais;
 	private Activity activity;
 
@@ -35,12 +29,24 @@ public class AnimalAdapter extends BaseAdapter {
 		return a_tb;
 	}
 
-	public List<Animal> arrayCursorAnimais(Cursor c) {
+	public List<Animal> arrayAnimais(Cursor c) {
 		List<Animal> a_list = new ArrayList<Animal>();
 		while (c.moveToNext()) {
 			a_list.add(getAnimal(c));
 		}
 		return a_list;
+	}
+
+	@NonNull
+	public ContentValues getDadosAnimal(Animal a_tb) {
+		ContentValues a_dados = new ContentValues();
+		a_dados.put("id_pk", a_tb.getId_pk());
+		a_dados.put("codigo", a_tb.getCodigo());
+		a_dados.put("codigo_ferro", a_tb.getCodigo_ferro());
+		a_dados.put("identificador", a_tb.getData_nascimento());
+		a_dados.put("data_nascimento", a_tb.getIdentificador());
+
+		return a_dados;
 	}
 
 	@NonNull
@@ -101,43 +107,5 @@ public class AnimalAdapter extends BaseAdapter {
 		//animal_tb.setRaca_reprod(animalTB.getRaca_reprod());
 
 		return animal_tb;
-	}
-
-	@Override
-	public int getCount() {
-		return animais.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return animais.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return animais.get(position).getId_pk();
-	}
-
-	@SuppressLint("InflateParams")
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		Animal animal = animais.get(position);
-
-		LayoutInflater inflater = activity.getLayoutInflater();
-		View line = inflater.inflate(R.layout.activity_lista_animais, null);
-
-		/*if (position % 2 == 0) {
-			line.setBackgroundColor(activity.getResources().
-					getColor(R.color.linha_par));
-		}else
-		{
-			line.setBackgroundColor(activity.getResources().
-					getColor(R.color.linha_impar));
-		}*/
-
-		TextView sisbov = (TextView) line.findViewById(R.id.lblSisbov);
-		sisbov.setText(animal.getCodigo());
-
-		return line;
 	}
 }

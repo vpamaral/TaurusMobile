@@ -1,7 +1,9 @@
 package br.com.prodap.taurusmobile.adapter;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,8 +11,8 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Parto;
-import br.com.prodap.taurusmobile.TB.Parto_Cria;
+import br.com.prodap.taurusmobile.tb.Parto;
+import br.com.prodap.taurusmobile.tb.Parto_Cria;
 
 public class PartoAdapter extends BaseAdapter{
 
@@ -37,6 +39,18 @@ public class PartoAdapter extends BaseAdapter{
 			parto.setPerda_gestacao(c.getString(c.getColumnIndex("perda_gestacao")));
 		}
 		return parto;
+	}
+
+	@NonNull
+	public ContentValues getDadosParto(Parto p_tb) {
+		ContentValues p_dados = new ContentValues();
+		p_dados.put("id_fk_animal", p_tb.getId_fk_animal());
+		p_dados.put("data_parto", p_tb.getData_parto());
+		p_dados.put("perda_gestacao", p_tb.getPerda_gestacao());
+		p_dados.put("sexo_parto", p_tb.getSexo_parto());
+		p_dados.put("sync_status", p_tb.getSync_status());
+
+		return p_dados;
 	}
 
 	public List<Parto> PartoPreencheArrayCursor(Cursor c) {

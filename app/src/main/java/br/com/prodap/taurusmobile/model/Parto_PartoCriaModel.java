@@ -1,15 +1,16 @@
 package br.com.prodap.taurusmobile.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import br.com.prodap.taurusmobile.TB.Parto_PartoCria;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.prodap.taurusmobile.adapter.Parto_PartoCriaAdapter;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.tb.Parto_PartoCria;
 
 public class Parto_PartoCriaModel extends BancoService {
 
@@ -22,9 +23,8 @@ public class Parto_PartoCriaModel extends BancoService {
 	}
 
 	@Override
-	public boolean validate(Context ctx, String Tabela, Object table,
-			int VALIDATION_TYPE) {
-		return false;
+	public void validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE) {
+
 	}
 
 	public void deleteByCria(Context ctx, String codigo_cria){

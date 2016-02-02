@@ -7,22 +7,22 @@ import android.os.AsyncTask;
 import com.google.gson.Gson;
 
 import java.util.List;
-import br.com.prodap.taurusmobile.TB.Pasto;
+import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.adapter.PastoAdapter;
 import br.com.prodap.taurusmobile.model.PastoModel;
 import br.com.prodap.taurusmobile.ui.MenuPrincipalActivity;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
-public class GetPastoARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
+public class GetARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 
 	private List<Pasto> pastoList;
 	private Context ctx;
 	private PastoAdapter pastoAdapter;
-	private ProgressDialog mProgress;
+	ProgressDialog mProgress;
 	private int mProgressDialog=0;
 
-	public GetPastoARQUIVO(Context ctx, int progressDialog){
+	public GetARQUIVO(Context ctx, int progressDialog){
 		this.ctx = ctx;
 		this.mProgressDialog = progressDialog;
 	}
@@ -30,12 +30,14 @@ public class GetPastoARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 	@Override
 	protected void onPreExecute() {
 		mProgress = new ProgressDialog(ctx);
-		mProgress.setTitle("Aguarde ...");
 		mProgress.setMessage("Tranferindo dados para tabela de Pasto.");
-		mProgress.setIndeterminate(false);
-		mProgress.setMax(0);
-		mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		mProgress.setCancelable(true);
+		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+
+			mProgress.setIndeterminate(false);
+			mProgress.setMax(100);
+			mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			mProgress.setCancelable(true);
+		}
 		mProgress.show();
 	}
 
@@ -54,14 +56,13 @@ public class GetPastoARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 			Gson gson = new Gson();
 			pastoAdapter = new PastoAdapter();
 			Pasto[] arrayPasto = gson.fromJson(MenuPrincipalActivity.JSONPASTO, Pasto[].class);
-			pastoList = pastoAdapter.PastoPreencheArrayHelper(arrayPasto);
+			pastoList = pastoAdapter.arrayPasto(arrayPasto);
 			int i = 0;
 			mProgress.setMax(pastoList.size());
 			for (Pasto pasto_tb : pastoList) {
 				if (pastoList.size() != 0) {
-					pastoModel.insert(ctx, "Pasto", pastoAdapter.PastoHelper(pasto_tb));
+					pastoModel.insert(ctx, "Pasto", pasto_tb);
 					publishProgress(i * 1);
-					//Thread.sleep(500);
 				}
 				i++;
 			}

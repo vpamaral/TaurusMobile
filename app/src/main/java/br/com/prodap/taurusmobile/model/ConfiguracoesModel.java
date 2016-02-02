@@ -1,48 +1,40 @@
 package br.com.prodap.taurusmobile.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import br.com.prodap.taurusmobile.TB.Configuracoes;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.prodap.taurusmobile.adapter.ConfiguracoesAdapter;
+import br.com.prodap.taurusmobile.dao.ConfiguracoesDao;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.tb.Configuracoes;
 
 public class ConfiguracoesModel extends BancoService {
 
 	private Banco banco;
 	private ConfiguracoesAdapter conf_adapter;
 	private SQLiteDatabase db;
-	private Configuracoes configurar;
+	private Configuracoes c_tb;
+	private ConfiguracoesDao c_dao;
 	
 	public ConfiguracoesModel(Context ctx) {
 		conf_adapter = new ConfiguracoesAdapter();
 	}
 	
 	@Override
-	public boolean validate(Context ctx, String Tabela, Object table,
-			int VALIDATION_TYPE) {
-		// TODO Auto-generated method stub
-		return false;
+	public void validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE) {
+
 	}
 	
 	@Override
 	public List<Configuracoes> selectAll(Context ctx, String Tabela, Object table) {
-		Banco banco = new Banco(ctx);
+		c_dao = new ConfiguracoesDao(ctx);
 
-		Class classe = table.getClass();
-		List<Configuracoes> listadd = new ArrayList<Configuracoes>();
-		String sql = "SELECT * FROM " + Tabela;
-
-		Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
-
-		listadd = conf_adapter.configurarPreencheArrayCursor(c);
-
-		banco.close();
-		return listadd;
+		return c_dao.selectAllConfiguracoes(ctx, Tabela, table);
 	}
 	
 	@Override

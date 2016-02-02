@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Parto_PartoCria;
+import br.com.prodap.taurusmobile.tb.Parto_PartoCria;
 import br.com.prodap.taurusmobile.ui.R;
 
 public class Parto_PartoCriaAdapter extends BaseAdapter {
