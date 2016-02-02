@@ -46,7 +46,8 @@ public class MenuPrincipalActivity extends Activity {
 	private Button btn_lista_parto;
 	private Button btn_enviar_dados;
 	private Button btn_configurar;
-	public static String idold;
+	public static String old_identificador;
+	public static String old_sisbov;
 	private List<Configuracoes> lista_conf;
 	private ConfiguracoesModel configuracao_model;
 	private Configuracoes c_tb;
@@ -58,7 +59,8 @@ public class MenuPrincipalActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_menu_principal);
-		idold = "";
+		old_sisbov 			= "";
+		old_identificador	= "";
 		try {
 			createFile();
 			createFileParto();

@@ -6,4 +6,5 @@ public class Constantes {
 	public static final String METHODO_GET 			= "listaAnimaisJson";
 	public static final String METHODO_POST 		= "SendJson";
 	public static final String METHODO_GET_PASTOS 	= "listaPastos";
+	public static final String METHODO_GET_GRUPOS 	= "listaGrupos";
 }

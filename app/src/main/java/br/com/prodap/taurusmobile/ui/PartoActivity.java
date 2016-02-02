@@ -195,15 +195,13 @@ public class PartoActivity extends Activity {
         final List<Animal> listaAnimal = ani_model.selectAll(this, "Animal", animal_tb);
 
         try {
-            Intent intent = this.getIntent();
-            Leitor leitor = (Leitor) intent.getSerializableExtra("leitor");
-            editCodCria.setText(intent.getStringExtra("editCodBarras"));
+            leitorCodBarras();
 
             if (listConf.get(0).getValida_identificador().equals("S")) {
                 editIdentificador.setEnabled(true);
                 ll_identificador.setVisibility(LinearLayout.VISIBLE);
                 validaIdentificador = true;
-                ifIdentificadorAtivo(leitor);
+                //ifIdentificadorAtivo(leitor);
             } else {
                 editIdentificador.setEnabled(false);
                 ll_identificador.setVisibility(LinearLayout.GONE);
@@ -214,7 +212,7 @@ public class PartoActivity extends Activity {
                 editSisbov.setEnabled(true);
                 ll_sisbov.setVisibility(LinearLayout.VISIBLE);
                 validaSisbov = true;
-                ifSisbov(leitor);
+                //ifSisbov(leitor);
             } else {
                 editSisbov.setEnabled(false);
                 ll_sisbov.setVisibility(LinearLayout.GONE);
@@ -311,7 +309,6 @@ public class PartoActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     //String pasto = spinPasto.getSelectedItem().toString();
-                    MenuPrincipalActivity.idold = null;
                     List<String> listaMatriz = new ArrayList<String>();
                     for (Animal animalList : listaAnimal) {
                         if (animalList.getCodigo().equals(editMatriz.getText().toString())) {
@@ -479,44 +476,75 @@ public class PartoActivity extends Activity {
         editBuscaPasto.setThreshold(1);
     }
 
-    private void ifSisbov(Leitor leitor) {
+    private void leitorCodBarras() {
+        Intent intent   = getIntent();
+        Leitor leitor   = (Leitor) intent.getSerializableExtra("leitor");
+
         if (leitor != null) {
-            if (leitor.getTipo().equals("ITF")) {
+            if (leitor.getTipo().equals("CODE_39")) {
+                identificador = leitor.getScanResult();
+                MenuPrincipalActivity.old_identificador = identificador;
+                editIdentificador.setText(MenuPrincipalActivity.old_identificador);
+            } else if (leitor.getTipo().equals("ITF")) {
                 sisbov = leitor.getScanResult();
-                if (sisbov != null) {
-                    long sis = Long.parseLong(sisbov);
+                MenuPrincipalActivity.old_sisbov = sisbov;
+                long sis = Long.parseLong(MenuPrincipalActivity.old_sisbov);
+                String strsis = String.valueOf(sis);
+                editSisbov.setText(strsis);
+                editCodCria.setText(strsis.substring(8, 14));
+            }
+            if (editIdentificador.getText().toString().equals("")) {
+                editIdentificador.setText(MenuPrincipalActivity.old_identificador.toString());
+            }
+            if (editSisbov.getText().toString().equals("")) {
+                if (MenuPrincipalActivity.old_sisbov != "") {
+                    long sis = Long.parseLong(MenuPrincipalActivity.old_sisbov);
                     String strsis = String.valueOf(sis);
                     editSisbov.setText(strsis);
                     editCodCria.setText(strsis.substring(8, 14));
-                    if (MenuPrincipalActivity.idold == null || MenuPrincipalActivity.idold == "") {
-                        MenuPrincipalActivity.idold = strsis;
-                    } else {
-                        editIdentificador.setText(MenuPrincipalActivity.idold);
-                    }
                 }
             }
         }
     }
 
-    private void ifIdentificadorAtivo(Leitor leitor) {
-        if (leitor != null) {
-            if (leitor.getTipo().equals("CODE_39")) {
-                //identificador = resultCodBarras;
-                identificador = leitor.getScanResult();
-                if (identificador != null) {
-                    editIdentificador.setText(identificador);
-                    if (MenuPrincipalActivity.idold == null || MenuPrincipalActivity.idold == "") {
-                        MenuPrincipalActivity.idold = identificador;
-                    } else {
-                        long sis = Long.parseLong(MenuPrincipalActivity.idold);
-                        strsis = String.valueOf(sis);
-                        editSisbov.setText(MenuPrincipalActivity.idold);
-                        editCodCria.setText(MenuPrincipalActivity.idold.substring(8, 14));
-                    }
-                }
-            }
-        }
-    }
+//    private void ifSisbov(Leitor leitor) {
+//        if (leitor != null) {
+//            if (leitor.getTipo().equals("ITF")) {
+//                sisbov = leitor.getScanResult();
+//                if (sisbov != null) {
+//                    long sis = Long.parseLong(sisbov);
+//                    String strsis = String.valueOf(sis);
+//                    editSisbov.setText(strsis);
+//                    editCodCria.setText(strsis.substring(8, 14));
+//                    if (MenuPrincipalActivity.idold == null || MenuPrincipalActivity.idold == "") {
+//                        MenuPrincipalActivity.idold = strsis;
+//                    } else {
+//                        editIdentificador.setText(MenuPrincipalActivity.idold);
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    private void ifIdentificadorAtivo(Leitor leitor) {
+//        if (leitor != null) {
+//            if (leitor.getTipo().equals("CODE_39")) {
+//                //identificador = resultCodBarras;
+//                identificador = leitor.getScanResult();
+//                if (identificador != null) {
+//                    editIdentificador.setText(identificador);
+//                    if (MenuPrincipalActivity.idold == null || MenuPrincipalActivity.idold == "") {
+//                        MenuPrincipalActivity.idold = identificador;
+//                    } else {
+//                        long sis = Long.parseLong(MenuPrincipalActivity.idold);
+//                        strsis = String.valueOf(sis);
+//                        editSisbov.setText(MenuPrincipalActivity.idold);
+//                        editCodCria.setText(MenuPrincipalActivity.idold.substring(8, 14));
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private void ifIdentificadorSisbovManejoHide() {
         if (validaIdentificador == true) {
@@ -669,10 +697,16 @@ public class PartoActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        MenuPrincipalActivity.idold = null;
+        updateVars();
+    }
+
+    private void updateVars() {
+        MenuPrincipalActivity.old_sisbov = "";
+        MenuPrincipalActivity.old_identificador = "";
     }
 
     public void zeraInterface() {
+        updateVars();
         editMatriz.setText("");
 //        editRacaPai.setText("");
         editCodCria.setText("");
