@@ -33,7 +33,7 @@ public class PastoModel extends BancoService {
         pasto = (Pasto)table;
 
         try {
-                if (pasto.getPasto().equals(""))
+                if (pasto.getNome().equals(""))
                 {
                     //ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_NULO");
                     ValidatorException ve = new ValidatorException("O campo Nome não pode ser vazio!");
@@ -42,7 +42,7 @@ public class PastoModel extends BancoService {
                     throw ve;
                 }
 
-            if (p_dao.ifExistPastoInsert(pasto.getPasto().toString()))
+            if (p_dao.ifExistPastoInsert(pasto.getNome().toString()))
             {
                 //ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
                 ValidatorException ve = new ValidatorException("O Nome do pasto não pode ser duplicado!");

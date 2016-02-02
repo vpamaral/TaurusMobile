@@ -59,7 +59,7 @@ public class PastoActivity extends Activity {
     private void insertPasto(Pasto pasto_tb) {
         try {
             //if (!edt_pasto.getText().toString().equals("") ) {
-            pasto_tb.setPasto(edt_pasto.getText().toString());
+            pasto_tb.setNome(edt_pasto.getText().toString());
             pasto_model.validate(this, "Pasto", pasto_tb, BancoService.VALIDATION_TYPE_INSERT);
             pasto_model.insert(this, "Pasto", pasto_tb);
             MensagemUtil.addMsg(MessageDialog.Toast, this, "Pasto cadastrado com sucesso.");
