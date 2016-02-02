@@ -11,14 +11,14 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import br.com.prodap.taurusmobile.model.AnimalModel;
+import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
 public class ListaAnimaisActivity extends Activity {
 
-	private AnimalModel a_model;
+	private Animal_Model a_model;
 	private Animal ani_tb;
 	private ListView animal_list;
 	private ArrayAdapter<Animal> adapter;
@@ -31,7 +31,7 @@ public class ListaAnimaisActivity extends Activity {
 		setContentView(R.layout.activity_lista_animais);
 
 		ani_tb 		= new Animal();
-		a_model 	= new AnimalModel(getBaseContext());
+		a_model 	= new Animal_Model(getBaseContext());
 		animal_list = (ListView) findViewById(R.id.lista_animais);
 
 		this.AnimalList();

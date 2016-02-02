@@ -17,26 +17,25 @@ import java.util.List;
 import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.tb.Parto;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
-import br.com.prodap.taurusmobile.adapter.PartoAdapter;
-import br.com.prodap.taurusmobile.adapter.PartoCriaAdapter;
-import br.com.prodap.taurusmobile.model.AnimalModel;
-import br.com.prodap.taurusmobile.model.PartoModel;
-import br.com.prodap.taurusmobile.model.Parto_CriaModel;
+import br.com.prodap.taurusmobile.adapter.Parto_Adapter;
+import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
+import br.com.prodap.taurusmobile.model.Animal_Model;
+import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
 public class ListaPartosCriaActivity extends Activity {
-	private PartoModel parto_model;
+	private Parto_Model parto_model;
 	private Parto parto_tb;
-	private Parto_CriaModel p_cria_model;
+	private Parto_Cria.Parto_CriaModel p_cria_model;
 	private Parto_Cria p_cria_tb;
 	private ListView list;
-	private PartoCriaAdapter p_cria_adapter;
-	private PartoAdapter parto_adapter;
+	private Parto_Cria_Adapter p_cria_adapter;
+	private Parto_Adapter parto_adapter;
 	private List<Parto_Cria> p_cria_list;
 	private List<Parto> parto_list;
 	private List<Animal> animal_list;
-	private AnimalModel ani_model;
+	private Animal_Model ani_model;
 	private Animal matriz_tb;
 	private int quantdPartos;
 	private int quantMachos;
@@ -55,9 +54,9 @@ public class ListaPartosCriaActivity extends Activity {
 	private void source() {
 		parto_tb		= new Parto();
 		p_cria_tb 		= new Parto_Cria();
-		p_cria_model	= new Parto_CriaModel(getBaseContext());
-		parto_model 	= new PartoModel(getBaseContext());
-		ani_model 		= new AnimalModel(getBaseContext());
+		p_cria_model	= new Parto_Cria.Parto_CriaModel(getBaseContext());
+		parto_model 	= new Parto_Model(getBaseContext());
+		ani_model 		= new Animal_Model(getBaseContext());
 		matriz_tb 		= new Animal();
 		animal_list = ani_model.selectAll(getBaseContext(),"Animal", matriz_tb);
 
@@ -88,8 +87,8 @@ public class ListaPartosCriaActivity extends Activity {
 
 		quantdPartos = p_cria_list.size();
 
-		p_cria_adapter = new PartoCriaAdapter(p_cria_list, this);
-		parto_adapter = new PartoAdapter(parto_list, this);
+		p_cria_adapter = new Parto_Cria_Adapter(p_cria_list, this);
+		parto_adapter = new Parto_Adapter(parto_list, this);
 
 		list.setAdapter(p_cria_adapter);
 		//list.setAdapter(parto_adapter);

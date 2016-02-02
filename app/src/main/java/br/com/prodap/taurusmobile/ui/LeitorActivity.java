@@ -63,7 +63,7 @@ public class LeitorActivity extends Activity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
-                                        "O leitor não conseguir ler todo o código de barras!");
+                            "O leitor não conseguir ler todo o código de barras!");
                 } else {
                     if (!validaIdentificador(leitor.getScanResult())) {
                         Intent intent = new Intent(getBaseContext(), PartoActivity.class);
@@ -75,7 +75,7 @@ public class LeitorActivity extends Activity {
                 }
             } else {
                 MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
-                                    "Código inválido!\nÉ esperado um Identificador ou Sisbov!");
+                        "Código inválido!\nÉ esperado um Identificador ou Sisbov!");
             }
         } else {
             Intent intent = new Intent(getBaseContext(), PartoActivity.class);
@@ -122,7 +122,7 @@ public class LeitorActivity extends Activity {
                 }
 
                 if (count == 5 && result.equals(Constantes.TAURUS_URL)) {
-                    Intent intent = new Intent(getBaseContext(), ConfiguracoesActivity.class);
+                    Intent intent = new Intent(getBaseContext(), ConfiguracaoActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("leitor", leitor);
                     startActivity(intent);

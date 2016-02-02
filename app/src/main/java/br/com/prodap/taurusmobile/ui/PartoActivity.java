@@ -32,21 +32,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.adapter.PartoCriaAdapter;
+import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
+import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
 import br.com.prodap.taurusmobile.tb.Animal;
-import br.com.prodap.taurusmobile.tb.Configuracoes;
+import br.com.prodap.taurusmobile.tb.Configuracao;
+import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
 import br.com.prodap.taurusmobile.tb.Leitor;
 import br.com.prodap.taurusmobile.tb.Parto;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.tb.Pasto;
-import br.com.prodap.taurusmobile.adapter.PartoAdapter;
-import br.com.prodap.taurusmobile.model.AnimalModel;
-import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
-import br.com.prodap.taurusmobile.model.PartoModel;
-import br.com.prodap.taurusmobile.model.Parto_CriaModel;
-import br.com.prodap.taurusmobile.model.PastoModel;
+import br.com.prodap.taurusmobile.adapter.Parto_Adapter;
+import br.com.prodap.taurusmobile.model.Animal_Model;
+import br.com.prodap.taurusmobile.model.Configuracao_Model;
+import br.com.prodap.taurusmobile.model.Parto_Model;
+import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.ValidatorException;
 
 public class PartoActivity extends Activity {
 
@@ -77,7 +79,7 @@ public class PartoActivity extends Activity {
     private EditText editCodCria;
     private EditText editIdentificador;
     private EditText editSisbov;
-    private EditText editGrupoManejo;
+    private AutoCompleteTextView editGrupoManejo;
     private EditText editPeso;
     private EditText editDataIdentificacao;
     private Button btnSalvar;
@@ -93,16 +95,16 @@ public class PartoActivity extends Activity {
     private TextView txtidanimal;
     private String sisbov = null;
     private String identificador = null;
-    private AnimalModel ani_model;
-    private PartoModel parto_model;
-    private Parto_CriaModel cria_model;
-    private ConfiguracoesModel conf_model;
+    private Animal_Model ani_model;
+    private Parto_Model parto_model;
+    private Parto_Cria.Parto_CriaModel cria_model;
+    private Configuracao_Model conf_model;
     private Parto parto_tb;
     private Parto_Cria cria_tb;
-    private PartoAdapter p_helper;
-    private PartoCriaAdapter c_helper;
+    private Parto_Adapter p_helper;
+    private Parto_Cria_Adapter c_helper;
     private String strsis;
-    private List<Configuracoes> listConf;
+    private List<Configuracao> listConf;
     private List<Parto_Cria> listaCria;
     private Date dataParto = null;
     private boolean validaSisbov;
@@ -114,6 +116,7 @@ public class PartoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parto);
         buscaPasto();
+        buscaGrupoManejo();
 
         spinPerda = (Spinner) findViewById(R.id.spnPerda);
         ArrayAdapter<String> adpPerda = new ArrayAdapter<String>(this,
@@ -158,18 +161,18 @@ public class PartoActivity extends Activity {
         final Date data_atual = cal.getTime();
         String data_completa = dateFormat.format(data_atual);
         final long id_animal;
-        ani_model = new AnimalModel(this);
-        parto_model = new PartoModel(this);
-        cria_model = new Parto_CriaModel(this);
-        conf_model = new ConfiguracoesModel(this);
-        p_helper = new PartoAdapter();
-        c_helper = new PartoCriaAdapter();
+        ani_model = new Animal_Model(this);
+        parto_model = new Parto_Model(this);
+        cria_model = new Parto_Cria.Parto_CriaModel(this);
+        conf_model = new Configuracao_Model(this);
+        p_helper = new Parto_Adapter();
+        c_helper = new Parto_Cria_Adapter();
         final Parto parto_tb = new Parto();
         final Parto_Cria cria_tb = new Parto_Cria();
 
         editIdentificador = (EditText) findViewById(R.id.edtIdentificador);
         editSisbov = (EditText) findViewById(R.id.edtSisbov);
-        editGrupoManejo = (EditText) findViewById(R.id.edtGrupoManejo);
+        editGrupoManejo = (AutoCompleteTextView) findViewById(R.id.edtGrupoManejo);
         editMatriz = (EditText) findViewById(R.id.edtMatriz);
         editDataParto = (EditText) findViewById(R.id.edtDataParto);
         editBuscaPasto = (AutoCompleteTextView) findViewById(R.id.edtBuscaPasto);
@@ -188,7 +191,7 @@ public class PartoActivity extends Activity {
         Parto_Cria pc_tb = new Parto_Cria();
         listaCria = cria_model.selectAll(this, "Parto_Cria", pc_tb);
 
-        Configuracoes conf_tb = new Configuracoes();
+        Configuracao conf_tb = new Configuracao();
         listConf = conf_model.selectAll(this, "Configuracao", conf_tb);
 
         Animal animal_tb = new Animal();
@@ -446,7 +449,6 @@ public class PartoActivity extends Activity {
                     } else {
                         MensagemUtil.addMsg(MessageDialog.Yes, PartoActivity.this
                                 , "O Aparelho não foi preparado para o lançamento de Partos, favor propara-lo!.", "Aviso", 1);
-                        //MensagemUtil.addMsg(MessageDialog.Toast, getBaseContext(), "O Celular não foi preparado para o lançamentos de Partos, favor propara-lo!.");
                     }
                 }
             });
@@ -455,25 +457,52 @@ public class PartoActivity extends Activity {
         }
     }
 
-    private void buscaPasto () {
+    private void buscaPasto() {
         final List<Pasto> pasto_list;
         final List<String> nome_pasto_list = new ArrayList<String>();
         final Pasto pasto_tb = new Pasto();
-        PastoModel pasto_model = new PastoModel(getBaseContext());
-        //PastoAdapter pasto_adapter = new PastoAdapter();
+        Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
+        try {
+            pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
 
-        pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
-        //pasto_adapter = new PastoAdapter(pasto_list, this);
-
-        for(Pasto p : pasto_list) {
-                nome_pasto_list.add(p.getNome().toString());
+            for(Pasto p : pasto_list) {
+                    nome_pasto_list.add(p.getNome().toString());
+            }
+        } catch (Exception e) {
+            Log.i("BuscaPastos", e.toString());
+            e.printStackTrace();
         }
+
         editBuscaPasto=(AutoCompleteTextView)findViewById(R.id.edtBuscaPasto);
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,nome_pasto_list);
 
         editBuscaPasto.setAdapter(adapter);
         editBuscaPasto.setThreshold(1);
+    }
+
+    private void buscaGrupoManejo() {
+        final List<Grupo_Manejo> grupo_list;
+        final List<String> codigo_grupo_list = new ArrayList<String>();
+        final Grupo_Manejo grupo_tb = new Grupo_Manejo();
+        Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(getBaseContext());
+        try {
+            grupo_list = grupo_model.selectAll(getBaseContext(), "Grupo_Manejo", grupo_tb);
+
+            for (Grupo_Manejo g_tb : grupo_list) {
+                codigo_grupo_list.add(g_tb.getCodigo().toString());
+            }
+        } catch (Exception e) {
+            Log.i("BuscaGrupoManejo", e.toString());
+            e.printStackTrace();
+        }
+
+        editGrupoManejo=(AutoCompleteTextView)findViewById(R.id.edtGrupoManejo);
+
+        ArrayAdapter<String> grupo_adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,codigo_grupo_list);
+
+        editGrupoManejo.setAdapter(grupo_adapter);
+        editGrupoManejo.setThreshold(1);
     }
 
     private void leitorCodBarras() {
@@ -577,7 +606,6 @@ public class PartoActivity extends Activity {
         parto_model.insert(PartoActivity.this, "Parto", parto_tb);
         cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
         writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
-            //MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this, "Arquivo preenchido com sucesso!");
         MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this, "Parto cadastrado com sucesso!");
         zeraInterface();
     }

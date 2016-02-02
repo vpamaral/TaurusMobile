@@ -24,14 +24,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.model.AnimalModel;
-import br.com.prodap.taurusmobile.model.ConfiguracoesModel;
-import br.com.prodap.taurusmobile.model.PartoModel;
-import br.com.prodap.taurusmobile.model.PastoModel;
-import br.com.prodap.taurusmobile.task.GetAnimaisJSON;
-import br.com.prodap.taurusmobile.task.GetPastosJSON;
-import br.com.prodap.taurusmobile.task.PostAnimaisJSON;
-import br.com.prodap.taurusmobile.tb.Configuracoes;
+import br.com.prodap.taurusmobile.model.Animal_Model;
+import br.com.prodap.taurusmobile.model.Configuracao_Model;
+import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
+import br.com.prodap.taurusmobile.model.Parto_Model;
+import br.com.prodap.taurusmobile.model.Pasto_Model;
+import br.com.prodap.taurusmobile.task.Get_Animais_JSON;
+import br.com.prodap.taurusmobile.task.Get_Grupo_Manejo_JSON;
+import br.com.prodap.taurusmobile.task.Get_Pastos_JSON;
+import br.com.prodap.taurusmobile.task.Post_Animais_JSON;
+import br.com.prodap.taurusmobile.tb.Configuracao;
+import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
 import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
@@ -48,11 +51,11 @@ public class MenuPrincipalActivity extends Activity {
 	private Button btn_configurar;
 	public static String old_identificador;
 	public static String old_sisbov;
-	private List<Configuracoes> lista_conf;
-	private ConfiguracoesModel configuracao_model;
-	private Configuracoes c_tb;
+	private List<Configuracao> lista_conf;
+	private Configuracao_Model configuracao_model;
+	private Configuracao c_tb;
 	private String url;
-	private PartoModel parto_model;
+	private Parto_Model parto_model;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +84,12 @@ public class MenuPrincipalActivity extends Activity {
 		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
 		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
 		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
-		configuracao_model 	= new ConfiguracoesModel(this);
-		c_tb 				= new Configuracoes();
-		parto_model			= new PartoModel(this);
+		configuracao_model 	= new Configuracao_Model(this);
+		c_tb 				= new Configuracao();
+		parto_model			= new Parto_Model(this);
 		lista_conf = configuracao_model.selectAll(getBaseContext(), "Configuracao", c_tb);
 
-		for (Configuracoes conf_tb : lista_conf) {
+		for (Configuracao conf_tb : lista_conf) {
 			url = conf_tb.getEndereco();
 		}
 		existCelular(lista_conf, c_tb);
@@ -97,8 +100,8 @@ public class MenuPrincipalActivity extends Activity {
 		final List<Pasto> pasto_list;
 		final List<String> nome_pasto_list = new ArrayList<String>();
 		final Pasto pasto_tb = new Pasto();
-//		PastoModel pasto_model = new PastoModel(getBaseContext());
-//		PastoAdapter pasto_adapter = new PastoAdapter();
+//		Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
+//		Pasto_Adapter pasto_adapter = new Pasto_Adapter();
 //
 //		pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
 //		if(pasto_list.size() > 0) {
@@ -166,7 +169,7 @@ public class MenuPrincipalActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				loadConfiguracoes();
+				loadConfiguracao();
 			}
 		});
 	}
@@ -215,9 +218,9 @@ public class MenuPrincipalActivity extends Activity {
 		}
 	}
 	
-	private void loadConfiguracoes(){
+	private void loadConfiguracao(){
 		Intent intent = new Intent(MenuPrincipalActivity.this,
-				ConfiguracoesActivity.class);
+				ConfiguracaoActivity.class);
 		startActivity(intent);
 	}
 
@@ -228,10 +231,11 @@ public class MenuPrincipalActivity extends Activity {
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						UpdatePastos();
-						AnimalModel objModelAnimal = new AnimalModel(MenuPrincipalActivity.this);
+						updatePastos();
+						updateGrupoManejo();
+						Animal_Model objModelAnimal = new Animal_Model(MenuPrincipalActivity.this);
 						objModelAnimal.delete(MenuPrincipalActivity.this, "Animal");
-						new GetAnimaisJSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+						new Get_Animais_JSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 					}
 				});
 			}
@@ -241,10 +245,16 @@ public class MenuPrincipalActivity extends Activity {
 		}
 	}
 
-	private void UpdatePastos() {
-		PastoModel pasto_model 		= new PastoModel(MenuPrincipalActivity.this);
+	private void updatePastos() {
+		Pasto_Model pasto_model = new Pasto_Model(MenuPrincipalActivity.this);
 		pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
-		new GetPastosJSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+		new Get_Pastos_JSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+	}
+
+	private void updateGrupoManejo() {
+		Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(MenuPrincipalActivity.this);
+		grupo_model.delete(MenuPrincipalActivity.this, "Grupo_Manejo");
+		new Get_Grupo_Manejo_JSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
 
 //	private void msgUpdatePastoViaArquivo() {
@@ -254,10 +264,10 @@ public class MenuPrincipalActivity extends Activity {
 //						, new DialogInterface.OnClickListener() {
 //					@Override
 //					public void onClick(DialogInterface dialog, int which) {
-//						PastoModel pasto_model = new PastoModel(getBaseContext());
+//						Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
 //						pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
 //
-//						new GetARQUIVO(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+//						new Get_ARQUIVO(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 //						btn_atualizar_dados.setVisibility(View.INVISIBLE);
 //					}
 //				});
@@ -275,7 +285,7 @@ public class MenuPrincipalActivity extends Activity {
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						new PostAnimaisJSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+						new Post_Animais_JSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 					}
 				});
 			}
@@ -298,9 +308,9 @@ public class MenuPrincipalActivity extends Activity {
 		return connected;
 	}
 
-	private void existCelular(List<Configuracoes> listQRCode, Configuracoes qrcode_tb) {
+	private void existCelular(List<Configuracao> listQRCode, Configuracao qrcode_tb) {
 		if (listQRCode.size() != 0) {
-			for (Configuracoes conf_tb : listQRCode) {
+			for (Configuracao conf_tb : listQRCode) {
 				if (conf_tb.getTipo().equals(qrcode_tb.getTipo())
 						&& conf_tb.getEndereco().equals(qrcode_tb.getEndereco())) {
 					break;
@@ -362,7 +372,7 @@ public class MenuPrincipalActivity extends Activity {
 				postDados();
 				return false;
 			case R.id.menu_QRCode:
-				loadConfiguracoes();
+				loadConfiguracao();
 				return false;
 			/*case R.id.menu_recover_sent_partos:
 				parto_model.recoverSentPartos(getBaseContext());
@@ -392,7 +402,6 @@ public class MenuPrincipalActivity extends Activity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//MensagemUtil.addMsg(MessageDialog.Toast, this, "Lista criada com sucesso.");
 		return texto;
 	}
 
