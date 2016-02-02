@@ -2,7 +2,7 @@ package br.com.prodap.taurusmobile.converter;
 
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Parto_Cria;
+import br.com.prodap.taurusmobile.tb.Parto_Cria;
 
 import com.thoughtworks.xstream.XStream;
 

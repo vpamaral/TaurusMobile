@@ -16,23 +16,25 @@ import java.util.concurrent.TimeoutException;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
-import br.com.prodap.taurusmobile.util.ValidatorException;
 
 public class ConexaoHTTP {
 	private String url;
-	Context ctx;
+	private Context ctx;
+	public static int servResultPost;
+	public static int servResultGet;
+	private HttpResponse resposta;
+
+	public ConexaoHTTP() {
+	}
 
 	public ConexaoHTTP(String url,  Context ctx) {
 		this.url = url;
@@ -48,6 +50,7 @@ public class ConexaoHTTP {
 			URL url = new URL(urlServico);
 			objUrlConnection = (HttpURLConnection) url.openConnection();
 			objUrlConnection.connect();
+			this.servResultGet = objUrlConnection.getResponseCode();
 			objDadosInputStream = objUrlConnection.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(objDadosInputStream));
 			StringBuffer sb = new StringBuffer();
@@ -66,46 +69,6 @@ public class ConexaoHTTP {
 		}
 		return dados;
 	}
-
-	/*public String lerUrlServico(String urlServico) throws IOException{
-		String dados = "";
-		InputStream objDadosInputStream = null;
-		HttpURLConnection objUrlConnection = null;
-		BufferedReader br = null;
-
-		try {
-			URL url = new URL(urlServico);
-			objUrlConnection = (HttpURLConnection) url.openConnection();
-			objUrlConnection.connect();
-			objDadosInputStream = objUrlConnection.getInputStream();
-			br = new BufferedReader(new InputStreamReader(objDadosInputStream));
-			StringBuffer sb = new StringBuffer();
-
-			String linha = "";
-			while ((linha = br.readLine()) != null) {
-				sb.append(linha);
-			}
-			dados = sb.toString();
-			//br.close();
-		} catch (IOException e) {
-			Log.i("TAG", e.toString());
-			e.printStackTrace();
-		} finally {
-			if(br != null){
-				try{
-					br.close();
-					throw new ValidatorException("");
-				}
-				catch (ValidatorException e){
-					e.printStackTrace();
-					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Ocorreu um erro ao atualizar Servidor...");
-				}
-			}
-			//objDadosInputStream.close();
-			//objUrlConnection.disconnect();
-		}
-		return dados;
-	}*/
 	
 	public String postRequest(String urlServico, ArrayList<String> postDataParams) throws Exception{
 	  HttpURLConnection objUrlConnection = null;
@@ -164,21 +127,20 @@ public class ConexaoHTTP {
 		return result.toString();
 	}
 
-	public String postJson(String json) {
+	public String postJson(String json) throws IOException {
+		DefaultHttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(url);
+		post.setEntity(new StringEntity(json));
+		post.setHeader("Content-type", "application/json");
+		post.setHeader("Accept", "application/json");
+
 		try {
-			HttpPost post = new HttpPost(url);
-			post.setEntity(new StringEntity(json));
-			post.setHeader("Content-type", "application/json");
-			post.setHeader("Accept", "application/json");
-
-			DefaultHttpClient client = new DefaultHttpClient();
-			HttpResponse resposta = client.execute(post);
-
-			return EntityUtils.toString(resposta.getEntity());
-
-		} catch (IOException e) {
+			resposta = client.execute(post);
+		} catch (ClientProtocolException e) {
 			e.printStackTrace();
+			Log.i("TAG", e.toString());
 		}
-		return json;
+		this.servResultPost = resposta.getStatusLine().getStatusCode();
+		return EntityUtils.toString(resposta.getEntity());
 	}
 }

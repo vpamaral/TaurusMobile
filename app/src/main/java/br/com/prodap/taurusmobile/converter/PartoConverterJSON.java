@@ -5,7 +5,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONStringer;
 
-import br.com.prodap.taurusmobile.TB.Parto;
+import br.com.prodap.taurusmobile.tb.Parto;
 
 public class PartoConverterJSON {
 	public String toJSON(List<Parto> partos) {

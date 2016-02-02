@@ -8,9 +8,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public abstract class BancoService {
+import br.com.prodap.taurusmobile.util.ValidatorException;
 
-	public abstract boolean validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE);
+public abstract class BancoService {
+	public static int VALIDATION_TYPE_INSERT = 0;
+	public static int VALIDATION_TYPE_DELETE = 1;
+	public static int VALIDATION_TYPE_UPDATE = 2;
+
+	public abstract void validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE) throws ValidatorException;
 
 	public abstract <T> List<T> selectAll(Context ctx, String Tabela, Object table);
 
@@ -23,7 +28,7 @@ public abstract class BancoService {
 			Class<? extends Object> s = table.getClass();
 
 			for (Field f : s.getDeclaredFields()) {
-                          				cv.put(f.getName(), getValueAt(table, "get" + f.getName()).toString());
+				cv.put(f.getName(), getValueAt(table, "get" + f.getName()).toString());
 			}
 
 			banco.getWritableDatabase().insert(Tabela, null, cv);

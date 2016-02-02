@@ -1,7 +1,9 @@
 package br.com.prodap.taurusmobile.adapter;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,7 +11,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Configuracoes;
+import br.com.prodap.taurusmobile.tb.Configuracoes;
 
 public class ConfiguracoesAdapter extends BaseAdapter {
 	private List<Configuracoes> configuracoesList;
@@ -38,21 +40,32 @@ public class ConfiguracoesAdapter extends BaseAdapter {
 		return config;
 	}
 
-	public List<Configuracoes> configurarPreencheArrayCursor(Cursor c) {
-		List<Configuracoes> listaConfiguracoes = new ArrayList<Configuracoes>();
+	@NonNull
+	public ContentValues getDadosConfig(Configuracoes c_tb) {
+		ContentValues c_dados = new ContentValues();
+		c_dados.put("tipo", c_tb.getTipo());
+		c_dados.put("endereco", c_tb.getEndereco());
+		c_dados.put("valida_sisbov", c_tb.getValida_sisbov());
+		c_dados.put("valida_identificador", c_tb.getValida_identificador());
+		c_dados.put("valida_manejo", c_tb.getValida_manejo());
+
+		return c_dados;
+	}
+
+	public List<Configuracoes> arrayConfiguracoes(Cursor c) {
+		List<Configuracoes> c_list = new ArrayList<Configuracoes>();
 		while (c.moveToNext()) {
-			Configuracoes config = new Configuracoes();
-			config.setId_auto(c.getLong(c.getColumnIndex("id_auto")));
-			config.setTipo(c.getString(c.getColumnIndex("tipo")));
-			config.setEndereco(c.getString(c.getColumnIndex("endereco")));
-			config.setValida_identificador(c.getString(c.getColumnIndex("valida_identificador")));
-			config.setValida_manejo(c.getString(c.getColumnIndex("valida_manejo")));
-			config.setValida_sisbov(c.getString(c.getColumnIndex("valida_sisbov")));
+			Configuracoes c_tb = new Configuracoes();
+			c_tb.setId_auto(c.getLong(c.getColumnIndex("id_auto")));
+			c_tb.setTipo(c.getString(c.getColumnIndex("tipo")));
+			c_tb.setEndereco(c.getString(c.getColumnIndex("endereco")));
+			c_tb.setValida_identificador(c.getString(c.getColumnIndex("valida_identificador")));
+			c_tb.setValida_manejo(c.getString(c.getColumnIndex("valida_manejo")));
+			c_tb.setValida_sisbov(c.getString(c.getColumnIndex("valida_sisbov")));
 
-			listaConfiguracoes.add(config);
+			c_list.add(c_tb);
 		}
-
-		return listaConfiguracoes;
+		return c_list;
 	}
 
 	public ArrayList<Configuracoes> configurarPreencheArrayHelper(Configuracoes[] configurarArray) {

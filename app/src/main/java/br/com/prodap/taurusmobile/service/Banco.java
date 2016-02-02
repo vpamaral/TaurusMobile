@@ -68,7 +68,12 @@ public class Banco extends SQLiteOpenHelper {
 
 		String sql_pasto = "CREATE TABLE 'Pasto' ("
 				+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'pasto'        			varchar(100)"
+				+ "'nome'        			varchar(100)"
+				+");";
+
+		String sql_grupo_manejo = "CREATE TABLE 'Grupo_Manejo' ("
+				+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'codigo_manejo'        	varchar(10)"
 				+");";
 
 		db.execSQL(sql_animal);
@@ -76,6 +81,7 @@ public class Banco extends SQLiteOpenHelper {
 		db.execSQL(sql_parto_cria);
 		db.execSQL(sql_configuracao);
 		db.execSQL(sql_pasto);
+		db.execSQL(sql_grupo_manejo);
 	}
 
 	@Override

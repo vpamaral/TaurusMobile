@@ -5,7 +5,7 @@ import org.json.JSONStringer;
 
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Parto_Cria;
+import br.com.prodap.taurusmobile.tb.Parto_Cria;
 
 public class PartoCriaConverterJSON {
 	public String toJSON(List<Parto_Cria> partos_cria) {

@@ -1,7 +1,9 @@
 package br.com.prodap.taurusmobile.adapter;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.TB.Parto_Cria;
+import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.ui.R;
 
 public class PartoCriaAdapter extends BaseAdapter{
@@ -47,6 +49,26 @@ public class PartoCriaAdapter extends BaseAdapter{
 
 		}
 		return parto_cria;
+	}
+
+	@NonNull
+	public ContentValues getDadosCria(Parto_Cria c_tb) {
+		ContentValues c_dados = new ContentValues();
+		c_dados.put("id_fk_animal_mae", c_tb.getId_fk_animal_mae());
+		c_dados.put("data_identificacao", c_tb.getData_identificacao());
+		c_dados.put("repasse", c_tb.getRepasse());
+		c_dados.put("sisbov", c_tb.getSync_status());
+		c_dados.put("raca_cria",  c_tb.getRaca_cria());
+		c_dados.put("identificador", c_tb.getIdentificador());
+		c_dados.put("grupo_manejo", c_tb.getGrupo_manejo());
+		c_dados.put("sync_status", c_tb.getSync_status());
+		c_dados.put("peso_cria", c_tb.getPeso_cria());
+		c_dados.put("codigo_cria",  c_tb.getCodigo_cria());
+		c_dados.put("sexo", c_tb.getSexo());
+		c_dados.put("tipo_parto", c_tb.getTipo_parto());
+		c_dados.put("pasto",  c_tb.getPasto());
+
+		return c_dados;
 	}
 
 	public List<Parto_Cria> PartoCriaPreencheArrayCursor(Cursor c) {
