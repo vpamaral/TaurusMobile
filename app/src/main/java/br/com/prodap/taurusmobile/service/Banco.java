@@ -73,7 +73,7 @@ public class Banco extends SQLiteOpenHelper {
 
 		String sql_grupo_manejo = "CREATE TABLE 'Grupo_Manejo' ("
 				+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'codigo_manejo'        	varchar(10)"
+				+ "'codigo'        			varchar(100)"
 				+");";
 
 		db.execSQL(sql_animal);

@@ -10,8 +10,8 @@ import android.widget.EditText;
 
 import java.util.List;
 
-import br.com.prodap.taurusmobile.adapter.PastoAdapter;
-import br.com.prodap.taurusmobile.model.PastoModel;
+import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
+import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.service.BancoService;
 import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
@@ -21,10 +21,10 @@ import br.com.prodap.taurusmobile.util.ValidatorException;
 public class PastoActivity extends Activity {
     private EditText edt_pasto;
     private Button btn_salvar;
-    private PastoModel pasto_model;
+    private Pasto_Model pasto_model;
     private Pasto pasto_tb;
-    private PastoAdapter p_helper;
-    private PastoAdapter pasto_adapter;
+    private Pasto_Adapter p_helper;
+    private Pasto_Adapter pasto_adapter;
     private List<Pasto> pasto_list;
     private MensagemUtil md;
 
@@ -50,9 +50,9 @@ public class PastoActivity extends Activity {
     private void source() {
         edt_pasto = (EditText) findViewById(R.id.edt_pasto);
         btn_salvar = (Button) findViewById(R.id.btn_salvar_pasto);
-        pasto_model = new PastoModel(getBaseContext());
+        pasto_model = new Pasto_Model(getBaseContext());
         pasto_tb    = new Pasto();
-        pasto_adapter = new PastoAdapter();
+        pasto_adapter = new Pasto_Adapter();
 
     }
 
