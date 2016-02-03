@@ -11,6 +11,11 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.tb.Configuracao;
@@ -42,6 +47,14 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	public ProgressDialog mProgress;
 	private int mProgressDialog=0;
 
+	private SimpleDateFormat dateFormat;
+	private Date data;
+	private Date data_atual;
+	private Calendar calendar;
+	private String data_dd_mm_yyyy;
+
+	private String filename;
+
 	public Post_Animais_JSON(Context ctx, int progressDialog) {
 		this.ctx = ctx;
 		this.mProgressDialog = progressDialog;
@@ -52,9 +65,17 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 		configuracao_tb = new Configuracao();
 		p_parto_cria_tb 		= new Parto_Parto_Cria();
 		configuracoes_model		= new Configuracao_Model(ctx);
-		parto_parto_cria_model = new Parto_Parto_Cria_Model(ctx);
+		parto_parto_cria_model  = new Parto_Parto_Cria_Model(ctx);
 		parto_model				= new Parto_Model(ctx);
 		c_http					= new Conexao_HTTP();
+
+		dateFormat 				= new SimpleDateFormat("dd-MM-yyyy");
+		data 					= new Date();
+		calendar 				= Calendar.getInstance();
+		calendar.setTime(data);
+		data_atual 				= calendar.getTime();
+		data_dd_mm_yyyy 		= dateFormat.format(data_atual);
+
 	}
 
 	@Override
@@ -118,7 +139,13 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 					mProgress.dismiss();
 					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Nenhum dado para ser enviado.");
 				} else {
-					writeInFileSendPartos(json);
+					try {
+						createFilePartoSend();
+						writeInFileSendPartos(json);
+					} catch (IOException e) {
+						Log.i("ARQUIVO_PARTOS_ENVIADOS", e.toString());
+						e.printStackTrace();
+					}
 					parto_model.deletingLogic(ctx);
 					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso.");
 					mProgress.dismiss();
@@ -136,7 +163,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 		File file = null;
 
 		try{
-			file = new File(Environment.getExternalStorageDirectory()+"/Prodap","partos_enviados.txt");
+			file = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
 			FileOutputStream in = new FileOutputStream(file, true);
 			in.write(text.getBytes());
 			in.write("\n".getBytes());
@@ -149,5 +176,42 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	private void createFilePartoSend() throws IOException {
+
+		Date data = new Date();
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(data);
+
+		filename = "partos_enviados_"+ data_dd_mm_yyyy +".txt";
+		String conteudo = "";
+
+		File diretorio = new File(obterDiretorio(), "Prodap");
+
+		if(!diretorio.exists()) {
+			diretorio.mkdir();
+		}
+		File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
+
+		FileOutputStream outputStream = null;
+		try
+		{
+			if(!arquivo.exists()) {
+				outputStream = new FileOutputStream(arquivo);
+				outputStream.write(conteudo.getBytes());
+				outputStream.close();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private String obterDiretorio()
+	{
+		File root = android.os.Environment.getExternalStorageDirectory();
+		return root.toString();
 	}
 }

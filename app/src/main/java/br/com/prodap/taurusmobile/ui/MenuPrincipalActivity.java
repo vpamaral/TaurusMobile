@@ -66,7 +66,7 @@ public class MenuPrincipalActivity extends Activity {
 		old_identificador	= "";
 		try {
 			createFile();
-			createFileParto();
+			//createFileParto();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -436,34 +436,34 @@ public class MenuPrincipalActivity extends Activity {
 		}
 	}
 
-	private void createFileParto() throws IOException {
-
-		Date data = new Date();
-		final Calendar cal = Calendar.getInstance();
-		cal.setTime(data);
-
-		String filename = "partos_enviados.txt";
-		String conteudo = "";
-
-		File diretorio = new File(obterDiretorio(), "Prodap");
-
-		if(!diretorio.exists()) {
-			diretorio.mkdir();
-		}
-		File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
-
-		FileOutputStream outputStream = null;
-		try
-		{
-			if(!arquivo.exists()) {
-				outputStream = new FileOutputStream(arquivo);
-				outputStream.write(conteudo.getBytes());
-				outputStream.close();
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+//	private void createFileParto() throws IOException {
+//
+//		Date data = new Date();
+//		final Calendar cal = Calendar.getInstance();
+//		cal.setTime(data);
+//
+//		String filename = "partos_enviados.txt";
+//		String conteudo = "";
+//
+//		File diretorio = new File(obterDiretorio(), "Prodap");
+//
+//		if(!diretorio.exists()) {
+//			diretorio.mkdir();
+//		}
+//		File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
+//
+//		FileOutputStream outputStream = null;
+//		try
+//		{
+//			if(!arquivo.exists()) {
+//				outputStream = new FileOutputStream(arquivo);
+//				outputStream.write(conteudo.getBytes());
+//				outputStream.close();
+//			}
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
 }
