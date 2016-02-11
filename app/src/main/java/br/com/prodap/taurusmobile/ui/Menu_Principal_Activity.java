@@ -34,12 +34,11 @@ import br.com.prodap.taurusmobile.task.Get_Grupo_Manejo_JSON;
 import br.com.prodap.taurusmobile.task.Get_Pastos_JSON;
 import br.com.prodap.taurusmobile.task.Post_Animais_JSON;
 import br.com.prodap.taurusmobile.tb.Configuracao;
-import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
 import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
-public class MenuPrincipalActivity extends Activity {
+public class Menu_Principal_Activity extends Activity {
 
 	public static String JSONPASTO;
 	private Button btn_atualizar;
@@ -175,24 +174,24 @@ public class MenuPrincipalActivity extends Activity {
 	}
 
 	private void lancaParto() {
-		Intent intent = new Intent(MenuPrincipalActivity.this, PartoActivity.class);
+		Intent intent = new Intent(Menu_Principal_Activity.this, Parto_Activity.class);
 		startActivity(intent);
 	}
 
 	private void novoPasto() {
-		Intent pasto = new Intent(MenuPrincipalActivity.this, PastoActivity.class);
+		Intent pasto = new Intent(Menu_Principal_Activity.this, Pasto_Activity.class);
 		startActivity(pasto);
 	}
 
 	private void animaisList() {
-		Intent intent = new Intent(MenuPrincipalActivity.this,
-				ListaAnimaisActivity.class);
+		Intent intent = new Intent(Menu_Principal_Activity.this,
+				Lista_Animais_Activity.class);
 		startActivity(intent);
 	}
 	
 	private void partosList() {
-		Intent intent = new Intent(MenuPrincipalActivity.this,
-				ListaPartosCriaActivity.class);
+		Intent intent = new Intent(Menu_Principal_Activity.this,
+				Lista_Partos_Cria_Activity.class);
 		startActivity(intent);
 	}
 
@@ -219,23 +218,23 @@ public class MenuPrincipalActivity extends Activity {
 	}
 	
 	private void loadConfiguracao(){
-		Intent intent = new Intent(MenuPrincipalActivity.this,
-				ConfiguracaoActivity.class);
+		Intent intent = new Intent(Menu_Principal_Activity.this,
+				Configuracao_Activity.class);
 		startActivity(intent);
 	}
 
 	private void msgUpdateAnimais() {
 		if (checksConnection()) {
 			if (validateServer(url)){
-				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Deseja atualizar os dados?"
+				MensagemUtil.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados?"
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						updatePastos();
 						updateGrupoManejo();
-						Animal_Model objModelAnimal = new Animal_Model(MenuPrincipalActivity.this);
-						objModelAnimal.delete(MenuPrincipalActivity.this, "Animal");
-						new Get_Animais_JSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+						Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
+						objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
+						new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 					}
 				});
 			}
@@ -246,15 +245,15 @@ public class MenuPrincipalActivity extends Activity {
 	}
 
 	private void updatePastos() {
-		Pasto_Model pasto_model = new Pasto_Model(MenuPrincipalActivity.this);
-		pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
-		new Get_Pastos_JSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+		Pasto_Model pasto_model = new Pasto_Model(Menu_Principal_Activity.this);
+		pasto_model.delete(Menu_Principal_Activity.this, "Pasto");
+		new Get_Pastos_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
 
 	private void updateGrupoManejo() {
-		Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(MenuPrincipalActivity.this);
-		grupo_model.delete(MenuPrincipalActivity.this, "Grupo_Manejo");
-		new Get_Grupo_Manejo_JSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+		Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(Menu_Principal_Activity.this);
+		grupo_model.delete(Menu_Principal_Activity.this, "Grupo_Manejo");
+		new Get_Grupo_Manejo_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
 
 //	private void msgUpdatePastoViaArquivo() {
@@ -281,11 +280,11 @@ public class MenuPrincipalActivity extends Activity {
 	private void msgPostDados() {
 		if (checksConnection()) {
 			if (validateServer(url)){
-				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Deseja enviar os dados?"
+				MensagemUtil.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?"
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						new Post_Animais_JSON(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+						new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 					}
 				});
 			}
@@ -322,7 +321,7 @@ public class MenuPrincipalActivity extends Activity {
 	}
 
 	private void loadLeitor() {
-		Intent intent = new Intent(MenuPrincipalActivity.this, LeitorActivity.class);
+		Intent intent = new Intent(Menu_Principal_Activity.this, Leitor_Activity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 		finish();

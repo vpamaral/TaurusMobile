@@ -18,7 +18,7 @@ import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 import br.com.prodap.taurusmobile.util.ValidatorException;
 
-public class PastoActivity extends Activity {
+public class Pasto_Activity extends Activity {
     private EditText edt_pasto;
     private Button btn_salvar;
     private Pasto_Model pasto_model;
@@ -70,7 +70,7 @@ public class PastoActivity extends Activity {
 //            e.printStackTrace();
             if (e.getException_code() == ValidatorException.MESSAGE_TYPE_QUESTION)
             {
-                md.addMsg(PastoActivity.this, "Aviso" , e.getMessage(), new DialogInterface.OnClickListener() {
+                md.addMsg(Pasto_Activity.this, "Aviso" , e.getMessage(), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                        if (!e.getException_args().equals(0) && e.getException_args()[0].toString().equals("FLAG_")) {
@@ -81,7 +81,7 @@ public class PastoActivity extends Activity {
             }
             else
             {
-                md.addMsg(MessageDialog.Yes, PastoActivity.this, e.getMessage(), "Aviso", 1);
+                md.addMsg(MessageDialog.Yes, Pasto_Activity.this, e.getMessage(), "Aviso", 1);
                 return;
             }
         }

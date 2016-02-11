@@ -10,7 +10,7 @@ import java.util.List;
 import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
-import br.com.prodap.taurusmobile.ui.MenuPrincipalActivity;
+import br.com.prodap.taurusmobile.ui.Menu_Principal_Activity;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
@@ -55,7 +55,7 @@ public class Get_ARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 		try {
 			Gson gson = new Gson();
 			pastoAdapter = new Pasto_Adapter();
-			Pasto[] arrayPasto = gson.fromJson(MenuPrincipalActivity.JSONPASTO, Pasto[].class);
+			Pasto[] arrayPasto = gson.fromJson(Menu_Principal_Activity.JSONPASTO, Pasto[].class);
 			pastoList = pastoAdapter.arrayPasto(arrayPasto);
 			int i = 0;
 			mProgress.setMax(pastoList.size());

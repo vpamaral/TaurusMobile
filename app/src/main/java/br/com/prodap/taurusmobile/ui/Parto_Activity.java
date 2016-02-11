@@ -48,9 +48,8 @@ import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
-import br.com.prodap.taurusmobile.util.ValidatorException;
 
-public class PartoActivity extends Activity {
+public class Parto_Activity extends Activity {
 
     private static final String[] PERDA = new String[]{"NENHUMA", "ABORTO", "NATIMORTO"
             , "DESCONHECIDA", "F.AUTOLISADO", "F.MACERADO"
@@ -245,7 +244,7 @@ public class PartoActivity extends Activity {
                         spinPerda.setEnabled(false);
                         if (!sisbovCorreto(editSisbov.getText().toString()) || editSisbov.length() < 15) {
 
-                            Toast.makeText(PartoActivity.this, "Sisbov inválido!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Parto_Activity.this, "Sisbov inválido!", Toast.LENGTH_SHORT).show();
                             editSisbov.setFocusable(true);
                             return;
 
@@ -264,8 +263,8 @@ public class PartoActivity extends Activity {
         btnLeitorCodBarras.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PartoActivity.this,
-                        LeitorActivity.class);
+                Intent intent = new Intent(Parto_Activity.this,
+                        Leitor_Activity.class);
                 startActivity(intent);
             }
         });
@@ -273,8 +272,8 @@ public class PartoActivity extends Activity {
         btnLeitorCodBarra.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PartoActivity.this,
-                        LeitorActivity.class);
+                Intent intent = new Intent(Parto_Activity.this,
+                        Leitor_Activity.class);
                 startActivity(intent);
             }
         });
@@ -288,7 +287,7 @@ public class PartoActivity extends Activity {
                 final Animal animal;
                 if (editMatriz.getText().toString() != "") {
                     animal = ani_model
-                            .selectByCodigo(PartoActivity.this, editMatriz
+                            .selectByCodigo(Parto_Activity.this, editMatriz
                                     .getText().toString());
 
                     //editRacaPai.setText(animal.getRaca_reprod());
@@ -330,39 +329,39 @@ public class PartoActivity extends Activity {
                         }
                         if (editIdentificador.getText().toString().isEmpty()) {
                             MensagemUtil.addMsg(MessageDialog.Yes,
-                                    PartoActivity.this,
+                                    Parto_Activity.this,
                                     "É necessário preencher o Identificador da cria.", "Aviso", 1);
                             editIdentificador.requestFocus();
                         } else if (editSisbov.getText().toString().isEmpty()) {
                             MensagemUtil.addMsg(MessageDialog.Yes,
-                                    PartoActivity.this,
+                                    Parto_Activity.this,
                                     "É necessário preencher o Sisbov de cria.", "Aviso", 1);
                             editSisbov.requestFocus();
                         } else if (editCodCria.getText().toString().isEmpty()) {
                             MensagemUtil.addMsg(MessageDialog.Yes,
-                                    PartoActivity.this, "É necessário preencher o código da cria.", "Aviso", 1);
+                                    Parto_Activity.this, "É necessário preencher o código da cria.", "Aviso", 1);
                             editCodCria.requestFocus();
                         } else if (editMatriz.getText().toString().isEmpty()) {
                             MensagemUtil.addMsg(MessageDialog.Yes,
-                                    PartoActivity.this, "É necessário preencher o código matriz.", "Aviso", 1);
+                                    Parto_Activity.this, "É necessário preencher o código matriz.", "Aviso", 1);
                             editMatriz.requestFocus();
                         } else if (editDataParto.getText().toString().isEmpty()) {
                             MensagemUtil.addMsg(MessageDialog.Yes,
-                                    PartoActivity.this, "É necessário preencher a data do parto.", "Aviso", 1);
+                                    Parto_Activity.this, "É necessário preencher a data do parto.", "Aviso", 1);
                         } else if (editGrupoManejo.getText().toString().isEmpty()) {
                             MensagemUtil.addMsg(MessageDialog.Yes,
-                                    PartoActivity.this, "É necessário preencher o Grupo de Manejo.", "Aviso", 1);
+                                    Parto_Activity.this, "É necessário preencher o Grupo de Manejo.", "Aviso", 1);
                             editGrupoManejo.requestFocus();
                         } else if (editBuscaPasto.getText().toString().isEmpty()) {
                             MensagemUtil.addMsg(MessageDialog.Yes,
-                                    PartoActivity.this, "É necessário preencher o Pasto.", "Aviso", 1);
+                                    Parto_Activity.this, "É necessário preencher o Pasto.", "Aviso", 1);
                             editBuscaPasto.requestFocus();
                         } else if (editPeso.getText().toString().isEmpty()) {
                             MensagemUtil.addMsg(MessageDialog.Yes,
-                                    PartoActivity.this, "É necessário preencher o peso de cria.", "Aviso", 1);
+                                    Parto_Activity.this, "É necessário preencher o peso de cria.", "Aviso", 1);
                         } else if (dataParto.after(data_atual)) {
                             MensagemUtil.addMsg(MessageDialog.Yes,
-                                    PartoActivity.this, "Data do parto não pode ser maior do que a data de identificação", "Aviso", 1);
+                                    Parto_Activity.this, "Data do parto não pode ser maior do que a data de identificação", "Aviso", 1);
                         } else {
                             parto_tb.setData_parto(editDataParto.getText().toString());
                             parto_tb.setPerda_gestacao(spinPerda.getSelectedItem()
@@ -437,17 +436,15 @@ public class PartoActivity extends Activity {
                                     criaGemelar(parto_tb, cria_tb);
                                 } else {
                                     MensagemUtil.addMsg(MessageDialog.Toast, getBaseContext(), msg);
-                                    //Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
                                 }
                             } else if (validate(cria_tb, listaCria)) {
                                 insertParto(parto_tb, cria_tb);
                             } else {
                                 MensagemUtil.addMsg(MessageDialog.Toast, getBaseContext(), msg);
-                                //Toast.makeText(PartoActivity.this, msg, Toast.LENGTH_SHORT).show();
                             }
                         }
                     } else {
-                        MensagemUtil.addMsg(MessageDialog.Yes, PartoActivity.this
+                        MensagemUtil.addMsg(MessageDialog.Yes, Parto_Activity.this
                                 , "O Aparelho não foi preparado para o lançamento de Partos, favor propara-lo!.", "Aviso", 1);
                     }
                 }
@@ -458,9 +455,9 @@ public class PartoActivity extends Activity {
     }
 
     private void buscaPasto() {
-        final List<Pasto> pasto_list;
-        final List<String> nome_pasto_list = new ArrayList<String>();
-        final Pasto pasto_tb = new Pasto();
+        List<Pasto> pasto_list;
+        List<String> nome_pasto_list = new ArrayList<String>();
+        Pasto pasto_tb = new Pasto();
         Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
         try {
             pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
@@ -482,9 +479,9 @@ public class PartoActivity extends Activity {
     }
 
     private void buscaGrupoManejo() {
-        final List<Grupo_Manejo> grupo_list;
-        final List<String> codigo_grupo_list = new ArrayList<String>();
-        final Grupo_Manejo grupo_tb = new Grupo_Manejo();
+        List<Grupo_Manejo> grupo_list;
+        List<String> codigo_grupo_list = new ArrayList<String>();
+        Grupo_Manejo grupo_tb = new Grupo_Manejo();
         Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(getBaseContext());
         try {
             grupo_list = grupo_model.selectAll(getBaseContext(), "Grupo_Manejo", grupo_tb);
@@ -512,22 +509,22 @@ public class PartoActivity extends Activity {
         if (leitor != null) {
             if (leitor.getTipo().equals("CODE_39")) {
                 identificador = leitor.getScanResult();
-                MenuPrincipalActivity.old_identificador = identificador;
-                editIdentificador.setText(MenuPrincipalActivity.old_identificador);
+                Menu_Principal_Activity.old_identificador = identificador;
+                editIdentificador.setText(Menu_Principal_Activity.old_identificador);
             } else if (leitor.getTipo().equals("ITF")) {
                 sisbov = leitor.getScanResult();
-                MenuPrincipalActivity.old_sisbov = sisbov;
-                long sis = Long.parseLong(MenuPrincipalActivity.old_sisbov);
+                Menu_Principal_Activity.old_sisbov = sisbov;
+                long sis = Long.parseLong(Menu_Principal_Activity.old_sisbov);
                 String strsis = String.valueOf(sis);
                 editSisbov.setText(strsis);
                 editCodCria.setText(strsis.substring(8, 14));
             }
             if (editIdentificador.getText().toString().equals("")) {
-                editIdentificador.setText(MenuPrincipalActivity.old_identificador.toString());
+                editIdentificador.setText(Menu_Principal_Activity.old_identificador.toString());
             }
             if (editSisbov.getText().toString().equals("")) {
-                if (MenuPrincipalActivity.old_sisbov != "") {
-                    long sis = Long.parseLong(MenuPrincipalActivity.old_sisbov);
+                if (Menu_Principal_Activity.old_sisbov != "") {
+                    long sis = Long.parseLong(Menu_Principal_Activity.old_sisbov);
                     String strsis = String.valueOf(sis);
                     editSisbov.setText(strsis);
                     editCodCria.setText(strsis.substring(8, 14));
@@ -579,7 +576,7 @@ public class PartoActivity extends Activity {
         if (validaIdentificador == true) {
             if (editIdentificador.getText().toString().isEmpty()) {
                 MensagemUtil.addMsg(MessageDialog.Yes,
-                        PartoActivity.this,
+                        Parto_Activity.this,
                         "É necessário preencher o Identificador da cria.", "Aviso", 1);
                 return;
             }
@@ -587,7 +584,7 @@ public class PartoActivity extends Activity {
         if (validaSisbov == true) {
             if (editSisbov.getText().toString().isEmpty()) {
                 MensagemUtil.addMsg(MessageDialog.Yes,
-                        PartoActivity.this,
+                        Parto_Activity.this,
                         "É necessário preencher o Sisbov de cria.", "Aviso", 1);
                 return;
             }
@@ -595,7 +592,7 @@ public class PartoActivity extends Activity {
         if (validaManejo == true) {
             if (editGrupoManejo.getText().toString().isEmpty()) {
                 MensagemUtil.addMsg(MessageDialog.Yes,
-                        PartoActivity.this,
+                        Parto_Activity.this,
                         "É necessário preencher o Grupo de Manejo.", "Aviso", 1);
                 return;
             }
@@ -603,16 +600,16 @@ public class PartoActivity extends Activity {
     }
 
     public void insertParto(Parto parto_tb, Parto_Cria cria_tb) {
-        parto_model.insert(PartoActivity.this, "Parto", parto_tb);
-        cria_model.insert(PartoActivity.this, "Parto_Cria", cria_tb);
+        parto_model.insert(Parto_Activity.this, "Parto", parto_tb);
+        cria_model.insert(Parto_Activity.this, "Parto_Cria", cria_tb);
         writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
-        MensagemUtil.addMsg(MessageDialog.Toast, PartoActivity.this, "Parto cadastrado com sucesso!");
+        MensagemUtil.addMsg(MessageDialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
         zeraInterface();
     }
 
     private void alertMsg() {
         MensagemUtil.addMsg(MessageDialog.Yes,
-                PartoActivity.this, "Matriz não existe na base de dados!", "Aviso", 1);
+                Parto_Activity.this, "Matriz não existe na base de dados!", "Aviso", 1);
     }
 
     private boolean writeInFile(String text)
@@ -706,7 +703,7 @@ public class PartoActivity extends Activity {
     }
 
     public void showCalendar() {
-        new DatePickerDialog(PartoActivity.this, listner, calendario.get(Calendar.YEAR)
+        new DatePickerDialog(Parto_Activity.this, listner, calendario.get(Calendar.YEAR)
                 , calendario.get(Calendar.MONTH)
                 , calendario.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -729,8 +726,8 @@ public class PartoActivity extends Activity {
     }
 
     private void updateVars() {
-        MenuPrincipalActivity.old_sisbov = "";
-        MenuPrincipalActivity.old_identificador = "";
+        Menu_Principal_Activity.old_sisbov = "";
+        Menu_Principal_Activity.old_identificador = "";
     }
 
     public void zeraInterface() {

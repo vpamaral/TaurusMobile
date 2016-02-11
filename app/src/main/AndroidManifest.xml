@@ -23,11 +23,11 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".ConfiguracaoActivity"
+            android:name=".Configuracao_Activity"
             android:label="@string/title_activity_configuracoes"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MenuPrincipalActivity"
+            android:name=".Menu_Principal_Activity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -37,23 +37,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ListaAnimaisActivity"
+            android:name=".Lista_Animais_Activity"
             android:label="@string/title_activity_lista_animais"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PartoActivity"
+            android:name=".Parto_Activity"
             android:label="@string/title_activity_parto"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListaPartosCriaActivity"
+            android:name=".Lista_Partos_Cria_Activity"
             android:label="@string/title_activity_lista_animais"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LeitorActivity"
+            android:name=".Leitor_Activity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".PastoActivity"
+            android:name=".Pasto_Activity"
             android:label="@string/title_activity_pasto" >
         </activity>
         <activity

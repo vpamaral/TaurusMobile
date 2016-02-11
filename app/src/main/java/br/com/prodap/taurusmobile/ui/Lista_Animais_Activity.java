@@ -16,7 +16,7 @@ import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
-public class ListaAnimaisActivity extends Activity {
+public class Lista_Animais_Activity extends Activity {
 
 	private Animal_Model a_model;
 	private Animal ani_tb;
@@ -68,7 +68,7 @@ public class ListaAnimaisActivity extends Activity {
 						+ "\nIdentificador: " + ani_tb.getIdentificador();
 
 				MensagemUtil.addMsg(MessageDialog.Yes,
-						ListaAnimaisActivity.this, msg, "Animal", position);
+						Lista_Animais_Activity.this, msg, "Animal", position);
 			}
 		});
 	}
@@ -86,7 +86,7 @@ public class ListaAnimaisActivity extends Activity {
 				String msg = "Código: " + ani_tb.getCodigo() + "\nCódigo Ferro: "
 						+ ani_tb.getCodigo_ferro() + "\nIdentificador: "
 						+ ani_tb.getIdentificador();
-				MensagemUtil.addMsg(MessageDialog.Yes, ListaAnimaisActivity.this, msg, "Animal", position);
+				MensagemUtil.addMsg(MessageDialog.Yes, Lista_Animais_Activity.this, msg, "Animal", position);
 
 				return true;
 			}

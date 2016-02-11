@@ -24,7 +24,7 @@ import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
-public class ListaPartosCriaActivity extends Activity {
+public class Lista_Partos_Cria_Activity extends Activity {
 	private Parto_Model parto_model;
 	private Parto parto_tb;
 	private Parto_Cria.Parto_CriaModel p_cria_model;
@@ -138,7 +138,7 @@ public class ListaPartosCriaActivity extends Activity {
 						+ "\nPasto: " + p_cria_tb.getPasto();
 
 				MensagemUtil.addMsg(MessageDialog.Yes,
-						ListaPartosCriaActivity.this, msg, "Parto", position);
+						Lista_Partos_Cria_Activity.this, msg, "Parto", position);
 			}
 		});
 	}
@@ -162,17 +162,17 @@ public class ListaPartosCriaActivity extends Activity {
 
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(ListaPartosCriaActivity.this);
+				AlertDialog.Builder builder = new AlertDialog.Builder(Lista_Partos_Cria_Activity.this);
 				builder.setTitle("Alerta").setMessage("Deseja Excluir o lançamento de parto?").setIcon(android.R.drawable.ic_dialog_alert)
 						.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
 								Long fk_animal_mae = p_cria_tb.getId_fk_animal_mae();
-								p_cria_model.removerByMae(ListaPartosCriaActivity.this, fk_animal_mae);
+								p_cria_model.removerByMae(Lista_Partos_Cria_Activity.this, fk_animal_mae);
 								Long fk_animal = parto_tb.getId_fk_animal();
-								parto_model.removerByAnimal(ListaPartosCriaActivity.this, fk_animal);
-								Intent i = new Intent(ListaPartosCriaActivity.this, ListaPartosCriaActivity.class);
+								parto_model.removerByAnimal(Lista_Partos_Cria_Activity.this, fk_animal);
+								Intent i = new Intent(Lista_Partos_Cria_Activity.this, Lista_Partos_Cria_Activity.class);
 								startActivity(i);
-								MensagemUtil.addMsg(MessageDialog.Toast, ListaPartosCriaActivity.this, "Lançamento de Parto excluído com sucesso.");
+								MensagemUtil.addMsg(MessageDialog.Toast, Lista_Partos_Cria_Activity.this, "Lançamento de Parto excluído com sucesso.");
 								finish();
 							}
 						})

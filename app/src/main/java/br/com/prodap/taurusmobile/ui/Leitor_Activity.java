@@ -15,7 +15,7 @@ import jim.h.common.android.zxinglib.integrator.IntentIntegrator;
 import jim.h.common.android.zxinglib.integrator.IntentResult;
 
 
-public class LeitorActivity extends Activity {
+public class Leitor_Activity extends Activity {
     private Leitor leitor;
     private MensagemUtil md;
 
@@ -59,14 +59,14 @@ public class LeitorActivity extends Activity {
         if (leitor.getTipo() != null) {
             if (leitor.getTipo().contentEquals("CODE_39") || leitor.getTipo().contentEquals("ITF")) {
                 if (leitor.getScanResult().length() > 0 && leitor.getScanResult().length() < 15) {
-                    Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
+                    Intent intent = new Intent(getBaseContext(), Leitor_Activity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
+                    MensagemUtil.addMsg(MessageDialog.Toast, Leitor_Activity.this,
                             "O leitor não conseguir ler todo o código de barras!");
                 } else {
                     if (!validaIdentificador(leitor.getScanResult())) {
-                        Intent intent = new Intent(getBaseContext(), PartoActivity.class);
+                        Intent intent = new Intent(getBaseContext(), Parto_Activity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("leitor", leitor);
                         startActivity(intent);
@@ -74,11 +74,11 @@ public class LeitorActivity extends Activity {
                     }
                 }
             } else {
-                MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
+                MensagemUtil.addMsg(MessageDialog.Toast, Leitor_Activity.this,
                         "Código inválido!\nÉ esperado um Identificador ou Sisbov!");
             }
         } else {
-            Intent intent = new Intent(getBaseContext(), PartoActivity.class);
+            Intent intent = new Intent(getBaseContext(), Parto_Activity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
@@ -88,10 +88,10 @@ public class LeitorActivity extends Activity {
     public boolean validaIdentificador(String result){
         for (int i = 0; i < result.length(); i++) {
             if (result.charAt(i) == '%') {
-                Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
+                Intent intent = new Intent(getBaseContext(), Leitor_Activity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                MensagemUtil.addMsg(MessageDialog.Toast, LeitorActivity.this,
+                MensagemUtil.addMsg(MessageDialog.Toast, Leitor_Activity.this,
                         "O código de barras do Identificador da cria " + result + " é inválido.");
                 return true;
                 //break;
@@ -122,22 +122,22 @@ public class LeitorActivity extends Activity {
                 }
 
                 if (count == 5 && result.equals(Constantes.TAURUS_URL)) {
-                    Intent intent = new Intent(getBaseContext(), ConfiguracaoActivity.class);
+                    Intent intent = new Intent(getBaseContext(), Configuracao_Activity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("leitor", leitor);
                     startActivity(intent);
                     finish();
                 } else {
-                    Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
+                    Intent intent = new Intent(getBaseContext(), Leitor_Activity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    md.addMsg(MessageDialog.Toast, LeitorActivity.this, "O URL do Servidor está inválido!");
+                    md.addMsg(MessageDialog.Toast, Leitor_Activity.this, "O URL do Servidor está inválido!");
                 }
             } else {
-                Intent intent = new Intent(getBaseContext(), LeitorActivity.class);
+                Intent intent = new Intent(getBaseContext(), Leitor_Activity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                md.addMsg(MessageDialog.Toast, LeitorActivity.this, "Código inválido!\nÉ esperado um QR_CODE!");
+                md.addMsg(MessageDialog.Toast, Leitor_Activity.this, "Código inválido!\nÉ esperado um QR_CODE!");
             }
         } else {
             onBackPressed();

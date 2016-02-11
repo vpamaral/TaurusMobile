@@ -20,7 +20,7 @@ import br.com.prodap.taurusmobile.tb.Leitor;
 import br.com.prodap.taurusmobile.util.MensagemUtil;
 import br.com.prodap.taurusmobile.util.MessageDialog;
 
-public class ConfiguracaoActivity extends Activity {
+public class Configuracao_Activity extends Activity {
 
 	private static final String[] Validar = new String[] { "SIM", "NÃO" };
 
@@ -77,8 +77,8 @@ public class ConfiguracaoActivity extends Activity {
 		btnLeitorQRCode.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(ConfiguracaoActivity.this,
-						LeitorActivity.class);
+				Intent intent = new Intent(Configuracao_Activity.this,
+						Leitor_Activity.class);
 				startActivity(intent);
 			}
 		});
@@ -88,7 +88,7 @@ public class ConfiguracaoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (edtEndereco.getText().toString().isEmpty()) {
-					MensagemUtil.addMsg(MessageDialog.Toast, ConfiguracaoActivity.this
+					MensagemUtil.addMsg(MessageDialog.Toast, Configuracao_Activity.this
 							, "É necessário preencher o endereço do servidor.");
 					edtEndereco.requestFocus();
 				}
@@ -103,13 +103,13 @@ public class ConfiguracaoActivity extends Activity {
 
 						try {
 							updateConfiguracoes(c_tb);
-							MensagemUtil.addMsg(MessageDialog.Toast, ConfiguracaoActivity.this, "Servidor atualizado com sucesso");
+							MensagemUtil.addMsg(MessageDialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
 							carregaMenuPrincipal();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
-					MensagemUtil.addMsg(MessageDialog.Toast, ConfiguracaoActivity.this, "Servidor atualizado com sucesso");
+					MensagemUtil.addMsg(MessageDialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
 					carregaMenuPrincipal();
 				}
 			}
@@ -161,7 +161,7 @@ public class ConfiguracaoActivity extends Activity {
 	}
 
 	private void carregaMenuPrincipal() {
-		Intent intent = new Intent(ConfiguracaoActivity.this, MenuPrincipalActivity.class);
+		Intent intent = new Intent(Configuracao_Activity.this, Menu_Principal_Activity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 		finish();
