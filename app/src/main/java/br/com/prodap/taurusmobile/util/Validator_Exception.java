@@ -3,9 +3,9 @@ package br.com.prodap.taurusmobile.util;
 /**
  * Created by Prodap on 30/09/2015.
  */
-public class ValidatorException extends ProdapException {
+public class Validator_Exception extends Prodap_Exception {
 
-    public ValidatorException(String e) {
+    public Validator_Exception(String e) {
         super(e);
     }
 }

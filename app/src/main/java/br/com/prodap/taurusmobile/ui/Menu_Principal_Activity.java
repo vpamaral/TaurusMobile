@@ -35,8 +35,8 @@ import br.com.prodap.taurusmobile.task.Get_Pastos_JSON;
 import br.com.prodap.taurusmobile.task.Post_Animais_JSON;
 import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.tb.Pasto;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Menu_Principal_Activity extends Activity {
 
@@ -201,7 +201,7 @@ public class Menu_Principal_Activity extends Activity {
 				msgUpdateAnimais();
 			}
 		} else {
-			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
 	}
@@ -212,7 +212,7 @@ public class Menu_Principal_Activity extends Activity {
 				msgPostDados();
 			}
 		} else {
-			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
 	}
@@ -226,7 +226,7 @@ public class Menu_Principal_Activity extends Activity {
 	private void msgUpdateAnimais() {
 		if (checksConnection()) {
 			if (validateServer(url)){
-				MensagemUtil.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados?"
+				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados?"
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -239,7 +239,7 @@ public class Menu_Principal_Activity extends Activity {
 				});
 			}
 		} else {
-			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
 	}
@@ -280,7 +280,7 @@ public class Menu_Principal_Activity extends Activity {
 	private void msgPostDados() {
 		if (checksConnection()) {
 			if (validateServer(url)){
-				MensagemUtil.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?"
+				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?"
 						, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -289,7 +289,7 @@ public class Menu_Principal_Activity extends Activity {
 				});
 			}
 		} else {
-			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao conectar ao servidor!");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
 	}
@@ -335,7 +335,7 @@ public class Menu_Principal_Activity extends Activity {
 			}
 		}
 		if (count != 5) {
-			MensagemUtil.addMsg(MessageDialog.Toast, this, "O URL do Servidor está inválido!" +
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "O URL do Servidor está inválido!" +
 					"\nFavor configurar o servidor.");
 			return false;
 		}

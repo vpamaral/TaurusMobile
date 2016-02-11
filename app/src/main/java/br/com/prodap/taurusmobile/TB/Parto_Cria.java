@@ -10,7 +10,7 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
 import br.com.prodap.taurusmobile.service.Banco;
-import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.service.Banco_Service;
 
 public class Parto_Cria implements Serializable {
 
@@ -146,7 +146,7 @@ public class Parto_Cria implements Serializable {
 		this.pasto = pasto;
 	}
 
-	public static class Parto_CriaModel extends BancoService {
+	public static class Parto_CriaModel extends Banco_Service {
 
         private Banco banco;
         private SQLiteDatabase db;

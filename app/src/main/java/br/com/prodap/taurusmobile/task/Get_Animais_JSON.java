@@ -16,9 +16,9 @@ import br.com.prodap.taurusmobile.service.Get_JSON;
 import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.util.Constantes;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
-import br.com.prodap.taurusmobile.util.ValidatorException;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
+import br.com.prodap.taurusmobile.util.Validator_Exception;
 
 public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>> {
 
@@ -87,7 +87,7 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>> {
 				}
 				i++;
 			}
-		} catch (ValidatorException e) {
+		} catch (Validator_Exception e) {
 			Log.i("TAG", e.toString());
 			e.printStackTrace();
 		}
@@ -97,15 +97,15 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>> {
 	@Override
 	protected void onPostExecute(List<Animal> result) {
 		if (c_http.servResultGet != 200) {
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 			mProgress.dismiss();
 		} else {
 			if (result != null) {
 				mProgress.dismiss();
 				if (objListaAnimal.isEmpty()) {
-					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível atualizar os dados.");
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
 				} else {
-					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados atualizados com sucesso.");
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
 				}
 			}
 		}

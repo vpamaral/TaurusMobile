@@ -11,8 +11,8 @@ import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.ui.Menu_Principal_Activity;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Get_ARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 
@@ -76,10 +76,10 @@ public class Get_ARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 	protected void onPostExecute(List<Pasto> result) {
 		mProgress.dismiss();
 		if(pastoList.isEmpty()){
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível transferir os dados.");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível transferir os dados.");
 		}
 		else {
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados transferidos com sucesso.");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados transferidos com sucesso.");
 		}
 	}
 }

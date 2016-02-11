@@ -9,10 +9,10 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.adapter.Parto_Adapter;
 import br.com.prodap.taurusmobile.service.Banco;
-import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Parto;
 
-public class Parto_Model extends BancoService {
+public class Parto_Model extends Banco_Service {
 
 	private Banco banco;
 	private Parto_Adapter parto_adapter;

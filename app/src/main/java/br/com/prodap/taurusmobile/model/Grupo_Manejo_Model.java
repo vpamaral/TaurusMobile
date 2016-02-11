@@ -8,14 +8,14 @@ import java.util.List;
 import br.com.prodap.taurusmobile.adapter.Grupo_Manejo_Adapter;
 import br.com.prodap.taurusmobile.dao.Grupo_Manejo_Dao;
 import br.com.prodap.taurusmobile.service.Banco;
-import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
-import br.com.prodap.taurusmobile.util.ValidatorException;
+import br.com.prodap.taurusmobile.util.Validator_Exception;
 
 /**
  * Created by Prodap on 02/02/2016.
  */
-public class Grupo_Manejo_Model extends BancoService {
+public class Grupo_Manejo_Model extends Banco_Service {
 
     private Banco banco;
     private Grupo_Manejo_Adapter grupo_adapter;
@@ -27,7 +27,7 @@ public class Grupo_Manejo_Model extends BancoService {
         grupo_adapter = new Grupo_Manejo_Adapter();
     }
     @Override
-    public void validate(Context ctx, String Tabela, Object table,int VALIDATION_TYPE) throws ValidatorException {
+    public void validate(Context ctx, String Tabela, Object table,int VALIDATION_TYPE) throws Validator_Exception {
 
     }
 

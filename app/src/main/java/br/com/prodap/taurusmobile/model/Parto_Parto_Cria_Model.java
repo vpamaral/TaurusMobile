@@ -9,10 +9,10 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.adapter.Parto_Parto_Cria_Adapter;
 import br.com.prodap.taurusmobile.service.Banco;
-import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Parto_Parto_Cria;
 
-public class Parto_Parto_Cria_Model extends BancoService {
+public class Parto_Parto_Cria_Model extends Banco_Service {
 
 	private Banco banco;
 	private SQLiteDatabase db;

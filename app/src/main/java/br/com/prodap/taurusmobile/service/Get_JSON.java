@@ -11,7 +11,7 @@ import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.adapter.Animal_Adapter;
 import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
 import br.com.prodap.taurusmobile.tb.Pasto;
-import br.com.prodap.taurusmobile.util.ValidatorException;
+import br.com.prodap.taurusmobile.util.Validator_Exception;
 
 import com.google.gson.Gson;
 
@@ -24,7 +24,7 @@ public class Get_JSON {
 		this.ctx = ctx;
 	}
 
-	public ArrayList<Animal> listaAnimal() throws ValidatorException{
+	public ArrayList<Animal> listaAnimal() throws Validator_Exception {
 		Animal_Adapter a_helper = new Animal_Adapter();
 		try {
 			Conexao_HTTP conexaoServidor = new Conexao_HTTP(url, ctx);
@@ -41,11 +41,11 @@ public class Get_JSON {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw  new ValidatorException("Impossível estabelecer conexão com o Banco Dados do Servidor.");
+			throw  new Validator_Exception("Impossível estabelecer conexão com o Banco Dados do Servidor.");
 		}
 	}
 
-	public ArrayList<Pasto> listPasto() throws ValidatorException{
+	public ArrayList<Pasto> listPasto() throws Validator_Exception {
 		Pasto_Adapter pasto_helper = new Pasto_Adapter();
 		try {
 			Conexao_HTTP conexaoServidor = new Conexao_HTTP(url, ctx);
@@ -62,11 +62,11 @@ public class Get_JSON {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw  new ValidatorException("Impossível estabelecer conexão com o Banco Dados do Servidor.");
+			throw  new Validator_Exception("Impossível estabelecer conexão com o Banco Dados do Servidor.");
 		}
 	}
 
-	public ArrayList<Grupo_Manejo> listGrupo() throws ValidatorException{
+	public ArrayList<Grupo_Manejo> listGrupo() throws Validator_Exception {
 		Grupo_Manejo_Adapter grupo_adapter = new Grupo_Manejo_Adapter();
 		try {
 			Conexao_HTTP conexaoServidor = new Conexao_HTTP(url, ctx);
@@ -83,7 +83,7 @@ public class Get_JSON {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw  new ValidatorException("Impossível estabelecer conexão com o Banco Dados do Servidor.");
+			throw  new Validator_Exception("Impossível estabelecer conexão com o Banco Dados do Servidor.");
 		}
 	}
 }

@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.tb.Configuracao;
@@ -27,8 +26,8 @@ import br.com.prodap.taurusmobile.model.Parto_Parto_Cria_Model;
 import br.com.prodap.taurusmobile.service.Conexao_HTTP;
 import br.com.prodap.taurusmobile.util.Auxiliar;
 import br.com.prodap.taurusmobile.util.Constantes;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	private Context ctx;
@@ -132,12 +131,12 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	protected void onPostExecute(String json) {
 		if (json != null) {
 			if (c_http.servResultPost != 200) {
-				MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
+				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 				mProgress.dismiss();
 			} else {
 				if (retornoJSON.isEmpty()) {
 					mProgress.dismiss();
-					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Nenhum dado para ser enviado.");
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Nenhum dado para ser enviado.");
 				} else {
 					try {
 						createFilePartoSend();
@@ -147,12 +146,12 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 						e.printStackTrace();
 					}
 					parto_model.deletingLogic(ctx);
-					MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados enviados com sucesso.");
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
 					mProgress.dismiss();
 				}
 			}
 		} else {
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não existem dados para serem enviados.");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não existem dados para serem enviados.");
 			mProgress.dismiss();
 		}
 	}

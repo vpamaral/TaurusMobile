@@ -46,8 +46,8 @@ import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Parto_Activity extends Activity {
 
@@ -234,7 +234,7 @@ public class Parto_Activity extends Activity {
         } catch (Exception e) {
             Log.i("LEITOR", e.toString());
             e.printStackTrace();
-            MensagemUtil.addMsg(MessageDialog.Toast, this, "Não foi possível ler o código.");
+            Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Não foi possível ler o código.");
         }
         editSisbov.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
@@ -328,39 +328,39 @@ public class Parto_Activity extends Activity {
                             e.printStackTrace();
                         }
                         if (editIdentificador.getText().toString().isEmpty()) {
-                            MensagemUtil.addMsg(MessageDialog.Yes,
+                            Mensagem_Util.addMsg(Message_Dialog.Yes,
                                     Parto_Activity.this,
                                     "É necessário preencher o Identificador da cria.", "Aviso", 1);
                             editIdentificador.requestFocus();
                         } else if (editSisbov.getText().toString().isEmpty()) {
-                            MensagemUtil.addMsg(MessageDialog.Yes,
+                            Mensagem_Util.addMsg(Message_Dialog.Yes,
                                     Parto_Activity.this,
                                     "É necessário preencher o Sisbov de cria.", "Aviso", 1);
                             editSisbov.requestFocus();
                         } else if (editCodCria.getText().toString().isEmpty()) {
-                            MensagemUtil.addMsg(MessageDialog.Yes,
+                            Mensagem_Util.addMsg(Message_Dialog.Yes,
                                     Parto_Activity.this, "É necessário preencher o código da cria.", "Aviso", 1);
                             editCodCria.requestFocus();
                         } else if (editMatriz.getText().toString().isEmpty()) {
-                            MensagemUtil.addMsg(MessageDialog.Yes,
+                            Mensagem_Util.addMsg(Message_Dialog.Yes,
                                     Parto_Activity.this, "É necessário preencher o código matriz.", "Aviso", 1);
                             editMatriz.requestFocus();
                         } else if (editDataParto.getText().toString().isEmpty()) {
-                            MensagemUtil.addMsg(MessageDialog.Yes,
+                            Mensagem_Util.addMsg(Message_Dialog.Yes,
                                     Parto_Activity.this, "É necessário preencher a data do parto.", "Aviso", 1);
                         } else if (editGrupoManejo.getText().toString().isEmpty()) {
-                            MensagemUtil.addMsg(MessageDialog.Yes,
+                            Mensagem_Util.addMsg(Message_Dialog.Yes,
                                     Parto_Activity.this, "É necessário preencher o Grupo de Manejo.", "Aviso", 1);
                             editGrupoManejo.requestFocus();
                         } else if (editBuscaPasto.getText().toString().isEmpty()) {
-                            MensagemUtil.addMsg(MessageDialog.Yes,
+                            Mensagem_Util.addMsg(Message_Dialog.Yes,
                                     Parto_Activity.this, "É necessário preencher o Pasto.", "Aviso", 1);
                             editBuscaPasto.requestFocus();
                         } else if (editPeso.getText().toString().isEmpty()) {
-                            MensagemUtil.addMsg(MessageDialog.Yes,
+                            Mensagem_Util.addMsg(Message_Dialog.Yes,
                                     Parto_Activity.this, "É necessário preencher o peso de cria.", "Aviso", 1);
                         } else if (dataParto.after(data_atual)) {
-                            MensagemUtil.addMsg(MessageDialog.Yes,
+                            Mensagem_Util.addMsg(Message_Dialog.Yes,
                                     Parto_Activity.this, "Data do parto não pode ser maior do que a data de identificação", "Aviso", 1);
                         } else {
                             parto_tb.setData_parto(editDataParto.getText().toString());
@@ -435,16 +435,16 @@ public class Parto_Activity extends Activity {
                                 if (validate(cria_tb, listaCria)) {
                                     criaGemelar(parto_tb, cria_tb);
                                 } else {
-                                    MensagemUtil.addMsg(MessageDialog.Toast, getBaseContext(), msg);
+                                    Mensagem_Util.addMsg(Message_Dialog.Toast, getBaseContext(), msg);
                                 }
                             } else if (validate(cria_tb, listaCria)) {
                                 insertParto(parto_tb, cria_tb);
                             } else {
-                                MensagemUtil.addMsg(MessageDialog.Toast, getBaseContext(), msg);
+                                Mensagem_Util.addMsg(Message_Dialog.Toast, getBaseContext(), msg);
                             }
                         }
                     } else {
-                        MensagemUtil.addMsg(MessageDialog.Yes, Parto_Activity.this
+                        Mensagem_Util.addMsg(Message_Dialog.Yes, Parto_Activity.this
                                 , "O Aparelho não foi preparado para o lançamento de Partos, favor propara-lo!.", "Aviso", 1);
                     }
                 }
@@ -575,7 +575,7 @@ public class Parto_Activity extends Activity {
     private void ifIdentificadorSisbovManejoHide() {
         if (validaIdentificador == true) {
             if (editIdentificador.getText().toString().isEmpty()) {
-                MensagemUtil.addMsg(MessageDialog.Yes,
+                Mensagem_Util.addMsg(Message_Dialog.Yes,
                         Parto_Activity.this,
                         "É necessário preencher o Identificador da cria.", "Aviso", 1);
                 return;
@@ -583,7 +583,7 @@ public class Parto_Activity extends Activity {
         }
         if (validaSisbov == true) {
             if (editSisbov.getText().toString().isEmpty()) {
-                MensagemUtil.addMsg(MessageDialog.Yes,
+                Mensagem_Util.addMsg(Message_Dialog.Yes,
                         Parto_Activity.this,
                         "É necessário preencher o Sisbov de cria.", "Aviso", 1);
                 return;
@@ -591,7 +591,7 @@ public class Parto_Activity extends Activity {
         }
         if (validaManejo == true) {
             if (editGrupoManejo.getText().toString().isEmpty()) {
-                MensagemUtil.addMsg(MessageDialog.Yes,
+                Mensagem_Util.addMsg(Message_Dialog.Yes,
                         Parto_Activity.this,
                         "É necessário preencher o Grupo de Manejo.", "Aviso", 1);
                 return;
@@ -603,12 +603,12 @@ public class Parto_Activity extends Activity {
         parto_model.insert(Parto_Activity.this, "Parto", parto_tb);
         cria_model.insert(Parto_Activity.this, "Parto_Cria", cria_tb);
         writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
-        MensagemUtil.addMsg(MessageDialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
+        Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
         zeraInterface();
     }
 
     private void alertMsg() {
-        MensagemUtil.addMsg(MessageDialog.Yes,
+        Mensagem_Util.addMsg(Message_Dialog.Yes,
                 Parto_Activity.this, "Matriz não existe na base de dados!", "Aviso", 1);
     }
 

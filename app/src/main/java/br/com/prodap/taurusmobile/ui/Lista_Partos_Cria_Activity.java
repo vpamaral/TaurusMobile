@@ -21,8 +21,8 @@ import br.com.prodap.taurusmobile.adapter.Parto_Adapter;
 import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
 import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Parto_Model;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Lista_Partos_Cria_Activity extends Activity {
 	private Parto_Model parto_model;
@@ -137,7 +137,7 @@ public class Lista_Partos_Cria_Activity extends Activity {
 						+ "\nGrupo de Manejo: " + p_cria_tb.getGrupo_manejo()
 						+ "\nPasto: " + p_cria_tb.getPasto();
 
-				MensagemUtil.addMsg(MessageDialog.Yes,
+				Mensagem_Util.addMsg(Message_Dialog.Yes,
 						Lista_Partos_Cria_Activity.this, msg, "Parto", position);
 			}
 		});
@@ -172,7 +172,7 @@ public class Lista_Partos_Cria_Activity extends Activity {
 								parto_model.removerByAnimal(Lista_Partos_Cria_Activity.this, fk_animal);
 								Intent i = new Intent(Lista_Partos_Cria_Activity.this, Lista_Partos_Cria_Activity.class);
 								startActivity(i);
-								MensagemUtil.addMsg(MessageDialog.Toast, Lista_Partos_Cria_Activity.this, "Lançamento de Parto excluído com sucesso.");
+								Mensagem_Util.addMsg(Message_Dialog.Toast, Lista_Partos_Cria_Activity.this, "Lançamento de Parto excluído com sucesso.");
 								finish();
 							}
 						})

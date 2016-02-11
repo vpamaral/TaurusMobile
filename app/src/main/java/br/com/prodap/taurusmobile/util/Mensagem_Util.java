@@ -7,11 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.widget.Toast;
 
-public class MensagemUtil {
+public class Mensagem_Util {
 	
 	private static ProgressDialog progress;
 
-	public MensagemUtil(){
+	public Mensagem_Util(){
 	}
 
 	/*
@@ -22,9 +22,9 @@ public class MensagemUtil {
 	 * @param msg
 	 * 
 	 */
-	public static void addMsg(MessageDialog window, Activity activity, String msg) {
+	public static void addMsg(Message_Dialog window, Activity activity, String msg) {
 		
-		if(window == MessageDialog.Toast){
+		if(window == Message_Dialog.Toast){
 			Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -38,9 +38,9 @@ public class MensagemUtil {
 	 * @param msg
 	 * 
 	 */
-	public static void addMsg(MessageDialog window, Context ctx, String msg) {
+	public static void addMsg(Message_Dialog window, Context ctx, String msg) {
 		
-		if(window == MessageDialog.Toast){
+		if(window == Message_Dialog.Toast){
 			Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -54,7 +54,7 @@ public class MensagemUtil {
 	 * @param msg
 	 * @param icone
 	 */
-	public static void addMsg(MessageDialog window, Activity activity, String msg, String titulo, int icone){
+	public static void addMsg(Message_Dialog window, Activity activity, String msg, String titulo, int icone){
 		AlertDialog.Builder builderDialog = new AlertDialog.Builder(activity);
 		builderDialog.setTitle(titulo);
 		builderDialog.setMessage(msg);
@@ -62,7 +62,7 @@ public class MensagemUtil {
 		builderDialog.show();
 	}
 
-	public static void addMsg(MessageDialog window, Context ctx, String msg, String titulo, int icone){
+	public static void addMsg(Message_Dialog window, Context ctx, String msg, String titulo, int icone){
 		AlertDialog.Builder builderDialog = new AlertDialog.Builder(ctx);
 		builderDialog.setTitle(titulo);
 		builderDialog.setMessage(msg);
@@ -123,7 +123,7 @@ public class MensagemUtil {
 	 * @param msg
 	 *
 	 */
-	public static void addMsg(MessageDialog yesOk, Activity activity, String titulo, String msg, OnClickListener onClickListener) {
+	public static void addMsg(Message_Dialog yesOk, Activity activity, String titulo, String msg, OnClickListener onClickListener) {
 		progress = ProgressDialog.show(activity, titulo, msg);
 	}
 	

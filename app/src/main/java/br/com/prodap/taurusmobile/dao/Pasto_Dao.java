@@ -10,7 +10,7 @@ import java.util.List;
 import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.tb.Pasto;
-import br.com.prodap.taurusmobile.util.ValidatorException;
+import br.com.prodap.taurusmobile.util.Validator_Exception;
 
 /**
  * Created by João on 1/2/2016.
@@ -23,7 +23,7 @@ public class Pasto_Dao extends Banco {
         super(context);
     }
 
-    public boolean ifExistPastoInsert(String pasto) throws ValidatorException {
+    public boolean ifExistPastoInsert(String pasto) throws Validator_Exception {
         boolean result = false;
         String sql = String.format("SELECT COUNT(pasto) FROM Pasto WHERE pasto = '%s'", pasto);
         db = getReadableDatabase();
@@ -47,7 +47,7 @@ public class Pasto_Dao extends Banco {
         return result;
     }
 
-    public boolean ifExistPastoUpdate(String pasto, long id) throws ValidatorException {
+    public boolean ifExistPastoUpdate(String pasto, long id) throws Validator_Exception {
         boolean result = false;
         try {
             String sql = String.format("SELECT COUNT(pasto) FROM Pasto WHERE pasto = '%s' AND id_auto <> '%s'", pasto, id);

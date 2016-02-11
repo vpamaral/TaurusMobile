@@ -3,7 +3,7 @@ package br.com.prodap.taurusmobile.util;
 /**
  * Created by Prodap on 30/09/2015.
  */
-public abstract class ProdapException extends Exception {
+public abstract class Prodap_Exception extends Exception {
 
     public final String MSG_ERRO_BANCO_DADOS = "MSG_ERRO_BANCO_DADOS";
 
@@ -32,7 +32,7 @@ public abstract class ProdapException extends Exception {
         this.exception_args = exception_args;
     }
 
-    public ProdapException(String e) {
+    public Prodap_Exception(String e) {
         super(e);
     }
 }

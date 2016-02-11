@@ -13,8 +13,8 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.tb.Animal;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Lista_Animais_Activity extends Activity {
 
@@ -67,7 +67,7 @@ public class Lista_Animais_Activity extends Activity {
 						+ "\nCódigo Ferro: " + ani_tb.getCodigo_ferro()
 						+ "\nIdentificador: " + ani_tb.getIdentificador();
 
-				MensagemUtil.addMsg(MessageDialog.Yes,
+				Mensagem_Util.addMsg(Message_Dialog.Yes,
 						Lista_Animais_Activity.this, msg, "Animal", position);
 			}
 		});
@@ -86,7 +86,7 @@ public class Lista_Animais_Activity extends Activity {
 				String msg = "Código: " + ani_tb.getCodigo() + "\nCódigo Ferro: "
 						+ ani_tb.getCodigo_ferro() + "\nIdentificador: "
 						+ ani_tb.getIdentificador();
-				MensagemUtil.addMsg(MessageDialog.Yes, Lista_Animais_Activity.this, msg, "Animal", position);
+				Mensagem_Util.addMsg(Message_Dialog.Yes, Lista_Animais_Activity.this, msg, "Animal", position);
 
 				return true;
 			}

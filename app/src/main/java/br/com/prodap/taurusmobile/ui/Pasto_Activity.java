@@ -12,11 +12,11 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
-import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Pasto;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
-import br.com.prodap.taurusmobile.util.ValidatorException;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
+import br.com.prodap.taurusmobile.util.Validator_Exception;
 
 public class Pasto_Activity extends Activity {
     private EditText edt_pasto;
@@ -26,7 +26,7 @@ public class Pasto_Activity extends Activity {
     private Pasto_Adapter p_helper;
     private Pasto_Adapter pasto_adapter;
     private List<Pasto> pasto_list;
-    private MensagemUtil md;
+    private Mensagem_Util md;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class Pasto_Activity extends Activity {
         } catch (RuntimeException e) {
             e.printStackTrace();
             Log.i("PASTO", e.toString());
-            MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro com a tela de Pasto.");
+            Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro com a tela de Pasto.");
         }
         source();
         btn_salvar.setOnClickListener(new View.OnClickListener() {
@@ -60,15 +60,15 @@ public class Pasto_Activity extends Activity {
         try {
             //if (!edt_pasto.getText().toString().equals("") ) {
             pasto_tb.setNome(edt_pasto.getText().toString());
-            pasto_model.validate(this, "Pasto", pasto_tb, BancoService.VALIDATION_TYPE_INSERT);
+            pasto_model.validate(this, "Pasto", pasto_tb, Banco_Service.VALIDATION_TYPE_INSERT);
             pasto_model.insert(this, "Pasto", pasto_tb);
-            MensagemUtil.addMsg(MessageDialog.Toast, this, "Pasto cadastrado com sucesso.");
+            Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Pasto cadastrado com sucesso.");
             edt_pasto.setText("");
 
-        } catch (final ValidatorException e) {
+        } catch (final Validator_Exception e) {
 //            Log.i("PASTO", e.toString());
 //            e.printStackTrace();
-            if (e.getException_code() == ValidatorException.MESSAGE_TYPE_QUESTION)
+            if (e.getException_code() == Validator_Exception.MESSAGE_TYPE_QUESTION)
             {
                 md.addMsg(Pasto_Activity.this, "Aviso" , e.getMessage(), new DialogInterface.OnClickListener() {
                     @Override
@@ -81,7 +81,7 @@ public class Pasto_Activity extends Activity {
             }
             else
             {
-                md.addMsg(MessageDialog.Yes, Pasto_Activity.this, e.getMessage(), "Aviso", 1);
+                md.addMsg(Message_Dialog.Yes, Pasto_Activity.this, e.getMessage(), "Aviso", 1);
                 return;
             }
         }

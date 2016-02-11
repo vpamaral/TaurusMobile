@@ -17,8 +17,8 @@ import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.adapter.Configuracao_Adapter;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.tb.Leitor;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Configuracao_Activity extends Activity {
 
@@ -88,7 +88,7 @@ public class Configuracao_Activity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (edtEndereco.getText().toString().isEmpty()) {
-					MensagemUtil.addMsg(MessageDialog.Toast, Configuracao_Activity.this
+					Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this
 							, "É necessário preencher o endereço do servidor.");
 					edtEndereco.requestFocus();
 				}
@@ -103,13 +103,13 @@ public class Configuracao_Activity extends Activity {
 
 						try {
 							updateConfiguracoes(c_tb);
-							MensagemUtil.addMsg(MessageDialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
+							Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
 							carregaMenuPrincipal();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
-					MensagemUtil.addMsg(MessageDialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
+					Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
 					carregaMenuPrincipal();
 				}
 			}
