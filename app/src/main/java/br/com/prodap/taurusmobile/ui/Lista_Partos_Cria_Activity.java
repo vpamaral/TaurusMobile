@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import br.com.prodap.taurusmobile.model.Parto_Cria_Model;
 import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.tb.Parto;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
@@ -27,7 +28,7 @@ import br.com.prodap.taurusmobile.util.Message_Dialog;
 public class Lista_Partos_Cria_Activity extends Activity {
 	private Parto_Model parto_model;
 	private Parto parto_tb;
-	private Parto_Cria.Parto_CriaModel p_cria_model;
+	private Parto_Cria_Model p_cria_model;
 	private Parto_Cria p_cria_tb;
 	private ListView list;
 	private Parto_Cria_Adapter p_cria_adapter;
@@ -54,11 +55,11 @@ public class Lista_Partos_Cria_Activity extends Activity {
 	private void source() {
 		parto_tb		= new Parto();
 		p_cria_tb 		= new Parto_Cria();
-		p_cria_model	= new Parto_Cria.Parto_CriaModel(getBaseContext());
+		p_cria_model	= new Parto_Cria_Model(getBaseContext());
 		parto_model 	= new Parto_Model(getBaseContext());
 		ani_model 		= new Animal_Model(getBaseContext());
 		matriz_tb 		= new Animal();
-		animal_list = ani_model.selectAll(getBaseContext(),"Animal", matriz_tb);
+		animal_list 	= ani_model.selectAll(getBaseContext(),"Animal", matriz_tb);
 
 		this.partoCriaList();
 		this.partoCriaDetails();
@@ -73,10 +74,8 @@ public class Lista_Partos_Cria_Activity extends Activity {
 	private void partoCriaList() {
 		quantFemeas = 0;
 		quantMachos = 0;
-		parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
-		p_cria_list = p_cria_model.selectAll(getBaseContext(),
-				"Parto_Cria", p_cria_tb);
-		parto_list = parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
+		p_cria_list = p_cria_model.selectAll(getBaseContext(), "Parto_Cria", p_cria_tb);
+		parto_list 	= parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
 		for (Parto_Cria parto_cria_tb : p_cria_list) {
 			if (parto_cria_tb.getSexo().toString().equals("MA")) {
 				quantMachos++;
@@ -87,8 +86,8 @@ public class Lista_Partos_Cria_Activity extends Activity {
 
 		quantdPartos = p_cria_list.size();
 
-		p_cria_adapter = new Parto_Cria_Adapter(p_cria_list, this);
-		parto_adapter = new Parto_Adapter(parto_list, this);
+		p_cria_adapter 	= new Parto_Cria_Adapter(p_cria_list, this);
+		parto_adapter 	= new Parto_Adapter(parto_list, this);
 
 		list.setAdapter(p_cria_adapter);
 		//list.setAdapter(parto_adapter);
@@ -111,6 +110,9 @@ public class Lista_Partos_Cria_Activity extends Activity {
 					if(p_cria_tb.getId_fk_animal_mae() == a.getId_pk())
 					{
 						matriz = a.getCodigo();
+						break;
+					} else {
+						matriz = p_cria_tb.getCod_matriz_invalido();
 					}
 				}
 
@@ -148,7 +150,7 @@ public class Lista_Partos_Cria_Activity extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				p_cria_tb = (Parto_Cria) p_cria_adapter.getItem(position);
-				//parto_tb = (Parto) parto_adapter.getItem(position);
+				parto_tb = (Parto) parto_adapter.getItem(position);
 				return false;
 			}
 		});
@@ -166,13 +168,15 @@ public class Lista_Partos_Cria_Activity extends Activity {
 				builder.setTitle("Alerta").setMessage("Deseja Excluir o lançamento de parto?").setIcon(android.R.drawable.ic_dialog_alert)
 						.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int which) {
-								Long fk_animal_mae = p_cria_tb.getId_fk_animal_mae();
-								p_cria_model.removerByMae(Lista_Partos_Cria_Activity.this, fk_animal_mae);
-								Long fk_animal = parto_tb.getId_fk_animal();
-								parto_model.removerByAnimal(Lista_Partos_Cria_Activity.this, fk_animal);
+								Long id_fk_parto = p_cria_tb.getId_fk_parto();
+								Long id_pk = parto_tb.getId_pk();
+
+								parto_model.deleteParto(Lista_Partos_Cria_Activity.this, id_pk);
+								p_cria_model.deletePartoCria(Lista_Partos_Cria_Activity.this, id_fk_parto);
+
 								Intent i = new Intent(Lista_Partos_Cria_Activity.this, Lista_Partos_Cria_Activity.class);
 								startActivity(i);
-								Mensagem_Util.addMsg(Message_Dialog.Toast, Lista_Partos_Cria_Activity.this, "Lançamento de Parto excluído com sucesso.");
+								Mensagem_Util.addMsg(Message_Dialog.Toast, Lista_Partos_Cria_Activity.this, "Parto e Cria excluído com sucesso.");
 								finish();
 							}
 						})

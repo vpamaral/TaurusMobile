@@ -21,7 +21,16 @@ public class Parto_Parto_Cria implements Serializable {
 	private String raca_cria;
 	private String repasse;
 	private String tipo_parto;
+	private String cod_matriz_invalido;
 	private String pasto;
+
+	public String getCod_matriz_invalido() {
+		return cod_matriz_invalido;
+	}
+
+	public void setCod_matriz_invalido(String cod_matriz_invalido) {
+		this.cod_matriz_invalido = cod_matriz_invalido;
+	}
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;

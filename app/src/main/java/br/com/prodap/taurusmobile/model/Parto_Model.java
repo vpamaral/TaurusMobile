@@ -28,12 +28,12 @@ public class Parto_Model extends Banco_Service {
 
 	}
 
-	public void removerByAnimal(Context ctx, Long codigo){
+	public void deleteParto(Context ctx, Long codigo){
 		banco = new Banco(ctx);
 
 		db = banco.getWritableDatabase();
 
-		db.delete("Parto", "id_fk_animal=?", new String[]{codigo.toString()});
+		db.delete("Parto", "id_pk=?", new String[]{codigo.toString()});
 	}
 
 	@Override

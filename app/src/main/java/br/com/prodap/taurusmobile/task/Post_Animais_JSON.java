@@ -107,7 +107,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 		}
 
 		try {
-			p_parto_cria_list = parto_parto_cria_model.selectAll(ctx, "Animal", p_parto_cria_tb);
+			p_parto_cria_list = parto_parto_cria_model.selectAll(ctx, "Parto_Cria", p_parto_cria_tb);
 			if (p_parto_cria_list.size() != 0) {
 				mProgress.setMax(p_parto_cria_list.size());
 				for(int i = 0; p_parto_cria_list.size() < i; i++){

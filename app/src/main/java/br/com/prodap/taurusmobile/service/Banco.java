@@ -54,6 +54,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'codigo_cria'     	 	varchar(45),"
 				+ "'sexo'            	 	varchar(45),"
 				+ "'tipo_parto'     	 	varchar(45),"
+				+ "'cod_matriz_invalido'	varchar(45),"
 				+ "'pasto'					varchar(45)"
 				+");";
 
@@ -102,18 +103,24 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'peso_atual'			double(45),"
 				+ "'raca_reprod'		varchar(45)"*/
 
+		String sql_drop_parto = "DROP TABLE Parto";
+
 		String sql_parto = "CREATE TABLE IF NOT EXISTS 'Parto' ("
 				+ "'id_auto'	       	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'id_fk_animal'   	INTEGER,"
+				+ "'id_pk'    			INTEGER,"
 				+ "'sync_status'     	TINYINT(1),"
 				+ "'data_parto'     	varchar(45),"
 				+ "'sexo_parto'     	varchar(45),"
 				+ "'perda_gestacao' 	varchar(45)"
 				+");";
 
+		String sql_drop_parto_cria = "DROP TABLE Parto_Cria";
+
 		String sql_parto_cria = "CREATE TABLE IF NOT EXISTS 'Parto_Cria' ("
 				+ "'id_auto'	         	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
 				+ "'id_fk_animal_mae' 		INTEGER,"
+				+ "'id_fk_parto' 			INTEGER,"
 				+ "'data_identificacao'     varchar(45),"
 				+ "'repasse'     			varchar(10),"
 				+ "'sisbov'     	 		varchar(45),"
@@ -125,6 +132,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'codigo_cria'     	 	varchar(45),"
 				+ "'sexo'            	 	varchar(45),"
 				+ "'tipo_parto'     	 	varchar(45),"
+				+ "'cod_matriz_invalido'	varchar(45),"
 				+ "'pasto'					varchar(45)"
 				+");";
 
@@ -150,7 +158,9 @@ public class Banco extends SQLiteOpenHelper {
 				+");";
 
 		db.execSQL(sql_animal);
+		db.execSQL(sql_drop_parto);
 		db.execSQL(sql_parto);
+		db.execSQL(sql_drop_parto_cria);
 		db.execSQL(sql_parto_cria);
 		db.execSQL(sql_configuracao);
 		db.execSQL(sql_drop_pasto);
