@@ -29,7 +29,8 @@ public class Parto_Cria_Dao extends Banco {
                                     "SELECT COUNT(cod_matriz_invalido) " +
                                     "FROM Parto_Cria " +
                                     "WHERE cod_matriz_invalido = '%s'" +
-                                            "AND sync_status = 0"
+                                            "AND sync_status = 0 " +
+                                            "AND cod_matriz_invalido = 0"
                                     , cod_matriz_invalido
                                   );
         db = getReadableDatabase();

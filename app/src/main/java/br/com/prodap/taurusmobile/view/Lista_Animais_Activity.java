@@ -1,4 +1,4 @@
-package br.com.prodap.taurusmobile.ui;
+package br.com.prodap.taurusmobile.view;
 
 import android.app.Activity;
 import android.os.Bundle;

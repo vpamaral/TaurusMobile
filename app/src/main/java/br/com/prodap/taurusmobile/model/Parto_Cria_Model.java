@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
@@ -13,7 +12,7 @@ import br.com.prodap.taurusmobile.dao.Parto_Cria_Dao;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.service.Banco_Service;
-import br.com.prodap.taurusmobile.tb.Parto_Parto_Cria;
+import br.com.prodap.taurusmobile.view.Parto_Activity;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
 
 public class Parto_Cria_Model extends Banco_Service {
@@ -35,14 +34,69 @@ public class Parto_Cria_Model extends Banco_Service {
 		pc_tb = (Parto_Cria)table;
 
 		try {
-
-			if (pc_dao.ifExistCodMatriz(pc_tb.getCod_matriz_invalido().toString()))
+			if (pc_tb.getIdentificador().equals(""))
 			{
 				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
-				Validator_Exception ve = new Validator_Exception("O Código da Matriz não pode ser duplicado!");
+				Validator_Exception ve = new Validator_Exception("O campo Identificador não pode ser vazio!");
 				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
 				ve.setException_args(new Object[] {});
 				throw ve;
+			}
+
+			if (pc_tb.getSisbov() == null)
+			{
+				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+				Validator_Exception ve = new Validator_Exception("O campo Sisbov não pode ser vazio!");
+				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+				ve.setException_args(new Object[] {});
+				throw ve;
+			}
+
+			if (pc_tb.getCodigo_cria().equals(""))
+			{
+				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+				Validator_Exception ve = new Validator_Exception("O campo Código da Cria não pode ser vazio!");
+				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+				ve.setException_args(new Object[] {});
+				throw ve;
+			}
+
+			if (pc_tb.getGrupo_manejo().equals(""))
+			{
+				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+				Validator_Exception ve = new Validator_Exception("O campo Grupo de Manejo não pode ser vazio!");
+				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+				ve.setException_args(new Object[] {});
+				throw ve;
+			}
+
+			if (pc_tb.getPasto().equals(""))
+			{
+				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+				Validator_Exception ve = new Validator_Exception("O campo Pasto não pode ser vazio!");
+				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+				ve.setException_args(new Object[] {});
+				throw ve;
+			}
+
+			if (pc_tb.getPeso_cria().equals(""))
+			{
+				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+				Validator_Exception ve = new Validator_Exception("O campo Peso da Cria não pode ser vazio!");
+				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+				ve.setException_args(new Object[] {});
+				throw ve;
+			}
+
+			if (Parto_Activity.FLAG_CODIGO_MATRIZ_DUPLICADO != true) {
+				if (pc_dao.ifExistCodMatriz(pc_tb.getCod_matriz_invalido().toString())) {
+					//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+					Validator_Exception ve = new Validator_Exception("Matriz com cria já cadastrada deseja cadastrar "
+							+ "outra cria para essa Matriz?");
+					ve.setException_code(Validator_Exception.MESSAGE_TYPE_QUESTION);
+					ve.setException_args(new Object[]{"FLAG_CODIGO_MATRIZ_DUPLICADO"});
+					throw ve;
+				}
 			}
 		} catch (Validator_Exception e) {
 			throw e;
