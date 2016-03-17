@@ -78,7 +78,7 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
         }
         try {
             Grupo_Manejo_Model grupo_model   = new Grupo_Manejo_Model(ctx);
-            Get_JSON getJSON 	    = new Get_JSON(url + Constantes.METHODO_GET_GRUPOS, ctx);
+            Get_JSON getJSON 	    = new Get_JSON(url + Constantes.METHOD_GET_GRUPOS, ctx);
             grupo_list              = getJSON.listGrupo();
             grupo_adapter           = new Grupo_Manejo_Adapter();
             int i = 0;

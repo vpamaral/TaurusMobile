@@ -25,7 +25,12 @@ public class Pasto_Dao extends Banco {
 
     public boolean ifExistPastoInsert(String pasto) throws Validator_Exception {
         boolean result = false;
-        String sql = String.format("SELECT COUNT(pasto) FROM Pasto WHERE pasto = '%s'", pasto);
+        String sql = String.format(
+                                        "SELECT COUNT(nome) " +
+                                        "FROM Pasto " +
+                                        "WHERE nome = '%s'"
+                                        , pasto
+                                   );
         db = getReadableDatabase();
         try
         {
@@ -50,7 +55,14 @@ public class Pasto_Dao extends Banco {
     public boolean ifExistPastoUpdate(String pasto, long id) throws Validator_Exception {
         boolean result = false;
         try {
-            String sql = String.format("SELECT COUNT(pasto) FROM Pasto WHERE pasto = '%s' AND id_auto <> '%s'", pasto, id);
+            String sql = String.format(
+                                            "SELECT COUNT(nome) " +
+                                            "FROM Pasto " +
+                                            "WHERE nome = '%s' " +
+                                            "AND id_auto <> '%s'"
+                                            , pasto
+                                            , id
+                                       );
             db = getReadableDatabase();
             Cursor cur = db.rawQuery(sql, null);
 
@@ -76,7 +88,11 @@ public class Pasto_Dao extends Banco {
 
         Class classe = table.getClass();
         List<Pasto> pasto_list = new ArrayList<Pasto>();
-        String sql = String.format("SELECT * FROM %s", Tabela);
+        String sql = String.format(
+                                        "SELECT p.nome " +
+                                        "FROM %s AS p"
+                                        , Tabela
+                                  );
 
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 

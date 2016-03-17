@@ -167,5 +167,4 @@ public class Banco extends SQLiteOpenHelper {
 		db.execSQL(sql_pasto);
 		db.execSQL(sql_grupo_manejo);
 	}
-
 }

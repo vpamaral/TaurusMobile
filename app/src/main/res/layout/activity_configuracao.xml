@@ -54,6 +54,96 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <LinearLayout
+            android:id="@+id/ll_identificador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <TextView
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:text="Ativar Identificador "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <CheckBox
+                android:id="@+id/cbIdentificador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:checked="true" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lbl_space2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/ll_sisbov"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <TextView
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:text="Ativar Sisbov "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <CheckBox
+                android:id="@+id/cbSisbov"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:checked="true" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lbl_space1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/ll_manejo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <TextView
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:text="Ativar Grupo Manejo "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <CheckBox
+                android:id="@+id/cbManejo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:checked="true" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lbl_space3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/btn_salvar"
             android:layout_width="match_parent"
@@ -69,82 +159,6 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/ll_identificador"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="invisible" >
-
-            <TextView
-                android:layout_width="156dp"
-                android:layout_height="wrap_content"
-                android:text="Autoriza Identificador: "
-                android:textStyle="bold"
-                android:layout_gravity="center" />
-
-            <Spinner
-                android:id="@+id/spnIdentificador"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/lbl_space2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:id="@+id/ll_sisbov"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="invisible" >
-
-            <TextView
-                android:layout_width="156dp"
-                android:layout_height="wrap_content"
-                android:text="Autoriza Sisbov: "
-                android:textStyle="bold"
-                android:layout_gravity="center"/>
-
-            <Spinner
-                android:id="@+id/spnSisbov"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/lbl_space1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:id="@+id/ll_manejo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="invisible" >
-
-            <TextView
-                android:layout_width="156dp"
-                android:layout_height="wrap_content"
-                android:text="Autoriza Grupo Manejo: "
-                android:textStyle="bold"
-                android:layout_gravity="center" />
-
-            <Spinner
-                android:id="@+id/spnManejo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-        
     </LinearLayout>
 
 </ScrollView>

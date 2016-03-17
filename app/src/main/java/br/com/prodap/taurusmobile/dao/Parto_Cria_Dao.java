@@ -26,13 +26,43 @@ public class Parto_Cria_Dao extends Banco {
     public boolean ifExistCodMatriz(String cod_matriz_invalido) throws Validator_Exception {
         boolean result = false;
         String sql = String.format(
-                                    "SELECT COUNT(cod_matriz_invalido) " +
-                                    "FROM Parto_Cria " +
-                                    "WHERE cod_matriz_invalido = '%s'" +
-                                            "AND sync_status = 0 " +
-                                            "AND cod_matriz_invalido = 0"
-                                    , cod_matriz_invalido
+                                        "SELECT COUNT(cod_matriz_invalido) " +
+                                        "FROM Parto_Cria " +
+                                        "WHERE cod_matriz_invalido = '%s'" +
+                                        "AND sync_status = 0 " +
+                                        "AND cod_matriz_invalido <> 0"
+                                        , cod_matriz_invalido
                                   );
+        db = getReadableDatabase();
+        try
+        {
+            Cursor c = db.rawQuery(sql, null);
+
+            if (c != null) {
+                c.moveToFirst();
+                if (c.getInt (0) == 0) {
+                    result = false;
+                } else {
+                    result = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return result;
+    }
+
+    public boolean ifExistIdFkMae(long id_fk_mae) throws Validator_Exception {
+        boolean result = false;
+        String sql = String.format(
+                                        "SELECT COUNT(id_fk_animal_mae) " +
+                                        "FROM Parto_Cria " +
+                                        "WHERE id_fk_animal_mae = '%s'" +
+                                        "AND sync_status = 0 "
+                                        , id_fk_mae
+                                   );
         db = getReadableDatabase();
         try
         {
@@ -60,7 +90,11 @@ public class Parto_Cria_Dao extends Banco {
 
         Class classe = table.getClass();
         List<Parto_Cria> pc_list = new ArrayList<Parto_Cria>();
-        String sql = String.format("SELECT * FROM %s WHERE sync_status = 0 ORDER BY codigo_cria", Tabela);
+        String sql = String.format(
+                                        "SELECT * FROM %s " +
+                                        "WHERE sync_status = 0 ORDER BY codigo_cria"
+                                        , Tabela
+                                   );
 
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
@@ -68,5 +102,95 @@ public class Parto_Cria_Dao extends Banco {
 
         banco.close();
         return pc_list;
+    }
+
+    public boolean ifExistIdentificador(String identificador) {
+        boolean result = false;
+        String sql = String.format(
+                "SELECT COUNT(identificador) " +
+                        "FROM Parto_Cria " +
+                        "WHERE identificador = '%s'" +
+                        "AND sync_status BETWEEN 0 AND 1 "
+                , identificador
+        );
+        db = getReadableDatabase();
+        try
+        {
+            Cursor c = db.rawQuery(sql, null);
+
+            if (c != null) {
+                c.moveToFirst();
+                if (c.getInt (0) == 0) {
+                    result = false;
+                } else {
+                    result = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return result;
+    }
+
+    public boolean ifExistSisbov(String sisbov) {
+        boolean result = false;
+        String sql = String.format(
+                                        "SELECT COUNT(sisbov) " +
+                                        "FROM Parto_Cria " +
+                                        "WHERE sisbov = '%s'" +
+                                        "AND sync_status BETWEEN 0 AND 1 "
+                                        , sisbov
+                                   );
+        db = getReadableDatabase();
+        try
+        {
+            Cursor c = db.rawQuery(sql, null);
+
+            if (c != null) {
+                c.moveToFirst();
+                if (c.getInt (0) == 0) {
+                    result = false;
+                } else {
+                    result = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return result;
+    }
+
+    public boolean ifExistCodigo(String codigo_cria) {
+        boolean result = false;
+        String sql = String.format(
+                                        "SELECT COUNT(codigo_cria) " +
+                                        "FROM Parto_Cria " +
+                                        "WHERE codigo_cria = '%s'" +
+                                        "AND sync_status BETWEEN 0 AND 1 "
+                                        , codigo_cria
+                                   );
+        db = getReadableDatabase();
+        try
+        {
+            Cursor c = db.rawQuery(sql, null);
+
+            if (c != null) {
+                c.moveToFirst();
+                if (c.getInt (0) == 0) {
+                    result = false;
+                } else {
+                    result = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return result;
     }
 }

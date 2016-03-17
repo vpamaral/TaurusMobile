@@ -5,75 +5,70 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.adapter.Configuracao_Adapter;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
+import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.tb.Leitor;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Configuracao_Activity extends Activity {
 
-	private static final String[] Validar = new String[] { "SIM", "NÃO" };
-
 	private Button btnSalvar;
 	private Button btnLeitorQRCode;
-	private Spinner spnIdentificador;
-	private Spinner spnManejo;
-	private Spinner spnSisbov;
+	private CheckBox cbIdentificador;
+	private CheckBox cbManejo;
+	private CheckBox cbSisbov;
 	private EditText edtEndereco;
-	private Configuracao_Adapter c_helper;
+
+	private Configuracao_Adapter c_adapter;
 	private Configuracao c_tb;
-	private Configuracao_Model qrcode_model;
-	private Configuracao_Model configuracaoModel;
-	private Configuracao_Adapter config_adapter;
-	private List<Configuracao> lista_conf;
-	private List<String> configuracoes;
+	private Configuracao_Model c_model;
+	private List<Configuracao> c_list;
 	private Leitor leitor;
-	private String url;
+	private String tipo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_configuracao);
+
 		source();
 
-		lista_conf = configuracaoModel.selectAll(getBaseContext(), "Configuracao", c_tb);
+		loadLeitor();
 
-		for (Configuracao conf_tb : lista_conf) {
-			url = conf_tb.getEndereco();
-			edtEndereco.setText(url);
-			spnIdentificador.setSelection(conf_tb.getValida_identificador().equals("S") ? 0 : 1);
-			spnManejo.setSelection(conf_tb.getValida_manejo().equals("S") ? 0 : 1);
-			spnSisbov.setSelection(conf_tb.getValida_sisbov().equals("S") ? 0 : 1);
-		}
+		btnSalvarClick();
+	}
 
-		if (lista_conf.size() == 0) {
-			edtEndereco.setText(leitor.getScanResult());
-			c_tb.setEndereco(leitor.getScanResult());
-			c_tb.setTipo(leitor.getTipo());
-			c_tb.setValida_identificador("S");
-			c_tb.setValida_manejo("S");
-			c_tb.setValida_sisbov("S");
+	private void btnSalvarClick() {
+		btnSalvar.setOnClickListener(new OnClickListener() {
 
-			insertConfiguracoes(c_tb);
-		}
-
-		if (leitor != null) {
-			if (leitor.getScanResult().equals(url)) {
-				edtEndereco.setText(url);
-			} else {
-				edtEndereco.setText(leitor.getScanResult());
+			@Override
+			public void onClick(View v) {
+				try {
+					if (c_list.size() == 0) {
+						insertConfiguracao(getConfig());
+						Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Dados inserido com sucesso");
+						loadMenuPrincipal();
+					} else {
+						updateConfiguracao(getConfig());
+						Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
+						loadMenuPrincipal();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-		}
+		});
+	}
+
+	private void loadLeitor() {
 		btnLeitorQRCode.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -82,94 +77,70 @@ public class Configuracao_Activity extends Activity {
 				startActivity(intent);
 			}
 		});
+	}
 
-		btnSalvar.setOnClickListener(new OnClickListener() {
+	private Configuracao getConfig() {
+		c_tb.setEndereco(edtEndereco.getText().toString());
+		c_tb.setTipo(tipo);
+		c_tb.setValida_identificador(cbIdentificador.isChecked() ? "S" : "N");
+		c_tb.setValida_manejo(cbManejo.isChecked() ? "S" : "N");
+		c_tb.setValida_sisbov(cbSisbov.isChecked() ? "S" : "N");
 
-			@Override
-			public void onClick(View v) {
-				if (edtEndereco.getText().toString().isEmpty()) {
-					Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this
-							, "É necessário preencher o endereço do servidor.");
-					edtEndereco.requestFocus();
-				}
+		return c_tb;
+	}
 
-				else {
-					if (leitor != null) {
-						c_tb.setEndereco(edtEndereco.getText().toString());
-						c_tb.setTipo(leitor.getTipo());
-						c_tb.setValida_identificador(spnIdentificador.getSelectedItem() == "SIM" ? "S" : "N");
-						c_tb.setValida_manejo(spnManejo.getSelectedItem() == "SIM" ? "S" : "N");
-						c_tb.setValida_sisbov(spnSisbov.getSelectedItem() == "SIM" ? "S" : "N");
-
-						try {
-							updateConfiguracoes(c_tb);
-							Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
-							carregaMenuPrincipal();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-					Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
-					carregaMenuPrincipal();
-				}
-			}
-		});
+	private void loadConfig(Configuracao config_tb) {
+		edtEndereco.setText(config_tb.getEndereco().toString());
+		tipo = config_tb.getTipo().toString();
+		if (config_tb.getValida_identificador().equals("S")) cbIdentificador.setChecked(true);
+		if (config_tb.getValida_sisbov().equals("S")) cbSisbov.setChecked(true);
+		if (config_tb.getValida_manejo().equals("S")) cbManejo.setChecked(true);
 	}
 
 	private void source() {
-		c_tb 		 		= new Configuracao();
-		qrcode_model 	 	= new Configuracao_Model(this);
-		c_helper 		 	= new Configuracao_Adapter();
-		configuracaoModel 	= new Configuracao_Model(getBaseContext());
-		config_adapter 		= new Configuracao_Adapter();
-		configuracoes 		= new ArrayList<String>();
-		spnIdentificador 	= (Spinner) findViewById (R.id.spnIdentificador);
-		spnManejo 			= (Spinner) findViewById(R.id.spnManejo);
-		spnSisbov        	= (Spinner) findViewById(R.id.spnSisbov);
+		c_tb	 		 	= new Configuracao();
+		c_model 	 		= new Configuracao_Model(this);
+		c_adapter 		 	= new Configuracao_Adapter();
+
+		cbIdentificador 	= (CheckBox) findViewById (R.id.cbIdentificador);
+		cbManejo 			= (CheckBox) findViewById(R.id.cbManejo);
+		cbSisbov        	= (CheckBox) findViewById(R.id.cbSisbov);
 		btnSalvar 			= (Button) findViewById(R.id.btn_salvar);
 		btnLeitorQRCode 	= (Button) findViewById(R.id.btnLeitorQRCode);
 		edtEndereco 		= (EditText) findViewById(R.id.edtEndereco);
 
-		ArrayAdapter<String> adpValidaId = new ArrayAdapter<String>(this,
-				android.R.layout.simple_dropdown_item_1line, Validar);
-		adpValidaId.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-		spnIdentificador.setAdapter(adpValidaId);
+		Intent intent  		=  this.getIntent();
+		leitor 				= (Leitor) intent.getSerializableExtra("leitor");
+		c_list 				= c_model.selectAll(getBaseContext(), "Configuracao", c_tb);
 
-		ArrayAdapter<String> adpValidaManejo = new ArrayAdapter<String>(this,
-				android.R.layout.simple_dropdown_item_1line, Validar);
-		adpValidaManejo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-		spnManejo.setAdapter(adpValidaManejo);
+		for (Configuracao config_tb : c_list) {
+			loadConfig(config_tb);
+		}
 
-		ArrayAdapter<String> adpValidaSisbov = new ArrayAdapter<String>(this,
-				android.R.layout.simple_dropdown_item_1line, Validar);
-		adpValidaSisbov.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-		spnSisbov.setAdapter(adpValidaSisbov);
+		if (leitor != null) {
+			if (edtEndereco.getText().toString().equals("")) {
+				btnSalvar.setText("Salvar Dados do Servidor");
+			}
 
-		Intent intent  =  this.getIntent();
-		leitor = (Leitor) intent.getSerializableExtra("leitor");
+			edtEndereco.setText(leitor.getScanResult());
+			tipo = leitor.getTipo();
 
-//		resultTipo   = intent.getStringExtra("tipo");
-//		resultQRCode = intent.getStringExtra("QRCode");
+			c_tb = getConfig();
+		}
 	}
 
-	private void insertConfiguracoes(Configuracao c_tb) {
-		qrcode_model.insert(getBaseContext(), "Configuracao", c_tb);
+	private void insertConfiguracao(Configuracao c_tb) {
+		c_model.insert(getBaseContext(), "Configuracao", c_tb);
 	}
 
-	private void updateConfiguracoes(Configuracao c_tb) {
-		qrcode_model.update(getBaseContext(), "Configuracao", c_helper.configurarHelper(c_tb));
+	private void updateConfiguracao(Configuracao c_tb) {
+		c_model.update(getBaseContext(), "Configuracao", c_tb);
 	}
 
-	private void carregaMenuPrincipal() {
+	private void loadMenuPrincipal() {
 		Intent intent = new Intent(Configuracao_Activity.this, Menu_Principal_Activity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 		finish();
 	}
-/*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		return super.onCreateOptionsMenu(menu);
-	}*/
 }

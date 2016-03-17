@@ -117,7 +117,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 				auxiliar = new Auxiliar(json);
 				gson = new Gson();
 				retornoJSON = gson.toJson(auxiliar);
-				new Conexao_HTTP(url + Constantes.METHODO_POST, ctx).postJson(retornoJSON);
+				new Conexao_HTTP(url + Constantes.METHOD_POST, ctx).postJson(retornoJSON);
 				return retornoJSON;
 			}
 		}catch (Exception e) {

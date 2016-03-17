@@ -12,6 +12,7 @@ import br.com.prodap.taurusmobile.dao.Parto_Cria_Dao;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.service.Banco_Service;
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
 import br.com.prodap.taurusmobile.view.Parto_Activity;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
 
@@ -34,22 +35,40 @@ public class Parto_Cria_Model extends Banco_Service {
 		pc_tb = (Parto_Cria)table;
 
 		try {
-			if (pc_tb.getIdentificador().equals(""))
-			{
-				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
-				Validator_Exception ve = new Validator_Exception("O campo Identificador não pode ser vazio!");
-				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
-				ve.setException_args(new Object[] {});
-				throw ve;
+			if (Parto_Activity.validaIdentificador == true) {
+				if (pc_tb.getIdentificador().equals("")) {
+					//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "IDENTIFICADOR_NULL");
+					Validator_Exception ve = new Validator_Exception("O campo Identificador não pode ser vazio!");
+					ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+					ve.setException_args(new Object[]{});
+					throw ve;
+				}
+
+				if (pc_dao.ifExistIdentificador(pc_tb.getIdentificador().toString())) {
+					//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "IDENTIFICADOR_NULL");
+					Validator_Exception ve = new Validator_Exception("O Identificador não pode ser duplicado!");
+					ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+					ve.setException_args(new Object[]{});
+					throw ve;
+				}
 			}
 
-			if (pc_tb.getSisbov() == null)
-			{
-				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
-				Validator_Exception ve = new Validator_Exception("O campo Sisbov não pode ser vazio!");
-				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
-				ve.setException_args(new Object[] {});
-				throw ve;
+			if (Parto_Activity.validaSisbov == true) {
+				if (pc_tb.getSisbov() == null) {
+					//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+					Validator_Exception ve = new Validator_Exception("O campo Sisbov não pode ser vazio!");
+					ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+					ve.setException_args(new Object[]{});
+					throw ve;
+				}
+
+				if (pc_dao.ifExistSisbov(pc_tb.getSisbov().toString())) {
+					//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+					Validator_Exception ve = new Validator_Exception("O Sisbov não pode ser duplicado!");
+					ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+					ve.setException_args(new Object[]{});
+					throw ve;
+				}
 			}
 
 			if (pc_tb.getCodigo_cria().equals(""))
@@ -61,13 +80,32 @@ public class Parto_Cria_Model extends Banco_Service {
 				throw ve;
 			}
 
-			if (pc_tb.getGrupo_manejo().equals(""))
+			if (pc_dao.ifExistCodigo(pc_tb.getCodigo_cria().toString()))
 			{
 				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
-				Validator_Exception ve = new Validator_Exception("O campo Grupo de Manejo não pode ser vazio!");
+				Validator_Exception ve = new Validator_Exception("O Código da Cria não pode ser duplicado!");
 				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
 				ve.setException_args(new Object[] {});
 				throw ve;
+			}
+
+			if (pc_tb.getId_fk_animal_mae() == 1)
+			{
+				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+				Validator_Exception ve = new Validator_Exception("O campo Código da Matriz não pode ser vazio!");
+				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+				ve.setException_args(new Object[] {});
+				throw ve;
+			}
+
+			if (Parto_Activity.validaManejo == true) {
+				if (pc_tb.getGrupo_manejo().equals("")) {
+					//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+					Validator_Exception ve = new Validator_Exception("O campo Grupo de Manejo não pode ser vazio!");
+					ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+					ve.setException_args(new Object[]{});
+					throw ve;
+				}
 			}
 
 			if (pc_tb.getPasto().equals(""))
@@ -95,6 +133,17 @@ public class Parto_Cria_Model extends Banco_Service {
 							+ "outra cria para essa Matriz?");
 					ve.setException_code(Validator_Exception.MESSAGE_TYPE_QUESTION);
 					ve.setException_args(new Object[]{"FLAG_CODIGO_MATRIZ_DUPLICADO"});
+					throw ve;
+				}
+			}
+
+			if (Parto_Activity.FLAG_ID_FK_MAE_DUPLICADO != true) {
+				if (pc_dao.ifExistIdFkMae(pc_tb.getId_fk_animal_mae())) {
+					//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+					Validator_Exception ve = new Validator_Exception("Matriz com cria já cadastrada deseja cadastrar "
+							+ "outra cria para essa Matriz?");
+					ve.setException_code(Validator_Exception.MESSAGE_TYPE_QUESTION);
+					ve.setException_args(new Object[]{"FLAG_ID_FK_MAE_DUPLICADO"});
 					throw ve;
 				}
 			}

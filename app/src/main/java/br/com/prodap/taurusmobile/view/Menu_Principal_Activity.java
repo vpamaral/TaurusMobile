@@ -48,8 +48,18 @@ public class Menu_Principal_Activity extends Activity {
 	private Button btn_lista_parto;
 	private Button btn_enviar_dados;
 	private Button btn_configurar;
+
 	public static String old_identificador;
 	public static String old_sisbov;
+	public static String old_cod_matriz;
+	public static String old_data_parto;
+	public static String old_grupo_manejo;
+	public static String old_pasto;
+	public static String old_raca_cria;
+	public static String old_genetica;
+	public static String old_sexo;
+
+
 	private List<Configuracao> lista_conf;
 	private Configuracao_Model configuracao_model;
 	private Configuracao c_tb;
@@ -61,8 +71,8 @@ public class Menu_Principal_Activity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_menu_principal);
-		old_sisbov 			= "";
-		old_identificador	= "";
+		loadVars();
+
 		try {
 			createFile();
 			//createFileParto();
@@ -74,7 +84,19 @@ public class Menu_Principal_Activity extends Activity {
 		atualizarBotoes();
 		loadListener();
 	}
-	
+
+	private void loadVars() {
+		old_sisbov 			= "";
+		old_identificador	= "";
+		old_cod_matriz		= "";
+		old_data_parto		= "";
+		old_grupo_manejo	= "";
+		old_pasto			= "";
+		old_genetica		= "";
+		old_raca_cria		= "";
+		old_sexo			= "";
+	}
+
 	private void source() {
 		btn_atualizar 		= (Button) findViewById(R.id.btn_atualiza);
 //		btn_atualizar_dados	= (Button) findViewById(R.id.btn_atualiza_dados);
@@ -86,7 +108,7 @@ public class Menu_Principal_Activity extends Activity {
 		configuracao_model 	= new Configuracao_Model(this);
 		c_tb 				= new Configuracao();
 		parto_model			= new Parto_Model(this);
-		lista_conf = configuracao_model.selectAll(getBaseContext(), "Configuracao", c_tb);
+		lista_conf 			= configuracao_model.selectAll(getBaseContext(), "Configuracao", c_tb);
 
 		for (Configuracao conf_tb : lista_conf) {
 			url = conf_tb.getEndereco();
@@ -94,8 +116,7 @@ public class Menu_Principal_Activity extends Activity {
 		existCelular(lista_conf, c_tb);
 	}
 
-	private void atualizarBotoes()
-	{
+	private void atualizarBotoes() {
 		final List<Pasto> pasto_list;
 		final List<String> nome_pasto_list = new ArrayList<String>();
 		final Pasto pasto_tb = new Pasto();
@@ -383,8 +404,7 @@ public class Menu_Principal_Activity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private String obterDiretorio()
-	{
+	private String obterDiretorio()	{
 		File root = android.os.Environment.getExternalStorageDirectory();
 		return root.toString();
 	}

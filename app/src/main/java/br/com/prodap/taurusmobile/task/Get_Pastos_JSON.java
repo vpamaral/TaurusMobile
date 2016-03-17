@@ -78,7 +78,7 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>> {
         }
         try {
             Pasto_Model pastoModel   = new Pasto_Model(ctx);
-            Get_JSON getJSON 	    = new Get_JSON(url + Constantes.METHODO_GET_PASTOS, ctx);
+            Get_JSON getJSON 	    = new Get_JSON(url + Constantes.METHOD_GET_PASTOS, ctx);
             pastoList               = getJSON.listPasto();
             pastoAdapter            = new Pasto_Adapter();
             int i = 0;
