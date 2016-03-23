@@ -23,11 +23,11 @@
                 android:icon="@drawable/adiciona32"
                 android:showAsAction="always"
                 android:title="Lançar Parto"/>
-            <item
+            <!--<item
                 android:id="@+id/menu_novo_pasto"
                 android:icon="@drawable/adiciona32"
                 android:showAsAction="always"
-                android:title="Cadastrar Pasto"/>
+                android:title="Cadastrar Pasto"/>-->
             <item
                 android:id="@+id/menu_lista_partos"
                 android:icon="@drawable/lista32"

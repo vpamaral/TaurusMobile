@@ -382,9 +382,9 @@ public class Menu_Principal_Activity extends Activity {
 			case R.id.menu_novo_parto:
 				lancaParto();
 				return false;
-			case R.id.menu_novo_pasto:
+			/*case R.id.menu_novo_pasto:
 				novoPasto();
-				return false;
+				return false;*/
 			case R.id.menu_lista_partos:
 				partosList();
 				return false;
