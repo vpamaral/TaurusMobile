@@ -7,6 +7,8 @@ import android.os.Bundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import br.com.prodap.taurusmobile.R;
+
 /**
  * Created by João on 1/24/2016.
  */
@@ -28,6 +30,5 @@ public class Splash extends Activity {
                 startActivity(intent);
             }
         }, 2000);
-
     }
 }

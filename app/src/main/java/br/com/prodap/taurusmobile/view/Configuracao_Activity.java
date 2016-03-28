@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import java.util.List;
 
+import br.com.prodap.taurusmobile.R;
 import br.com.prodap.taurusmobile.adapter.Configuracao_Adapter;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.tb.Configuracao;

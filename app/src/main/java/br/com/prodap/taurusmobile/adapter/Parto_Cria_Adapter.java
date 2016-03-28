@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
-import br.com.prodap.taurusmobile.view.R;
+import br.com.prodap.taurusmobile.R;
 
 public class Parto_Cria_Adapter extends BaseAdapter{
 	private List<Parto_Cria> partos_cria;

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.prodap.taurusmobile.R;
 import br.com.prodap.taurusmobile.tb.Leitor;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;

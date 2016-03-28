@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import java.util.List;
 
+import br.com.prodap.taurusmobile.R;
 import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.service.Banco_Service;

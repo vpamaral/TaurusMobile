@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.com.prodap.taurusmobile.R;
 import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;

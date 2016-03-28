@@ -7,7 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -31,7 +35,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.com.prodap.taurusmobile.R;
 import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
+import br.com.prodap.taurusmobile.bluetooth.Bluetooth_Activity;
 import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
 import br.com.prodap.taurusmobile.model.Parto_Cria_Model;
 import br.com.prodap.taurusmobile.service.Banco_Service;
@@ -67,7 +73,7 @@ public class Parto_Activity extends Activity {
     private LinearLayout ll_manejo;
 
     private Calendar calendario;
-    private EditText editMatriz;
+    private static EditText editMatriz;
     private EditText editDataParto;
     private AutoCompleteTextView editBuscaPasto;
     private EditText editCodCria;
@@ -131,6 +137,36 @@ public class Parto_Activity extends Activity {
     private long id_animal;
     private long id_pk;
 
+    //conexão bluetooth
+    private static CharSequence result;
+    private static String id;
+    public static Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            resultHandleMessage(msg);
+        }
+    };
+
+    private static void resultHandleMessage(Message msg) {
+        Bundle bundle = msg.getData();
+        byte[] data = bundle.getByteArray("data");
+        String dataString= new String(data);
+
+        if(dataString.equals("ERRO_CONEXAO"))
+            editMatriz.setHint("Erro durante a conexão!");
+        else if(dataString.equals("CONECTADO"))
+            editMatriz.setHint("Batão Conectado!");
+        else {
+            data.toString().length();
+            result = new String(data);
+
+            String r = validaId(result.toString(), "1000000;\r\n", ";");
+            //r = r.trim();
+            id = r;
+            editMatriz.setText(r);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,6 +202,22 @@ public class Parto_Activity extends Activity {
         btnSalvarClick();
     }
 
+    public static String validaId(String str, String charsRemove, String delimiter) {
+
+        if (charsRemove!=null && charsRemove.length()>0 && str!=null) {
+
+            String[] remover = charsRemove.split(delimiter);
+
+            for(int i =0; i < remover.length ; i++) {
+                //System.out.println("i: " + i + " ["+ remover[i]+"]");
+                if (str.indexOf(remover[i]) != -1){
+                    str = str.replace(remover[i], "");
+                }
+            }
+        }
+        return str;
+    }
+
     private void btnSalvarClick() {
         btnSalvar.setOnClickListener(new OnClickListener() {
 
@@ -178,8 +230,12 @@ public class Parto_Activity extends Activity {
 
                 listaMatriz = new ArrayList<String>();
                 for (Animal animalList : listaAnimal) {
-                    if (animalList.getCodigo().equals(editMatriz.getText().toString())) {
+                    /*if (animalList.getCodigo().equals(editMatriz.getText().toString())) {
                         listaMatriz.add(animalList.getCodigo());
+                    }*/
+                    if (animalList.getIdentificador().equals(id)) {
+                        listaMatriz.add(animalList.getCodigo());
+                        editMatriz.setText(animalList.getCodigo());
                     }
                 }
 
@@ -293,8 +349,7 @@ public class Parto_Activity extends Activity {
         btnLeitorCodBarras.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Parto_Activity.this,
-                        Leitor_Activity.class);
+                Intent intent = new Intent(Parto_Activity.this, Leitor_Activity.class);
                 startActivity(intent);
             }
         });
@@ -302,8 +357,7 @@ public class Parto_Activity extends Activity {
         btnLeitorCodBarra.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Parto_Activity.this,
-                        Leitor_Activity.class);
+                Intent intent = new Intent(Parto_Activity.this, Leitor_Activity.class);
                 startActivity(intent);
             }
         });
@@ -742,7 +796,7 @@ public class Parto_Activity extends Activity {
         editIdentificador.setText("");
         editDataParto.setText("");
     }
-/*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -752,13 +806,18 @@ public class Parto_Activity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.menu_bluetooth:
+                configBluetooth();
+                return false;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
-    }*/
+    }
+
+    private void configBluetooth() {
+        Intent intent = new Intent(Parto_Activity.this, Bluetooth_Activity.class);
+        startActivity(intent);
+    }
 }
