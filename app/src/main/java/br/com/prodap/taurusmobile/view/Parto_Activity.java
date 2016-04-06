@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -104,8 +106,8 @@ public class Parto_Activity extends Activity {
     private Parto_Cria_Adapter c_helper;
     private List<Configuracao> listConf;
     private List<Parto_Cria> listaCria;
-    private List<String> listaMatriz;
-    private List<Animal> listaAnimal;
+    private static List<String> listaMatriz;
+    private static List<Animal> listaAnimal;
 
     private String strSisbov;
     private String strIdentificador;
@@ -161,9 +163,8 @@ public class Parto_Activity extends Activity {
             result = new String(data);
 
             String r = validaId(result.toString(), "1000000;\r\n", ";");
-            //r = r.trim();
             id = r;
-            editMatriz.setText(r);
+            buscaMatriz(id);
         }
     }
 
@@ -201,7 +202,15 @@ public class Parto_Activity extends Activity {
 
         loadOldValueVars();
 
+        loadMatriz();
+
         btnSalvarClick();
+    }
+
+    public static void buscaMatriz (String id) {
+        if (!id.equals("")) {
+            loadMatriz();
+        }
     }
 
     public static String validaId(String str, String charsRemove, String delimiter) {
@@ -230,16 +239,7 @@ public class Parto_Activity extends Activity {
                 parto_tb.setId_pk(id_pk);
                 cria_tb.setId_fk_parto(id_pk);
 
-                listaMatriz = new ArrayList<String>();
-                for (Animal animalList : listaAnimal) {
-                    /*if (animalList.getCodigo().equals(editMatriz.getText().toString())) {
-                        listaMatriz.add(animalList.getCodigo());
-                    }*/
-                    if (animalList.getIdentificador().equals(id)) {
-                        listaMatriz.add(animalList.getCodigo());
-                        editMatriz.setText(animalList.getCodigo());
-                    }
-                }
+                loadMatriz();
 
                 if (listaAnimal.size() != 0) {
                     parto_tb.setData_parto(editDataParto.getText().toString());
@@ -312,6 +312,19 @@ public class Parto_Activity extends Activity {
                 }
             }
         });
+    }
+
+    private static void loadMatriz() {
+        listaMatriz = new ArrayList<String>();
+        for (Animal animalList : listaAnimal) {
+            /*if (animalList.getCodigo().equals(editMatriz.getText().toString())) {
+                listaMatriz.add(animalList.getCodigo());
+            }*/
+            if (animalList.getIdentificador().equals(id)) {
+                listaMatriz.add(animalList.getCodigo());
+                editMatriz.setText(animalList.getCodigo());
+            }
+        }
     }
 
     private void changeDataParto() {
