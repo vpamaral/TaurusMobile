@@ -120,7 +120,7 @@ public class Parto_Cria implements Serializable {
 
 	@Override
 	public String toString() {
-		return codigo_cria + " - " + identificador;
+		return codigo_cria;
 	}
 
 	public String getRepasse() {

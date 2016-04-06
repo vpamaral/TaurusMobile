@@ -189,13 +189,15 @@ public class Parto_Activity extends Activity {
 
         loadIdentificadorSisbovGrupoManejo();
 
-        changeSisbov();
-
         loadBotaoLeitor();
 
-        changeCodMatriz();
+        changeSisbov();
+
+        changeCodCria();
 
         changeDataParto();
+
+        changeCodMatriz();
 
         loadOldValueVars();
 
@@ -359,6 +361,21 @@ public class Parto_Activity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(Parto_Activity.this, Leitor_Activity.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void changeCodCria() {
+        editCodCria.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (editCodCria.getText().toString().equals("")){
+                        spinPerda.setEnabled(true);
+                    } else {
+                        spinPerda.setEnabled(false);
+                    }
+                }
             }
         });
     }
