@@ -395,6 +395,7 @@ public class Parto_Activity extends Activity {
             ll_identificador.setVisibility(LinearLayout.VISIBLE);
             validaIdentificador = true;
         } else {
+            editIdentificador.setText("0");
             editIdentificador.setEnabled(false);
             ll_identificador.setVisibility(LinearLayout.GONE);
             validaIdentificador = false;
@@ -405,6 +406,7 @@ public class Parto_Activity extends Activity {
             ll_sisbov.setVisibility(LinearLayout.VISIBLE);
             validaSisbov = true;
         } else {
+            editSisbov.setText("0");
             editSisbov.setEnabled(false);
             ll_sisbov.setVisibility(LinearLayout.GONE);
             validaSisbov = false;
@@ -416,6 +418,7 @@ public class Parto_Activity extends Activity {
             ll_manejo.setVisibility(LinearLayout.VISIBLE);
             validaManejo = true;
         } else {
+            editGrupoManejo.setText("0");
             editGrupoManejo.setEnabled(false);
             ll_manejo.setVisibility(LinearLayout.GONE);
             validaManejo = false;
