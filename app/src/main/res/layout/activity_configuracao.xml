@@ -54,6 +54,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ativar/Desativar - ITENS "
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/lbl_space4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:id="@+id/ll_identificador"
             android:layout_width="match_parent"
@@ -64,7 +77,7 @@
             <TextView
                 android:layout_width="156dp"
                 android:layout_height="wrap_content"
-                android:text="Ativar Identificador "
+                android:text="Identificador "
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 
@@ -73,9 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="center"
-                android:enabled="false"
-                android:checked="true" />
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
@@ -94,7 +105,7 @@
             <TextView
                 android:layout_width="156dp"
                 android:layout_height="wrap_content"
-                android:text="Ativar Sisbov "
+                android:text="Sisbov "
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 
@@ -103,9 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="center"
-                android:enabled="false"
-                android:checked="true" />
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
@@ -124,7 +133,7 @@
             <TextView
                 android:layout_width="156dp"
                 android:layout_height="wrap_content"
-                android:text="Ativar Grupo Manejo "
+                android:text="Grupo Manejo "
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 
@@ -133,9 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="center"
-                android:enabled="false"
-                android:checked="true" />
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
