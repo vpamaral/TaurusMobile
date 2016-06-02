@@ -194,6 +194,8 @@ public class Parto_Activity extends Activity {
 
         changeSisbov();
 
+        changeIdentificador();
+
         changeCodCria();
 
         changeDataParto();
@@ -349,7 +351,8 @@ public class Parto_Activity extends Activity {
                         txtidanimal.setText(String.valueOf(animal.getId_pk()));
                         listaMatriz = new ArrayList<String>();
                         for (Animal animalList : listaAnimal) {
-                            if (animalList.getCodigo().equals(editMatriz.getText().toString())) {
+                            if (animalList.getCodigo().equals(editMatriz.getText().toString().toLowerCase())
+                                    || animalList.getCodigo().equals(editMatriz.getText().toString().toUpperCase())) {
                                 listaMatriz.add(animalList.getCodigo());
                             }
                         }
@@ -383,7 +386,7 @@ public class Parto_Activity extends Activity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    if (editCodCria.getText().toString().equals("")){
+                    if (editCodCria.getText().toString().equals("")) {
                         spinPerda.setEnabled(true);
                     } else {
                         spinPerda.setEnabled(false);
@@ -419,35 +422,87 @@ public class Parto_Activity extends Activity {
         });
     }
 
-    private void loadIdentificadorSisbovGrupoManejo() {
-        if (listConf.get(0).getValida_identificador().equals("S")) {
+    private void changeIdentificador()
+    {
+        editIdentificador.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus)
+                {
+                    if (!editIdentificador.getText().toString().equals(""))
+                    {
+                        spinPerda.setEnabled(false);
+                        if (editIdentificador.length() < 15)
+                        {
+                            Toast.makeText(Parto_Activity.this, "Identificador inválido!", Toast.LENGTH_SHORT).show();
+                            editIdentificador.setFocusable(true);
+                            return;
+                        }
+                        else
+                        {
+                            if (editSisbov.getText().toString().equals("") || !listConf.get(0).getValida_sisbov().equals("S"))
+                            {
+                                String codCria = editIdentificador.getText().toString();
+                                editCodCria.setText(codCria.substring(7, 15));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        spinPerda.setEnabled(true);
+                        editCodCria.setText("");
+                    }
+                }
+            }
+        });
+    }
+
+    private void loadIdentificadorSisbovGrupoManejo()
+    {
+        if (!listConf.get(0).getValida_identificador().equals("S")
+                && !listConf.get(0).getValida_sisbov().equals("S"))
+        {
+            editCodCria.setEnabled(true);
+        }
+
+        if (listConf.get(0).getValida_identificador().equals("S"))
+        {
             editIdentificador.setEnabled(true);
             ll_identificador.setVisibility(LinearLayout.VISIBLE);
             validaIdentificador = true;
-        } else {
+        }
+        else
+        {
             editIdentificador.setText("0");
             editIdentificador.setEnabled(false);
             ll_identificador.setVisibility(LinearLayout.GONE);
             validaIdentificador = false;
         }
 
-        if (listConf.get(0).getValida_sisbov().equals("S")) {
+        if (listConf.get(0).getValida_sisbov().equals("S"))
+        {
             editSisbov.setEnabled(true);
             ll_sisbov.setVisibility(LinearLayout.VISIBLE);
             validaSisbov = true;
-        } else {
+        }
+        else
+        {
             editSisbov.setText("0");
             editSisbov.setEnabled(false);
             ll_sisbov.setVisibility(LinearLayout.GONE);
             validaSisbov = false;
-            editCodCria.setEnabled(true);
         }
 
-        if (listConf.get(0).getValida_manejo().equals("S")) {
+        if (listConf.get(0).getValida_manejo().equals("S"))
+        {
             editGrupoManejo.setEnabled(true);
             ll_manejo.setVisibility(LinearLayout.VISIBLE);
             validaManejo = true;
-        } else {
+        }
+        else
+        {
             editGrupoManejo.setText("0");
             editGrupoManejo.setEnabled(false);
             ll_manejo.setVisibility(LinearLayout.GONE);
@@ -455,7 +510,8 @@ public class Parto_Activity extends Activity {
         }
     }
 
-    private void source() {
+    private void source()
+    {
         ani_model   = new Animal_Model(this);
         parto_model = new Parto_Model(this);
         cria_model  = new Parto_Cria_Model(this);
@@ -469,10 +525,8 @@ public class Parto_Activity extends Activity {
 
         editIdentificador       = (EditText) findViewById(R.id.edtIdentificador);
         editSisbov              = (EditText) findViewById(R.id.edtSisbov);
-        editGrupoManejo         = (AutoCompleteTextView) findViewById(R.id.edtGrupoManejo);
         editMatriz              = (EditText) findViewById(R.id.edtMatriz);
         editDataParto           = (EditText) findViewById(R.id.edtDataParto);
-        editBuscaPasto          = (AutoCompleteTextView) findViewById(R.id.edtBuscaPasto);
         editCodCria             = (EditText) findViewById(R.id.edtCria);
         editPeso                = (EditText) findViewById(R.id.edtPesoCria);
         txtidanimal             = (TextView) findViewById(R.id.id_animal);
@@ -492,7 +546,8 @@ public class Parto_Activity extends Activity {
         editDataIdentificacao.setText(data_completa);
     }
 
-    private void loadData() {
+    private void loadData()
+    {
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         data = new Date();
@@ -503,7 +558,8 @@ public class Parto_Activity extends Activity {
         data_completa = dateFormat.format(data_atual);
     }
 
-    private void loadComboBox() {
+    private void loadComboBox()
+    {
         spinPerda = (Spinner) findViewById(R.id.spnPerda);
         ArrayAdapter<String> adpPerda = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, PERDA);
@@ -528,18 +584,23 @@ public class Parto_Activity extends Activity {
         calendario = Calendar.getInstance();
     }
 
-    private void buscaPasto() {
+    private void buscaPasto()
+    {
         List<Pasto> pasto_list;
         List<String> nome_pasto_list = new ArrayList<String>();
         Pasto pasto_tb = new Pasto();
         Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
-        try {
+        try
+        {
             pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
 
-            for(Pasto p : pasto_list) {
+            for(Pasto p : pasto_list)
+            {
                 nome_pasto_list.add(p.getNome().toString());
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             Log.i("BuscaPastos", e.toString());
             e.printStackTrace();
         }
@@ -552,18 +613,24 @@ public class Parto_Activity extends Activity {
         editBuscaPasto.setThreshold(1);
     }
 
-    private void buscaGrupoManejo() {
+    private void buscaGrupoManejo()
+    {
         List<Grupo_Manejo> grupo_list;
         List<String> codigo_grupo_list = new ArrayList<String>();
         Grupo_Manejo grupo_tb = new Grupo_Manejo();
         Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(getBaseContext());
-        try {
+
+        try
+        {
             grupo_list = grupo_model.selectAll(getBaseContext(), "Grupo_Manejo", grupo_tb);
 
-            for (Grupo_Manejo g_tb : grupo_list) {
+            for (Grupo_Manejo g_tb : grupo_list)
+            {
                 codigo_grupo_list.add(g_tb.getCodigo().toString());
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             Log.i("BuscaGrupoManejo", e.toString());
             e.printStackTrace();
         }
@@ -576,16 +643,27 @@ public class Parto_Activity extends Activity {
         editGrupoManejo.setThreshold(1);
     }
 
-    private void leitorCodBarras() {
+    private void leitorCodBarras()
+    {
         Intent intent   = getIntent();
         Leitor leitor   = (Leitor) intent.getSerializableExtra("leitor");
 
-        if (leitor != null) {
-            if (leitor.getTipo().equals("CODE_39")) {
+        if (leitor != null)
+        {
+            if (leitor.getTipo().equals("CODE_39"))
+            {
                 strIdentificador = leitor.getScanResult();
                 Menu_Principal_Activity.old_identificador = strIdentificador;
-                editIdentificador.setText(Menu_Principal_Activity.old_identificador);
-            } else if (leitor.getTipo().equals("ITF")) {
+                long sis = Long.parseLong(Menu_Principal_Activity.old_identificador);
+                String strsis = String.valueOf(sis);
+                editIdentificador.setText(strsis);
+                if (editSisbov.getText().toString().equals("") || !listConf.get(0).getValida_sisbov().equals("S"))
+                {
+                    editCodCria.setText(strsis.substring(7, 15));
+                }
+            }
+            else if (leitor.getTipo().equals("ITF"))
+            {
                 strSisbov = leitor.getScanResult();
                 Menu_Principal_Activity.old_sisbov = strSisbov;
                 long sis = Long.parseLong(Menu_Principal_Activity.old_sisbov);
@@ -594,12 +672,21 @@ public class Parto_Activity extends Activity {
                 editCodCria.setText(strsis.substring(8, 14));
             }
 
-            if (editIdentificador.getText().toString().equals("")) {
-                editIdentificador.setText(Menu_Principal_Activity.old_identificador.toString());
+            if (editIdentificador.getText().toString().equals(""))
+            {
+                if (Menu_Principal_Activity.old_identificador != "")
+                {
+                    long sis = Long.parseLong(Menu_Principal_Activity.old_identificador);
+                    String strsis = String.valueOf(sis);
+                    editIdentificador.setText(strsis);
+                    editCodCria.setText(strsis.substring(7, 15));
+                }
             }
 
-            if (editSisbov.getText().toString().equals("")) {
-                if (Menu_Principal_Activity.old_sisbov != "") {
+            if (editSisbov.getText().toString().equals(""))
+            {
+                if (Menu_Principal_Activity.old_sisbov != "")
+                {
                     long sis = Long.parseLong(Menu_Principal_Activity.old_sisbov);
                     String strsis = String.valueOf(sis);
                     editSisbov.setText(strsis);
@@ -607,26 +694,33 @@ public class Parto_Activity extends Activity {
                 }
             }
 
-            if (editDataParto.getText().toString().equals("")) {
+            if (editDataParto.getText().toString().equals(""))
+            {
                 editDataParto.setText(Menu_Principal_Activity.old_data_parto);
             }
 
-            if (editMatriz.getText().toString().equals("")) {
+            if (editMatriz.getText().toString().equals(""))
+            {
                 editMatriz.setText(Menu_Principal_Activity.old_cod_matriz);
             }
 
-            if (editGrupoManejo.getText().toString().equals("")) {
+            if (editGrupoManejo.getText().toString().equals(""))
+            {
                 editGrupoManejo.setText(Menu_Principal_Activity.old_grupo_manejo);
             }
 
-            if (editBuscaPasto.getText().toString().equals("")) {
+            if (editBuscaPasto.getText().toString().equals(""))
+            {
                 editBuscaPasto.setText(Menu_Principal_Activity.old_pasto);
             }
 
             /*Menu_Principal_Activity.old_raca_cria.toString());*/
-            if (Menu_Principal_Activity.old_raca_cria != "") {
-                for (int i = 0; i < spinRacaCria.getCount(); i++) {
-                    if (spinRacaCria.getItemAtPosition(i).toString().equals(Menu_Principal_Activity.old_raca_cria)) {
+            if (Menu_Principal_Activity.old_raca_cria != "")
+            {
+                for (int i = 0; i < spinRacaCria.getCount(); i++)
+                {
+                    if (spinRacaCria.getItemAtPosition(i).toString().equals(Menu_Principal_Activity.old_raca_cria))
+                    {
                         spinRacaCria.setSelection(i);
                     }
                 }
@@ -638,7 +732,8 @@ public class Parto_Activity extends Activity {
         }
     }
 
-    private void loadOldValueVars() {
+    private void loadOldValueVars()
+    {
         Menu_Principal_Activity.old_genetica        = strGenetica;
         Menu_Principal_Activity.old_sexo            = strSexo;
         Menu_Principal_Activity.old_raca_cria       = strRaca_cria;
@@ -648,8 +743,10 @@ public class Parto_Activity extends Activity {
         Menu_Principal_Activity.old_cod_matriz      = strCod_matriz;
     }
 
-    public void insertParto(final Parto parto_tb, final Parto_Cria cria_tb) {
-        try {
+    public void insertParto(final Parto parto_tb, final Parto_Cria cria_tb)
+    {
+        try
+        {
             cria_model.validate(this, "Parto_Cria", cria_tb, Banco_Service.VALIDATION_TYPE_INSERT);
             parto_model.validate(this, "Parto", parto_tb, Banco_Service.VALIDATION_TYPE_INSERT);
             parto_model.insert(Parto_Activity.this, "Parto", parto_tb);
@@ -657,12 +754,16 @@ public class Parto_Activity extends Activity {
             writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
             Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
             zeraInterface();
-        }catch (final Validator_Exception e) {
+        }
+        catch (final Validator_Exception e)
+        {
             if (e.getException_code() == Validator_Exception.MESSAGE_TYPE_QUESTION)
             {
-                md.addMsg(Parto_Activity.this, "Aviso" , e.getMessage(), new DialogInterface.OnClickListener() {
+                md.addMsg(Parto_Activity.this, "Aviso" , e.getMessage(), new DialogInterface.OnClickListener()
+                {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
                         validateFlags(e);
                         insertParto(parto_tb, cria_tb);
                     }
@@ -677,50 +778,66 @@ public class Parto_Activity extends Activity {
         }
     }
 
-    private static void validateFlags(Validator_Exception e) {
-        if (!e.getException_args().equals(0) && e.getException_args()[0].toString().equals("FLAG_CODIGO_MATRIZ_DUPLICADO")) {
+    private static void validateFlags(Validator_Exception e)
+    {
+        if (!e.getException_args().equals(0) && e.getException_args()[0].toString().equals("FLAG_CODIGO_MATRIZ_DUPLICADO"))
+        {
             FLAG_CODIGO_MATRIZ_DUPLICADO = true;
         }
-        if (!e.getException_args().equals(0) && e.getException_args()[0].toString().equals("FLAG_ID_FK_MAE_DUPLICADO")) {
+
+        if (!e.getException_args().equals(0) && e.getException_args()[0].toString().equals("FLAG_ID_FK_MAE_DUPLICADO"))
+        {
             FLAG_ID_FK_MAE_DUPLICADO = true;
         }
     }
 
-    private void matrizInvalida() {
+    private void matrizInvalida()
+    {
         final boolean[] validaMatriz = {false};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (listaMatriz.size() == 0) {
+
+        if (listaMatriz.size() == 0)
+        {
             builder.setTitle("Aviso").setMessage("Matriz não existe na base de dados. Deseja continuar?")
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
+                    .setPositiveButton("Sim", new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int which)
+                        {
                             validaMatriz[0] = true;
                             cod_matriz_invalido = editMatriz.getText().toString();
                             cria_tb.setId_fk_animal_mae(0);
                         }
                     })
-                    .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Não", new DialogInterface.OnClickListener()
+                    {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(DialogInterface dialog, int which)
+                        {
                             validaMatriz[0] = false;
                             editMatriz.setText("");
                         }
                     })
                     .show();
-            if (validaMatriz[0] == true) {
+            if (validaMatriz[0] == true)
+            {
                 cod_matriz_invalido = editMatriz.getText().toString();
-            } else {
+            }
+            else
+            {
                 cod_matriz_invalido = "0";
                 return;
             }
         }
     }
 
-    private boolean writeInFile(String text) {
+    private boolean writeInFile(String text)
+    {
         BufferedReader input = null;
         File file = null;
 
-        try{
+        try
+        {
             file = new File(Environment.getExternalStorageDirectory()+"/Prodap","backup.txt");
             FileOutputStream in = new FileOutputStream(file, true);
             in.write(text.getBytes());
@@ -730,16 +847,20 @@ public class Parto_Activity extends Activity {
 
             return true;
         }
-        catch (Exception e){
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
         return false;
     }
 
-    public Boolean sisbovCorreto(String sisbov) {
+    public Boolean sisbovCorreto(String sisbov)
+    {
         int valor = 0;
         int ultimo_digito;
-        if (sisbov != "") {
+
+        if (sisbov != "")
+        {
             char[] cvetor = sisbov.toCharArray();
 
             if (cvetor.length < 15)
@@ -752,12 +873,15 @@ public class Parto_Activity extends Activity {
             valor += ((Character.getNumericValue(sisbov.charAt(12)) * 3) + (Character.getNumericValue(sisbov.charAt(13)) * 2));
 
             valor = valor % 11;
-            if (valor <= 1) {
+
+            if (valor <= 1)
+            {
                 ultimo_digito = 0;
-            } else {
+            }
+            else
+            {
                 ultimo_digito = (11 - valor);
             }
-
 
             if (ultimo_digito == Integer.valueOf(cvetor[sisbov.length() - 1] + "") && sisbov.length() == 15)
                 return true;
@@ -789,14 +913,15 @@ public class Parto_Activity extends Activity {
         }
     }*/
 
-    public void showCalendar() {
+    public void showCalendar()
+    {
         new DatePickerDialog(Parto_Activity.this, listner, calendario.get(Calendar.YEAR)
                 , calendario.get(Calendar.MONTH)
                 , calendario.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    private DatePickerDialog.OnDateSetListener listner = new DatePickerDialog.OnDateSetListener() {
-
+    private DatePickerDialog.OnDateSetListener listner = new DatePickerDialog.OnDateSetListener()
+    {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day)
         {
@@ -808,18 +933,21 @@ public class Parto_Activity extends Activity {
     };
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         super.onBackPressed();
         updateVars();
     }
 
-    private void updateVars() {
+    private void updateVars()
+    {
         Menu_Principal_Activity.old_sisbov          = "";
         Menu_Principal_Activity.old_identificador   = "";
         Menu_Principal_Activity.old_cod_matriz      = "";
     }
 
-    public void zeraInterface() {
+    public void zeraInterface()
+    {
         updateVars();
         editMatriz.setText("");
         editCodCria.setText("");
@@ -831,15 +959,18 @@ public class Parto_Activity extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.parto, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case R.id.menu_bluetooth:
                 configBluetooth();
                 return false;
@@ -849,7 +980,8 @@ public class Parto_Activity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void configBluetooth() {
+    private void configBluetooth()
+    {
         Intent intent = new Intent(Parto_Activity.this, Bluetooth_Activity.class);
         startActivity(intent);
     }

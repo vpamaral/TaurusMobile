@@ -60,7 +60,7 @@ public class Configuracao_Activity extends Activity {
 						loadMenuPrincipal();
 					} else {
 						updateConfiguracao(getConfig());
-						Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Servidor atualizado com sucesso");
+						Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Dados atualizado com sucesso");
 						loadMenuPrincipal();
 					}
 				} catch (Exception e) {

@@ -116,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="6"
+                android:maxLength="8"
                 android:enabled="false"/>
 
         </LinearLayout>
@@ -200,7 +200,6 @@
                 android:id="@+id/edtMatriz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:maxLength="15" />
         </LinearLayout>
 

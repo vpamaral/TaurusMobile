@@ -79,13 +79,15 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>> {
 			objListaAnimal 				= getJSON.listaAnimal();
 			aniHelper 					= new Animal_Adapter();
 			int i 						= 0;
-			mProgress.setMax(objListaAnimal.size());
-			for (Animal animal : objListaAnimal) {
-				if (objListaAnimal.size() != 0) {
-					objModelAnimal.insert(ctx, "Animal", animal);
-					publishProgress(i * 1);
+			if (objListaAnimal.size() > 0) {
+				mProgress.setMax(objListaAnimal.size());
+				for (Animal animal : objListaAnimal) {
+					if (objListaAnimal.size() != 0) {
+						objModelAnimal.insert(ctx, "Animal", animal);
+						publishProgress(i * 1);
+					}
+					i++;
 				}
-				i++;
 			}
 		} catch (Validator_Exception e) {
 			Log.i("TAG", e.toString());
