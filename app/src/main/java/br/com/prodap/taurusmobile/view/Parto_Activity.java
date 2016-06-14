@@ -749,8 +749,8 @@ public class Parto_Activity extends Activity {
         {
             cria_model.validate(this, "Parto_Cria", cria_tb, Banco_Service.VALIDATION_TYPE_INSERT);
             parto_model.validate(this, "Parto", parto_tb, Banco_Service.VALIDATION_TYPE_INSERT);
-            parto_model.insert(Parto_Activity.this, "Parto", parto_tb);
-            cria_model.insert(Parto_Activity.this, "Parto_Cria", cria_tb);
+            parto_model.insert(Parto_Activity.this, "Parto", p_helper.getDadosParto(parto_tb));
+            cria_model.insert(Parto_Activity.this, "Parto_Cria", c_helper.getDadosCria(cria_tb));
             writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
             Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
             zeraInterface();

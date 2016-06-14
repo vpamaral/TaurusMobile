@@ -21,7 +21,20 @@ public abstract class Banco_Service {
 
 	public abstract <T> T selectID(Context ctx, String Tabela, Object table, long id);
 
-	public void insert(Context ctx, String Tabela, Object table) {
+	public void insert(Context ctx, String Tabela, ContentValues cv) {
+		try {
+			Banco banco = new Banco(ctx);
+
+			banco.getWritableDatabase().insert(Tabela, null, cv);
+			banco.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.i("BancoService", e.toString());
+		}
+	}
+
+	/*public void insert(Context ctx, String Tabela, Object table) {
 		try {
 			Banco banco = new Banco(ctx);
 			ContentValues cv = new ContentValues();
@@ -38,7 +51,7 @@ public abstract class Banco_Service {
 			e.printStackTrace();
 			Log.i("BancoService", e.toString());
 		}
-	}
+	}*/
 
 	public void update(Context ctx, String Tabela, Object table) {
 		try {

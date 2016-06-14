@@ -134,11 +134,11 @@ public class Configuracao_Activity extends Activity {
 	}
 
 	private void insertConfiguracao(Configuracao c_tb) {
-		c_model.insert(getBaseContext(), "Configuracao", c_tb);
+		c_model.insert(getBaseContext(), "Configuracao", c_adapter.getDadosConfig(c_tb));
 	}
 
 	private void updateConfiguracao(Configuracao c_tb) {
-		c_model.update(getBaseContext(), "Configuracao", c_tb);
+		c_model.update(getBaseContext(), "Configuracao", c_adapter.getDadosConfig(c_tb));
 	}
 
 	private void loadMenuPrincipal() {

@@ -83,7 +83,7 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>> {
 				mProgress.setMax(objListaAnimal.size());
 				for (Animal animal : objListaAnimal) {
 					if (objListaAnimal.size() != 0) {
-						objModelAnimal.insert(ctx, "Animal", animal);
+						objModelAnimal.insert(ctx, "Animal", aniHelper.getDadosAnimal(animal));
 						publishProgress(i * 1);
 					}
 					i++;

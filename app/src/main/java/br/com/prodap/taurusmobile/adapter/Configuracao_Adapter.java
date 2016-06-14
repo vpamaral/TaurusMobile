@@ -88,6 +88,7 @@ public class Configuracao_Adapter extends BaseAdapter {
 	public Configuracao configurarHelper(Configuracao configurarTB) {
 		Configuracao config = new Configuracao();
 
+		config.setId_auto(configurarTB.getId_auto());
 		config.setTipo(configurarTB.getTipo());
 		config.setEndereco(configurarTB.getEndereco());
 		config.setValida_identificador(configurarTB.getValida_identificador());

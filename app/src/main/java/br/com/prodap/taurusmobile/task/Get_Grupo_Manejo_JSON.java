@@ -85,7 +85,7 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
             mProgress.setMax(grupo_list.size());
             for (Grupo_Manejo grupo_tb : grupo_list) {
                 if (grupo_list.size() != 0) {
-                    grupo_model.insert(ctx, "Grupo_Manejo", grupo_tb);
+                    grupo_model.insert(ctx, "Grupo_Manejo", grupo_adapter.getDadosGrupo(grupo_tb));
                     publishProgress(i * 1);
                 }
                 i++;

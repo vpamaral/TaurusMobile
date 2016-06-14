@@ -62,7 +62,7 @@ public class Pasto_Activity extends Activity {
             //if (!edt_pasto.getText().toString().equals("") ) {
             pasto_tb.setNome(edt_pasto.getText().toString());
             pasto_model.validate(this, "Pasto", pasto_tb, Banco_Service.VALIDATION_TYPE_INSERT);
-            pasto_model.insert(this, "Pasto", pasto_tb);
+            pasto_model.insert(this, "Pasto", p_helper.getDadosPasto(pasto_tb));
             Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Pasto cadastrado com sucesso.");
             edt_pasto.setText("");
 

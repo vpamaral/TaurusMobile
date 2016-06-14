@@ -61,7 +61,7 @@ public class Get_ARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 			mProgress.setMax(pastoList.size());
 			for (Pasto pasto_tb : pastoList) {
 				if (pastoList.size() != 0) {
-					pastoModel.insert(ctx, "Pasto", pasto_tb);
+					pastoModel.insert(ctx, "Pasto", pastoAdapter.getDadosPasto(pasto_tb));
 					publishProgress(i * 1);
 				}
 				i++;
