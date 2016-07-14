@@ -8,10 +8,10 @@ import java.util.List;
 import br.com.prodap.taurusmobile.adapter.Configuracao_Adapter;
 import br.com.prodap.taurusmobile.dao.Configuracao_Dao;
 import br.com.prodap.taurusmobile.service.Banco;
-import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Configuracao;
 
-public class Configuracao_Model extends BancoService {
+public class Configuracao_Model extends Banco_Service {
 
 	private Banco banco;
 	private Configuracao_Adapter conf_adapter;

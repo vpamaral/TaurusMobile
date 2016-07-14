@@ -11,10 +11,10 @@ import java.util.List;
 import br.com.prodap.taurusmobile.adapter.Animal_Adapter;
 import br.com.prodap.taurusmobile.dao.Animal_Dao;
 import br.com.prodap.taurusmobile.service.Banco;
-import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Animal;
 
-public class Animal_Model extends BancoService {
+public class Animal_Model extends Banco_Service {
 
 	private Banco banco;
 	private Animal_Adapter ani_adapter;

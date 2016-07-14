@@ -9,14 +9,14 @@ import java.util.List;
 import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.dao.Pasto_Dao;
 import br.com.prodap.taurusmobile.service.Banco;
-import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Pasto;
-import br.com.prodap.taurusmobile.util.ValidatorException;
+import br.com.prodap.taurusmobile.util.Validator_Exception;
 
 /**
  * Created by Suporte on 07/10/2015.
  */
-public class Pasto_Model extends BancoService {
+public class Pasto_Model extends Banco_Service {
 
     private Banco banco;
     private Pasto_Adapter pasto_adapter;
@@ -28,7 +28,7 @@ public class Pasto_Model extends BancoService {
         pasto_adapter = new Pasto_Adapter();
     }
     @Override
-    public void validate(Context ctx, String Tabela, Object table,int VALIDATION_TYPE) throws ValidatorException {
+    public void validate(Context ctx, String Tabela, Object table,int VALIDATION_TYPE) throws Validator_Exception {
         p_dao = new Pasto_Dao(ctx);
         pasto = (Pasto)table;
 
@@ -36,8 +36,8 @@ public class Pasto_Model extends BancoService {
                 if (pasto.getNome().equals(""))
                 {
                     //ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_NULO");
-                    ValidatorException ve = new ValidatorException("O campo Nome não pode ser vazio!");
-                    ve.setException_code(ValidatorException.MESSAGE_TYPE_WARNING);
+                    Validator_Exception ve = new Validator_Exception("O campo Nome não pode ser vazio!");
+                    ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
                     ve.setException_args(new Object[] {});
                     throw ve;
                 }
@@ -45,8 +45,8 @@ public class Pasto_Model extends BancoService {
             if (p_dao.ifExistPastoInsert(pasto.getNome().toString()))
             {
                 //ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
-                ValidatorException ve = new ValidatorException("O Nome do pasto não pode ser duplicado!");
-                ve.setException_code(ValidatorException.MESSAGE_TYPE_WARNING);
+                Validator_Exception ve = new Validator_Exception("O Nome do pasto não pode ser duplicado!");
+                ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
                 ve.setException_args(new Object[] {});
                 throw ve;
             }
@@ -59,7 +59,7 @@ public class Pasto_Model extends BancoService {
 //                ve.setException_args(new Object[] {});
 //                throw ve;
 //            }
-        } catch (ValidatorException e) {
+        } catch (Validator_Exception e) {
             throw e;
         } catch (Exception e) {
             Log.i("PASTO", e.toString());

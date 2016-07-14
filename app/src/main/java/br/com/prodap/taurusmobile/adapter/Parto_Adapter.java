@@ -32,6 +32,7 @@ public class Parto_Adapter extends BaseAdapter{
 		Parto parto = new Parto();
 
 		while (c.moveToNext()) {
+			parto.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
 			parto.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
 			parto.setData_parto(c.getString(c.getColumnIndex("data_parto")));
 			parto.setSync_status(c.getInt(c.getColumnIndex("sync_status")));
@@ -44,6 +45,7 @@ public class Parto_Adapter extends BaseAdapter{
 	@NonNull
 	public ContentValues getDadosParto(Parto p_tb) {
 		ContentValues p_dados = new ContentValues();
+		p_dados.put("id_pk", p_tb.getId_pk());
 		p_dados.put("id_fk_animal", p_tb.getId_fk_animal());
 		p_dados.put("data_parto", p_tb.getData_parto());
 		p_dados.put("perda_gestacao", p_tb.getPerda_gestacao());
@@ -58,7 +60,7 @@ public class Parto_Adapter extends BaseAdapter{
 		while (c.moveToNext()) {
 
 			Parto parto = new Parto();
-
+			parto.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
 			parto.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
 			parto.setData_parto(c.getString(c.getColumnIndex("data_parto")));
 			parto.setSync_status(c.getInt(c.getColumnIndex("sync_status")));
@@ -76,7 +78,7 @@ public class Parto_Adapter extends BaseAdapter{
 		for (int i = 0; i < PartoArray.length; i++) {
 
 			Parto parto = new Parto();
-
+			parto.setId_pk(PartoArray[i].getId_pk());
 			parto.setId_fk_animal(PartoArray[i].getId_fk_animal());
 			parto.setData_parto(PartoArray[i].getData_parto());
 			parto.setSync_status(PartoArray[i].getSync_status());
@@ -90,7 +92,7 @@ public class Parto_Adapter extends BaseAdapter{
 
 	public Parto PartoHelper(Parto parto_tb) {
 		Parto parto = new Parto();
-
+		parto.setId_pk(parto_tb.getId_pk());
 		parto.setId_fk_animal(parto_tb.getId_fk_animal());
 		parto.setData_parto(parto_tb.getData_parto());
 		parto.setSync_status(parto_tb.getSync_status());

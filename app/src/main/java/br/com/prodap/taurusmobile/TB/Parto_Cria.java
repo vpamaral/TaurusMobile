@@ -10,11 +10,11 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
 import br.com.prodap.taurusmobile.service.Banco;
-import br.com.prodap.taurusmobile.service.BancoService;
+import br.com.prodap.taurusmobile.service.Banco_Service;
 
 public class Parto_Cria implements Serializable {
 
-	//private long id_auto;
+	private long id_fk_parto;
 	private long id_fk_animal_mae;
 	private int sync_status;
 	private String peso_cria;
@@ -27,15 +27,24 @@ public class Parto_Cria implements Serializable {
 	private String raca_cria;
 	private String repasse;
 	private String tipo_parto;
+	private String cod_matriz_invalido;
 	private String pasto;
 
-	/*public long getId_auto() {
-		return id_auto;
+	public long getId_fk_parto() {
+		return id_fk_parto;
 	}
 
-	public void setId_auto(long id_auto) {
-		this.id_auto = id_auto;
-	}*/
+	public void setId_fk_parto(long id_fk_parto) {
+		this.id_fk_parto = id_fk_parto;
+	}
+
+	public String getCod_matriz_invalido() {
+		return cod_matriz_invalido;
+	}
+
+	public void setCod_matriz_invalido(String cod_matriz_invalido) {
+		this.cod_matriz_invalido = cod_matriz_invalido;
+	}
 
 	public long getId_fk_animal_mae() {
 		return id_fk_animal_mae;
@@ -111,7 +120,7 @@ public class Parto_Cria implements Serializable {
 
 	@Override
 	public String toString() {
-		return codigo_cria + " - " + identificador;
+		return codigo_cria;
 	}
 
 	public String getRepasse() {
@@ -146,64 +155,4 @@ public class Parto_Cria implements Serializable {
 		this.pasto = pasto;
 	}
 
-	public static class Parto_CriaModel extends BancoService {
-
-        private Banco banco;
-        private SQLiteDatabase db;
-        private Parto_Cria_Adapter partoCria_adapter;
-        private Parto_Cria parto_cria;
-
-        public Parto_CriaModel(Context ctx) {
-            partoCria_adapter = new Parto_Cria_Adapter();
-        }
-
-
-        @Override
-        public void validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE) {
-
-        }
-
-        public void removerByMae(Context ctx, Long codigo){
-            banco = new Banco(ctx);
-
-            db = banco.getWritableDatabase();
-
-            db.delete("Parto_Cria", "id_fk_animal_mae=?", new String[]{codigo.toString()});
-        }
-
-        public Parto_Cria selectByCodigo(Context ctx, Integer codigo) {
-            banco = new Banco(ctx);
-
-            db = banco.getReadableDatabase();
-            Cursor cursor = db.query("Parto_Cria", null, "id_auto=?",
-                    new String[] { codigo.toString() }, null, null, "id_auto");
-
-            parto_cria = partoCria_adapter.PartoCriaCursor(cursor);
-
-            return parto_cria;
-        }
-
-        @Override
-        public List<Parto_Cria> selectAll(Context ctx, String Tabela, Object table) {
-            Banco banco = new Banco(ctx);
-
-            Class classe = table.getClass();
-            List<Parto_Cria> listadd = new ArrayList<Parto_Cria>();
-            String sql = String.format("SELECT * FROM %s WHERE sync_status = 0  ORDER BY codigo_cria ", Tabela);
-
-            Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
-
-            listadd = partoCria_adapter.PartoCriaPreencheArrayCursor(c);
-
-            banco.close();
-            return listadd;
-        }
-
-        @Override
-        public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-    }
 }

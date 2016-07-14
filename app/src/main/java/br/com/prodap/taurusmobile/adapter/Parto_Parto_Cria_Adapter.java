@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.tb.Parto_Parto_Cria;
-import br.com.prodap.taurusmobile.ui.R;
+import br.com.prodap.taurusmobile.R;
 
 public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 	private List<Parto_Parto_Cria> partos_cria;
@@ -47,6 +47,7 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 			p_partoCria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
 			p_partoCria.setRepasse(c.getString(c.getColumnIndex("repasse")));
 			p_partoCria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
+			p_partoCria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			p_partoCria.setPasto(c.getString(c.getColumnIndex("pasto")));
 		}
 
@@ -75,6 +76,7 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 			p_partoCria.setRaca_cria(c.getString(c.getColumnIndex("raca_cria")));
 			p_partoCria.setRepasse(c.getString(c.getColumnIndex("repasse")));
 			p_partoCria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
+			p_partoCria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			p_partoCria.setPasto(c.getString(c.getColumnIndex("pasto")));
 
 			listaPartoCria.add(p_partoCria);
@@ -107,6 +109,7 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 			p_partoCria.setRaca_cria(PartoCriaArray[i].getRaca_cria());
 			p_partoCria.setRepasse(PartoCriaArray[i].getRepasse());
 			p_partoCria.setTipo_parto(PartoCriaArray[i].getTipo_parto());
+			p_partoCria.setCod_matriz_invalido(PartoCriaArray[i].getCod_matriz_invalido());
 			p_partoCria.setPasto(PartoCriaArray[i].getPasto());
 
 			listaPartoCria.add(p_partoCria);
@@ -133,6 +136,7 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 		p_partoCria.setRaca_cria(p_partoCria_tb.getRaca_cria());
 		p_partoCria.setRepasse(p_partoCria_tb.getRepasse());
 		p_partoCria.setTipo_parto(p_partoCria_tb.getTipo_parto());
+		p_partoCria.setCod_matriz_invalido(p_partoCria_tb.getCod_matriz_invalido());
 		p_partoCria.setPasto(p_partoCria_tb.getPasto());
 
 		return p_partoCria;
