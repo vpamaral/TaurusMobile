@@ -22,6 +22,7 @@ public class Parto_Cria_Converter_JSON {
 				js.key("sisbov").value(parto.getSisbov());
 				js.key("identificador").value(parto.getIdentificador());
 				js.key("sync_status").value(parto.getSync_status());
+				js.key("cod_matriz_invalido").value(parto.getCod_matriz_invalido());
 				js.key("pasto").value(parto.getPasto());
 				js.endObject();
 			}

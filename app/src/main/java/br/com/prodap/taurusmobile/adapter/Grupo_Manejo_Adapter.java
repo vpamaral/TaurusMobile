@@ -1,6 +1,7 @@
 package br.com.prodap.taurusmobile.adapter;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,12 @@ public class Grupo_Manejo_Adapter extends BaseAdapter {
             listGrupos.add(grupo_tb);
         }
         return listGrupos;
+    }
+
+    public ContentValues getDadosGrupo(Grupo_Manejo grupo) {
+        ContentValues dados = new ContentValues();
+        dados.put("codigo", grupo.getCodigo());
+        return dados;
     }
 
     public Grupo_Manejo grupoHelper(Grupo_Manejo grupo_tb) {

@@ -30,6 +30,7 @@ public class Parto_Parto_Cria_JSON {
 				js.key("data_identificacao").value(p_partoCria.getData_identificacao());
 				js.key("repasse").value(p_partoCria.getRepasse());
 				js.key("tipo_parto").value(p_partoCria.getTipo_parto());
+				js.key("cod_matriz_invalido").value(p_partoCria.getCod_matriz_invalido());
 				js.key("pasto").value(p_partoCria.getPasto());
 				js.endObject();
 			}

@@ -95,8 +95,8 @@ public class Animal_Adapter {
 
 		animal_tb.setId_pk(a_tb.getId_pk());
 		animal_tb.setCodigo(a_tb.getCodigo());
-		animal_tb.setIdentificador(a_tb.getIdentificador() != null ? a_tb.getIdentificador() : "");
-		animal_tb.setCodigo_ferro(a_tb.getCodigo_ferro() != null ? a_tb.getCodigo_ferro() : "");
+		animal_tb.setIdentificador(a_tb.getIdentificador() != null ? a_tb.getIdentificador() : "0");
+		animal_tb.setCodigo_ferro(a_tb.getCodigo_ferro() != null ? a_tb.getCodigo_ferro() : "0");
 		animal_tb.setData_nascimento(a_tb.getData_nascimento());
 
 		//animal_tb.setId_fk_cria(animalTB.getId_fk_cria());

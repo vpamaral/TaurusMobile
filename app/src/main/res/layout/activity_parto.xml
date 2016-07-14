@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.prodap.taurusmobile.ui.PartoActivity" >
+    tools:context=".Parto_Activity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -116,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="6"
+                android:maxLength="8"
                 android:enabled="false"/>
 
         </LinearLayout>
@@ -125,53 +125,6 @@
             android:id="@+id/space2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1" >
-
-            <TextView
-                android:id="@+id/id_animal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Matriz:               "
-                android:textStyle="bold"
-                android:layout_gravity="center" />
-
-            <EditText
-                android:id="@+id/edtMatriz"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descarte:         "
-                android:textStyle="bold"
-                android:layout_gravity="center" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cbDescarte"
-                android:enabled="true"
-                android:layout_gravity="center" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -223,6 +176,52 @@
             android:id="@+id/space16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <TextView
+                android:id="@+id/id_animal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Matriz:               "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <EditText
+                android:id="@+id/edtMatriz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="15" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descarte:         "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cbDescarte"
+                android:enabled="true"
+                android:layout_gravity="center" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_manejo"

@@ -10,9 +10,9 @@ import java.util.List;
 import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
-import br.com.prodap.taurusmobile.ui.MenuPrincipalActivity;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Get_ARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 
@@ -55,13 +55,13 @@ public class Get_ARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 		try {
 			Gson gson = new Gson();
 			pastoAdapter = new Pasto_Adapter();
-			Pasto[] arrayPasto = gson.fromJson(MenuPrincipalActivity.JSONPASTO, Pasto[].class);
+			Pasto[] arrayPasto = gson.fromJson(Menu_Principal_Activity.JSONPASTO, Pasto[].class);
 			pastoList = pastoAdapter.arrayPasto(arrayPasto);
 			int i = 0;
 			mProgress.setMax(pastoList.size());
 			for (Pasto pasto_tb : pastoList) {
 				if (pastoList.size() != 0) {
-					pastoModel.insert(ctx, "Pasto", pasto_tb);
+					pastoModel.insert(ctx, "Pasto", pastoAdapter.getDadosPasto(pasto_tb));
 					publishProgress(i * 1);
 				}
 				i++;
@@ -76,10 +76,10 @@ public class Get_ARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
 	protected void onPostExecute(List<Pasto> result) {
 		mProgress.dismiss();
 		if(pastoList.isEmpty()){
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível transferir os dados.");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível transferir os dados.");
 		}
 		else {
-			MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Dados transferidos com sucesso.");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados transferidos com sucesso.");
 		}
 	}
 }

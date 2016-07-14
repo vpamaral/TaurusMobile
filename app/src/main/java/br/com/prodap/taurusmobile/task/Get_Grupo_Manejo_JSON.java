@@ -15,8 +15,8 @@ import br.com.prodap.taurusmobile.service.Get_JSON;
 import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
 import br.com.prodap.taurusmobile.util.Constantes;
-import br.com.prodap.taurusmobile.util.MensagemUtil;
-import br.com.prodap.taurusmobile.util.MessageDialog;
+import br.com.prodap.taurusmobile.util.Mensagem_Util;
+import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 /**
  * Created by Prodap on 02/02/2016.
@@ -78,14 +78,14 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
         }
         try {
             Grupo_Manejo_Model grupo_model   = new Grupo_Manejo_Model(ctx);
-            Get_JSON getJSON 	    = new Get_JSON(url + Constantes.METHODO_GET_GRUPOS, ctx);
+            Get_JSON getJSON 	    = new Get_JSON(url + Constantes.METHOD_GET_GRUPOS, ctx);
             grupo_list              = getJSON.listGrupo();
             grupo_adapter           = new Grupo_Manejo_Adapter();
             int i = 0;
             mProgress.setMax(grupo_list.size());
             for (Grupo_Manejo grupo_tb : grupo_list) {
                 if (grupo_list.size() != 0) {
-                    grupo_model.insert(ctx, "Grupo_Manejo", grupo_tb);
+                    grupo_model.insert(ctx, "Grupo_Manejo", grupo_adapter.getDadosGrupo(grupo_tb));
                     publishProgress(i * 1);
                 }
                 i++;
@@ -99,15 +99,15 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
     @Override
     protected void onPostExecute(List<Grupo_Manejo> result) {
         if (c_http.servResultGet != 200) {
-            MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
+            Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
             mProgress.dismiss();
         } else {
             if (result != null) {
                 mProgress.dismiss();
                 if (grupo_list.isEmpty()) {
-                    MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Não foi possível atualizar os dados.");
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
                 } else {
-                    MensagemUtil.addMsg(MessageDialog.Toast, ctx, "Grupo de Manejo atualizados com sucesso.");
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Grupo de Manejo atualizados com sucesso.");
                 }
             }
         }
