@@ -40,11 +40,13 @@ import java.util.List;
 import br.com.prodap.taurusmobile.R;
 import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
 import br.com.prodap.taurusmobile.bluetooth.Bluetooth_Activity;
+import br.com.prodap.taurusmobile.model.Criterio_Model;
 import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
 import br.com.prodap.taurusmobile.model.Parto_Cria_Model;
 import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.tb.Configuracao;
+import br.com.prodap.taurusmobile.tb.Criterio;
 import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
 import br.com.prodap.taurusmobile.tb.Leitor;
 import br.com.prodap.taurusmobile.tb.Parto;
@@ -82,6 +84,7 @@ public class Parto_Activity extends Activity {
     private EditText editIdentificador;
     private EditText editSisbov;
     private AutoCompleteTextView editGrupoManejo;
+    private AutoCompleteTextView editCriterio;
     private EditText editPeso;
     private EditText editDataIdentificacao;
     private Button btnSalvar;
@@ -114,6 +117,7 @@ public class Parto_Activity extends Activity {
     private String strCod_matriz;
     private String strDataParto;
     private String strGrupo_manejo;
+    private String strCriterio;
     private String strPasto;
     private String strRaca_cria;
     private String strGenetica;
@@ -179,6 +183,8 @@ public class Parto_Activity extends Activity {
         buscaPasto();
 
         buscaGrupoManejo();
+
+        buscaCriterio();
 
         loadComboBox();
 
@@ -293,6 +299,8 @@ public class Parto_Activity extends Activity {
                     }
                     cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
                     strGrupo_manejo = editGrupoManejo.getText().toString();
+
+                    strCriterio = editCriterio.getText().toString();
 
                     cria_tb.setSync_status(0);
                     parto_tb.setSync_status(0);
@@ -587,12 +595,13 @@ public class Parto_Activity extends Activity {
     private void buscaPasto()
     {
         List<Pasto> pasto_list;
-        List<String> nome_pasto_list = new ArrayList<String>();
-        Pasto pasto_tb = new Pasto();
-        Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
+        List<String> nome_pasto_list    = new ArrayList<String>();
+        Pasto pasto_tb                  = new Pasto();
+        Pasto_Model pasto_model         = new Pasto_Model(this);
+
         try
         {
-            pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
+            pasto_list = pasto_model.selectAll(this, "Pasto", pasto_tb);
 
             for(Pasto p : pasto_list)
             {
@@ -607,7 +616,7 @@ public class Parto_Activity extends Activity {
 
         editBuscaPasto=(AutoCompleteTextView)findViewById(R.id.edtBuscaPasto);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,nome_pasto_list);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, nome_pasto_list);
 
         editBuscaPasto.setAdapter(adapter);
         editBuscaPasto.setThreshold(1);
@@ -616,17 +625,17 @@ public class Parto_Activity extends Activity {
     private void buscaGrupoManejo()
     {
         List<Grupo_Manejo> grupo_list;
-        List<String> codigo_grupo_list = new ArrayList<String>();
-        Grupo_Manejo grupo_tb = new Grupo_Manejo();
-        Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(getBaseContext());
+        List<String> codigo_grupo_list  = new ArrayList<String>();
+        Grupo_Manejo grupo_tb           = new Grupo_Manejo();
+        Grupo_Manejo_Model grupo_model  = new Grupo_Manejo_Model(this);
 
         try
         {
-            grupo_list = grupo_model.selectAll(getBaseContext(), "Grupo_Manejo", grupo_tb);
+            grupo_list = grupo_model.selectAll(this, "Grupo_Manejo", grupo_tb);
 
             for (Grupo_Manejo g_tb : grupo_list)
             {
-                codigo_grupo_list.add(g_tb.getCodigo().toString());
+                codigo_grupo_list.add(g_tb.getCodigo());
             }
         }
         catch (Exception e)
@@ -641,6 +650,36 @@ public class Parto_Activity extends Activity {
 
         editGrupoManejo.setAdapter(grupo_adapter);
         editGrupoManejo.setThreshold(1);
+    }
+
+    private void buscaCriterio()
+    {
+        List<Criterio> criterio_list;
+        List<String> c_criterio_list    = new ArrayList<String>();
+        Criterio criterio_tb            = new Criterio();
+        Criterio_Model criterio_model   = new Criterio_Model(this);
+
+        try
+        {
+            criterio_list = criterio_model.selectAll(this, "Criterio", criterio_tb);
+
+            for (Criterio c_tb : criterio_list)
+            {
+                c_criterio_list.add(c_tb.getCriterio());
+            }
+        }
+        catch (Exception e)
+        {
+            Log.i("BuscaBusca", e.toString());
+            e.printStackTrace();
+        }
+
+        editCriterio=(AutoCompleteTextView)findViewById(R.id.edtCriterio);
+
+        ArrayAdapter<String> criterio_adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, c_criterio_list);
+
+        editCriterio.setAdapter(criterio_adapter);
+        editCriterio.setThreshold(1);
     }
 
     private void leitorCodBarras()
@@ -709,6 +748,11 @@ public class Parto_Activity extends Activity {
                 editGrupoManejo.setText(Menu_Principal_Activity.old_grupo_manejo);
             }
 
+            if (editCriterio.getText().toString().equals(""))
+            {
+                editCriterio.setText(Menu_Principal_Activity.old_criterio);
+            }
+
             if (editBuscaPasto.getText().toString().equals(""))
             {
                 editBuscaPasto.setText(Menu_Principal_Activity.old_pasto);
@@ -739,6 +783,7 @@ public class Parto_Activity extends Activity {
         Menu_Principal_Activity.old_raca_cria       = strRaca_cria;
         Menu_Principal_Activity.old_pasto           = strPasto;
         Menu_Principal_Activity.old_grupo_manejo    = strGrupo_manejo;
+        Menu_Principal_Activity.old_criterio        = strCriterio;
         Menu_Principal_Activity.old_data_parto      = strDataParto;
         Menu_Principal_Activity.old_cod_matriz      = strCod_matriz;
     }
@@ -971,9 +1016,9 @@ public class Parto_Activity extends Activity {
     {
         switch (item.getItemId())
         {
-            case R.id.menu_bluetooth:
+            /*case R.id.menu_bluetooth:
                 configBluetooth();
-                return false;
+                return false;*/
             default:
                 break;
         }

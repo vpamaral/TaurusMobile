@@ -27,10 +27,12 @@ import java.util.List;
 import br.com.prodap.taurusmobile.R;
 import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
+import br.com.prodap.taurusmobile.model.Criterio_Model;
 import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
 import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.task.Get_Animais_JSON;
+import br.com.prodap.taurusmobile.task.Get_Criterios_JSON;
 import br.com.prodap.taurusmobile.task.Get_Grupo_Manejo_JSON;
 import br.com.prodap.taurusmobile.task.Get_Pastos_JSON;
 import br.com.prodap.taurusmobile.task.Post_Animais_JSON;
@@ -55,6 +57,7 @@ public class Menu_Principal_Activity extends Activity {
 	public static String old_cod_matriz;
 	public static String old_data_parto;
 	public static String old_grupo_manejo;
+	public static String old_criterio;
 	public static String old_pasto;
 	public static String old_raca_cria;
 	public static String old_genetica;
@@ -63,7 +66,7 @@ public class Menu_Principal_Activity extends Activity {
 
 	private List<Configuracao> lista_conf;
 	private Configuracao_Model configuracao_model;
-	private Configuracao c_tb;
+	private Configuracao conf_tb;
 	private String url;
 	private Parto_Model parto_model;
 
@@ -86,19 +89,22 @@ public class Menu_Principal_Activity extends Activity {
 		loadListener();
 	}
 
-	private void loadVars() {
+	private void loadVars()
+	{
 		old_sisbov 			= "";
 		old_identificador	= "";
 		old_cod_matriz		= "";
 		old_data_parto		= "";
 		old_grupo_manejo	= "";
+		old_criterio		= "";
 		old_pasto			= "";
 		old_genetica		= "";
 		old_raca_cria		= "";
 		old_sexo			= "";
 	}
 
-	private void source() {
+	private void source()
+	{
 		btn_atualizar 		= (Button) findViewById(R.id.btn_atualiza);
 //		btn_atualizar_dados	= (Button) findViewById(R.id.btn_atualiza_dados);
 		btn_animais 		= (Button) findViewById(R.id.btn_animal);
@@ -107,20 +113,24 @@ public class Menu_Principal_Activity extends Activity {
 		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
 		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
 		configuracao_model 	= new Configuracao_Model(this);
-		c_tb 				= new Configuracao();
+		conf_tb 			= new Configuracao();
 		parto_model			= new Parto_Model(this);
-		lista_conf 			= configuracao_model.selectAll(getBaseContext(), "Configuracao", c_tb);
 
-		for (Configuracao conf_tb : lista_conf) {
-			url = conf_tb.getEndereco();
+		lista_conf 			= configuracao_model.selectAll(this, "Configuracao", conf_tb);
+
+		for (Configuracao conf : lista_conf)
+		{
+			url = conf.getEndereco();
 		}
-		existCelular(lista_conf, c_tb);
+		existCelular(lista_conf, conf_tb);
 	}
 
-	private void atualizarBotoes() {
+	private void atualizarBotoes()
+	{
 		final List<Pasto> pasto_list;
 		final List<String> nome_pasto_list = new ArrayList<String>();
 		final Pasto pasto_tb = new Pasto();
+
 //		Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
 //		Pasto_Adapter pasto_adapter = new Pasto_Adapter();
 //
@@ -132,7 +142,8 @@ public class Menu_Principal_Activity extends Activity {
 //		}
 	}
 	
-	private void loadListener() {
+	private void loadListener()
+	{
 		btn_atualizar.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -195,7 +206,8 @@ public class Menu_Principal_Activity extends Activity {
 		});
 	}
 
-	private void lancaParto() {
+	private void lancaParto()
+	{
 		Intent intent = new Intent(Menu_Principal_Activity.this, Parto_Activity.class);
 		startActivity(intent);
 	}
@@ -211,18 +223,24 @@ public class Menu_Principal_Activity extends Activity {
 		startActivity(intent);
 	}
 	
-	private void partosList() {
-		Intent intent = new Intent(Menu_Principal_Activity.this,
-				Lista_Partos_Cria_Activity.class);
+	private void partosList()
+	{
+		Intent intent = new Intent(Menu_Principal_Activity.this, Lista_Partos_Cria_Activity.class);
 		startActivity(intent);
 	}
 
-	private void updateDados() {
-		if (checksConnection()) {
-			if (validateServer(url)){
+	private void updateDados()
+	{
+
+		if (checksConnection())
+		{
+			if (validateServer(url))
+			{
 				msgUpdateAnimais();
 			}
-		} else {
+		}
+		else
+		{
 			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
@@ -245,37 +263,54 @@ public class Menu_Principal_Activity extends Activity {
 		startActivity(intent);
 	}
 
-	private void msgUpdateAnimais() {
-		if (checksConnection()) {
-			if (validateServer(url)){
+	private void msgUpdateAnimais()
+	{
+		if (checksConnection())
+		{
+			if (validateServer(url))
+			{
 				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados?"
-						, new DialogInterface.OnClickListener() {
+						, new DialogInterface.OnClickListener()
+						{
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+					public void onClick(DialogInterface dialog, int which)
+					{
 						updatePastos();
 						updateGrupoManejo();
+						updateCriterios();
 						Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
 						objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
 						new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 					}
 				});
 			}
-		} else {
+		}
+		else
+		{
 			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
 	}
 
-	private void updatePastos() {
+	private void updatePastos()
+	{
 		Pasto_Model pasto_model = new Pasto_Model(Menu_Principal_Activity.this);
 		pasto_model.delete(Menu_Principal_Activity.this, "Pasto");
 		new Get_Pastos_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
 
-	private void updateGrupoManejo() {
+	private void updateGrupoManejo()
+	{
 		Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(Menu_Principal_Activity.this);
 		grupo_model.delete(Menu_Principal_Activity.this, "Grupo_Manejo");
 		new Get_Grupo_Manejo_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+	}
+
+	private void updateCriterios()
+	{
+		Criterio_Model c_model = new Criterio_Model(Menu_Principal_Activity.this);
+		c_model.delete(Menu_Principal_Activity.this, "Criterio");
+		new Get_Criterios_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
 
 //	private void msgUpdatePastoViaArquivo() {
@@ -329,15 +364,21 @@ public class Menu_Principal_Activity extends Activity {
 		return connected;
 	}
 
-	private void existCelular(List<Configuracao> listQRCode, Configuracao qrcode_tb) {
-		if (listQRCode.size() != 0) {
-			for (Configuracao conf_tb : listQRCode) {
+	private void existCelular(List<Configuracao> listQRCode, Configuracao qrcode_tb)
+	{
+		if (listQRCode.size() != 0)
+		{
+			for (Configuracao conf_tb : listQRCode)
+			{
 				if (conf_tb.getTipo().equals(qrcode_tb.getTipo())
-						&& conf_tb.getEndereco().equals(qrcode_tb.getEndereco())) {
+						&& conf_tb.getEndereco().equals(qrcode_tb.getEndereco()))
+				{
 					break;
 				}
 			}
-		} else {
+		}
+		else
+		{
 			loadLeitor();
 		}
 	}

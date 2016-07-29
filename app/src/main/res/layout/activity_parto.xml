@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Parto_Activity" >
+    tools:context=".view.Parto_Activity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -232,7 +232,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grupo Manejo:"
+                android:text="Grupo Manejo: "
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 
@@ -246,6 +246,32 @@
 
         <TextView
             android:id="@+id/space1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/ll_criterio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Critério:             "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtCriterio"
+                android:completionThreshold="1" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/space11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

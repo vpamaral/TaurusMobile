@@ -82,7 +82,8 @@ public class Pasto_Dao extends Banco {
         return result;
     }
 
-    public List<Pasto> selectAllPastos(Context ctx, String Tabela, Object table) {
+    public List<Pasto> selectAllPastos(Context ctx, String Tabela, Object table)
+    {
         Banco banco = new Banco(ctx);
         pasto_adapter = new Pasto_Adapter();
 

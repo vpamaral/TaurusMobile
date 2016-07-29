@@ -34,7 +34,7 @@ public class Grupo_Manejo_Adapter extends BaseAdapter {
 
         while (c.moveToNext()) {
 
-            grupo_tb.setCodigo(c.getString(c.getColumnIndex("codigo")));
+            grupo_tb.setCodigo(c.getString(c.getColumnIndex("nome")));
         }
         return grupo_tb;
     }
@@ -44,7 +44,7 @@ public class Grupo_Manejo_Adapter extends BaseAdapter {
         while (c.moveToNext()) {
 
             Grupo_Manejo grupo_tb = new Grupo_Manejo();
-            grupo_tb.setCodigo(c.getString(c.getColumnIndex("codigo")));
+            grupo_tb.setCodigo(c.getString(c.getColumnIndex("nome")));
 
             listGrupos.add(grupo_tb);
         }
@@ -65,9 +65,10 @@ public class Grupo_Manejo_Adapter extends BaseAdapter {
         return listGrupos;
     }
 
-    public ContentValues getDadosGrupo(Grupo_Manejo grupo) {
+    public ContentValues getDadosGrupo(Grupo_Manejo grupo)
+    {
         ContentValues dados = new ContentValues();
-        dados.put("codigo", grupo.getCodigo());
+        dados.put("nome", grupo.getCodigo());
         return dados;
     }
 

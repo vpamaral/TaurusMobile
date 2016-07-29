@@ -41,7 +41,8 @@ public class Configuracao_Adapter extends BaseAdapter {
 	}
 
 	@NonNull
-	public ContentValues getDadosConfig(Configuracao c_tb) {
+	public ContentValues getDadosConfig(Configuracao c_tb)
+	{
 		ContentValues c_dados = new ContentValues();
 		c_dados.put("tipo", c_tb.getTipo());
 		c_dados.put("endereco", c_tb.getEndereco());
@@ -52,9 +53,12 @@ public class Configuracao_Adapter extends BaseAdapter {
 		return c_dados;
 	}
 
-	public List<Configuracao> arrayConfiguracoes(Cursor c) {
+	public List<Configuracao> arrayConfiguracoes(Cursor c)
+	{
 		List<Configuracao> c_list = new ArrayList<Configuracao>();
-		while (c.moveToNext()) {
+
+		while (c.moveToNext())
+		{
 			Configuracao c_tb = new Configuracao();
 			c_tb.setId_auto(c.getLong(c.getColumnIndex("id_auto")));
 			c_tb.setTipo(c.getString(c.getColumnIndex("tipo")));
