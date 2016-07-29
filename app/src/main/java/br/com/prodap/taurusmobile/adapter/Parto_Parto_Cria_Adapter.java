@@ -49,6 +49,7 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 			p_partoCria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
 			p_partoCria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			p_partoCria.setPasto(c.getString(c.getColumnIndex("pasto")));
+			p_partoCria.setCriterio(c.getString(c.getColumnIndex("criterio")));
 		}
 
 		return p_partoCria;
@@ -78,6 +79,7 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 			p_partoCria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
 			p_partoCria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			p_partoCria.setPasto(c.getString(c.getColumnIndex("pasto")));
+			p_partoCria.setCriterio(c.getString(c.getColumnIndex("criterio")));
 
 			listaPartoCria.add(p_partoCria);
 		}

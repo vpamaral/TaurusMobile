@@ -106,7 +106,7 @@ public class Parto_Activity extends Activity {
     private Parto parto_tb;
     private Parto_Cria cria_tb;
     private Parto_Adapter p_helper;
-    private Parto_Cria_Adapter c_helper;
+    private Parto_Cria_Adapter pc_helper;
     private List<Configuracao> listConf;
     private List<Parto_Cria> listaCria;
     private static List<String> listaMatriz;
@@ -238,10 +238,11 @@ public class Parto_Activity extends Activity {
     }
 
     private void btnSalvarClick() {
-        btnSalvar.setOnClickListener(new OnClickListener() {
-
+        btnSalvar.setOnClickListener(new OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 id_pk = data.getTime();
 
                 parto_tb.setId_pk(id_pk);
@@ -249,17 +250,21 @@ public class Parto_Activity extends Activity {
 
                 loadMatriz();
 
-                if (listaAnimal.size() != 0) {
+                if (listaAnimal.size() != 0)
+                {
                     parto_tb.setData_parto(editDataParto.getText().toString());
                     strDataParto = editDataParto.getText().toString();
 
                     parto_tb.setPerda_gestacao(spinPerda.getSelectedItem().toString());
                     parto_tb.setSexo_parto(spinSexo.getSelectedItem() == "FÊMEA" ? "FE" : "MA");
 
-                    if (!txtidanimal.getText().toString().equals("")) {
+                    if (!txtidanimal.getText().toString().equals(""))
+                    {
                         parto_tb.setId_fk_animal(Long.parseLong(txtidanimal.getText().toString()));
                         cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal.getText().toString()));
-                    } else {
+                    }
+                    else
+                    {
                         parto_tb.setId_fk_animal(1);
                         cria_tb.setId_fk_animal_mae(1);
                     }
@@ -288,18 +293,24 @@ public class Parto_Activity extends Activity {
 
                     cria_tb.setIdentificador(editIdentificador.getText().toString());
 
-                    if (validaSisbov == true) {
-                        if (!editSisbov.getText().toString().equals("")) {
+                    if (validaSisbov == true)
+                    {
+                        if (!editSisbov.getText().toString().equals(""))
+                        {
                             long sis = Long.parseLong(editSisbov.getText().toString());
                             String strsis = String.valueOf(sis);
                             cria_tb.setSisbov(strsis);
                         }
-                    } else {
+                    }
+                    else
+                    {
                         cria_tb.setSisbov(editSisbov.getText().toString());
                     }
+
                     cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
                     strGrupo_manejo = editGrupoManejo.getText().toString();
 
+                    cria_tb.setCriterio(editCriterio.getText().toString());
                     strCriterio = editCriterio.getText().toString();
 
                     cria_tb.setSync_status(0);
@@ -525,7 +536,7 @@ public class Parto_Activity extends Activity {
         cria_model  = new Parto_Cria_Model(this);
         conf_model  = new Configuracao_Model(this);
         p_helper    = new Parto_Adapter();
-        c_helper    = new Parto_Cria_Adapter();
+        pc_helper   = new Parto_Cria_Adapter();
         parto_tb    = new Parto();
         cria_tb     = new Parto_Cria();
         conf_tb     = new Configuracao();
@@ -547,9 +558,9 @@ public class Parto_Activity extends Activity {
         ll_sisbov               = (LinearLayout) findViewById(R.id.ll_sisbov);
         ll_manejo               = (LinearLayout) findViewById(R.id.ll_manejo);
 
-        listaCria               = cria_model.selectAll(this, "Parto_Cria", cria_tb);
         listConf                = conf_model.selectAll(this, "Configuracao", conf_tb);
         listaAnimal             = ani_model.selectAll(this, "Animal", animal_tb);
+        listaCria               = cria_model.selectAll(this, "Parto_Cria", cria_tb);
 
         editDataIdentificacao.setText(data_completa);
     }
@@ -795,7 +806,7 @@ public class Parto_Activity extends Activity {
             cria_model.validate(this, "Parto_Cria", cria_tb, Banco_Service.VALIDATION_TYPE_INSERT);
             parto_model.validate(this, "Parto", parto_tb, Banco_Service.VALIDATION_TYPE_INSERT);
             parto_model.insert(Parto_Activity.this, "Parto", p_helper.getDadosParto(parto_tb));
-            cria_model.insert(Parto_Activity.this, "Parto_Cria", c_helper.getDadosCria(cria_tb));
+            cria_model.insert(Parto_Activity.this, "Parto_Cria", pc_helper.getDadosCria(cria_tb));
             writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
             Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
             zeraInterface();

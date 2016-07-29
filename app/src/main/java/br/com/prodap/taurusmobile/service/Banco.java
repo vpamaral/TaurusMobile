@@ -51,6 +51,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'raca_cria'     	 		varchar(45),"
 				+ "'identificador'     	 	varchar(45),"
 				+ "'grupo_manejo'     	 	varchar(45),"
+				+ "'criterio'     	 		varchar(45),"
 				+ "'sync_status'     		TINYINT(1),"
 				+ "'peso_cria'        		varchar(45),"
 				+ "'codigo_cria'     	 	varchar(45),"
@@ -76,12 +77,12 @@ public class Banco extends SQLiteOpenHelper {
 
 		String sql_grupo_manejo = "CREATE TABLE 'Grupo_Manejo' ("
 				+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'nome'        			varchar(100)"
+				+ "'codigo'        			varchar(100)"
 				+");";
 
 		String sql_criterio = "CREATE TABLE 'Criterio' ("
 				+ "'id_auto'	    	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'nome'        		varchar(100)"
+				+ "'criterio'      		varchar(100)"
 				+");";
 
 		db.execSQL(sql_animal);

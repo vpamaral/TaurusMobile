@@ -44,7 +44,7 @@ public class Criterio_Adapter extends BaseAdapter {
         while (c.moveToNext()) {
 
             Criterio c_tb = new Criterio();
-            c_tb.setCriterio(c.getString(c.getColumnIndex("nome")));
+            c_tb.setCriterio(c.getString(c.getColumnIndex("criterio")));
 
             c_list.add(c_tb);
         }
@@ -76,7 +76,7 @@ public class Criterio_Adapter extends BaseAdapter {
     public ContentValues getDadosCriterio(Criterio c_tb)
     {
         ContentValues dados = new ContentValues();
-        dados.put("nome", c_tb.getCriterio());
+        dados.put("criterio", c_tb.getCriterio());
         return dados;
     }
 

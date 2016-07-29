@@ -7,11 +7,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.TimeoutException;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -146,20 +149,57 @@ public class Conexao_HTTP {
 		return result.toString();
 	}
 
-	public String postJson(String json) throws IOException {
+	public String postJson(String json) throws IOException
+	{
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 		post.setEntity(new StringEntity(json));
 		post.setHeader("Content-type", "application/json");
 		post.setHeader("Accept", "application/json");
 
-		try {
+		try
+		{
 			resposta = client.execute(post);
-		} catch (ClientProtocolException e) {
+		}
+		catch (ClientProtocolException e)
+		{
 			e.printStackTrace();
 			Log.i("TAG", e.toString());
 		}
+
 		this.servResultPost = resposta.getStatusLine().getStatusCode();
 		return EntityUtils.toString(resposta.getEntity());
+	}
+
+	public String postJson1(String json)
+	{
+		try
+		{
+			URL url1 = new URL(url);
+			HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
+			connection.setRequestProperty("Content-type", "application/json");
+			connection.setRequestProperty("Accept", "application/json");
+
+			connection.setDoOutput(true);
+
+			PrintStream output = new PrintStream(connection.getOutputStream());
+			output.println(json);
+
+			connection.connect();
+
+			Scanner scanner = new Scanner(connection.getInputStream());
+			String resposta = scanner.next();
+
+			return resposta;
+		}
+		catch (MalformedURLException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return String.valueOf(resposta);
 	}
 }

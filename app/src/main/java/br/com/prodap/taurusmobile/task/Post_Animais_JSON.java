@@ -60,7 +60,8 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 		source();
 	}
 
-	private void source() {
+	private void source()
+	{
 		configuracao_tb = new Configuracao();
 		p_parto_cria_tb 		= new Parto_Parto_Cria();
 		configuracoes_model		= new Configuracao_Model(ctx);
@@ -102,25 +103,37 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	protected String doInBackground(Object... params) {
 		String url = "";
 		configuracao_list = configuracoes_model.selectAll(ctx, "Configuracao", configuracao_tb);
-		for (Configuracao qrcode_tb : configuracao_list) {
+
+		for (Configuracao qrcode_tb : configuracao_list)
+		{
 			url = qrcode_tb.getEndereco();
 		}
 
-		try {
+		try
+		{
 			p_parto_cria_list = parto_parto_cria_model.selectAll(ctx, "Parto_Cria", p_parto_cria_tb);
-			if (p_parto_cria_list.size() != 0) {
+
+			if (p_parto_cria_list.size() != 0)
+			{
 				mProgress.setMax(p_parto_cria_list.size());
-				for(int i = 0; p_parto_cria_list.size() < i; i++){
+
+				for(int i = 0; p_parto_cria_list.size() < i; i++)
+				{
 					publishProgress(i * 1);
 				}
-				json = new Parto_Parto_Cria_JSON().toJSON(p_parto_cria_list);
-				auxiliar = new Auxiliar(json);
-				gson = new Gson();
+
+				json 		= new Parto_Parto_Cria_JSON().toJSON(p_parto_cria_list);
+				auxiliar 	= new Auxiliar(json);
+				gson 		= new Gson();
 				retornoJSON = gson.toJson(auxiliar);
+
 				new Conexao_HTTP(url + Constantes.METHOD_POST, ctx).postJson(retornoJSON);
+
 				return retornoJSON;
 			}
-		}catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			Log.i("POSTJSON", e.toString());
 			e.printStackTrace();
 		}
@@ -128,29 +141,43 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	}
 
 	@Override
-	protected void onPostExecute(String json) {
-		if (json != null) {
-			if (c_http.servResultPost != 200) {
+	protected void onPostExecute(String json)
+	{
+		if (json != null)
+		{
+			if (c_http.servResultPost != 200)
+			{
 				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 				mProgress.dismiss();
-			} else {
-				if (retornoJSON.isEmpty()) {
+			}
+			else
+			{
+				if (retornoJSON.isEmpty())
+				{
 					mProgress.dismiss();
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Nenhum dado para ser enviado.");
-				} else {
-					try {
+				}
+				else
+				{
+					try
+					{
 						createFilePartoSend();
 						writeInFileSendPartos(json);
-					} catch (IOException e) {
+					}
+					catch (IOException e)
+					{
 						Log.i("ARQUIVO_PARTOS_ENVIADOS", e.toString());
 						e.printStackTrace();
 					}
+
 					parto_model.deletingLogic(ctx);
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
 					mProgress.dismiss();
 				}
 			}
-		} else {
+		}
+		else
+		{
 			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não existem dados para serem enviados.");
 			mProgress.dismiss();
 		}
