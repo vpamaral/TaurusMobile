@@ -8,9 +8,9 @@
         android:showAsAction="never"
         android:title="@string/action_settings"/>-->
 
-    <item
+    <!--<item
         android:id="@+id/menu_bluetooth"
         android:showAsAction="always"
-        android:title="Conectar Bastão"/>
+        android:title="Conectar Bastão"/>-->
 
 </menu>
