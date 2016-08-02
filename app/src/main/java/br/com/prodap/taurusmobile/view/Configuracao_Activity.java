@@ -49,29 +49,39 @@ public class Configuracao_Activity extends Activity {
 	}
 
 	private void btnSalvarClick() {
-		btnSalvar.setOnClickListener(new OnClickListener() {
+		btnSalvar.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
-				try {
-					if (c_list.size() == 0) {
+			public void onClick(View v)
+			{
+				try
+				{
+					if (c_list.size() == 0)
+					{
 						insertConfiguracao(getConfig());
 						Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Dados inserido com sucesso");
 						loadMenuPrincipal();
-					} else {
+					}
+					else
+					{
 						updateConfiguracao(getConfig());
 						Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Dados atualizado com sucesso");
 						loadMenuPrincipal();
 					}
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
 		});
 	}
 
-	private void loadLeitor() {
-		btnLeitorQRCode.setOnClickListener(new OnClickListener() {
+	private void loadLeitor()
+	{
+		btnLeitorQRCode.setOnClickListener(new OnClickListener()
+		{
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(Configuracao_Activity.this,
@@ -81,7 +91,8 @@ public class Configuracao_Activity extends Activity {
 		});
 	}
 
-	private Configuracao getConfig() {
+	private Configuracao getConfig()
+	{
 		c_tb.setEndereco(edtEndereco.getText().toString());
 		c_tb.setTipo(tipo);
 		c_tb.setValida_identificador(cbIdentificador.isChecked() ? "S" : "N");
@@ -91,7 +102,8 @@ public class Configuracao_Activity extends Activity {
 		return c_tb;
 	}
 
-	private void loadConfig(Configuracao config_tb) {
+	private void loadConfig(Configuracao config_tb)
+	{
 		edtEndereco.setText(config_tb.getEndereco().toString());
 		tipo = config_tb.getTipo().toString();
 		if (config_tb.getValida_identificador().equals("S")) cbIdentificador.setChecked(true);
@@ -99,7 +111,8 @@ public class Configuracao_Activity extends Activity {
 		if (config_tb.getValida_manejo().equals("S")) cbManejo.setChecked(true);
 	}
 
-	private void source() {
+	private void source()
+	{
 		c_tb	 		 	= new Configuracao();
 		c_model 	 		= new Configuracao_Model(this);
 		c_adapter 		 	= new Configuracao_Adapter();
@@ -119,8 +132,10 @@ public class Configuracao_Activity extends Activity {
 			loadConfig(config_tb);
 		}
 
-		if (leitor != null) {
-			if (edtEndereco.getText().toString().equals("")) {
+		if (leitor != null)
+		{
+			if (edtEndereco.getText().toString().equals(""))
+			{
 				btnSalvar.setText("Salvar Dados do Servidor");
 			}
 
