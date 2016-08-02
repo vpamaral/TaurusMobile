@@ -969,14 +969,14 @@ public class Parto_Activity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId())
+        /*switch (item.getItemId())
         {
             case R.id.menu_bluetooth:
                 configBluetooth();
                 return false;
             default:
                 break;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 

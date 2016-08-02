@@ -60,7 +60,7 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 		c_dados.put("id_fk_parto", c_tb.getId_fk_parto());
 		c_dados.put("data_identificacao", c_tb.getData_identificacao());
 		c_dados.put("repasse", c_tb.getRepasse());
-		c_dados.put("sisbov", c_tb.getSync_status());
+		c_dados.put("sisbov", c_tb.getSisbov());
 		c_dados.put("raca_cria",  c_tb.getRaca_cria());
 		c_dados.put("identificador", c_tb.getIdentificador());
 		c_dados.put("grupo_manejo", c_tb.getGrupo_manejo());
