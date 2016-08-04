@@ -36,7 +36,8 @@ public class Parto_Parto_Cria_Model extends Banco_Service {
 	}
 
 	@Override
-	public List<Parto_Parto_Cria> selectAll(Context ctx, String Tabela, Object table) {
+	public List<Parto_Parto_Cria> selectAll(Context ctx, String Tabela, Object table)
+	{
 		Banco banco = new Banco(ctx);
 
 		Class classe = table.getClass();

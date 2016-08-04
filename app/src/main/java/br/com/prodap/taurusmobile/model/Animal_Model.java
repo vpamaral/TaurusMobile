@@ -53,13 +53,15 @@ public class Animal_Model extends Banco_Service {
 
 	}
 
-	public Animal selectByCodigo(Context ctx, String codigo) {
-		Cursor cursor = null;
-		Animal AnimalLinha = new Animal();
-		Banco banco = new Banco(ctx);
+	public Animal selectByCodigo(Context ctx, String codigo)
+	{
+		Cursor cursor 		= null;
+		Animal a_tb 		= new Animal();
+		Banco banco 		= new Banco(ctx);
 
-		try {
-			String query = String.format("SELECT * FROM Animal WHERE codigo ='%s';", codigo);
+		try
+		{
+			String query = String.format("SELECT * FROM Animal WHERE codigo ='%s' OR codigo_ferro = '%s';", codigo, codigo);
 
 			List<Animal> listadd = new ArrayList<Animal>();
 
@@ -67,18 +69,60 @@ public class Animal_Model extends Banco_Service {
 
 			listadd = ani_adapter.arrayAnimais(cursor);
 
-			AnimalLinha = listadd.get(0);
+			a_tb = listadd.get(0);
 
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			Log.e("Animal_Model", e.toString());
-		} finally {
-			if (cursor != null) {
-				if (!cursor.isClosed()) {
+		}
+		finally
+		{
+			if (cursor != null)
+			{
+				if (!cursor.isClosed())
+				{
 					cursor.close();
 				}
 			}
 		}
-		return AnimalLinha;
+		return a_tb;
+	}
+
+	public Animal selectByCodAlternativo(Context ctx, String codigo_ferro)
+	{
+		Cursor cursor 		= null;
+		Animal a_tb 		= new Animal();
+		Banco banco 		= new Banco(ctx);
+
+		try
+		{
+			String query = String.format("SELECT * FROM Animal WHERE codigo_ferro ='%s';", codigo_ferro);
+
+			List<Animal> listadd = new ArrayList<Animal>();
+
+			cursor = banco.getWritableDatabase().rawQuery(query, null);
+
+			listadd = ani_adapter.arrayAnimais(cursor);
+
+			a_tb = listadd.get(0);
+
+		}
+		catch (Exception e)
+		{
+			Log.e("Animal_Model", e.toString());
+		}
+		finally
+		{
+			if (cursor != null)
+			{
+				if (!cursor.isClosed())
+				{
+					cursor.close();
+				}
+			}
+		}
+		return a_tb;
 	}
 
 	@Override

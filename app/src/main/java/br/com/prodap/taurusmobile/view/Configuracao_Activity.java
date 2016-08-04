@@ -27,6 +27,7 @@ public class Configuracao_Activity extends Activity {
 	private CheckBox cbIdentificador;
 	private CheckBox cbManejo;
 	private CheckBox cbSisbov;
+	private CheckBox cbCodAlternativo;
 	private EditText edtEndereco;
 
 	private Configuracao_Adapter c_adapter;
@@ -98,6 +99,7 @@ public class Configuracao_Activity extends Activity {
 		c_tb.setValida_identificador(cbIdentificador.isChecked() ? "S" : "N");
 		c_tb.setValida_manejo(cbManejo.isChecked() ? "S" : "N");
 		c_tb.setValida_sisbov(cbSisbov.isChecked() ? "S" : "N");
+		c_tb.setValida_cod_alternativo(cbCodAlternativo.isChecked() ? "S" : "N");
 
 		return c_tb;
 	}
@@ -109,6 +111,7 @@ public class Configuracao_Activity extends Activity {
 		if (config_tb.getValida_identificador().equals("S")) cbIdentificador.setChecked(true);
 		if (config_tb.getValida_sisbov().equals("S")) cbSisbov.setChecked(true);
 		if (config_tb.getValida_manejo().equals("S")) cbManejo.setChecked(true);
+		if (config_tb.getValida_cod_alternativo().equals("S")) cbCodAlternativo.setChecked(true);
 	}
 
 	private void source()
@@ -120,6 +123,7 @@ public class Configuracao_Activity extends Activity {
 		cbIdentificador 	= (CheckBox) findViewById (R.id.cbIdentificador);
 		cbManejo 			= (CheckBox) findViewById(R.id.cbManejo);
 		cbSisbov        	= (CheckBox) findViewById(R.id.cbSisbov);
+		cbCodAlternativo	= (CheckBox) findViewById(R.id.cbCodALternativo);
 		btnSalvar 			= (Button) findViewById(R.id.btn_salvar);
 		btnLeitorQRCode 	= (Button) findViewById(R.id.btnLeitorQRCode);
 		edtEndereco 		= (EditText) findViewById(R.id.edtEndereco);

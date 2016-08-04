@@ -2,10 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:padding="10dp"
     tools:context=".view.Parto_Activity" >
 
     <LinearLayout
@@ -23,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Identificador:    "
+                android:text="Identificador:      "
                 android:textStyle="bold"
                 android:id="@+id/lblIdentificador"
                 android:layout_gravity="center" />
@@ -66,7 +63,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sisbov:              "
+                android:text="Sisbov:                "
                 android:textStyle="bold"
                 android:id="@+id/lblSisbov"
                 android:layout_gravity="center" />
@@ -93,9 +90,40 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/space4"
+            android:id="@+id/space14"
             android:layout_width="match_parent"
             android:layout_height="10dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_cod_alternativo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cód.Alternativo:"
+                android:textStyle="bold"
+                android:id="@+id/lblCodAlternativo"
+                android:layout_gravity="center"
+                android:layout_weight="0"/>
+
+            <EditText
+                android:id="@+id/edtCodAlternativo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapCharacters"
+                android:maxLength="10"
+                android:enabled="false"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/space4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,7 +134,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cód. Cria:          "
+                android:text="Cód. Cria:           "
                 android:textStyle="bold"
                 android:id="@+id/lblCodCria"
                 android:layout_gravity="center" />
@@ -134,7 +162,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data Parto:       "
+                android:text="Data Parto:         "
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 
@@ -159,7 +187,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data Ident.:       "
+                android:text="Data Ident.:        "
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 
@@ -192,7 +220,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Matriz:               "
+                android:text="Matriz:                "
                 android:textStyle="bold"
                 android:layout_gravity="center" />
 

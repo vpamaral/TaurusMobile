@@ -100,7 +100,8 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	}
 
 	@Override
-	protected String doInBackground(Object... params) {
+	protected String doInBackground(Object... params)
+	{
 		String url = "";
 		configuracao_list = configuracoes_model.selectAll(ctx, "Configuracao", configuracao_tb);
 

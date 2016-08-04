@@ -19,6 +19,7 @@ public class Parto_Cria implements Serializable
 	private String tipo_parto;
 	private String cod_matriz_invalido;
 	private String pasto;
+	private String codigo_ferro_cria;
 	private String criterio;
 
 	public long getId_fk_parto() {
@@ -154,4 +155,11 @@ public class Parto_Cria implements Serializable
 		this.criterio = criterio;
 	}
 
+	public String getCodigo_ferro_cria() {
+		return codigo_ferro_cria;
+	}
+
+	public void setCodigo_ferro_cria(String codigo_ferro_cria) {
+		this.codigo_ferro_cria = codigo_ferro_cria;
+	}
 }

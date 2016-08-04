@@ -91,6 +91,7 @@ public class Parto_Cria_Dao extends Banco {
 
         Class classe = table.getClass();
         List<Parto_Cria> pc_list = new ArrayList<Parto_Cria>();
+
         String sql = String.format(
                                         "SELECT * FROM %s " +
                                         "WHERE sync_status = 0 ORDER BY codigo_cria"
