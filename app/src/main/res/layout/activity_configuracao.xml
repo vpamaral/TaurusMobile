@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
-    tools:context=".Menu_Principal_Activity" >
+    tools:context=".view.Menu_Principal_Activity" >
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -139,6 +139,34 @@
 
             <CheckBox
                 android:id="@+id/cbManejo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lbl_space5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/ll_cod_alternativo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <TextView
+                android:layout_width="156dp"
+                android:layout_height="wrap_content"
+                android:text="Código Alternativo "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <CheckBox
+                android:id="@+id/cbCodALternativo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

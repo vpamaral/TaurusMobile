@@ -58,14 +58,18 @@ public abstract class Banco_Service {
 		}
 	}*/
 
-	public void insert(Context ctx, String Tabela, ContentValues cv) {
-		try {
+	public void insert(Context ctx, String Tabela, ContentValues cv)
+	{
+		try
+		{
 			Banco banco = new Banco(ctx);
 
 			banco.getWritableDatabase().insert(Tabela, null, cv);
 			banco.close();
 
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			Log.i("BancoService", e.toString());
 		}

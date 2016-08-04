@@ -48,6 +48,7 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 			parto_cria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
 			parto_cria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			parto_cria.setPasto(c.getString(c.getColumnIndex("pasto")));
+			parto_cria.setCodigo_ferro_cria(c.getString(c.getColumnIndex("codigo_ferro_cria")));
 
 		}
 		return parto_cria;
@@ -71,6 +72,7 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 		c_dados.put("tipo_parto", c_tb.getTipo_parto());
 		c_dados.put("cod_matriz_invalido", c_tb.getCod_matriz_invalido());
 		c_dados.put("pasto",  c_tb.getPasto());
+		c_dados.put("codigo_ferro_cria",  c_tb.getCodigo_ferro_cria());
 
 		return c_dados;
 	}
@@ -96,6 +98,7 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 			parto_cria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
 			parto_cria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			parto_cria.setPasto(c.getString(c.getColumnIndex("pasto")));
+			parto_cria.setCodigo_ferro_cria(c.getString(c.getColumnIndex("codigo_ferro_cria")));
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -124,6 +127,7 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 			parto_cria.setTipo_parto(PartoCriaArray[i].getTipo_parto());
 			parto_cria.setCod_matriz_invalido(PartoCriaArray[i].getCod_matriz_invalido());
 			parto_cria.setPasto(PartoCriaArray[i].getPasto());
+			parto_cria.setCodigo_ferro_cria(PartoCriaArray[i].getCodigo_ferro_cria());
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -148,27 +152,33 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 		parto_cria.setTipo_parto(parto_cria_tb.getTipo_parto());
 		parto_cria.setCod_matriz_invalido(parto_cria_tb.getCod_matriz_invalido());
 		parto_cria.setPasto(parto_cria_tb.getPasto());
+		parto_cria.setCodigo_ferro_cria(parto_cria_tb.getCodigo_ferro_cria());
 
 		return parto_cria;
 	}
 
 	@Override
-	public int getCount() {
+	public int getCount()
+	{
 		return partos_cria.size();
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public Object getItem(int position)
+	{
 		return partos_cria.get(position);
 	}
 
 	@Override
-	public long getItemId(int position) {
-		return Long.parseLong(partos_cria.get(position).getCodigo_cria());
+	public long getItemId(int position)
+	{
+		//return Long.parseLong(partos_cria.get(position).getCodigo_cria().toString());
+		return partos_cria.get(position).getId_fk_parto();
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
 		Parto_Cria parto_cria = partos_cria.get(position);
 
 		LayoutInflater inflater = activity.getLayoutInflater();

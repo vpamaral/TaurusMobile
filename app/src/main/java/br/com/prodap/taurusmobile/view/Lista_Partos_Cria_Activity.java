@@ -44,7 +44,8 @@ public class Lista_Partos_Cria_Activity extends Activity {
 	private int quantFemeas;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lista_partos_cria);
 		loadList();
@@ -53,7 +54,8 @@ public class Lista_Partos_Cria_Activity extends Activity {
 		setTitle("MA.: " + quantMachos + "  |  FE.: " + quantFemeas + "  |  Total: " + quantdPartos);
 	}
 
-	private void source() {
+	private void source()
+	{
 		parto_tb		= new Parto();
 		p_cria_tb 		= new Parto_Cria();
 		p_cria_model	= new Parto_Cria_Model(getBaseContext());
@@ -67,20 +69,27 @@ public class Lista_Partos_Cria_Activity extends Activity {
 		this.partoCriaDelete();
 	}
 
-	private void loadList() {
+	private void loadList()
+	{
 		list = (ListView) findViewById(R.id.lista_partos);
 		registerForContextMenu(list);
 	}
 	
-	private void partoCriaList() {
+	private void partoCriaList()
+	{
 		quantFemeas = 0;
 		quantMachos = 0;
 		p_cria_list = p_cria_model.selectAll(getBaseContext(), "Parto_Cria", p_cria_tb);
 		parto_list 	= parto_model.selectAll(getBaseContext(), "Parto", parto_tb);
-		for (Parto_Cria parto_cria_tb : p_cria_list) {
-			if (parto_cria_tb.getSexo().toString().equals("MA")) {
+
+		for (Parto_Cria parto_cria_tb : p_cria_list)
+		{
+			if (parto_cria_tb.getSexo().toString().equals("MA"))
+			{
 				quantMachos++;
-			} else {
+			}
+			else
+			{
 				quantFemeas++;
 			}
 		}
@@ -97,11 +106,13 @@ public class Lista_Partos_Cria_Activity extends Activity {
 	/*
 	 * Método executado quando algum item da lista é clicado
 	 */
-	private void partoCriaDetails() {
-		list.setOnItemClickListener(new OnItemClickListener() {
-
+	private void partoCriaDetails()
+	{
+		list.setOnItemClickListener(new OnItemClickListener()
+		{
 			@Override
-			public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
+			{
 				p_cria_tb = (Parto_Cria) p_cria_adapter.getItem(position);
 				String matriz = "";
 				String data_parto = "";
@@ -112,7 +123,9 @@ public class Lista_Partos_Cria_Activity extends Activity {
 					{
 						matriz = a.getCodigo();
 						break;
-					} else {
+					}
+					else
+					{
 						matriz = p_cria_tb.getCod_matriz_invalido();
 					}
 				}
@@ -130,6 +143,7 @@ public class Lista_Partos_Cria_Activity extends Activity {
 						+ "\nDescarte: " + p_cria_tb.getRepasse()
 						+ "\n\nDados da Cria\n"
 						+ "\nCódigo da Cria: " + p_cria_tb.getCodigo_cria()
+						+ "\nCódigo Alternativo: " + p_cria_tb.getCodigo_ferro_cria()
 						+ "\nIdentif.: " + p_cria_tb.getIdentificador()
 						+ "\nSisbov: " + p_cria_tb.getSisbov()
 						+ "\nData do Parto: " + data_parto

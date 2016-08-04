@@ -17,8 +17,8 @@ import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 
-public class Lista_Animais_Activity extends Activity {
-
+public class Lista_Animais_Activity extends Activity
+{
 	private Animal_Model a_model;
 	private Animal ani_tb;
 	private ListView animal_list;
@@ -27,7 +27,8 @@ public class Lista_Animais_Activity extends Activity {
 	private long quantdAnimais;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lista_animais);
 
@@ -42,12 +43,11 @@ public class Lista_Animais_Activity extends Activity {
 		setTitle("Quantidade de Animais: " + quantdAnimais);
 	}
 
-	private void AnimalList() {
-		animais = a_model.selectAll(getBaseContext(), "Animal", ani_tb);
-
-		quantdAnimais = animais.size();
-
-		adapter = new ArrayAdapter<Animal>(this, android.R.layout.simple_list_item_1, animais);
+	private void AnimalList()
+	{
+		animais 		= a_model.selectAll(this, "Animal", ani_tb);
+		quantdAnimais 	= animais.size();
+		adapter 		= new ArrayAdapter<Animal>(this, android.R.layout.simple_list_item_1, animais);
 
 		animal_list.setAdapter(adapter);
 	}
@@ -55,12 +55,13 @@ public class Lista_Animais_Activity extends Activity {
 	/*
 	 * Método executado quando algum item da lista é clicado
 	 */
-	private void consultarPorIdClick(){
-		animal_list.setOnItemClickListener(new OnItemClickListener() {
-
+	private void consultarPorIdClick()
+	{
+		animal_list.setOnItemClickListener(new OnItemClickListener()
+		{
 			@Override
-			public void onItemClick(AdapterView<?> adapter, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
+			{
 				ani_tb = (Animal) adapter.getItemAtPosition(position);
 
 				String msg = "Código: " + ani_tb.getCodigo()
@@ -77,16 +78,19 @@ public class Lista_Animais_Activity extends Activity {
 	/*
 	 * Método executado quando algum item da lista tem um click longo
 	 */
-	private void consultarPorIdClickLongo(){
-		animal_list.setOnItemLongClickListener(new OnItemLongClickListener() {
-
+	private void consultarPorIdClickLongo()
+	{
+		animal_list.setOnItemLongClickListener(new OnItemLongClickListener()
+		{
 			@Override
-			public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
+			public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id)
+			{
 				ani_tb = (Animal) adapter.getItemAtPosition(position);
 
 				String msg = "Código: " + ani_tb.getCodigo() + "\nCódigo Ferro: "
 						+ ani_tb.getCodigo_ferro() + "\nIdentificador: "
 						+ ani_tb.getIdentificador();
+
 				Mensagem_Util.addMsg(Message_Dialog.Yes, Lista_Animais_Activity.this, msg, "Animal", position);
 
 				return true;

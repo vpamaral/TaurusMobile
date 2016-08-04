@@ -13,13 +13,12 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.tb.Configuracao;
 
-public class Configuracao_Adapter extends BaseAdapter {
+public class Configuracao_Adapter extends BaseAdapter
+{
 	private List<Configuracao> configuracaoList;
 	private Activity activity;
 
-	public Configuracao_Adapter() {
-
-	}
+	public Configuracao_Adapter() {}
 
 	public Configuracao_Adapter(List<Configuracao> configuracaoList, Activity activity) {
 		this.configuracaoList = configuracaoList;
@@ -36,25 +35,32 @@ public class Configuracao_Adapter extends BaseAdapter {
 			config.setValida_identificador(c.getString(c.getColumnIndex("valida_identificador")));
 			config.setValida_manejo(c.getString(c.getColumnIndex("valida_manejo")));
 			config.setValida_sisbov(c.getString(c.getColumnIndex("valida_sisbov")));
+			config.setValida_cod_alternativo(c.getString(c.getColumnIndex("valida_cod_alternativo")));
 		}
 		return config;
 	}
 
 	@NonNull
-	public ContentValues getDadosConfig(Configuracao c_tb) {
+	public ContentValues getDadosConfig(Configuracao c_tb)
+	{
 		ContentValues c_dados = new ContentValues();
+
 		c_dados.put("tipo", c_tb.getTipo());
 		c_dados.put("endereco", c_tb.getEndereco());
 		c_dados.put("valida_sisbov", c_tb.getValida_sisbov());
 		c_dados.put("valida_identificador", c_tb.getValida_identificador());
 		c_dados.put("valida_manejo", c_tb.getValida_manejo());
+		c_dados.put("valida_cod_alternativo", c_tb.getValida_cod_alternativo());
 
 		return c_dados;
 	}
 
-	public List<Configuracao> arrayConfiguracoes(Cursor c) {
+	public List<Configuracao> arrayConfiguracoes(Cursor c)
+	{
 		List<Configuracao> c_list = new ArrayList<Configuracao>();
-		while (c.moveToNext()) {
+
+		while (c.moveToNext())
+		{
 			Configuracao c_tb = new Configuracao();
 			c_tb.setId_auto(c.getLong(c.getColumnIndex("id_auto")));
 			c_tb.setTipo(c.getString(c.getColumnIndex("tipo")));
@@ -62,16 +68,19 @@ public class Configuracao_Adapter extends BaseAdapter {
 			c_tb.setValida_identificador(c.getString(c.getColumnIndex("valida_identificador")));
 			c_tb.setValida_manejo(c.getString(c.getColumnIndex("valida_manejo")));
 			c_tb.setValida_sisbov(c.getString(c.getColumnIndex("valida_sisbov")));
+			c_tb.setValida_cod_alternativo(c.getString(c.getColumnIndex("valida_cod_alternativo")));
 
 			c_list.add(c_tb);
 		}
 		return c_list;
 	}
 
-	public ArrayList<Configuracao> configurarPreencheArrayHelper(Configuracao[] configurarArray) {
+	public ArrayList<Configuracao> configurarPreencheArrayHelper(Configuracao[] configurarArray)
+	{
 		ArrayList<Configuracao> listaConfigurar = new ArrayList<Configuracao>();
-		for (int i = 0; i < configurarArray.length; i++) {
 
+		for (int i = 0; i < configurarArray.length; i++)
+		{
 			Configuracao config = new Configuracao();
 			//config.setId_pk(configurarArray[i].getId_pk());
 			config.setTipo(configurarArray[i].getTipo());
@@ -85,7 +94,8 @@ public class Configuracao_Adapter extends BaseAdapter {
 		return listaConfigurar;
 	}
 
-	public Configuracao configurarHelper(Configuracao configurarTB) {
+	public Configuracao configurarHelper(Configuracao configurarTB)
+	{
 		Configuracao config = new Configuracao();
 
 		config.setId_auto(configurarTB.getId_auto());

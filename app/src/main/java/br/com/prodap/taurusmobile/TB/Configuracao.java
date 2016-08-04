@@ -10,6 +10,7 @@ public class Configuracao implements Serializable  {
 	private String valida_identificador;
 	private String valida_manejo;
 	private String valida_sisbov;
+	private String valida_cod_alternativo;
 
 	public long getId_auto() {
 		return id_auto;
@@ -59,12 +60,11 @@ public class Configuracao implements Serializable  {
 		this.valida_sisbov = valida_sisbov;
 	}
 
-	//public String getAutorizacao() {
-		//return autorizacao;
-	//}
+	public String getValida_cod_alternativo() {
+		return valida_cod_alternativo;
+	}
 
-	//public void setAutorizacao(String autorizacao) {
-		//this.autorizacao = autorizacao;
-	//}
-	
+	public void setValida_cod_alternativo(String valida_cod_alternativo) {
+		this.valida_cod_alternativo = valida_cod_alternativo;
+	}
 }

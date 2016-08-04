@@ -59,8 +59,8 @@ import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
 
-public class Parto_Activity extends Activity {
-
+public class Parto_Activity extends Activity
+{
     private static final String[] PERDA = new String[]{"NENHUMA", "ABORTO", "NATIMORTO"
             , "DESCONHECIDA", "F.AUTOLISADO", "F.MACERADO"
             , "F.MUMIFICADO", "OUTRA"};
@@ -73,12 +73,14 @@ public class Parto_Activity extends Activity {
     private LinearLayout ll_identificador;
     private LinearLayout ll_sisbov;
     private LinearLayout ll_manejo;
+    private LinearLayout ll_cod_alternativo;
 
     private Calendar calendario;
     private static EditText editMatriz;
     private EditText editDataParto;
     private AutoCompleteTextView editBuscaPasto;
     private EditText editCodCria;
+    private EditText editCodAlternativo;
     private EditText editIdentificador;
     private EditText editSisbov;
     private AutoCompleteTextView editGrupoManejo;
@@ -123,6 +125,7 @@ public class Parto_Activity extends Activity {
     public static boolean validaSisbov;
     public static boolean validaIdentificador;
     public static boolean validaManejo;
+    public static boolean validaCodAlternativo;
 
     private String cod_matriz_invalido;
     private Mensagem_Util md;
@@ -142,14 +145,17 @@ public class Parto_Activity extends Activity {
     //conexão bluetooth
     private static CharSequence result;
     private static String id;
-    public static Handler handler = new Handler() {
+    public static Handler handler = new Handler()
+    {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(Message msg)
+        {
             resultHandleMessage(msg);
         }
     };
 
-    private static void resultHandleMessage(Message msg) {
+    private static void resultHandleMessage(Message msg)
+    {
         Bundle bundle = msg.getData();
         byte[] data = bundle.getByteArray("data");
         String dataString= new String(data);
@@ -158,7 +164,8 @@ public class Parto_Activity extends Activity {
             editMatriz.setHint("Erro durante a conexão!");
         else if(dataString.equals("CONECTADO"))
             editMatriz.setHint("Batão Conectado!");
-        else {
+        else
+        {
             data.toString().length();
             result = new String(data);
 
@@ -169,7 +176,8 @@ public class Parto_Activity extends Activity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parto);
 
@@ -195,6 +203,8 @@ public class Parto_Activity extends Activity {
         changeSisbov();
 
         changeIdentificador();
+
+        changeCodAlternativo();
 
         changeCodCria();
 
@@ -282,15 +292,20 @@ public class Parto_Activity extends Activity {
 
                     cria_tb.setIdentificador(editIdentificador.getText().toString());
 
-                    if (validaSisbov == true) {
-                        if (!editSisbov.getText().toString().equals("")) {
+                    if (validaSisbov == true)
+                    {
+                        if (!editSisbov.getText().toString().equals(""))
+                        {
                             long sis = Long.parseLong(editSisbov.getText().toString());
                             String strsis = String.valueOf(sis);
                             cria_tb.setSisbov(strsis);
                         }
-                    } else {
+                    }
+                    else
+                    {
                         cria_tb.setSisbov(editSisbov.getText().toString());
                     }
+
                     cria_tb.setGrupo_manejo(editGrupoManejo.getText().toString());
                     strGrupo_manejo = editGrupoManejo.getText().toString();
 
@@ -299,6 +314,7 @@ public class Parto_Activity extends Activity {
                     cria_tb.setPasto(editBuscaPasto.getText().toString());
                     strPasto = editBuscaPasto.getText().toString();
 
+                    cria_tb.setCodigo_ferro_cria(editCodAlternativo.getText().toString());
                     cria_tb.setCod_matriz_invalido(cod_matriz_invalido);
                     cria_tb.setCod_matriz_invalido(cria_tb.getId_fk_animal_mae() != 0 ? "0" : editMatriz.getText().toString());
 
@@ -316,44 +332,64 @@ public class Parto_Activity extends Activity {
         });
     }
 
-    private static void loadMatriz() {
+    private static void loadMatriz()
+    {
         listaMatriz = new ArrayList<String>();
-        for (Animal animalList : listaAnimal) {
+
+        for (Animal animalList : listaAnimal)
+        {
             /*if (animalList.getCodigo().equals(editMatriz.getText().toString())) {
                 listaMatriz.add(animalList.getCodigo());
             }*/
-            if (animalList.getIdentificador().equals(id)) {
+            if (animalList.getIdentificador().equals(id))
+            {
                 listaMatriz.add(animalList.getCodigo());
                 editMatriz.setText(animalList.getCodigo());
             }
         }
     }
 
-    private void changeDataParto() {
-        editDataParto.setOnFocusChangeListener(new OnFocusChangeListener() {
+    private void changeDataParto()
+    {
+        editDataParto.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (hasFocus)
+                {
                     showCalendar();
                 }
             }
         });
     }
 
-    private void changeCodMatriz() {
-        editMatriz.setOnFocusChangeListener(new OnFocusChangeListener() {
+    private void changeCodMatriz()
+    {
+        editMatriz.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onFocusChange(View v, boolean hasFocus)
+            {
                 final Animal animal;
-                if (!hasFocus) {
-                    if (editMatriz.getText().toString() != "") {
+                if (!hasFocus)
+                {
+                    if (editMatriz.getText().toString() != "")
+                    {
                         animal = ani_model.selectByCodigo(Parto_Activity.this, editMatriz.getText().toString());
+
                         txtidanimal.setText(String.valueOf(animal.getId_pk()));
                         listaMatriz = new ArrayList<String>();
-                        for (Animal animalList : listaAnimal) {
+
+                        for (Animal animalList : listaAnimal)
+                        {
                             if (animalList.getCodigo().equals(editMatriz.getText().toString().toLowerCase())
-                                    || animalList.getCodigo().equals(editMatriz.getText().toString().toUpperCase())) {
+                                || animalList.getCodigo().equals(editMatriz.getText().toString().toUpperCase())
+                                || animalList.getCodigo_ferro().equals(editMatriz.getText().toString().toLowerCase())
+                                || animalList.getCodigo_ferro().equals(editMatriz.getText().toString().toUpperCase()))
+                            {
                                 listaMatriz.add(animalList.getCodigo());
+                                editMatriz.setText(animalList.getCodigo());
                             }
                         }
                     }
@@ -381,14 +417,21 @@ public class Parto_Activity extends Activity {
         });
     }
 
-    private void changeCodCria() {
-        editCodCria.setOnFocusChangeListener(new OnFocusChangeListener() {
+    private void changeCodCria()
+    {
+        editCodCria.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (editCodCria.getText().toString().equals("")) {
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus)
+                {
+                    if (editCodCria.getText().toString().equals(""))
+                    {
                         spinPerda.setEnabled(true);
-                    } else {
+                    }
+                    else
+                    {
                         spinPerda.setEnabled(false);
                     }
                 }
@@ -396,24 +439,52 @@ public class Parto_Activity extends Activity {
         });
     }
 
-    private void changeSisbov() {
-        editSisbov.setOnFocusChangeListener(new OnFocusChangeListener() {
+    private void changeCodAlternativo()
+    {
+        editCodAlternativo.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (!editSisbov.getText().toString().equals("")) {
-                        spinPerda.setEnabled(false);
-                        if (!sisbovCorreto(editSisbov.getText().toString()) || editSisbov.length() < 15) {
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus)
+                {
+                    if (!editCodAlternativo.getText().toString().equals("")
+                       && editCodCria.getText().toString().equals(""))
+                    {
+                        editCodCria.setText(editCodAlternativo.getText());
+                    }
+                }
+            }
+        });
+    }
 
+    private void changeSisbov()
+    {
+        editSisbov.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus)
+            {
+                if (!hasFocus)
+                {
+                    if (!editSisbov.getText().toString().equals(""))
+                    {
+                        spinPerda.setEnabled(false);
+                        if (!sisbovCorreto(editSisbov.getText().toString()) || editSisbov.length() < 15)
+                        {
                             Toast.makeText(Parto_Activity.this, "Sisbov inválido!", Toast.LENGTH_SHORT).show();
                             editSisbov.setFocusable(true);
                             return;
 
-                        } else {
+                        }
+                        else
+                        {
                             String codCria = editSisbov.getText().toString();
                             editCodCria.setText(codCria.substring(8, 14));
                         }
-                    } else {
+                    }
+                    else
+                    {
                         spinPerda.setEnabled(true);
                         editCodCria.setText("");
                     }
@@ -508,6 +579,20 @@ public class Parto_Activity extends Activity {
             ll_manejo.setVisibility(LinearLayout.GONE);
             validaManejo = false;
         }
+
+        if (listConf.get(0).getValida_cod_alternativo().equals("S"))
+        {
+            editCodAlternativo.setEnabled(true);
+            ll_cod_alternativo.setVisibility(LinearLayout.VISIBLE);
+            validaCodAlternativo = true;
+        }
+        else
+        {
+            editCodAlternativo.setText("0");
+            editCodAlternativo.setEnabled(false);
+            ll_cod_alternativo.setVisibility(LinearLayout.GONE);
+            validaCodAlternativo = false;
+        }
     }
 
     private void source()
@@ -528,6 +613,7 @@ public class Parto_Activity extends Activity {
         editMatriz              = (EditText) findViewById(R.id.edtMatriz);
         editDataParto           = (EditText) findViewById(R.id.edtDataParto);
         editCodCria             = (EditText) findViewById(R.id.edtCria);
+        editCodAlternativo      = (EditText) findViewById(R.id.edtCodAlternativo);
         editPeso                = (EditText) findViewById(R.id.edtPesoCria);
         txtidanimal             = (TextView) findViewById(R.id.id_animal);
         btnSalvar               = (Button) findViewById(R.id.btnSalvarParto);
@@ -538,6 +624,7 @@ public class Parto_Activity extends Activity {
         ll_identificador        = (LinearLayout) findViewById(R.id.ll_identificador);
         ll_sisbov               = (LinearLayout) findViewById(R.id.ll_sisbov);
         ll_manejo               = (LinearLayout) findViewById(R.id.ll_manejo);
+        ll_cod_alternativo      = (LinearLayout) findViewById(R.id.ll_cod_alternativo);
 
         listaCria               = cria_model.selectAll(this, "Parto_Cria", cria_tb);
         listConf                = conf_model.selectAll(this, "Configuracao", conf_tb);
@@ -951,6 +1038,7 @@ public class Parto_Activity extends Activity {
         updateVars();
         editMatriz.setText("");
         editCodCria.setText("");
+        editCodAlternativo.setText("");
         txtidanimal.setText("");
         editSisbov.setText("");
         editPeso.setText("");
