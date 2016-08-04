@@ -52,6 +52,7 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'raca_cria'     	 		varchar(45),"
 				+ "'identificador'     	 	varchar(45),"
 				+ "'grupo_manejo'     	 	varchar(45),"
+				+ "'criterio'     	 		varchar(45),"
 				+ "'sync_status'     		TINYINT(1),"
 				+ "'peso_cria'        		varchar(45),"
 				+ "'codigo_cria'     	 	varchar(45),"
@@ -81,12 +82,18 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'codigo'        			varchar(100)"
 				+");";
 
+		String sql_criterio = "CREATE TABLE 'Criterio' ("
+				+ "'id_auto'	    	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'criterio'      		varchar(100)"
+				+");";
+
 		db.execSQL(sql_animal);
 		db.execSQL(sql_parto);
 		db.execSQL(sql_parto_cria);
 		db.execSQL(sql_configuracao);
 		db.execSQL(sql_pasto);
 		db.execSQL(sql_grupo_manejo);
+		db.execSQL(sql_criterio);
 	}
 
 	@Override
@@ -96,7 +103,13 @@ public class Banco extends SQLiteOpenHelper {
 		switch (oldVersion) {
 			case 1:
 				sql  = " ALTER TABLE Parto_Cria ADD COLUMN codigo_ferro_cria VARCHAR(45) ";
+
 				sql += " ALTER TABLE Configuracao ADD COLUMN valida_cod_alternativo VARCHAR(5) ";
+
+				sql += " CREATE TABLE 'Criterio' ("
+						+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+						+ "'criterio'        			varchar(100)"
+						+"); ";
 				db.execSQL(sql); // indo para versao 2
 		}*/
 	}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.prodap.taurusmobile">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo_taurus"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="jim.h.common.android.zxinglib.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".view.Configuracao_Activity"
+            android:label="@string/title_activity_configuracoes"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.Menu_Principal_Activity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.Lista_Animais_Activity"
+            android:label="@string/title_activity_lista_animais"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.Parto_Activity"
+            android:label="@string/title_activity_parto"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.Lista_Partos_Cria_Activity"
+            android:label="@string/title_activity_lista_animais"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.Leitor_Activity"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".view.Pasto_Activity"
+            android:label="@string/title_activity_pasto"></activity>
+        <activity android:name=".bluetooth.DiscoveredDevices" />
+        <activity android:name=".bluetooth.PairedDevices" />
+        <activity
+            android:name=".view.Splash"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".bluetooth.Bluetooth_Activity"></activity>
+    </application>
+
+</manifest>

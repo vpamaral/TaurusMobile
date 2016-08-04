@@ -73,7 +73,8 @@ public class Pasto_Adapter extends BaseAdapter {
         return pasto;
     }
 
-    public ContentValues getDadosPasto(Pasto pasto) {
+    public ContentValues getDadosPasto(Pasto pasto)
+    {
         ContentValues dados = new ContentValues();
         dados.put("nome", pasto.getNome());
         return dados;

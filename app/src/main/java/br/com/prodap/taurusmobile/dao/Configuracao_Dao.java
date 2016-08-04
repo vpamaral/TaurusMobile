@@ -22,7 +22,8 @@ public class Configuracao_Dao extends Banco {
         super(context);
     }
 
-    public List<Configuracao> selectAllConfiguracoes(Context ctx, String Tabela, Object table) {
+    public List<Configuracao> selectAllConfiguracoes(Context ctx, String Tabela, Object table)
+    {
         Banco banco = new Banco(ctx);
         c_adapter   = new Configuracao_Adapter();
 

@@ -1,19 +1,9 @@
 package br.com.prodap.taurusmobile.tb;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
-import br.com.prodap.taurusmobile.service.Banco;
-import br.com.prodap.taurusmobile.service.Banco_Service;
-
-public class Parto_Cria implements Serializable {
-
+public class Parto_Cria implements Serializable
+{
 	private long id_fk_parto;
 	private long id_fk_animal_mae;
 	private int sync_status;
@@ -30,6 +20,7 @@ public class Parto_Cria implements Serializable {
 	private String cod_matriz_invalido;
 	private String pasto;
 	private String codigo_ferro_cria;
+	private String criterio;
 
 	public long getId_fk_parto() {
 		return id_fk_parto;
@@ -154,6 +145,14 @@ public class Parto_Cria implements Serializable {
 
 	public void setPasto(String pasto) {
 		this.pasto = pasto;
+	}
+
+	public String getCriterio() {
+		return criterio;
+	}
+
+	public void setCriterio(String criterio) {
+		this.criterio = criterio;
 	}
 
 	public String getCodigo_ferro_cria() {

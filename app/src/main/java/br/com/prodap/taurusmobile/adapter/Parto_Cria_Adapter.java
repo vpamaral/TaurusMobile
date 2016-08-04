@@ -29,10 +29,12 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 		this.activity = activity;
 	}
 	
-	public Parto_Cria PartoCriaCursor(Cursor c) {
+	public Parto_Cria PartoCriaCursor(Cursor c)
+	{
 		Parto_Cria parto_cria = new Parto_Cria();
 
-		while (c.moveToNext()) {
+		while (c.moveToNext())
+		{
 			parto_cria.setId_fk_animal_mae(c.getLong(c.getColumnIndex("id_fk_animal_mae")));
 			parto_cria.setId_fk_parto(c.getLong(c.getColumnIndex("id_fk_parto")));
 			parto_cria.setSisbov(c.getString(c.getColumnIndex("sisbov")));
@@ -49,13 +51,14 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 			parto_cria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			parto_cria.setPasto(c.getString(c.getColumnIndex("pasto")));
 			parto_cria.setCodigo_ferro_cria(c.getString(c.getColumnIndex("codigo_ferro_cria")));
-
+			parto_cria.setCriterio(c.getString(c.getColumnIndex("criterio")));
 		}
 		return parto_cria;
 	}
 
 	@NonNull
-	public ContentValues getDadosCria(Parto_Cria c_tb) {
+	public ContentValues getDadosCria(Parto_Cria c_tb)
+	{
 		ContentValues c_dados = new ContentValues();
 		c_dados.put("id_fk_animal_mae", c_tb.getId_fk_animal_mae());
 		c_dados.put("id_fk_parto", c_tb.getId_fk_parto());
@@ -73,6 +76,7 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 		c_dados.put("cod_matriz_invalido", c_tb.getCod_matriz_invalido());
 		c_dados.put("pasto",  c_tb.getPasto());
 		c_dados.put("codigo_ferro_cria",  c_tb.getCodigo_ferro_cria());
+		c_dados.put("criterio",  c_tb.getCriterio());
 
 		return c_dados;
 	}
@@ -99,6 +103,7 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 			parto_cria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			parto_cria.setPasto(c.getString(c.getColumnIndex("pasto")));
 			parto_cria.setCodigo_ferro_cria(c.getString(c.getColumnIndex("codigo_ferro_cria")));
+			parto_cria.setCriterio(c.getString(c.getColumnIndex("criterio")));
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -128,6 +133,7 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 			parto_cria.setCod_matriz_invalido(PartoCriaArray[i].getCod_matriz_invalido());
 			parto_cria.setPasto(PartoCriaArray[i].getPasto());
 			parto_cria.setCodigo_ferro_cria(PartoCriaArray[i].getCodigo_ferro_cria());
+			parto_cria.setCriterio(PartoCriaArray[i].getCriterio());
 
 			listaPartoCria.add(parto_cria);
 		}
@@ -153,6 +159,7 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 		parto_cria.setCod_matriz_invalido(parto_cria_tb.getCod_matriz_invalido());
 		parto_cria.setPasto(parto_cria_tb.getPasto());
 		parto_cria.setCodigo_ferro_cria(parto_cria_tb.getCodigo_ferro_cria());
+		parto_cria.setCriterio(parto_cria_tb.getCriterio());
 
 		return parto_cria;
 	}

@@ -65,7 +65,8 @@ public class Grupo_Manejo_Adapter extends BaseAdapter {
         return listGrupos;
     }
 
-    public ContentValues getDadosGrupo(Grupo_Manejo grupo) {
+    public ContentValues getDadosGrupo(Grupo_Manejo grupo)
+    {
         ContentValues dados = new ContentValues();
         dados.put("codigo", grupo.getCodigo());
         return dados;

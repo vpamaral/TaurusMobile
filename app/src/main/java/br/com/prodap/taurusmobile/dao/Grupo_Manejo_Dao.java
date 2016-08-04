@@ -23,7 +23,8 @@ public class Grupo_Manejo_Dao extends Banco {
     }
 
 
-    public List<Grupo_Manejo> selectAllGrupos(Context ctx, String Tabela, Object table) {
+    public List<Grupo_Manejo> selectAllGrupos(Context ctx, String Tabela, Object table)
+    {
         Banco banco = new Banco(ctx);
         grupo_adapter = new Grupo_Manejo_Adapter();
 

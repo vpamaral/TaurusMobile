@@ -24,6 +24,7 @@ public class Parto_Parto_Cria implements Serializable {
 	private String cod_matriz_invalido;
 	private String pasto;
 	private String codigo_ferro_cria;
+	private String criterio;
 
 	public String getCod_matriz_invalido() {
 		return cod_matriz_invalido;
@@ -177,4 +178,11 @@ public class Parto_Parto_Cria implements Serializable {
 		this.codigo_ferro_cria = codigo_ferro_cria;
 	}
 
+	public String getCriterio() {
+		return criterio;
+	}
+
+	public void setCriterio(String criterio) {
+		this.criterio = criterio;
+	}
 }

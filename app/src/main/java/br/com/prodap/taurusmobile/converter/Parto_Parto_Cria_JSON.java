@@ -38,6 +38,7 @@ public class Parto_Parto_Cria_JSON
 				js.key("cod_matriz_invalido").value(p_partoCria.getCod_matriz_invalido());
 				js.key("pasto").value(p_partoCria.getPasto());
 				js.key("codigo_ferro_cria").value(p_partoCria.getCodigo_ferro_cria());
+				js.key("criterio").value(p_partoCria.getCriterio());
 				js.endObject();
 			}
 			js.endArray().endObject();

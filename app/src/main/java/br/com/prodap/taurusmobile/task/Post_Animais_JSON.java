@@ -60,7 +60,8 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 		source();
 	}
 
-	private void source() {
+	private void source()
+	{
 		configuracao_tb = new Configuracao();
 		p_parto_cria_tb 		= new Parto_Parto_Cria();
 		configuracoes_model		= new Configuracao_Model(ctx);
@@ -141,29 +142,43 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	}
 
 	@Override
-	protected void onPostExecute(String json) {
-		if (json != null) {
-			if (c_http.servResultPost != 200) {
+	protected void onPostExecute(String json)
+	{
+		if (json != null)
+		{
+			if (c_http.servResultPost != 200)
+			{
 				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 				mProgress.dismiss();
-			} else {
-				if (retornoJSON.isEmpty()) {
+			}
+			else
+			{
+				if (retornoJSON.isEmpty())
+				{
 					mProgress.dismiss();
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Nenhum dado para ser enviado.");
-				} else {
-					try {
+				}
+				else
+				{
+					try
+					{
 						createFilePartoSend();
 						writeInFileSendPartos(json);
-					} catch (IOException e) {
+					}
+					catch (IOException e)
+					{
 						Log.i("ARQUIVO_PARTOS_ENVIADOS", e.toString());
 						e.printStackTrace();
 					}
+
 					parto_model.deletingLogic(ctx);
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
 					mProgress.dismiss();
 				}
 			}
-		} else {
+		}
+		else
+		{
 			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não existem dados para serem enviados.");
 			mProgress.dismiss();
 		}

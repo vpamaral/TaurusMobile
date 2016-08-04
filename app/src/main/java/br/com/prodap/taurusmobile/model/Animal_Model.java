@@ -32,7 +32,8 @@ public class Animal_Model extends Banco_Service {
 	}
 
 	@Override
-	public List<Animal> selectAll(Context ctx, String Tabela, Object table) {
+	public List<Animal> selectAll(Context ctx, String Tabela, Object table)
+	{
 		a_dao = new Animal_Dao(ctx);
 
 		return a_dao.selectAllAnimais(ctx, Tabela, table);
