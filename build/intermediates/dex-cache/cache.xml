@@ -2,109 +2,376 @@
 <items version="2" >
 
     <item
-        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.1_f6c23cd6916dcfb505a1aa92ed519a30d316c4ed\classes.dex" />
-    </item>
-    <item
-        jar="D:\Workspace\TaurusMoblie\app\libs\zxingjar-1.1.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="734ce52ec1144865e306c96029a23d339705a67a">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\2\zxingjar-1.1_1df5be28340966abb71d8a67124bf433d8a9fc27\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.mcxiaoke.volley\library\1.0.18\38da306aafee11459cd935a01d2c92a98dc670a4\library-1.0.18.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="38da306aafee11459cd935a01d2c92a98dc670a4">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\library-1.0.18_5d0946797226a2bb3cc2df5f82cb025506c7322d\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.google.zxing\core\1.7\888814a387fc7570d50c4fbf4d20555d4fdd7646\core-1.7.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="888814a387fc7570d50c4fbf4d20555d4fdd7646">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\core-1.7_ab6a64403ed7cb514bff792cc57fca7889e2fa1d\classes.dex" />
-    </item>
-    <item
-        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="5af8e546cc5a96894683521cb333091bc2fe1751">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_7a7cc06ea9869aadd0307ea692098bf1f628768f\classes.dex" />
-    </item>
-    <item
-        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="aaa59c580b8e13188ec1bd7c77fc10d012f83f15">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_a5a9804cc9dcbc44917902f00e506bc74bf08ef0\classes.dex" />
-    </item>
-    <item
-        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="a60a5e993c98c864010053cb901b7eab25306568">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.2.4_313aff129984a0a45e086871ec03bfcc02e7284e\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\xpp3\xpp3_min\1.1.3.4.O\cbb9d21eed484a16e0c0bd712830a80c75970753\xpp3_min-1.1.3.4.O.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="cbb9d21eed484a16e0c0bd712830a80c75970753">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\xpp3_min-1.1.3.4.O_d9ae56ed21fd6aaa099b15296fbb8087d559b266\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.loopj.android\android-async-http\1.4.9\386a4339ffe52d5d63e80f9bed8d2b1d1a418249\android-async-http-1.4.9.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="386a4339ffe52d5d63e80f9bed8d2b1d1a418249">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\android-async-http-1.4.9_433b0128101db832d738c45b0b2be7ae63eddf83\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.github.kevinsawicki\http-request\6.0\910c844ccd4653c9f6895dc4b7adce6372a4da03\http-request-6.0.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="910c844ccd4653c9f6895dc4b7adce6372a4da03">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\http-request-6.0_71bcb5b66b457b85c463cfcb53a81e7b4f6139b3\classes.dex" />
-    </item>
-    <item
-        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-22.2.1_685e8e8c1a615315032175d676aaca1eb31dc368\classes.dex" />
-    </item>
-    <item
-        jar="D:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
-        jumboMode="true"
-        revision="22.0.0"
-        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-22.2.1_db1bb2a3f1608a31c38a2d1f5698fe71cc45038a\classes.dex" />
-    </item>
-    <item
+        is-multidex="true"
         jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.thoughtworks.xstream\xstream\1.1.3\5a804b7f565e4079c298df25cf05be078cb152aa\xstream-1.1.3.jar"
         jumboMode="true"
+        optimize="true"
         revision="22.0.0"
         sha1="5a804b7f565e4079c298df25cf05be078cb152aa">
         <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\xstream-1.1.3_e04955bde14b40f246891e1c7b6e4253ba8f145f\classes.dex" />
     </item>
     <item
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.mcxiaoke.volley\library\1.0.18\38da306aafee11459cd935a01d2c92a98dc670a4\library-1.0.18.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="38da306aafee11459cd935a01d2c92a98dc670a4">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\library-1.0.18_5d0946797226a2bb3cc2df5f82cb025506c7322d\classes.dex" />
+    </item>
+    <item
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="5af8e546cc5a96894683521cb333091bc2fe1751">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_7a7cc06ea9869aadd0307ea692098bf1f628768f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.loopj.android\android-async-http\1.4.9\386a4339ffe52d5d63e80f9bed8d2b1d1a418249\android-async-http-1.4.9.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="386a4339ffe52d5d63e80f9bed8d2b1d1a418249">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\android-async-http-1.4.9_433b0128101db832d738c45b0b2be7ae63eddf83\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\cz.msebera.android\httpclient\4.3.6\526a9f794eab830eae4f23a62c572878b3f491ab\httpclient-4.3.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="526a9f794eab830eae4f23a62c572878b3f491ab">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\httpclient-4.3.6_37595a2c57d5f171bea1bb2ad936a4729e053332\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.loopj.android\android-async-http\1.4.9\386a4339ffe52d5d63e80f9bed8d2b1d1a418249\android-async-http-1.4.9.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="386a4339ffe52d5d63e80f9bed8d2b1d1a418249">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\android-async-http-1.4.9_433b0128101db832d738c45b0b2be7ae63eddf83.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.thoughtworks.xstream\xstream\1.1.3\5a804b7f565e4079c298df25cf05be078cb152aa\xstream-1.1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="5a804b7f565e4079c298df25cf05be078cb152aa">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\xstream-1.1.3_e04955bde14b40f246891e1c7b6e4253ba8f145f.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.github.kevinsawicki\http-request\6.0\910c844ccd4653c9f6895dc4b7adce6372a4da03\http-request-6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="910c844ccd4653c9f6895dc4b7adce6372a4da03">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\http-request-6.0_71bcb5b66b457b85c463cfcb53a81e7b4f6139b3\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\cz.msebera.android\httpclient\4.3.6\526a9f794eab830eae4f23a62c572878b3f491ab\httpclient-4.3.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="526a9f794eab830eae4f23a62c572878b3f491ab">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\httpclient-4.3.6_37595a2c57d5f171bea1bb2ad936a4729e053332.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="139ad8be0ec552a513caa5fee364fdfdfb360861">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_7a7cc06ea9869aadd0307ea692098bf1f628768f\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.google.zxing\core\1.7\888814a387fc7570d50c4fbf4d20555d4fdd7646\core-1.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="888814a387fc7570d50c4fbf4d20555d4fdd7646">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\core-1.7_ab6a64403ed7cb514bff792cc57fca7889e2fa1d\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.github.kevinsawicki\http-request\6.0\910c844ccd4653c9f6895dc4b7adce6372a4da03\http-request-6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="910c844ccd4653c9f6895dc4b7adce6372a4da03">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\http-request-6.0_71bcb5b66b457b85c463cfcb53a81e7b4f6139b3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\gson-2.2.4_313aff129984a0a45e086871ec03bfcc02e7284e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.loopj.android\android-async-http\1.4.9\386a4339ffe52d5d63e80f9bed8d2b1d1a418249\android-async-http-1.4.9.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="386a4339ffe52d5d63e80f9bed8d2b1d1a418249">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\android-async-http-1.4.9_433b0128101db832d738c45b0b2be7ae63eddf83\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\cz.msebera.android\httpclient\4.3.6\526a9f794eab830eae4f23a62c572878b3f491ab\httpclient-4.3.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="526a9f794eab830eae4f23a62c572878b3f491ab">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\httpclient-4.3.6_37595a2c57d5f171bea1bb2ad936a4729e053332\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.2.4_313aff129984a0a45e086871ec03bfcc02e7284e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="a6a294b1ff36ab059b76026988631d0ca359c4a8">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_a5a9804cc9dcbc44917902f00e506bc74bf08ef0\classes.dex" />
+    </item>
+    <item
+        jar="D:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-22.2.1_db1bb2a3f1608a31c38a2d1f5698fe71cc45038a\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\xpp3\xpp3_min\1.1.3.4.O\cbb9d21eed484a16e0c0bd712830a80c75970753\xpp3_min-1.1.3.4.O.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="cbb9d21eed484a16e0c0bd712830a80c75970753">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\xpp3_min-1.1.3.4.O_d9ae56ed21fd6aaa099b15296fbb8087d559b266.jar" />
+    </item>
+    <item
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.1_f6c23cd6916dcfb505a1aa92ed519a30d316c4ed\classes.dex" />
+    </item>
+    <item
         jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
         jumboMode="true"
+        optimize="true"
         revision="22.0.0"
         sha1="f8efd0096475e0daf054267b61544e10dc776503">
         <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-22.2.1_daeac0c7c3ee6a051e8698cc7ad4b4067b7a6477\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\cz.msebera.android\httpclient\4.3.6\526a9f794eab830eae4f23a62c572878b3f491ab\httpclient-4.3.6.jar"
+        is-multidex="true"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\xpp3\xpp3_min\1.1.3.4.O\cbb9d21eed484a16e0c0bd712830a80c75970753\xpp3_min-1.1.3.4.O.jar"
         jumboMode="true"
+        optimize="true"
         revision="22.0.0"
-        sha1="526a9f794eab830eae4f23a62c572878b3f491ab">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\httpclient-4.3.6_37595a2c57d5f171bea1bb2ad936a4729e053332\classes.dex" />
+        sha1="cbb9d21eed484a16e0c0bd712830a80c75970753">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\xpp3_min-1.1.3.4.O_d9ae56ed21fd6aaa099b15296fbb8087d559b266\classes.dex" />
+    </item>
+    <item
+        jar="D:\Workspace\TaurusMoblie\app\libs\zxingjar-1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="734ce52ec1144865e306c96029a23d339705a67a">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\2\zxingjar-1.1_1df5be28340966abb71d8a67124bf433d8a9fc27\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.github.kevinsawicki\http-request\6.0\910c844ccd4653c9f6895dc4b7adce6372a4da03\http-request-6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="910c844ccd4653c9f6895dc4b7adce6372a4da03">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\http-request-6.0_71bcb5b66b457b85c463cfcb53a81e7b4f6139b3\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\support-annotations-22.2.1_db1bb2a3f1608a31c38a2d1f5698fe71cc45038a.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.google.zxing\core\1.7\888814a387fc7570d50c4fbf4d20555d4fdd7646\core-1.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="888814a387fc7570d50c4fbf4d20555d4fdd7646">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\core-1.7_ab6a64403ed7cb514bff792cc57fca7889e2fa1d\classes.dex" />
+    </item>
+    <item
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="aaa59c580b8e13188ec1bd7c77fc10d012f83f15">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_a5a9804cc9dcbc44917902f00e506bc74bf08ef0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-22.2.1_db1bb2a3f1608a31c38a2d1f5698fe71cc45038a\classes.dex" />
+    </item>
+    <item
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.2.4_313aff129984a0a45e086871ec03bfcc02e7284e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-22.2.1_daeac0c7c3ee6a051e8698cc7ad4b4067b7a6477\classes.dex" />
+    </item>
+    <item
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-22.2.1_685e8e8c1a615315032175d676aaca1eb31dc368\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.1_f6c23cd6916dcfb505a1aa92ed519a30d316c4ed\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.thoughtworks.xstream\xstream\1.1.3\5a804b7f565e4079c298df25cf05be078cb152aa\xstream-1.1.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="5a804b7f565e4079c298df25cf05be078cb152aa">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\xstream-1.1.3_e04955bde14b40f246891e1c7b6e4253ba8f145f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Workspace\TaurusMoblie\app\libs\zxingjar-1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="734ce52ec1144865e306c96029a23d339705a67a">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\2\zxingjar-1.1_1df5be28340966abb71d8a67124bf433d8a9fc27\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\com.android.support-support-v4-22.2.1_daeac0c7c3ee6a051e8698cc7ad4b4067b7a6477.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Workspace\TaurusMoblie\app\libs\zxingjar-1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="734ce52ec1144865e306c96029a23d339705a67a">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\zxingjar-1.1_1df5be28340966abb71d8a67124bf433d8a9fc27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.google.zxing\core\1.7\888814a387fc7570d50c4fbf4d20555d4fdd7646\core-1.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="888814a387fc7570d50c4fbf4d20555d4fdd7646">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\core-1.7_ab6a64403ed7cb514bff792cc57fca7889e2fa1d.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.mcxiaoke.volley\library\1.0.18\38da306aafee11459cd935a01d2c92a98dc670a4\library-1.0.18.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="38da306aafee11459cd935a01d2c92a98dc670a4">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\library-1.0.18_5d0946797226a2bb3cc2df5f82cb025506c7322d\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\com.mcxiaoke.volley\library\1.0.18\38da306aafee11459cd935a01d2c92a98dc670a4\library-1.0.18.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="38da306aafee11459cd935a01d2c92a98dc670a4">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\library-1.0.18_5d0946797226a2bb3cc2df5f82cb025506c7322d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\internal_impl-22.2.1_f6c23cd6916dcfb505a1aa92ed519a30d316c4ed.jar" />
+    </item>
+    <item
+        jar="C:\Users\Prodap\.gradle\caches\modules-2\files-2.1\xpp3\xpp3_min\1.1.3.4.O\cbb9d21eed484a16e0c0bd712830a80c75970753\xpp3_min-1.1.3.4.O.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="cbb9d21eed484a16e0c0bd712830a80c75970753">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\xpp3_min-1.1.3.4.O_d9ae56ed21fd6aaa099b15296fbb8087d559b266\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="22.0.0"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\com.android.support-appcompat-v7-22.2.1_685e8e8c1a615315032175d676aaca1eb31dc368.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.0"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-22.2.1_685e8e8c1a615315032175d676aaca1eb31dc368\classes.dex" />
     </item>
 
 </items>

@@ -253,7 +253,7 @@ public class Parto_Activity extends Activity
             @Override
             public void onClick(View v)
             {
-                id_pk = data.getTime();
+                id_pk = System.currentTimeMillis();
 
                 parto_tb.setId_pk(id_pk);
                 cria_tb.setId_fk_parto(id_pk);
