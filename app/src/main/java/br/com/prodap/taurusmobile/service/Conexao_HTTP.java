@@ -149,7 +149,7 @@ public class Conexao_HTTP {
 		return result.toString();
 	}
 
-	public String postJson(String json) throws IOException
+	public String postJson1(String json) throws IOException
 	{
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
@@ -171,7 +171,7 @@ public class Conexao_HTTP {
 		return EntityUtils.toString(resposta.getEntity());
 	}
 
-	public String postJson1(String json)
+	public String postJson(String json)
 	{
 		try
 		{
@@ -189,6 +189,8 @@ public class Conexao_HTTP {
 
 			Scanner scanner = new Scanner(connection.getInputStream());
 			String resposta = scanner.next();
+
+			this.servResultPost = connection.getResponseCode();
 
 			return resposta;
 		}

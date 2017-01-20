@@ -51,7 +51,7 @@
             <item
                 android:id="@+id/menu_versao"
                 android:showAsAction="always"
-                android:title="Versão v06122016"/>
+                android:title="Versão v20012017"/>
         </menu>
     </item>
 

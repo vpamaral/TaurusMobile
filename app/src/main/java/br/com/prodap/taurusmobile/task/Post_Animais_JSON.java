@@ -17,6 +17,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.tb.Parto_Parto_Cria;
 import br.com.prodap.taurusmobile.converter.Parto_Parto_Cria_JSON;
@@ -62,7 +64,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 
 	private void source()
 	{
-		configuracao_tb = new Configuracao();
+		configuracao_tb 		= new Configuracao();
 		p_parto_cria_tb 		= new Parto_Parto_Cria();
 		configuracoes_model		= new Configuracao_Model(ctx);
 		parto_parto_cria_model  = new Parto_Parto_Cria_Model(ctx);
@@ -146,7 +148,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	{
 		if (json != null)
 		{
-			if (c_http.servResultPost != 200)
+			if (c_http.servResultPost != HttpsURLConnection.HTTP_OK)
 			{
 				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 				mProgress.dismiss();
