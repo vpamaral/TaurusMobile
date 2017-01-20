@@ -33,15 +33,15 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-public class Conexao_HTTP {
+public class Conexao_HTTP
+{
 	private String url;
 	private Context ctx;
 	public static int servResultPost;
 	public static int servResultGet;
 	private HttpResponse resposta;
 
-	public Conexao_HTTP() {
-	}
+	public Conexao_HTTP() {	}
 
 	public Conexao_HTTP(String url, Context ctx) {
 		this.url = url;
@@ -88,51 +88,6 @@ public class Conexao_HTTP {
 		return dados;
 	}
 
-	public String postRequest(String urlServico, ArrayList<String> postDataParams) throws Exception
-	{
-	  	HttpURLConnection objUrlConnection = null;
-	  	String response = "";
-	  	BufferedReader br = null;
-
-	  	try
-		{
-			URL url = new URL(urlServico);
-			objUrlConnection = (HttpURLConnection) url.openConnection();
-			objUrlConnection.setRequestMethod("POST");
-			objUrlConnection.setRequestProperty("Accept", "application/xml");
-			objUrlConnection.setRequestProperty("Content-Type", "application/json");
-			objUrlConnection.connect();
-			OutputStream objDadosOutputStream = objUrlConnection.getOutputStream();
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(objDadosOutputStream, "UTF-8"));
-			writer.write(PostData(postDataParams));
-			writer.flush();
-			writer.close();
-			objDadosOutputStream.close();
-			int responseCode = objUrlConnection.getResponseCode();
-
-			if (responseCode == HttpsURLConnection.HTTP_OK) {
-				String linha;
-				br = new BufferedReader(new InputStreamReader(objUrlConnection.getInputStream()));
-				while ((linha = br.readLine()) != null) {
-					response += linha;
-				}
-			} else {
-				response = "";
-			}
-		}
-	 	catch (Exception e)
-	 	{
-			  Log.i("TAG", e.toString());
-			  e.printStackTrace();
-	 	}
-		finally
-		{
-			  br.close();
-			  objUrlConnection.disconnect();
-	 	}
-	 	return response;
-	}
-
 	private String PostData(ArrayList<String>  postDataParams) throws UnsupportedEncodingException{
 		StringBuilder result = new StringBuilder();
 			boolean first = true;
@@ -147,28 +102,6 @@ public class Conexao_HTTP {
 			}
 
 		return result.toString();
-	}
-
-	public String postJson1(String json) throws IOException
-	{
-		DefaultHttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(url);
-		post.setEntity(new StringEntity(json));
-		post.setHeader("Content-type", "application/json");
-		post.setHeader("Accept", "application/json");
-
-		try
-		{
-			resposta = client.execute(post);
-		}
-		catch (ClientProtocolException e)
-		{
-			e.printStackTrace();
-			Log.i("TAG", e.toString());
-		}
-
-		this.servResultPost = resposta.getStatusLine().getStatusCode();
-		return EntityUtils.toString(resposta.getEntity());
 	}
 
 	public String postJson(String json)
