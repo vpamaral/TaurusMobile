@@ -15,6 +15,7 @@ import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Pasto;
+import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
@@ -62,7 +63,7 @@ public class Pasto_Activity extends Activity {
         {
             //if (!edt_pasto.getText().toString().equals("") ) {
             pasto_tb.setNome(edt_pasto.getText().toString());
-            pasto_model.validate(this, "Pasto", pasto_tb, Banco_Service.VALIDATION_TYPE_INSERT);
+            pasto_model.validate(this, "Pasto", pasto_tb, Constantes.VALIDATION_TYPE_INSERT);
             pasto_model.insert(this, "Pasto", p_helper.getDadosPasto(pasto_tb));
             Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Pasto cadastrado com sucesso.");
             edt_pasto.setText("");

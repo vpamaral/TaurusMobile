@@ -57,6 +57,7 @@ import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
+import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
@@ -885,8 +886,8 @@ public class Parto_Activity extends Activity
     {
         try
         {
-            cria_model.validate(this, "Parto_Cria", cria_tb, Banco_Service.VALIDATION_TYPE_INSERT);
-            parto_model.validate(this, "Parto", parto_tb, Banco_Service.VALIDATION_TYPE_INSERT);
+            cria_model.validate(this, "Parto_Cria", cria_tb, Constantes.VALIDATION_TYPE_INSERT);
+            parto_model.validate(this, "Parto", parto_tb, Constantes.VALIDATION_TYPE_INSERT);
             parto_model.insert(Parto_Activity.this, "Parto", p_helper.getDadosParto(parto_tb));
             cria_model.insert(Parto_Activity.this, "Parto_Cria", pc_helper.getDadosCria(cria_tb));
             writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));

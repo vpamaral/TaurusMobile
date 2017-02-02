@@ -10,11 +10,8 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.util.Validator_Exception;
 
-public abstract class Banco_Service {
-	public static int VALIDATION_TYPE_INSERT = 0;
-	public static int VALIDATION_TYPE_DELETE = 1;
-	public static int VALIDATION_TYPE_UPDATE = 2;
-
+public abstract class Banco_Service
+{
 	public abstract void validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE) throws Validator_Exception;
 
 	public abstract <T> List<T> selectAll(Context ctx, String Tabela, Object table);
