@@ -9,49 +9,42 @@
         android:title="@string/action_settings">
         <menu>
             <item
-                android:id="@+id/menu_atualiza_dados"
-                android:icon="@drawable/atualiza32"
+                android:id="@+id/menu_dispositivos_pariados"
+                android:icon="@drawable/connect_icon"
                 android:showAsAction="always"
-                android:title="Atualizar Dados"/>
+                android:title="Dispositivos pareados"/>
+
             <item
-                android:id="@+id/menu_lista_animais"
-                android:icon="@drawable/lista32"
+                android:id="@+id/menu_habilitar_visibilidade"
+                android:icon="@drawable/connect_icon"
                 android:showAsAction="always"
-                android:title="Lista de Animais"/>
+                android:title="Habilitar Visibilidade"/>
+
             <item
-                android:id="@+id/menu_novo_parto"
-                android:icon="@drawable/adiciona32"
+                android:id="@+id/menu_descoberta_dispositivo"
+                android:icon="@drawable/connect_icon"
                 android:showAsAction="always"
-                android:title="Lançar Parto"/>
-            <!--<item
-                android:id="@+id/menu_novo_pasto"
-                android:icon="@drawable/adiciona32"
-                android:showAsAction="always"
-                android:title="Cadastrar Pasto"/>-->
+                android:title="Descoberta de dispositivos"/>
+
             <item
-                android:id="@+id/menu_lista_partos"
-                android:icon="@drawable/lista32"
+                android:id="@+id/menu_esperar_conexao"
+                android:icon="@drawable/connect_icon"
                 android:showAsAction="always"
-                android:title="Lista de Partos"/>
-            <item
-                android:id="@+id/menu_enviar_dados"
-                android:icon="@drawable/envia32"
-                android:showAsAction="always"
-                android:title="Enviar Dados Servidor"/>
+                android:title="Esperar conexão"/>
             <item
                 android:id="@+id/menu_QRCode"
                 android:icon="@drawable/setting"
                 android:showAsAction="always"
                 android:title="Configuraçoes"/>
-            <!--<item
-                android:id="@+id/menu_recover_sent_partos"
-                android:icon="@drawable/setting"
-                android:showAsAction="always"
-                android:title="Recupera Partos Lançados"/>-->
             <item
+                android:id="@+id/menu_about"
+                android:icon="@drawable/logo_taurus"
+                android:showAsAction="always"
+                android:title="Sobre"/>
+            <!--<item
                 android:id="@+id/menu_versao"
                 android:showAsAction="always"
-                android:title="Versão v20012017"/>
+                android:title="Versão v20012017"/>-->
         </menu>
     </item>
 

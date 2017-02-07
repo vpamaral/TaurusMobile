@@ -5,7 +5,8 @@ package br.com.prodap.taurusmobile.util;
  */
 public class Validator_Exception extends Prodap_Exception {
 
-    public Validator_Exception(String e) {
+    public Validator_Exception(String e)
+    {
         super(e);
     }
 }

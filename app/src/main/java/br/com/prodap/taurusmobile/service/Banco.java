@@ -64,7 +64,6 @@ public class Banco extends SQLiteOpenHelper {
 
 		String sql_configuracao = "CREATE TABLE 'Configuracao' ("
 				+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'id_pk'    				INTEGER,"
 				+ "'tipo'        			varchar(45),"
 				+ "'endereco'      			varchar(200),"
 				+ "'valida_identificador'   varchar(5),"

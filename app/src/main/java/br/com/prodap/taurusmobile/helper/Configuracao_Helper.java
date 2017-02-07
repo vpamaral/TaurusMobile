@@ -63,7 +63,7 @@ public class Configuracao_Helper
 
         for (Configuracao config_tb : c_list)
         {
-            loadConfig(c_activity, config_tb);
+            FillForm(c_activity, config_tb);
         }
 
         if (leitor != null)
@@ -71,13 +71,14 @@ public class Configuracao_Helper
             edtEndereco.setText(leitor.getScanResult());
             tipo = leitor.getTipo();
 
-            c_tb = getConfig();
+            c_tb = getConfig(c_activity);
         }
+
         //metodo para não deixar abrir o teclado do aparelho.
         c_activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
-    public Configuracao getConfig()
+    public Configuracao getConfig(Configuracao_Activity c_activity)
     {
         c_tb.setEndereco(edtEndereco.getText().toString());
         c_tb.setTipo(tipo);
@@ -89,55 +90,19 @@ public class Configuracao_Helper
         return c_tb;
     }
 
-    public void loadConfig(Configuracao_Activity c_activity, Configuracao config_tb)
-    {
-        config_tb = c_model.selectID(c_activity, "Configuracao", c_tb, c_tb.getId_auto());
-
-        edtEndereco.setText(config_tb.getEndereco().toString());
-        tipo = config_tb.getTipo().toString();
-        if (config_tb.getValida_identificador().equals("S")) cbIdentificador.setChecked(true);
-        if (config_tb.getValida_sisbov().equals("S")) cbSisbov.setChecked(true);
-        if (config_tb.getValida_manejo().equals("S")) cbManejo.setChecked(true);
-        if (config_tb.getValida_cod_alternativo().equals("S")) cbCodAlternativo.setChecked(true);
-    }
-
-    /*//metodo para preencher o formulario
+    //metodo para preencher o formulario
     public void FillForm(Configuracao_Activity c_activity, Configuracao c_tb)
     {
-        c_tb	= c_model.selectPK(pasto_activity, "Configuracao", p_tb, pasto_tb.getId_pk());
+        c_tb = c_model.selectID(c_activity, "Configuracao", c_tb, c_tb.getId_auto());
 
-        edt_data.setText(p_tb.getData_cadastro());
-        edt_cod_pasto.setText(p_tb.getCodigo());
-        edt_nome.setText(p_tb.getNome());
-        edt_retiro.setText(r_tb.getNome());
-        edt_pot_prod.setText(Double.valueOf(p_tb.getPotencial_producao()).toString());
-        edt_area_aberta.setText(Double.valueOf(p_tb.getArea_aberta()).toString());
-        edt_aee.setText(Double.valueOf(p_tb.getAee()).toString());
-        edt_densidade.setText(Double.valueOf(p_tb.getDensidade()).toString());
-        edt_area_cocho_disp.setText(Double.valueOf(p_tb.getArea_cocho_disponivel()).toString());
-        edt_area_min_cab.setText(Double.valueOf(p_tb.getArea_minima_cab()).toString());
+        edtEndereco.setText(c_tb.getEndereco().toString());
+        tipo = c_tb.getTipo().toString();
 
-        cb_forrageira.setSelection((int)f_tb.getId_auto() - 1);
+        if (c_tb.getValida_identificador().equals("S")) cbIdentificador.setChecked(true);
+        if (c_tb.getValida_sisbov().equals("S")) cbSisbov.setChecked(true);
+        if (c_tb.getValida_manejo().equals("S")) cbManejo.setChecked(true);
+        if (c_tb.getValida_cod_alternativo().equals("S")) cbCodAlternativo.setChecked(true);
     }
-
-    public Pasto_TB getPasto(Pasto_Activity pasto_activity)
-    {
-        f_tb = f_model.selectByNome(pasto_activity, "Forrageira", p_tb, cb_forrageira.getSelectedItem().toString());
-
-        p_tb.setId_pk(p_tb.getId_pk() != 0 ? p_tb.getId_pk() : 0);
-
-        p_tb.setId_user(-1);
-
-        p_tb.setPotencial_producao(Double.valueOf(edt_pot_prod.getText().toString()));
-        p_tb.setId_fk_forrageira(f_tb.getId_pk());
-        p_tb.setArea_aberta(Double.valueOf(edt_area_aberta.getText().toString()));
-        p_tb.setAee(Double.valueOf(edt_aee.getText().toString()));
-        p_tb.setDensidade(Double.valueOf(edt_densidade.getText().toString()));
-        p_tb.setArea_cocho_disponivel(Double.valueOf(edt_area_cocho_disp.getText().toString()));
-        p_tb.setArea_minima_cab(Double.valueOf(edt_area_min_cab.getText().toString()));
-
-        return p_tb;
-    }*/
 
     /*#################################### FIM VIEW #############################################*/
 
@@ -213,16 +178,16 @@ public class Configuracao_Helper
         return c_list;
     }
 
-    public Configuracao configurarHelper(Configuracao configurarTB)
+    public Configuracao configuracaoHelper(Configuracao c_tb)
     {
         Configuracao config = new Configuracao();
 
-        config.setId_auto(configurarTB.getId_auto());
-        config.setTipo(configurarTB.getTipo());
-        config.setEndereco(configurarTB.getEndereco());
-        config.setValida_identificador(configurarTB.getValida_identificador());
-        config.setValida_manejo(configurarTB.getValida_manejo());
-        config.setValida_sisbov(configurarTB.getValida_sisbov());
+        config.setId_auto(c_tb.getId_auto());
+        config.setTipo(c_tb.getTipo());
+        config.setEndereco(c_tb.getEndereco());
+        config.setValida_identificador(c_tb.getValida_identificador());
+        config.setValida_manejo(c_tb.getValida_manejo());
+        config.setValida_sisbov(c_tb.getValida_sisbov());
 
         return config;
     }

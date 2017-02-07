@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.UUID;
 
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
 import br.com.prodap.taurusmobile.view.Parto_Activity;
 
 public class ConnectionThread extends Thread {
@@ -180,12 +181,15 @@ public class ConnectionThread extends Thread {
         O byte array é encapsulado em um Bundle e posteriormente em uma Message
     antes de ser enviado.
      */
-    private void toMainActivity(byte[] data) {
+    private void toMainActivity(byte[] data)
+    {
         Message message = new Message();
         Bundle bundle = new Bundle();
         bundle.putByteArray("data", data);
         message.setData(bundle);
+
         Parto_Activity.handler.sendMessage(message);
+        Menu_Principal_Activity.handler.sendMessage(message);
     }
 
     /*  Método utilizado pela Activity principal para transmitir uma mensagem ao

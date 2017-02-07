@@ -26,7 +26,8 @@ import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 
-public class Lista_Partos_Cria_Activity extends Activity {
+public class Lista_Partos_Cria_Activity extends Activity
+{
 	private Parto_Model parto_model;
 	private Parto parto_tb;
 	private Parto_Cria_Model p_cria_model;
@@ -48,10 +49,8 @@ public class Lista_Partos_Cria_Activity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lista_partos_cria);
-		loadList();
-		source();
 
-		setTitle("MA.: " + quantMachos + "  |  FE.: " + quantFemeas + "  |  Total: " + quantdPartos);
+		source();
 	}
 
 	private void source()
@@ -64,14 +63,43 @@ public class Lista_Partos_Cria_Activity extends Activity {
 		matriz_tb 		= new Animal();
 		animal_list 	= ani_model.selectAll(getBaseContext(),"Animal", matriz_tb);
 
+		list = (ListView) findViewById(R.id.p_list);
+
+		list.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> list, View item, int position, long id)
+			{
+				p_cria_tb = (Parto_Cria) list.getItemAtPosition(position);
+
+				Intent intent = new Intent(Lista_Partos_Cria_Activity.this, Parto_Activity.class);
+				intent.putExtra("p_tb", p_cria_tb);
+				startActivity(intent);
+			}
+		});
+		registerForContextMenu(list);
+
 		this.partoCriaList();
 		this.partoCriaDetails();
 		this.partoCriaDelete();
 	}
 
+	public void btn_novo_parto_Click (View view)
+	{
+		Intent intent = new Intent(this, Parto_Activity.class);
+		startActivity(intent);
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		partoCriaList();
+	}
+
 	private void loadList()
 	{
-		list = (ListView) findViewById(R.id.lista_partos);
+		list = (ListView) findViewById(R.id.p_list);
 		registerForContextMenu(list);
 	}
 	
@@ -98,6 +126,8 @@ public class Lista_Partos_Cria_Activity extends Activity {
 
 		p_cria_adapter 	= new Parto_Cria_Adapter(p_cria_list, this);
 		parto_adapter 	= new Parto_Adapter(parto_list, this);
+
+		setTitle("MA.: " + quantMachos + "  |  FE.: " + quantFemeas + "  |  Total: " + quantdPartos);
 
 		list.setAdapter(p_cria_adapter);
 		//list.setAdapter(parto_adapter);
@@ -172,19 +202,24 @@ public class Lista_Partos_Cria_Activity extends Activity {
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+	{
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuItem miDelete = menu.add("Excluir Parto");
-		miDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 
+		miDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
+		{
 			@Override
-			public boolean onMenuItemClick(MenuItem item) {
+			public boolean onMenuItemClick(MenuItem item)
+			{
 				AlertDialog.Builder builder = new AlertDialog.Builder(Lista_Partos_Cria_Activity.this);
 				builder.setTitle("Alerta").setMessage("Deseja Excluir o lançamento de parto?").setIcon(android.R.drawable.ic_dialog_alert)
-						.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
+						.setPositiveButton("Sim", new DialogInterface.OnClickListener()
+						{
+							public void onClick(DialogInterface dialog, int which)
+							{
 								Long id_fk_parto = p_cria_tb.getId_fk_parto();
-								Long id_pk = parto_tb.getId_pk();
+								Long id_pk = id_fk_parto;
 
 								parto_model.deleteParto(Lista_Partos_Cria_Activity.this, id_pk);
 								p_cria_model.deletePartoCria(Lista_Partos_Cria_Activity.this, id_fk_parto);

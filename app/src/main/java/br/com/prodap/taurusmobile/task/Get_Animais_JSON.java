@@ -67,29 +67,47 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>> {
 	}
 	
 	@Override
-	protected List<Animal> doInBackground(Void... params) {
+	protected List<Animal> doInBackground(Void... params)
+	{
 		String url = "";
 		List<Configuracao> c_list = c_model.selectAll(ctx, "Configuracao", c_tb);
-		for (Configuracao qrcode_tb : c_list) {
+		Get_JSON getJSON;
+
+		for (Configuracao qrcode_tb : c_list)
+		{
 			url = qrcode_tb.getEndereco();
 		}
-		try {
+
+		try
+		{
 			Animal_Model objModelAnimal = new Animal_Model(ctx);
-			Get_JSON getJSON 			= new Get_JSON(url + Constantes.METHOD_GET, ctx);
+
+			if (Constantes.STATUS_CONN == "conectado")
+				getJSON = new Get_JSON();
+			else
+				getJSON = new Get_JSON(url + Constantes.METHOD_GET, ctx);
+
 			objListaAnimal 				= getJSON.listaAnimal();
 			aniHelper 					= new Animal_Adapter();
 			int i 						= 0;
-			if (objListaAnimal.size() > 0) {
+
+			if (objListaAnimal.size() > 0)
+			{
 				mProgress.setMax(objListaAnimal.size());
-				for (Animal animal : objListaAnimal) {
-					if (objListaAnimal.size() != 0) {
+
+				for (Animal animal : objListaAnimal)
+				{
+					if (objListaAnimal.size() != 0)
+					{
 						objModelAnimal.insert(ctx, "Animal", aniHelper.getDadosAnimal(animal));
 						publishProgress(i * 1);
 					}
 					i++;
 				}
 			}
-		} catch (Validator_Exception e) {
+		}
+		catch (Validator_Exception e)
+		{
 			Log.i("TAG", e.toString());
 			e.printStackTrace();
 		}

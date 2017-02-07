@@ -73,8 +73,10 @@ public abstract class Banco_Service
 		}
 	}
 
-	public void update(Context ctx, String Tabela, ContentValues cv) {
-		try {
+	public void update(Context ctx, String Tabela, ContentValues cv)
+	{
+		try
+		{
 			Banco banco = new Banco(ctx);
 			banco.getWritableDatabase().update(Tabela, cv, null, null);
 			banco.close();

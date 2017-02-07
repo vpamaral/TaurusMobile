@@ -33,14 +33,16 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>> {
     private ProgressDialog mProgress;
     private int mProgressDialog=0;
 
-    public Get_Pastos_JSON(Context ctx, int progressDialog){
-        this.ctx = ctx;
-        this.mProgressDialog = progressDialog;
+    public Get_Pastos_JSON(Context ctx, int progressDialog)
+    {
+        this.ctx                = ctx;
+        this.mProgressDialog    = progressDialog;
 
         source();
     }
 
-    private void source() {
+    private void source()
+    {
         c_tb 		    = new Configuracao();
         c_model 	    = new Configuracao_Model(ctx);
         c_helper 		= new Configuracao_Adapter();
@@ -48,51 +50,65 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>> {
     }
 
     @Override
-    protected void onPreExecute() {
+    protected void onPreExecute()
+    {
         mProgress = new ProgressDialog(ctx);
         mProgress.setTitle("Aguarde ...");
         mProgress.setMessage("Recebendo dados do servidor ...");
-        if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
 
+        if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL)
+        {
             mProgress.setIndeterminate(false);
             mProgress.setMax(100);
             mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgress.setCancelable(true);
         }
+
         mProgress.show();
     }
 
     @Override
-    protected void onProgressUpdate(Integer... values) {
-        if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+    protected void onProgressUpdate(Integer... values)
+    {
+        if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL)
             mProgress.setProgress(values[0]);
-        }
     }
 
     @Override
-    protected List<Pasto> doInBackground(Void... params) {
+    protected List<Pasto> doInBackground(Void... params)
+    {
         String url = "";
         List<Configuracao> c_list = c_model.selectAll(ctx, "Configuracao", c_tb);
-        for (Configuracao qrcode_tb : c_list) {
+
+        for (Configuracao qrcode_tb : c_list)
+        {
             url = qrcode_tb.getEndereco();
         }
-        try {
-            Pasto_Model pastoModel   = new Pasto_Model(ctx);
+
+        try
+        {
+            Pasto_Model pastoModel  = new Pasto_Model(ctx);
             Get_JSON getJSON 	    = new Get_JSON(url + Constantes.METHOD_GET_PASTOS, ctx);
             pastoList               = getJSON.listPasto();
             pastoAdapter            = new Pasto_Adapter();
             int i = 0;
             mProgress.setMax(pastoList.size());
-            for (Pasto pasto_tb : pastoList) {
-                if (pastoList.size() != 0) {
+
+            for (Pasto pasto_tb : pastoList)
+            {
+                if (pastoList.size() != 0)
+                {
                     pastoModel.insert(ctx, "Pasto", pastoAdapter.getDadosPasto(pasto_tb));
                     publishProgress(i * 1);
                 }
                 i++;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
+
         return pastoList;
     }
 

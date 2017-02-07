@@ -226,8 +226,10 @@ public class Parto_Activity extends Activity
         btnSalvarClick();
     }
 
-    public static void buscaMatriz (String id) {
-        if (!id.equals("")) {
+    public static void buscaMatriz (String id)
+    {
+        if (!id.equals(""))
+        {
             loadMatriz();
         }
     }
@@ -547,66 +549,55 @@ public class Parto_Activity extends Activity
 
     private void loadIdentificadorSisbovGrupoManejo()
     {
-        if (!listConf.get(0).getValida_identificador().equals("S")
-                && !listConf.get(0).getValida_sisbov().equals("S"))
-        {
-            editCodCria.setEnabled(true);
-        }
+        if (listConf.size() > 0) {
+            if (!listConf.get(0).getValida_identificador().equals("S")
+                    && !listConf.get(0).getValida_sisbov().equals("S")) {
+                editCodCria.setEnabled(true);
+            }
 
-        if (listConf.get(0).getValida_identificador().equals("S"))
-        {
-            editIdentificador.setEnabled(true);
-            ll_identificador.setVisibility(LinearLayout.VISIBLE);
-            validaIdentificador = true;
-        }
-        else
-        {
-            editIdentificador.setText("0");
-            editIdentificador.setEnabled(false);
-            ll_identificador.setVisibility(LinearLayout.GONE);
-            validaIdentificador = false;
-        }
+            if (listConf.get(0).getValida_identificador().equals("S")) {
+                editIdentificador.setEnabled(true);
+                ll_identificador.setVisibility(LinearLayout.VISIBLE);
+                validaIdentificador = true;
+            } else {
+                editIdentificador.setText("0");
+                editIdentificador.setEnabled(false);
+                ll_identificador.setVisibility(LinearLayout.GONE);
+                validaIdentificador = false;
+            }
 
-        if (listConf.get(0).getValida_sisbov().equals("S"))
-        {
-            editSisbov.setEnabled(true);
-            ll_sisbov.setVisibility(LinearLayout.VISIBLE);
-            validaSisbov = true;
-        }
-        else
-        {
-            editSisbov.setText("0");
-            editSisbov.setEnabled(false);
-            ll_sisbov.setVisibility(LinearLayout.GONE);
-            validaSisbov = false;
-        }
+            if (listConf.get(0).getValida_sisbov().equals("S")) {
+                editSisbov.setEnabled(true);
+                ll_sisbov.setVisibility(LinearLayout.VISIBLE);
+                validaSisbov = true;
+            } else {
+                editSisbov.setText("0");
+                editSisbov.setEnabled(false);
+                ll_sisbov.setVisibility(LinearLayout.GONE);
+                validaSisbov = false;
+            }
 
-        if (listConf.get(0).getValida_manejo().equals("S"))
-        {
-            editGrupoManejo.setEnabled(true);
-            ll_manejo.setVisibility(LinearLayout.VISIBLE);
-            validaManejo = true;
-        }
-        else
-        {
-            editGrupoManejo.setText("0");
-            editGrupoManejo.setEnabled(false);
-            ll_manejo.setVisibility(LinearLayout.GONE);
-            validaManejo = false;
-        }
+            if (listConf.get(0).getValida_manejo().equals("S")) {
+                editGrupoManejo.setEnabled(true);
+                ll_manejo.setVisibility(LinearLayout.VISIBLE);
+                validaManejo = true;
+            } else {
+                editGrupoManejo.setText("0");
+                editGrupoManejo.setEnabled(false);
+                ll_manejo.setVisibility(LinearLayout.GONE);
+                validaManejo = false;
+            }
 
-        if (listConf.get(0).getValida_cod_alternativo().equals("S"))
-        {
-            editCodAlternativo.setEnabled(true);
-            ll_cod_alternativo.setVisibility(LinearLayout.VISIBLE);
-            validaCodAlternativo = true;
-        }
-        else
-        {
-            editCodAlternativo.setText("0");
-            editCodAlternativo.setEnabled(false);
-            ll_cod_alternativo.setVisibility(LinearLayout.GONE);
-            validaCodAlternativo = false;
+            if (listConf.get(0).getValida_cod_alternativo().equals("S")) {
+                editCodAlternativo.setEnabled(true);
+                ll_cod_alternativo.setVisibility(LinearLayout.VISIBLE);
+                validaCodAlternativo = true;
+            } else {
+                editCodAlternativo.setText("0");
+                editCodAlternativo.setEnabled(false);
+                ll_cod_alternativo.setVisibility(LinearLayout.GONE);
+                validaCodAlternativo = false;
+            }
         }
     }
 

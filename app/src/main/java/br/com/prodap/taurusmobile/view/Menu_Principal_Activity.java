@@ -1,18 +1,21 @@
 package br.com.prodap.taurusmobile.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,13 +27,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.com.prodap.taurusmobile.OpenFile.OnCloseListener;
+import br.com.prodap.taurusmobile.OpenFile.OpenFileDialog;
 import br.com.prodap.taurusmobile.R;
+import br.com.prodap.taurusmobile.bluetooth.ConnectionThread;
+import br.com.prodap.taurusmobile.bluetooth.DiscoveredDevices;
+import br.com.prodap.taurusmobile.bluetooth.PairedDevices;
 import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.model.Criterio_Model;
 import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
 import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
+import br.com.prodap.taurusmobile.service.Get_JSON;
 import br.com.prodap.taurusmobile.task.Get_Animais_JSON;
 import br.com.prodap.taurusmobile.task.Get_Criterios_JSON;
 import br.com.prodap.taurusmobile.task.Get_Grupo_Manejo_JSON;
@@ -38,19 +47,53 @@ import br.com.prodap.taurusmobile.task.Get_Pastos_JSON;
 import br.com.prodap.taurusmobile.task.Post_Animais_JSON;
 import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.tb.Pasto;
+import br.com.prodap.taurusmobile.util.Constantes;
+import br.com.prodap.taurusmobile.util.CreateReadWrite;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 
 public class Menu_Principal_Activity extends Activity {
 
 	public static String JSONPASTO;
-	private Button btn_atualizar;
-	private Button btn_atualizar_dados;
-	private Button btn_animais;
-	private Button btn_parto;
-	private Button btn_lista_parto;
-	private Button btn_enviar_dados;
-	private Button btn_configurar;
+	private ProgressDialog dialog;
+	private Handler mHandler;
+	private OpenFileDialog openFileDialog;
+	private CreateReadWrite crw;
+
+	public static Handler handler = new Handler()
+	{
+		@Override
+		public void handleMessage(Message msg)
+		{
+			resultHandleMessage(msg);
+		}
+	};
+
+	private static void resultHandleMessage(Message msg)
+	{
+		Bundle bundle 		= msg.getData();
+		byte[] data 		= bundle.getByteArray("data");
+		String dataString	= new String(data);
+
+		if(dataString.equals("ERRO_CONEXAO"))
+		{
+			Constantes.STATUS_CONN = ("desconectado");
+			Constantes.LBL_STATUS.setText("Desconectado");
+		}
+		else if(dataString.equals("CONECTADO"))
+		{
+			Constantes.STATUS_CONN = ("conectado");
+			Constantes.LBL_STATUS.setText("Conectado");
+		}
+		else
+		{
+			data.toString().length();
+
+			Constantes.JSON += new String(data);
+
+			Constantes.GET_JSON.Get_JSON(Constantes.JSON);
+		}
+	}
 
 	public static String old_identificador;
 	public static String old_sisbov;
@@ -71,22 +114,30 @@ public class Menu_Principal_Activity extends Activity {
 	private Parto_Model parto_model;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_menu_principal);
 		loadVars();
 
-		try {
+		try
+		{
 			createFile();
 			//createFileParto();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
+
 		source();
+
+		openFileDialog_Click();
+
 		parto_model.recoverDescarte(getBaseContext());
-		atualizarBotoes();
-		loadListener();
+		//atualizarBotoes();
+		//loadListener();
 	}
 
 	private void loadVars()
@@ -103,26 +154,90 @@ public class Menu_Principal_Activity extends Activity {
 		old_sexo			= "";
 	}
 
+	private void openFileDialog_Click()
+	{
+		openFileDialog.setOnCloseListener(new OnCloseListener()
+		{
+			@Override
+			public void onCancel() {}
+
+			@Override
+			public void onOk(String selectedFile)
+			{
+				try
+				{
+					Constantes.ARQUIVO = createList(selectedFile).toString();
+
+					if (Constantes.ARQUIVO != null)
+					{
+						Constantes.GET_JSON.Get_JSON(Constantes.ARQUIVO);
+
+						updateDados();
+					}
+					else
+					{
+						Mensagem_Util.addMsg(Message_Dialog.Toast, Menu_Principal_Activity.this, "Aquivos sem dados");
+					}
+				}
+				catch (IOException e)
+				{
+					Log.i("OPENFILE", e.toString());
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
 	private void source()
 	{
-		btn_atualizar 		= (Button) findViewById(R.id.btn_atualiza);
-//		btn_atualizar_dados	= (Button) findViewById(R.id.btn_atualiza_dados);
-		btn_animais 		= (Button) findViewById(R.id.btn_animal);
-		btn_parto 			= (Button) findViewById(R.id.btn_parto);
-		btn_lista_parto 	= (Button) findViewById(R.id.btn_lista_parto);
-		btn_enviar_dados 	= (Button) findViewById(R.id.btn_enviar_dados);
-		btn_configurar		= (Button) findViewById(R.id.btn_configuracoes);
-		configuracao_model 	= new Configuracao_Model(this);
-		conf_tb 			= new Configuracao();
-		parto_model			= new Parto_Model(this);
+		try
+		{
+			crw = new CreateReadWrite(this);
+			crw.createFile();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 
-		lista_conf 			= configuracao_model.selectAll(this, "Configuracao", conf_tb);
+		setTitle("Menu Principal");
+
+		//Constantes.LBL_STATUS 	= (TextView) findViewById(R.id.lbl_status_MSG);
+		Constantes.GET_JSON 	= new Get_JSON();
+
+		mHandler 				= new Handler();
+		openFileDialog 			= new OpenFileDialog(this);
+
+		configuracao_model 		= new Configuracao_Model(this);
+		conf_tb 				= new Configuracao();
+		parto_model				= new Parto_Model(this);
+
+		lista_conf 				= configuracao_model.selectAll(this, "Configuracao", conf_tb);
 
 		for (Configuracao conf : lista_conf)
 		{
 			url = conf.getEndereco();
 		}
-		existCelular(lista_conf, conf_tb);
+		//existCelular(lista_conf, conf_tb);
+	}
+
+	//metodo para selecionar o arquivo para atualizar o banco de dados do aparelho
+	private String createList (String path_file) throws IOException
+	{
+		String dados_file = "";
+
+		try
+		{
+			BufferedReader br = new BufferedReader(new FileReader(path_file));
+
+			dados_file = br.readLine();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return dados_file;
 	}
 
 	private void atualizarBotoes()
@@ -141,8 +256,57 @@ public class Menu_Principal_Activity extends Activity {
 //			btn_atualizar_dados.setVisibility(View.VISIBLE);
 //		}
 	}
+
+	public void btn_atualiza_via_web_Click (View v)
+	{
+		updateDados();
+	}
+
+	public void btn_atualiza_via_bluetooth_Click (View v)
+	{
+		if (checksConnectionBluetooth())
+		{
+			sendMessage("GET");
+		}
+		else
+		{
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "O dispositivo não esta conectado ao servidor!");
+			return;
+		}
+	}
+
+	public void btn_open_arquivo_Click (View v)
+	{
+		openFileDialog.setTitle("Seleciona Arquivo");
+		openFileDialog.show();
+	}
+
+	public void btn_list_animais_Click (View v)
+	{
+		animaisList();
+	}
+
+	public void btn_cadastro_parto_Click (View v)
+	{
+		partosList();
+	}
+
+	public void btn_enviar_via_web_Click (View v)
+	{
+		postDados();
+	}
+
+	public void btn_enviar_via_bluetooth_Click (View v)
+	{
+
+	}
+
+	public void btn_create_file_Click (View v)
+	{
+
+	}
 	
-	private void loadListener()
+	/*private void loadListener()
 	{
 		btn_atualizar.setOnClickListener(new OnClickListener() {
 
@@ -204,7 +368,7 @@ public class Menu_Principal_Activity extends Activity {
 				loadConfiguracao();
 			}
 		});
-	}
+	}*/
 
 	private void lancaParto()
 	{
@@ -218,8 +382,7 @@ public class Menu_Principal_Activity extends Activity {
 	}
 
 	private void animaisList() {
-		Intent intent = new Intent(Menu_Principal_Activity.this,
-				Lista_Animais_Activity.class);
+		Intent intent = new Intent(Menu_Principal_Activity.this, Lista_Animais_Activity.class);
 		startActivity(intent);
 	}
 	
@@ -231,64 +394,99 @@ public class Menu_Principal_Activity extends Activity {
 
 	private void updateDados()
 	{
-
-		if (checksConnection())
+		if (!checksConnectionBluetooth())
 		{
-			if (validateServer(url))
+			if (checksConnectionWeb())
 			{
-				msgUpdateAnimais();
+				if (validateServer(url))
+				{
+					msgUpdateAnimais();
+				}
+			}
+			else
+			{
+				Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
+				return;
 			}
 		}
 		else
 		{
-			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
-			return;
+			msgUpdateAnimais();
 		}
 	}
 
-	private void postDados() {
-		if (checksConnection()) {
-			if (validateServer(url)){
-				msgPostDados();
+	private void postDados()
+	{
+		if (!checksConnectionBluetooth())
+		{
+			if (checksConnectionWeb())
+			{
+				if (validateServer(url))
+				{
+					msgPostDados();
+				}
 			}
-		} else {
-			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
-			return;
+			else
+			{
+				Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
+				return;
+			}
+		}
+		else
+		{
+			msgPostDados();
 		}
 	}
 	
-	private void loadConfiguracao(){
-		Intent intent = new Intent(Menu_Principal_Activity.this,
-				Configuracao_Activity.class);
+	private void loadConfiguracao()
+	{
+		Intent intent = new Intent(Menu_Principal_Activity.this, Configuracao_Activity.class);
 		startActivity(intent);
 	}
 
 	private void msgUpdateAnimais()
 	{
-		if (checksConnection())
+		if (!checksConnectionBluetooth())
 		{
-			if (validateServer(url))
+			if (checksConnectionWeb())
 			{
-				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados?"
-						, new DialogInterface.OnClickListener()
-						{
-					@Override
-					public void onClick(DialogInterface dialog, int which)
-					{
-						updatePastos();
-						updateGrupoManejo();
-						updateCriterios();
-						Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
-						objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
-						new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
-					}
-				});
+				if (validateServer(url))
+				{
+					Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados?"
+							, new DialogInterface.OnClickListener()
+							{
+								@Override
+								public void onClick(DialogInterface dialog, int which)
+								{
+									updatePastos();
+									updateGrupoManejo();
+									updateCriterios();
+									Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
+									objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
+									new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+								}
+							});
+				}
+			} else {
+				Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
+				return;
 			}
 		}
 		else
 		{
-			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
-			return;
+			Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados?", new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					updatePastos();
+					updateGrupoManejo();
+					updateCriterios();
+					Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
+					objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
+					new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+				}
+			});
 		}
 	}
 
@@ -334,31 +532,71 @@ public class Menu_Principal_Activity extends Activity {
 //		}
 //	}
 
-	private void msgPostDados() {
-		if (checksConnection()) {
-			if (validateServer(url)){
-				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?"
-						, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
-					}
-				});
+	private void msgPostDados()
+	{
+		if (!checksConnectionBluetooth())
+		{
+			if (checksConnectionWeb())
+			{
+				if (validateServer(url))
+				{
+					Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?", new DialogInterface.OnClickListener()
+					{
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+						}
+					});
+				}
 			}
-		} else {
-			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
-			return;
+			else
+			{
+				Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
+				return;
+			}
+		}
+		else
+		{
+			Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?", new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+				}
+			});
 		}
 	}
 
-	public boolean checksConnection() {
+	public boolean checksConnectionWeb()
+	{
 		boolean connected;
 		ConnectivityManager conectivtyManager = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
 		if (conectivtyManager.getActiveNetworkInfo() != null
 				&& conectivtyManager.getActiveNetworkInfo().isAvailable()
-				&& conectivtyManager.getActiveNetworkInfo().isConnected()) {
+				&& conectivtyManager.getActiveNetworkInfo().isConnected())
+		{
 			connected = true;
-		} else {
+		}
+		else
+		{
+			connected = false;
+		}
+		return connected;
+	}
+
+	private boolean checksConnectionBluetooth()
+	{
+		boolean connected;
+
+		if (Constantes.STATUS_CONN == "conectado")
+		{
+			connected = true;
+		}
+		else
+		{
 			connected = false;
 		}
 		return connected;
@@ -383,7 +621,8 @@ public class Menu_Principal_Activity extends Activity {
 		}
 	}
 
-	private void loadLeitor() {
+	private void loadLeitor()
+	{
 		Intent intent = new Intent(Menu_Principal_Activity.this, Leitor_Activity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
@@ -415,30 +654,24 @@ public class Menu_Principal_Activity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.menu_atualiza_dados:
-				updateDados();
+			case R.id.menu_dispositivos_pariados:
+				searchPairedDevices();
 				return false;
-			case R.id.menu_lista_animais:
-				animaisList();
+			case R.id.menu_habilitar_visibilidade:
+				enableVisibility();
 				return false;
-			case R.id.menu_novo_parto:
-				lancaParto();
+			case R.id.menu_descoberta_dispositivo:
+				discoverDevices();
 				return false;
-			/*case R.id.menu_novo_pasto:
-				novoPasto();
-				return false;*/
-			case R.id.menu_lista_partos:
-				partosList();
-				return false;
-			case R.id.menu_enviar_dados:
-				postDados();
+			case R.id.menu_esperar_conexao:
+				waitConnection();
 				return false;
 			case R.id.menu_QRCode:
 				loadConfiguracao();
 				return false;
-			/*case R.id.menu_recover_sent_partos:
-				parto_model.recoverSentPartos(getBaseContext());
-				return false;*/
+			case R.id.menu_about:
+				about();
+				return false;
 			default:
 				break;
 		}
@@ -446,9 +679,40 @@ public class Menu_Principal_Activity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void sendMessage(String json)
+	{
+		byte[] data = json.getBytes();
+		Constantes.CONNECT.write(data);
+	}
+
+	public void searchPairedDevices()
+	{
+		Intent searchPairedDevicesIntent = new Intent(this, PairedDevices.class);
+		startActivityForResult(searchPairedDevicesIntent,Constantes. SELECT_PAIRED_DEVICE);
+	}
+
+	public void discoverDevices()
+	{
+		Intent searchPairedDevicesIntent = new Intent(this, DiscoveredDevices.class);
+		startActivityForResult(searchPairedDevicesIntent, Constantes.SELECT_DISCOVERED_DEVICE);
+	}
+
+	public void enableVisibility()
+	{
+		Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+		discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 30);
+		startActivity(discoverableIntent);
+	}
+
 	private String obterDiretorio()	{
 		File root = android.os.Environment.getExternalStorageDirectory();
 		return root.toString();
+	}
+
+	public void waitConnection()
+	{
+		Constantes.CONNECT = new ConnectionThread();
+		Constantes.CONNECT.start();
 	}
 
 	private String createListAnimais () throws IOException {
@@ -495,6 +759,21 @@ public class Menu_Principal_Activity extends Activity {
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public void about()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
+		builder.setMessage("Versão do Sistema: 06022017\n\n"+
+				"Suporte: (31) 3555-0800\n"+
+				"www.prodap.com.br\n"+
+				"prodap@prodap.com.br\n\n"+
+				"© 2016 Prodap\n"+
+				"Todos os direitos reservados.")
+				.setTitle(" ")
+				.setIcon(R.drawable.prodap_logo)
+				.setPositiveButton("OK", null)
+				.show();
 	}
 
 //	private void createFileParto() throws IOException {

@@ -24,7 +24,8 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 
 	}
 
-	public Parto_Cria_Adapter(List<Parto_Cria> partos_cria, Activity activity) {
+	public Parto_Cria_Adapter(List<Parto_Cria> partos_cria, Activity activity)
+	{
 		this.partos_cria = partos_cria;
 		this.activity = activity;
 	}
@@ -188,8 +189,19 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 	{
 		Parto_Cria parto_cria = partos_cria.get(position);
 
-		LayoutInflater inflater = activity.getLayoutInflater();
-		View line = inflater.inflate(R.layout.activity_lista_partos_cria, null);
+		//LayoutInflater inflater = activity.getLayoutInflater();
+		LayoutInflater inflater = LayoutInflater.from(activity);
+
+		//View line = inflater.inflate(R.layout.parto_item_list_grid, null);
+		View view               = convertView;
+
+		if (view == null)
+		{
+			view = inflater.inflate(R.layout.parto_item_list_grid, parent, false);
+		}
+
+		TextView lbl_cod_cria = (TextView) view.findViewById(R.id.parto_list_cod_cria);
+		lbl_cod_cria.setText(String.valueOf(parto_cria.getCodigo_cria()));
 
 		/*if (position % 2 == 0) {
 			line.setBackgroundColor(activity.getResources().
@@ -200,9 +212,9 @@ public class Parto_Cria_Adapter extends BaseAdapter{
 					getColor(R.color.linha_impar));
 		}*/
 
-		TextView sisbov = (TextView) line.findViewById(R.id.lblCodCria);
-		sisbov.setText(parto_cria.toString());
+		/*TextView sisbov = (TextView) line.findViewById(R.id.lblCodCria);
+		sisbov.setText(parto_cria.toString());*/
 
-		return line;
+		return view;
 	}
 }

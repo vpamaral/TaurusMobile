@@ -31,5 +31,5 @@ public class Constantes {
 	public static Get_JSON GET_JSON;
 
 	public static String ARQUIVO;
-	public static boolean CREATE_ARQUIVO;
+	public static String CREATE_ARQUIVO;
 }
