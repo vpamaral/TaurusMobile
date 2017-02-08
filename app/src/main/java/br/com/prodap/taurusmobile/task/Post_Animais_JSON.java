@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import br.com.prodap.taurusmobile.service.Post_JSON;
 import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.tb.Parto_Parto_Cria;
 import br.com.prodap.taurusmobile.converter.Parto_Parto_Cria_JSON;
@@ -31,7 +32,8 @@ import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 
-public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
+public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
+{
 	private Context ctx;
 	private Configuracao configuracao_tb;
 	private Parto_Parto_Cria p_parto_cria_tb;
@@ -46,7 +48,8 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	private String retornoJSON;
 	public Conexao_HTTP c_http;
 	public ProgressDialog mProgress;
-	private int mProgressDialog=0;
+	private int mProgressDialog = 0;
+	private Post_JSON post_json;
 
 	private SimpleDateFormat dateFormat;
 	private Date data;
@@ -56,7 +59,8 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 
 	private String filename;
 
-	public Post_Animais_JSON(Context ctx, int progressDialog) {
+	public Post_Animais_JSON(Context ctx, int progressDialog)
+	{
 		this.ctx = ctx;
 		this.mProgressDialog = progressDialog;
 		source();
@@ -70,42 +74,48 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 		parto_parto_cria_model  = new Parto_Parto_Cria_Model(ctx);
 		parto_model				= new Parto_Model(ctx);
 		c_http					= new Conexao_HTTP();
-
+		post_json 				= new Post_JSON();
 		dateFormat 				= new SimpleDateFormat("dd-MM-yyyy");
 		data 					= new Date();
 		calendar 				= Calendar.getInstance();
+
 		calendar.setTime(data);
+
 		data_atual 				= calendar.getTime();
 		data_dd_mm_yyyy 		= dateFormat.format(data_atual);
 
 	}
 
 	@Override
-	protected void onPreExecute() {
+	protected void onPreExecute()
+	{
 		mProgress = new ProgressDialog(ctx);
 		mProgress.setTitle("Aguarde ...");
 		mProgress.setMessage("Enviando dados para o servidor ...");
-		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+
+		if (mProgressDialog == ProgressDialog.STYLE_HORIZONTAL)
+		{
 			mProgress.setIndeterminate(false);
 			mProgress.setMax(0);
 			mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			mProgress.setCancelable(false);
 		}
+
 		mProgress.show();
 	}
 
 	@Override
-	protected void onProgressUpdate(Integer... values) {
-		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+	protected void onProgressUpdate(Integer... values)
+	{
+		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL)
 			mProgress.setProgress(values[0]);
-		}
 	}
 
 	@Override
 	protected String doInBackground(Object... params)
 	{
-		String url = "";
-		configuracao_list = configuracoes_model.selectAll(ctx, "Configuracao", configuracao_tb);
+		String url 			= "";
+		configuracao_list 	= configuracoes_model.selectAll(ctx, "Configuracao", configuracao_tb);
 
 		for (Configuracao qrcode_tb : configuracao_list)
 		{
@@ -125,14 +135,14 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 					publishProgress(i * 1);
 				}
 
-				json 		= new Parto_Parto_Cria_JSON().toJSON(p_parto_cria_list);
-				auxiliar 	= new Auxiliar(json);
+				//json 		= new Parto_Parto_Cria_JSON().toJSON(p_parto_cria_list);
+				/*auxiliar 	= new Auxiliar(json);
 				gson 		= new Gson();
-				retornoJSON = gson.toJson(auxiliar);
+				retornoJSON = gson.toJson(auxiliar);*/
+				retornoJSON = post_json.postDadosSend(p_parto_cria_list);
 
-				new Conexao_HTTP(url + Constantes.METHOD_POST, ctx).postJson(retornoJSON);
-
-				return retornoJSON;
+				if (Constantes.TIPO_ENVIO == "web")
+					new Conexao_HTTP(url + Constantes.METHOD_POST, ctx).postJson(retornoJSON);
 			}
 		}
 		catch (Exception e)
@@ -148,17 +158,12 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	{
 		if (json != null)
 		{
-			if (c_http.servResultPost != HttpsURLConnection.HTTP_OK)
+			if (Constantes.TIPO_ENVIO == "web")
 			{
-				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
-				mProgress.dismiss();
-			}
-			else
-			{
-				if (retornoJSON.isEmpty())
+				if (c_http.servResultPost != HttpsURLConnection.HTTP_OK)
 				{
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 					mProgress.dismiss();
-					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Nenhum dado para ser enviado.");
 				}
 				else
 				{
@@ -169,7 +174,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 					}
 					catch (IOException e)
 					{
-						Log.i("ARQUIVO_PARTOS_ENVIADOS", e.toString());
+						Log.i("PARTOS_WEB", e.toString());
 						e.printStackTrace();
 					}
 
@@ -177,6 +182,50 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
 					mProgress.dismiss();
 				}
+			}
+
+			if (Constantes.TIPO_ENVIO == "bluetooth")
+			{
+				if (Constantes.STATUS_CONN == "desconectado")
+				{
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "O dipositivo não esta conectado ao Servidor.");
+					mProgress.dismiss();
+				}
+				else
+				{
+					try
+					{
+						createFilePartoSend();
+						writeInFileSendPartos(json);
+					}
+					catch (IOException e)
+					{
+						Log.i("PARTOS_BLUETOOTH", e.toString());
+						e.printStackTrace();
+					}
+
+					parto_model.deletingLogic(ctx);
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
+					mProgress.dismiss();
+				}
+			}
+
+			if (Constantes.TIPO_ENVIO == "arquivo")
+			{
+				try
+				{
+					createFilePartoSend();
+					writeInFileSendPartos(json);
+				}
+				catch (IOException e)
+				{
+					Log.i("ARQUIVO_PARTOS", e.toString());
+					e.printStackTrace();
+				}
+
+				parto_model.deletingLogic(ctx);
+				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Arquivo gerado com sucesso.");
+				mProgress.dismiss();
 			}
 		}
 		else
@@ -191,9 +240,11 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 		BufferedReader input = null;
 		File file = null;
 
-		try{
-			file = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
+		try
+		{
+			file 				= new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
 			FileOutputStream in = new FileOutputStream(file, true);
+
 			in.write(text.getBytes());
 			in.write("\n".getBytes());
 			in.flush();
@@ -201,32 +252,39 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 
 			return true;
 		}
-		catch (Exception e){
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	private void createFilePartoSend() throws IOException {
+	private void createFilePartoSend() throws IOException
+	{
+		Date data 			= new Date();
+		final Calendar cal 	= Calendar.getInstance();
 
-		Date data = new Date();
-		final Calendar cal = Calendar.getInstance();
 		cal.setTime(data);
 
-		filename = "partos_enviados_"+ data_dd_mm_yyyy +".txt";
+		if (Constantes.CREATE_ARQUIVO == true)
+			filename 		= "Partos_Arquivo"+ data_dd_mm_yyyy +".txt";
+		else
+			filename 		= "Partos_Enviados_Web_Bluetooth"+ data_dd_mm_yyyy +".txt";
+
 		String conteudo = "";
+		File diretorio 	= new File(obterDiretorio(), "Prodap");
 
-		File diretorio = new File(obterDiretorio(), "Prodap");
-
-		if(!diretorio.exists()) {
+		if(!diretorio.exists())
 			diretorio.mkdir();
-		}
+
 		File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
 
 		FileOutputStream outputStream = null;
+
 		try
 		{
-			if(!arquivo.exists()) {
+			if(!arquivo.exists())
+			{
 				outputStream = new FileOutputStream(arquivo);
 				outputStream.write(conteudo.getBytes());
 				outputStream.close();
@@ -241,6 +299,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String> {
 	private String obterDiretorio()
 	{
 		File root = android.os.Environment.getExternalStorageDirectory();
+
 		return root.toString();
 	}
 }

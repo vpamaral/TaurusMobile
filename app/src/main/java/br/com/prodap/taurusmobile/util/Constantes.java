@@ -5,10 +5,11 @@ import android.widget.TextView;
 import br.com.prodap.taurusmobile.bluetooth.ConnectionThread;
 import br.com.prodap.taurusmobile.service.Get_JSON;
 
-public class Constantes {
+public class Constantes
+{
 	//public static final String SERVER = "http://192.168.0.150/TaurusWebService/TaurusService.svc/";
 	public static final String TAURUS_URL			= "/TaurusWebService/TaurusService.svc/";
-	public static final String METHOD_GET 			= "listaAnimaisJson";
+	public static final String METHOD_GET_ANIMAIS 	= "listaAnimaisJson";
 	public static final String METHOD_POST 			= "SendJson";
 	public static final String METHOD_GET_PASTOS 	= "listaPastos";
 	public static final String METHOD_GET_GRUPOS 	= "listaGrupos";
@@ -31,5 +32,6 @@ public class Constantes {
 	public static Get_JSON GET_JSON;
 
 	public static String ARQUIVO;
-	public static String CREATE_ARQUIVO;
+	public static boolean CREATE_ARQUIVO;
+	public static String TIPO_ENVIO;
 }

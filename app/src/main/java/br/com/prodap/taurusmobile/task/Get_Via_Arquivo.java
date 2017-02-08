@@ -14,71 +14,85 @@ import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 
-public class Get_ARQUIVO extends AsyncTask<Void, Integer, List<Pasto>> {
-
+public class Get_Via_Arquivo extends AsyncTask<Void, Integer, List<Pasto>>
+{
 	private List<Pasto> pastoList;
 	private Context ctx;
 	private Pasto_Adapter pastoAdapter;
-	ProgressDialog mProgress;
+	private ProgressDialog mProgress;
 	private int mProgressDialog=0;
 
-	public Get_ARQUIVO(Context ctx, int progressDialog){
+	public Get_Via_Arquivo(Context ctx, int progressDialog)
+	{
 		this.ctx = ctx;
 		this.mProgressDialog = progressDialog;
 	}
 
 	@Override
-	protected void onPreExecute() {
+	protected void onPreExecute()
+	{
 		mProgress = new ProgressDialog(ctx);
-		mProgress.setMessage("Tranferindo dados para tabela de Pasto.");
-		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+		mProgress.setTitle("Aguarde ...");
+		mProgress.setMessage("Recebendo dados do servidor via arquivo ...");
 
+		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL)
+		{
 			mProgress.setIndeterminate(false);
 			mProgress.setMax(100);
 			mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			mProgress.setCancelable(true);
 		}
+
 		mProgress.show();
 	}
 
 	@Override
-	protected void onProgressUpdate(Integer... values) {
-		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL){
+	protected void onProgressUpdate(Integer... values)
+	{
+		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL)
 			mProgress.setProgress(values[0]);
-		}
 	}
 	
 	@Override
-	protected List<Pasto> doInBackground(Void... params) {
-		String url = "";
+	protected List<Pasto> doInBackground(Void... params)
+	{
 		Pasto_Model pastoModel = new Pasto_Model(ctx);
-		try {
-			Gson gson = new Gson();
-			pastoAdapter = new Pasto_Adapter();
-			Pasto[] arrayPasto = gson.fromJson(Menu_Principal_Activity.JSONPASTO, Pasto[].class);
-			pastoList = pastoAdapter.arrayPasto(arrayPasto);
-			int i = 0;
+		try
+		{
+			Gson gson 			= new Gson();
+			pastoAdapter 		= new Pasto_Adapter();
+			Pasto[] arrayPasto 	= gson.fromJson(Menu_Principal_Activity.JSONPASTO, Pasto[].class);
+			pastoList 			= pastoAdapter.arrayPasto(arrayPasto);
+			int i 				= 0;
 			mProgress.setMax(pastoList.size());
-			for (Pasto pasto_tb : pastoList) {
-				if (pastoList.size() != 0) {
+
+			for (Pasto pasto_tb : pastoList)
+			{
+				if (pastoList.size() != 0)
+				{
 					pastoModel.insert(ctx, "Pasto", pastoAdapter.getDadosPasto(pasto_tb));
 					publishProgress(i * 1);
 				}
 				i++;
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 		return pastoList;
 	}
 
 	@Override
-	protected void onPostExecute(List<Pasto> result) {
+	protected void onPostExecute(List<Pasto> result)
+	{
 		mProgress.dismiss();
-		if(pastoList.isEmpty()){
+
+		if(pastoList.isEmpty())
+		{
 			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível transferir os dados.");
 		}
-		else {
+		else
+		{
 			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados transferidos com sucesso.");
 		}
 	}

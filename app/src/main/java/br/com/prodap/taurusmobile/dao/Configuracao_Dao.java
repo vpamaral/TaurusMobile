@@ -51,7 +51,7 @@ public class Configuracao_Dao extends Banco
         Class classe                                = table.getClass();
         List<Configuracao> c_list                   = new ArrayList<Configuracao>();
 
-        String sql                                  = String.format("SELECT * FROM %s WHERE id_pk = %s", Tabela, id_pk);
+        String sql                                  = String.format("SELECT * FROM %s WHERE id_auto = %s", Tabela, id_pk);
 
         Cursor c                                    = banco.getWritableDatabase().rawQuery(sql, null);
         c_tb                                        = c_helper.cursorConfiguracao(c);

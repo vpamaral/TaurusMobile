@@ -25,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="5ded281cc966f2120d7800a2ac25bdaf8fa768ea">
+        sha1="de231a29e91bf462d7f301dede7c32d81d7b5a48">
         <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_7a7cc06ea9869aadd0307ea692098bf1f628768f\classes.dex" />
     </item>
     <item
@@ -106,7 +106,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="24f1a0169b8a425a9f94926fc29c30512a512183">
+        sha1="2a3680f157de46c45bbb7fb75e8f6c7a95badbc1">
         <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_a5a9804cc9dcbc44917902f00e506bc74bf08ef0\classes.dex" />
     </item>
     <item

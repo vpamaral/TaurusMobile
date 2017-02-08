@@ -57,13 +57,13 @@ public class CreateReadWrite
 
         try
         {
-            if (Constantes.CREATE_ARQUIVO == "Arquivo")
+            if (Constantes.ARQUIVO == "Arquivo")
                 filename = "ProdapArquivo" + data_dd_mm_yyyy +".txt";
 
-            if (Constantes.CREATE_ARQUIVO == "Bluetooth")
+            if (Constantes.ARQUIVO == "Bluetooth")
                 filename = "ProdapBluetooth" + data_dd_mm_yyyy +".txt";
 
-            if (Constantes.CREATE_ARQUIVO == "Web")
+            if (Constantes.ARQUIVO == "Web")
                 filename = "ProdapWeb" + data_dd_mm_yyyy +".txt";
 
                 //filename = Constantes.CREATE_ARQUIVO == "Arquivo" ? "ProdapArquivo" + data_dd_mm_yyyy +".txt" : "ProdapAtivoBluetooth" + data_dd_mm_yyyy +".txt";

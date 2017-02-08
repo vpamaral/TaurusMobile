@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -172,7 +173,7 @@ public class Menu_Principal_Activity extends Activity {
 					{
 						Constantes.GET_JSON.Get_JSON(Constantes.ARQUIVO);
 
-						updateDados();
+						updateViaArquivo();
 					}
 					else
 					{
@@ -259,11 +260,13 @@ public class Menu_Principal_Activity extends Activity {
 
 	public void btn_atualiza_via_web_Click (View v)
 	{
-		updateDados();
+
+		updateViaWeb();
 	}
 
 	public void btn_atualiza_via_bluetooth_Click (View v)
 	{
+		Constantes.TIPO_ENVIO = "bluetooth";
 		if (checksConnectionBluetooth())
 		{
 			sendMessage("GET");
@@ -293,82 +296,21 @@ public class Menu_Principal_Activity extends Activity {
 
 	public void btn_enviar_via_web_Click (View v)
 	{
-		postDados();
+		Constantes.TIPO_ENVIO = "web";
+		postViaWeb();
 	}
 
 	public void btn_enviar_via_bluetooth_Click (View v)
 	{
-
+		Constantes.TIPO_ENVIO = "bluetooth";
+		postViaBluetooth();
 	}
 
 	public void btn_create_file_Click (View v)
 	{
-
+		Constantes.TIPO_ENVIO = "arquivo";
+		postViaArquivo();
 	}
-	
-	/*private void loadListener()
-	{
-		btn_atualizar.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				updateDados();
-			}
-		});
-
-//		btn_atualizar_dados.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				try {
-//					JSONPASTO = createListAnimais();
-//					msgUpdatePastoViaArquivo();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-
-		btn_animais.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				animaisList();
-			}
-		});
-
-		btn_parto.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				lancaParto();
-			}
-		});
-		
-		btn_lista_parto.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				partosList();
-			}
-		});
-		
-		btn_enviar_dados.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				postDados();
-			}
-		});
-		
-		btn_configurar.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				loadConfiguracao();
-			}
-		});
-	}*/
 
 	private void lancaParto()
 	{
@@ -391,52 +333,6 @@ public class Menu_Principal_Activity extends Activity {
 		Intent intent = new Intent(Menu_Principal_Activity.this, Lista_Partos_Cria_Activity.class);
 		startActivity(intent);
 	}
-
-	private void updateDados()
-	{
-		if (!checksConnectionBluetooth())
-		{
-			if (checksConnectionWeb())
-			{
-				if (validateServer(url))
-				{
-					msgUpdateAnimais();
-				}
-			}
-			else
-			{
-				Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
-				return;
-			}
-		}
-		else
-		{
-			msgUpdateAnimais();
-		}
-	}
-
-	private void postDados()
-	{
-		if (!checksConnectionBluetooth())
-		{
-			if (checksConnectionWeb())
-			{
-				if (validateServer(url))
-				{
-					msgPostDados();
-				}
-			}
-			else
-			{
-				Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
-				return;
-			}
-		}
-		else
-		{
-			msgPostDados();
-		}
-	}
 	
 	private void loadConfiguracao()
 	{
@@ -444,50 +340,78 @@ public class Menu_Principal_Activity extends Activity {
 		startActivity(intent);
 	}
 
-	private void msgUpdateAnimais()
+	private void updateViaBluetooth()
 	{
-		if (!checksConnectionBluetooth())
+		if (checksConnectionBluetooth())
 		{
-			if (checksConnectionWeb())
-			{
-				if (validateServer(url))
-				{
-					Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados?"
-							, new DialogInterface.OnClickListener()
-							{
-								@Override
-								public void onClick(DialogInterface dialog, int which)
-								{
-									updatePastos();
-									updateGrupoManejo();
-									updateCriterios();
-									Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
-									objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
-									new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
-								}
-							});
-				}
-			} else {
-				Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
-				return;
-			}
-		}
-		else
-		{
-			Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados?", new DialogInterface.OnClickListener()
+			Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados via Bluetooth?", new DialogInterface.OnClickListener()
 			{
 				@Override
 				public void onClick(DialogInterface dialog, int which)
 				{
+					Constantes.TIPO_ENVIO = "bluetooth";
 					updatePastos();
 					updateGrupoManejo();
 					updateCriterios();
-					Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
-					objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
-					new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+					updateAnimais();
 				}
 			});
 		}
+		else
+		{
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro o dispositivo não esta conectado ao servidor!");
+			return;
+		}
+	}
+
+	private void updateViaWeb()
+	{
+		if (checksConnectionWeb())
+		{
+			if (validateServer(url))
+			{
+				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados via Web?", new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						Constantes.TIPO_ENVIO = "web";
+						updatePastos();
+						updateGrupoManejo();
+						updateCriterios();
+						updateAnimais();
+					}
+				});
+			}
+		}
+		else
+		{
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
+			return;
+		}
+	}
+
+	private void updateViaArquivo()
+	{
+		Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados via arquivo?", new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				Constantes.TIPO_ENVIO = "arquivo";
+				updatePastos();
+				updateGrupoManejo();
+				updateCriterios();
+				updateAnimais();
+			}
+		});
+	}
+
+	private void updateAnimais()
+	{
+		Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
+		objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
+		new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
 
 	private void updatePastos()
@@ -511,52 +435,36 @@ public class Menu_Principal_Activity extends Activity {
 		new Get_Criterios_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
 
-//	private void msgUpdatePastoViaArquivo() {
-//		if (checksConnection()) {
-//			if (validateServer(url)){
-//				MensagemUtil.addMsg(MenuPrincipalActivity.this, "Aviso", "Criar tabela de Pasto?"
-//						, new DialogInterface.OnClickListener() {
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
-//						pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
-//
-//						new Get_ARQUIVO(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
-//						btn_atualizar_dados.setVisibility(View.INVISIBLE);
-//					}
-//				});
-//			}
-//		} else {
-//			MensagemUtil.addMsg(MessageDialog.Toast, this, "Erro ao atulaizar via arquivo!");
-//			return;
-//		}
-//	}
-
-	private void msgPostDados()
+	private void postViaWeb()
 	{
-		if (!checksConnectionBluetooth())
+		Constantes.CREATE_ARQUIVO = false;
+
+		if (checksConnectionWeb())
 		{
-			if (checksConnectionWeb())
+			if (validateServer(url))
 			{
-				if (validateServer(url))
+				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?", new DialogInterface.OnClickListener()
 				{
-					Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?", new DialogInterface.OnClickListener()
+					@Override
+					public void onClick(DialogInterface dialog, int which)
 					{
-						@Override
-						public void onClick(DialogInterface dialog, int which)
-						{
-							new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
-						}
-					});
-				}
-			}
-			else
-			{
-				Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
-				return;
+						new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+					}
+				});
 			}
 		}
 		else
+		{
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
+			return;
+		}
+	}
+
+	private void postViaBluetooth()
+	{
+		Constantes.CREATE_ARQUIVO = false;
+
+		if (checksConnectionBluetooth())
 		{
 			Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?", new DialogInterface.OnClickListener()
 			{
@@ -567,22 +475,46 @@ public class Menu_Principal_Activity extends Activity {
 				}
 			});
 		}
+		else
+		{
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro o dispositivo não esta conectado ao servidor!");
+			return;
+		}
+	}
+
+	private void postViaArquivo()
+	{
+		Constantes.CREATE_ARQUIVO = true;
+
+		Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja gerar o Arquivo?", new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+			}
+		});
 	}
 
 	public boolean checksConnectionWeb()
 	{
-		boolean connected;
-		ConnectivityManager conectivtyManager = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		boolean connected = false;
 
-		if (conectivtyManager.getActiveNetworkInfo() != null
-				&& conectivtyManager.getActiveNetworkInfo().isAvailable()
-				&& conectivtyManager.getActiveNetworkInfo().isConnected())
+		ConnectivityManager conectivtyManager 	= (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		lista_conf 								= configuracao_model.selectAll(this, "Configuracao", conf_tb);
+
+		if (lista_conf.size() > 0)
 		{
-			connected = true;
-		}
-		else
-		{
-			connected = false;
+			if (conectivtyManager.getActiveNetworkInfo() != null
+					&& conectivtyManager.getActiveNetworkInfo().isAvailable()
+					&& conectivtyManager.getActiveNetworkInfo().isConnected())
+			{
+				connected = true;
+			}
+			else
+			{
+				connected = false;
+			}
 		}
 		return connected;
 	}
@@ -629,14 +561,20 @@ public class Menu_Principal_Activity extends Activity {
 		finish();
 	}
 
-	public boolean validateServer(String urlServer) {
+	public boolean validateServer(String urlServer)
+	{
 		int count = 0;
-		for (int i = 0; i < urlServer.length(); i++) {
-			if (urlServer.charAt(i) == '/') {
+
+		for (int i = 0; i < urlServer.length(); i++)
+		{
+			if (urlServer.charAt(i) == '/')
+			{
 				count++;
 			}
 		}
-		if (count != 5) {
+
+		if (count != 5)
+		{
 			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "O URL do Servidor está inválido!" +
 					"\nFavor configurar o servidor.");
 			return false;
@@ -645,33 +583,43 @@ public class Menu_Principal_Activity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		getMenuInflater().inflate(R.menu.menu_principal, menu);
+
 		return super.onCreateOptionsMenu(menu);
 		// return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
 			case R.id.menu_dispositivos_pariados:
 				searchPairedDevices();
 				return false;
+
 			case R.id.menu_habilitar_visibilidade:
 				enableVisibility();
 				return false;
+
 			case R.id.menu_descoberta_dispositivo:
 				discoverDevices();
 				return false;
+
 			case R.id.menu_esperar_conexao:
 				waitConnection();
 				return false;
+
 			case R.id.menu_QRCode:
 				loadConfiguracao();
 				return false;
+
 			case R.id.menu_about:
 				about();
 				return false;
+
 			default:
 				break;
 		}
@@ -704,7 +652,8 @@ public class Menu_Principal_Activity extends Activity {
 		startActivity(discoverableIntent);
 	}
 
-	private String obterDiretorio()	{
+	private String obterDiretorio()
+	{
 		File root = android.os.Environment.getExternalStorageDirectory();
 		return root.toString();
 	}
@@ -715,7 +664,8 @@ public class Menu_Principal_Activity extends Activity {
 		Constantes.CONNECT.start();
 	}
 
-	private String createListAnimais () throws IOException {
+	private String createListAnimais () throws IOException
+	{
 		String texto = "";
 
 		try {
@@ -775,35 +725,4 @@ public class Menu_Principal_Activity extends Activity {
 				.setPositiveButton("OK", null)
 				.show();
 	}
-
-//	private void createFileParto() throws IOException {
-//
-//		Date data = new Date();
-//		final Calendar cal = Calendar.getInstance();
-//		cal.setTime(data);
-//
-//		String filename = "partos_enviados.txt";
-//		String conteudo = "";
-//
-//		File diretorio = new File(obterDiretorio(), "Prodap");
-//
-//		if(!diretorio.exists()) {
-//			diretorio.mkdir();
-//		}
-//		File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
-//
-//		FileOutputStream outputStream = null;
-//		try
-//		{
-//			if(!arquivo.exists()) {
-//				outputStream = new FileOutputStream(arquivo);
-//				outputStream.write(conteudo.getBytes());
-//				outputStream.close();
-//			}
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//		}
-//	}
 }

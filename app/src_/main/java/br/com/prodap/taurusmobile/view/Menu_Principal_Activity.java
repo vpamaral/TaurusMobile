@@ -321,7 +321,7 @@ public class Menu_Principal_Activity extends Activity {
 //						Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
 //						pasto_model.delete(MenuPrincipalActivity.this, "Pasto");
 //
-//						new Get_ARQUIVO(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+//						new Get_Via_Arquivo(MenuPrincipalActivity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 //						btn_atualizar_dados.setVisibility(View.INVISIBLE);
 //					}
 //				});

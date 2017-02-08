@@ -96,7 +96,7 @@ public class Configuracao_Helper
         c_tb = c_model.selectID(c_activity, "Configuracao", c_tb, c_tb.getId_auto());
 
         edtEndereco.setText(c_tb.getEndereco().toString());
-        tipo = c_tb.getTipo().toString();
+        tipo = c_tb.getTipo() != null ? c_tb.getTipo().toString() : "QRCODE";
 
         if (c_tb.getValida_identificador().equals("S")) cbIdentificador.setChecked(true);
         if (c_tb.getValida_sisbov().equals("S")) cbSisbov.setChecked(true);

@@ -31,12 +31,12 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
     private Configuracao_Model c_model;
     public Conexao_HTTP c_http;
     private ProgressDialog mProgress;
-    private int mProgressDialog=0;
+    private int mProgressDialog = 0;
 
     public Get_Criterios_JSON(Context ctx, int progressDialog)
     {
-        this.ctx = ctx;
-        this.mProgressDialog = progressDialog;
+        this.ctx                = ctx;
+        this.mProgressDialog    = progressDialog;
 
         source();
     }
@@ -56,7 +56,7 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
         mProgress.setTitle("Aguarde ...");
         mProgress.setMessage("Recebendo dados do servidor ...");
 
-        if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL)
+        if (mProgressDialog == ProgressDialog.STYLE_HORIZONTAL)
         {
             mProgress.setIndeterminate(false);
             mProgress.setMax(100);
@@ -78,8 +78,9 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
     @Override
     protected List<Criterio> doInBackground(Void... params)
     {
-        String url = "";
-        List<Configuracao> c_list = c_model.selectAll(ctx, "Configuracao", c_tb);
+        String url                  = "";
+        List<Configuracao> c_list   = c_model.selectAll(ctx, "Configuracao", c_tb);
+        Get_JSON getJSON            = null;
 
         for (Configuracao qrcode_tb : c_list)
         {
@@ -88,11 +89,18 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
 
         try
         {
-            Criterio_Model criterio_model   = new Criterio_Model(ctx);
-            Get_JSON getJSON 	        = new Get_JSON(url + Constantes.METHOD_GET_CRITERIOS, ctx);
+            Criterio_Model criterio_model = new Criterio_Model(ctx);
+
+            if (Constantes.TIPO_ENVIO == "web")
+                getJSON = new Get_JSON(url + Constantes.METHOD_GET_CRITERIOS, ctx);
+
+            if (Constantes.TIPO_ENVIO == "arquivo" || Constantes.TIPO_ENVIO == "bluetooth")
+                getJSON = new Get_JSON();
+
             criterio_list               = getJSON.listCriterio();
             c_adapter                   = new Criterio_Adapter();
-            int i = 0;
+            int i                       = 0;
+
             mProgress.setMax(criterio_list.size());
 
             for (Criterio c_tb : criterio_list)
@@ -115,25 +123,58 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
     @Override
     protected void onPostExecute(List<Criterio> result)
     {
-        if (c_http.servResultGet != 200)
+        if (Constantes.TIPO_ENVIO == "web")
         {
-            Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
-            mProgress.dismiss();
+            if (c_http.servResultGet != 200)
+            {
+                Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
+                mProgress.dismiss();
+            }
+            else
+            {
+                if (result != null)
+                {
+                    mProgress.dismiss();
+
+                    if (criterio_list.isEmpty())
+                        Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
+                    else
+                        Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Criterio atualizado com sucesso.");
+                }
+            }
         }
-        else
+
+        if (Constantes.TIPO_ENVIO == "bluetooth")
+        {
+            if (Constantes.STATUS_CONN == "desconectado")
+            {
+                Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "O dipositivo não esta conectado ao Servidor.");
+                mProgress.dismiss();
+            }
+            else
+            {
+                if (result != null)
+                {
+                    mProgress.dismiss();
+
+                    if (criterio_list.isEmpty())
+                        Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
+                    else
+                        Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Criterio atualizado com sucesso.");
+                }
+            }
+        }
+
+        if (Constantes.TIPO_ENVIO == "arquivo")
         {
             if (result != null)
             {
                 mProgress.dismiss();
 
                 if (criterio_list.isEmpty())
-                {
-                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
-                }
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contem dados no arquivo selecionado.");
                 else
-                {
-                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Critérios atualizados com sucesso.");
-                }
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Criterio atualizado com sucesso.");
             }
         }
     }

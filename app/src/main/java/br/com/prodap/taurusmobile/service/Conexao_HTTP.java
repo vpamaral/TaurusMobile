@@ -43,7 +43,8 @@ public class Conexao_HTTP
 
 	public Conexao_HTTP() {	}
 
-	public Conexao_HTTP(String url, Context ctx) {
+	public Conexao_HTTP(String url, Context ctx)
+	{
 		this.url = url;
 		this.ctx = ctx;
 	}
@@ -51,8 +52,8 @@ public class Conexao_HTTP
 	public String lerUrlServico(String urlServico) throws IOException, TimeoutException
 	{
 		String dados = "";
-		InputStream objDadosInputStream = null;
-		HttpURLConnection objUrlConnection = null;
+		InputStream objDadosInputStream 	= null;
+		HttpURLConnection objUrlConnection 	= null;
 
 		try
 		{
@@ -88,18 +89,20 @@ public class Conexao_HTTP
 		return dados;
 	}
 
-	private String PostData(ArrayList<String>  postDataParams) throws UnsupportedEncodingException{
-		StringBuilder result = new StringBuilder();
-			boolean first = true;
-			for(String lista : postDataParams){
-				if (first)
-					first = false;
-				else
-					result.append("&");
+	private String PostData(ArrayList<String>  postDataParams) throws UnsupportedEncodingException
+	{
+		StringBuilder result 	= new StringBuilder();
+		boolean first 			= true;
 
-				result.append(URLEncoder.encode(lista.toString(), "UTF-8"));
+		for(String lista : postDataParams)
+		{
+			if (first)
+				first = false;
+			else
+				result.append("&");
 
-			}
+			result.append(URLEncoder.encode(lista.toString(), "UTF-8"));
+		}
 
 		return result.toString();
 	}
@@ -108,8 +111,8 @@ public class Conexao_HTTP
 	{
 		try
 		{
-			URL url1 = new URL(url);
-			HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
+			URL _url = new URL(url);
+			HttpURLConnection connection = (HttpURLConnection) _url.openConnection();
 			connection.setRequestProperty("Content-type", "application/json");
 			connection.setRequestProperty("Accept", "application/json");
 
