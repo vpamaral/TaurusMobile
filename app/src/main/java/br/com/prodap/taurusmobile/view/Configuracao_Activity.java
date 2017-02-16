@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.List;
+
 import br.com.prodap.taurusmobile.R;
 import br.com.prodap.taurusmobile.helper.Configuracao_Helper;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
@@ -20,6 +22,7 @@ public class Configuracao_Activity extends Activity
 	private Configuracao c_tb;
 	private Configuracao_Helper c_helper;
 	private Configuracao_Model c_model;
+	private List<Configuracao> c_list;
 	private Mensagem_Util md;
 
 	@Override
@@ -67,12 +70,13 @@ public class Configuracao_Activity extends Activity
 	{
 		try
 		{
-			if (c_tb.getId_auto() != 0)
+			c_list = c_model.selectAll(this, "Configuracao", c_tb);
+
+			if (c_list.size() > 0 )
 			{
 				c_model.validate(this, "Configuracao", c_tb, Constantes.VALIDATION_TYPE_UPDATE);
 				updateConfiguracao(c_tb);
-				Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this
-						, "Dados atualisados com sucesso.");
+				Mensagem_Util.addMsg(Message_Dialog.Toast, Configuracao_Activity.this, "Dados atualisados com sucesso.");
                 loadMenuPrincipal();
 			}
 			else

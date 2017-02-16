@@ -53,8 +53,8 @@ public class Animal_Adapter
 		a_dados.put("id_pk", a_tb.getId_pk());
 		a_dados.put("codigo", a_tb.getCodigo());
 		a_dados.put("codigo_ferro", a_tb.getCodigo_ferro());
-		a_dados.put("identificador", a_tb.getData_nascimento());
-		a_dados.put("data_nascimento", a_tb.getIdentificador());
+		a_dados.put("data_nascimento", a_tb.getData_nascimento());
+		a_dados.put("identificador", a_tb.getIdentificador());
 
 		return a_dados;
 	}

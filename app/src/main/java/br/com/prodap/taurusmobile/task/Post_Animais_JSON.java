@@ -135,10 +135,6 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 					publishProgress(i * 1);
 				}
 
-				//json 		= new Parto_Parto_Cria_JSON().toJSON(p_parto_cria_list);
-				/*auxiliar 	= new Auxiliar(json);
-				gson 		= new Gson();
-				retornoJSON = gson.toJson(auxiliar);*/
 				retornoJSON = post_json.postDadosSend(p_parto_cria_list);
 
 				if (Constantes.TIPO_ENVIO == "web")

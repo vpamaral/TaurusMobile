@@ -18,7 +18,7 @@ public class Post_JSON
 		Gson gson 	= new Gson();
 		return_json = gson.toJson(p_p_cria_list);
 
-		if (Constantes.CREATE_ARQUIVO == false)
+		if (Constantes.TIPO_ENVIO == "bluetooth")
 			mpa.sendMessage(return_json);
 
 		return return_json;

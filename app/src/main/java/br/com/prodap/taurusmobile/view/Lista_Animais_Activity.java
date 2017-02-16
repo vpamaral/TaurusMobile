@@ -69,8 +69,7 @@ public class Lista_Animais_Activity extends Activity
 						+ "\nCódigo Alternativo: " + ani_tb.getCodigo_ferro()
 						+ "\nIdentificador: " + ani_tb.getIdentificador();
 
-				Mensagem_Util.addMsg(Message_Dialog.Yes,
-						Lista_Animais_Activity.this, msg, "Animal", position);
+				Mensagem_Util.addMsg(Message_Dialog.Yes, Lista_Animais_Activity.this, msg, "Animal", position);
 			}
 		});
 	}

@@ -191,7 +191,7 @@ public class ConnectionThread extends Thread {
         bundle.putByteArray("data", data);
         message.setData(bundle);
 
-        Parto_Activity.handler.sendMessage(message);
+        //Parto_Activity.handler.sendMessage(message);
         Menu_Principal_Activity.handler.sendMessage(message);
     }
 

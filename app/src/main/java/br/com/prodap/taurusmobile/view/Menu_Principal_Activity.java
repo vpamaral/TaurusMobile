@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -136,7 +137,7 @@ public class Menu_Principal_Activity extends Activity {
 
 		openFileDialog_Click();
 
-		parto_model.recoverDescarte(getBaseContext());
+		//parto_model.recoverDescarte(getBaseContext());
 		//atualizarBotoes();
 		//loadListener();
 	}
@@ -189,7 +190,7 @@ public class Menu_Principal_Activity extends Activity {
 		});
 	}
 
-	private void source()
+    private void source()
 	{
 		try
 		{
@@ -201,9 +202,7 @@ public class Menu_Principal_Activity extends Activity {
 			e.printStackTrace();
 		}
 
-		setTitle("Menu Principal");
-
-		//Constantes.LBL_STATUS 	= (TextView) findViewById(R.id.lbl_status_MSG);
+		Constantes.LBL_STATUS 	= (TextView) findViewById(R.id.lbl_status_MSG);
 		Constantes.GET_JSON 	= new Get_JSON();
 
 		mHandler 				= new Handler();
@@ -219,7 +218,11 @@ public class Menu_Principal_Activity extends Activity {
 		{
 			url = conf.getEndereco();
 		}
+
+        isEnableBluetooth();
 		//existCelular(lista_conf, conf_tb);
+
+		//parto_model.recoverSentPartos(this);
 	}
 
 	//metodo para selecionar o arquivo para atualizar o banco de dados do aparelho
@@ -260,23 +263,56 @@ public class Menu_Principal_Activity extends Activity {
 
 	public void btn_atualiza_via_web_Click (View v)
 	{
-
 		updateViaWeb();
 	}
 
 	public void btn_atualiza_via_bluetooth_Click (View v)
 	{
 		Constantes.TIPO_ENVIO = "bluetooth";
-		if (checksConnectionBluetooth())
-		{
-			sendMessage("GET");
-		}
-		else
-		{
-			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "O dispositivo não esta conectado ao servidor!");
-			return;
-		}
+
+        if (checksConnectionBluetooth())
+        {
+            sendMessage("GET");
+
+            delay();
+            mHandler.postDelayed(mRun, 10000);
+        }
+        else
+        {
+            Mensagem_Util.addMsg(Message_Dialog.Toast, this, "O dispositivo não esta conectado ao servidor!");
+            return;
+        }
 	}
+
+    private Runnable mRun = new Runnable ()
+    {
+        @Override
+        public void run()
+        {
+            updateViaBluetooth();
+        }
+    };
+
+    private void delay ()
+    {
+        dialog = ProgressDialog.show(this,"","Aguarde ...", false, true);
+
+        new Thread()
+        {
+            public void run()
+            {
+                try
+                {
+                    Thread.sleep(10000);
+                    dialog.dismiss();
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+        }.start();
+    }
 
 	public void btn_open_arquivo_Click (View v)
 	{
@@ -318,12 +354,14 @@ public class Menu_Principal_Activity extends Activity {
 		startActivity(intent);
 	}
 
-	private void novoPasto() {
+	private void novoPasto()
+    {
 		Intent pasto = new Intent(Menu_Principal_Activity.this, Pasto_Activity.class);
 		startActivity(pasto);
 	}
 
-	private void animaisList() {
+	private void animaisList()
+    {
 		Intent intent = new Intent(Menu_Principal_Activity.this, Lista_Animais_Activity.class);
 		startActivity(intent);
 	}
@@ -658,58 +696,89 @@ public class Menu_Principal_Activity extends Activity {
 		return root.toString();
 	}
 
+    private String createListAnimais () throws IOException
+    {
+        String texto = "";
+
+        try {
+            File textfile = new File(Environment.getExternalStorageDirectory()+"/Prodap/","pasto.txt");
+            BufferedReader br = new BufferedReader(new FileReader(textfile));
+
+            texto = br.readLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return texto;
+    }
+
+    private void createFile() throws IOException {
+
+        Date data = new Date();
+        final Calendar cal = Calendar.getInstance();
+        cal.setTime(data);
+
+        String filename = "backup.txt";
+        String conteudo = "";
+
+        File diretorio = new File(obterDiretorio(), "Prodap");
+
+        if(!diretorio.exists()) {
+            diretorio.mkdir();
+        }
+        File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
+
+        FileOutputStream outputStream = null;
+        try
+        {
+            if(!arquivo.exists()) {
+                outputStream = new FileOutputStream(arquivo);
+                outputStream.write(conteudo.getBytes());
+                outputStream.close();
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 	public void waitConnection()
 	{
 		Constantes.CONNECT = new ConnectionThread();
 		Constantes.CONNECT.start();
 	}
 
-	private String createListAnimais () throws IOException
-	{
-		String texto = "";
+    public void connection(String device)
+    {
+        Constantes.CONNECT = new ConnectionThread(device);
+        Constantes.CONNECT.start();
+    }
 
-		try {
-			File textfile = new File(Environment.getExternalStorageDirectory()+"/Prodap/","pasto.txt");
-			BufferedReader br = new BufferedReader(new FileReader(textfile));
+    private void isEnableBluetooth()
+    {
+        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
 
-			texto = br.readLine();
+        if (btAdapter == null)
+        {
+            Constantes.LBL_STATUS.setText("Hardware Bluetooth não está funcionando");
+        }
+        else
+        {
+            Constantes.LBL_STATUS.setText("Hardware Bluetooth está funcionando");
+        }
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return texto;
-	}
-
-	private void createFile() throws IOException {
-
-		Date data = new Date();
-		final Calendar cal = Calendar.getInstance();
-		cal.setTime(data);
-
-		String filename = "backup.txt";
-		String conteudo = "";
-
-		File diretorio = new File(obterDiretorio(), "Prodap");
-
-		if(!diretorio.exists()) {
-			diretorio.mkdir();
-		}
-		File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
-
-		FileOutputStream outputStream = null;
-		try
-		{
-			if(!arquivo.exists()) {
-				outputStream = new FileOutputStream(arquivo);
-				outputStream.write(conteudo.getBytes());
-				outputStream.close();
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+        if(!btAdapter.isEnabled())
+        {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, Constantes.ENABLE_BLUETOOTH);
+            Constantes.LBL_STATUS.setText("Solicitando ativação do Bluetooth...");
+        }
+        else
+        {
+            Constantes.LBL_STATUS.setText("Bluetooth já ativado");
+        }
+    }
 
 	public void about()
 	{
@@ -725,4 +794,33 @@ public class Menu_Principal_Activity extends Activity {
 				.setPositiveButton("OK", null)
 				.show();
 	}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == Constantes.ENABLE_BLUETOOTH)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                Constantes.LBL_STATUS.setText("Bluetooth ativado");
+            }
+            else
+            {
+                Constantes.LBL_STATUS.setText("Bluetooth não ativado");
+            }
+        }
+        else if(requestCode == Constantes.SELECT_PAIRED_DEVICE || requestCode == Constantes.SELECT_DISCOVERED_DEVICE)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                Constantes.LBL_STATUS.setText("Aguarde conectando ao servidor...");
+
+                connection(data.getStringExtra("btDevAddress"));
+            }
+            else
+            {
+                Constantes.LBL_STATUS.setText("Nenhum dispositivo selecionado");
+            }
+        }
+    }
 }
