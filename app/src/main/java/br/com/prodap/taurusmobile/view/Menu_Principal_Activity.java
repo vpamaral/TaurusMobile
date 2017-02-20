@@ -1,5 +1,6 @@
 package br.com.prodap.taurusmobile.view;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -7,12 +8,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,8 +56,8 @@ import br.com.prodap.taurusmobile.util.CreateReadWrite;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 
-public class Menu_Principal_Activity extends Activity {
-
+public class Menu_Principal_Activity extends Activity
+{
 	public static String JSONPASTO;
 	private ProgressDialog dialog;
 	private Handler mHandler;
@@ -121,17 +123,8 @@ public class Menu_Principal_Activity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_menu_principal);
-		loadVars();
 
-		try
-		{
-			createFile();
-			//createFileParto();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		loadVars();
 
 		source();
 
@@ -222,7 +215,7 @@ public class Menu_Principal_Activity extends Activity {
         isEnableBluetooth();
 		//existCelular(lista_conf, conf_tb);
 
-		//parto_model.recoverSentPartos(this);
+		parto_model.recoverSentPartos(this);
 	}
 
 	//metodo para selecionar o arquivo para atualizar o banco de dados do aparelho
@@ -712,8 +705,8 @@ public class Menu_Principal_Activity extends Activity {
         return texto;
     }
 
-    private void createFile() throws IOException {
-
+    private void createFile() throws IOException
+	{
         Date data = new Date();
         final Calendar cal = Calendar.getInstance();
         cal.setTime(data);
@@ -723,15 +716,18 @@ public class Menu_Principal_Activity extends Activity {
 
         File diretorio = new File(obterDiretorio(), "Prodap");
 
-        if(!diretorio.exists()) {
+        if(!diretorio.exists())
+		{
             diretorio.mkdir();
         }
         File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
 
         FileOutputStream outputStream = null;
+
         try
         {
-            if(!arquivo.exists()) {
+            if(!arquivo.exists())
+			{
                 outputStream = new FileOutputStream(arquivo);
                 outputStream.write(conteudo.getBytes());
                 outputStream.close();

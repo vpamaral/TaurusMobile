@@ -18,8 +18,8 @@ import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Parto;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
 
-public class Parto_Model extends Banco_Service {
-
+public class Parto_Model extends Banco_Service
+{
 	private Banco banco;
 	private Parto_Adapter parto_adapter;
 	private SQLiteDatabase db;

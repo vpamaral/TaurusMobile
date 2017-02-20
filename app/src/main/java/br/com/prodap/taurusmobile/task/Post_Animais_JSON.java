@@ -29,6 +29,7 @@ import br.com.prodap.taurusmobile.model.Parto_Parto_Cria_Model;
 import br.com.prodap.taurusmobile.service.Conexao_HTTP;
 import br.com.prodap.taurusmobile.util.Auxiliar;
 import br.com.prodap.taurusmobile.util.Constantes;
+import br.com.prodap.taurusmobile.util.CreateReadWrite;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 
@@ -50,6 +51,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 	public ProgressDialog mProgress;
 	private int mProgressDialog = 0;
 	private Post_JSON post_json;
+	private CreateReadWrite crw;
 
 	private SimpleDateFormat dateFormat;
 	private Date data;
@@ -75,6 +77,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 		parto_model				= new Parto_Model(ctx);
 		c_http					= new Conexao_HTTP();
 		post_json 				= new Post_JSON();
+		crw						= new CreateReadWrite(ctx);
 		dateFormat 				= new SimpleDateFormat("dd-MM-yyyy");
 		data 					= new Date();
 		calendar 				= Calendar.getInstance();
@@ -135,10 +138,19 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 					publishProgress(i * 1);
 				}
 
-				retornoJSON = post_json.postDadosSend(p_parto_cria_list);
-
 				if (Constantes.TIPO_ENVIO == "web")
+				{
+					json         	= new Parto_Parto_Cria_JSON().toJSON(p_parto_cria_list);
+                	auxiliar     	= new Auxiliar(json);
+                	gson         	= new Gson();
+                	retornoJSON 	= gson.toJson(auxiliar);
+
 					new Conexao_HTTP(url + Constantes.METHOD_POST, ctx).postJson(retornoJSON);
+				}
+				else
+				{
+					retornoJSON = post_json.postDadosSend(p_parto_cria_list);
+				}
 			}
 		}
 		catch (Exception e)
@@ -165,8 +177,10 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 				{
 					try
 					{
-						createFilePartoSend();
-						writeInFileSendPartos(json);
+						crw.createFile();
+						crw.writeInFile(json);
+						//createFilePartoSend();
+						//writeInFileSendPartos(json);
 					}
 					catch (IOException e)
 					{
@@ -191,8 +205,10 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 				{
 					try
 					{
-						createFilePartoSend();
-						writeInFileSendPartos(json);
+						crw.createFile();
+						crw.writeInFile(json);
+						/*createFilePartoSend();
+						writeInFileSendPartos(json);*/
 					}
 					catch (IOException e)
 					{
@@ -210,8 +226,10 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 			{
 				try
 				{
-					createFilePartoSend();
-					writeInFileSendPartos(json);
+					crw.createFile();
+					crw.writeInFile(json);
+					/*createFilePartoSend();
+					writeInFileSendPartos(json);*/
 				}
 				catch (IOException e)
 				{

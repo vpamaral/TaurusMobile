@@ -57,25 +57,18 @@ public class CreateReadWrite
 
         try
         {
-            if (Constantes.ARQUIVO == "Arquivo")
+            if (Constantes.TIPO_ENVIO == "arquivo")
                 filename = "ProdapArquivo" + data_dd_mm_yyyy +".txt";
 
-            if (Constantes.ARQUIVO == "Bluetooth")
+            if (Constantes.TIPO_ENVIO == "bluetooth")
                 filename = "ProdapBluetooth" + data_dd_mm_yyyy +".txt";
 
-            if (Constantes.ARQUIVO == "Web")
+            if (Constantes.TIPO_ENVIO == "web")
                 filename = "ProdapWeb" + data_dd_mm_yyyy +".txt";
-
-                //filename = Constantes.CREATE_ARQUIVO == "Arquivo" ? "ProdapArquivo" + data_dd_mm_yyyy +".txt" : "ProdapAtivoBluetooth" + data_dd_mm_yyyy +".txt";
 
             file = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
 
             validateFile(text, file);
-            /*FileOutputStream in = new FileOutputStream(file, true);
-            in.write(text.getBytes());
-            in.write("\n".getBytes());
-            in.flush();
-            in.close();*/
 
             return true;
         }
@@ -92,6 +85,11 @@ public class CreateReadWrite
         {
             ActivityCompat.requestPermissions((Activity) ctx, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 123);
         }
+
+        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions((Activity) ctx, new String[]{Manifest.permission.CAMERA}, 123);
+        }
     }
 
     public void createFile() throws IOException
@@ -103,7 +101,18 @@ public class CreateReadWrite
 
         cal.setTime(data);
 
-        filename        = "backup.txt";
+        if (Constantes.TIPO_ENVIO == "arquivo")
+            filename = "ProdapArquivo" + data_dd_mm_yyyy +".txt";
+
+        if (Constantes.TIPO_ENVIO == "bluetooth")
+            filename = "ProdapBluetooth" + data_dd_mm_yyyy +".txt";
+
+        if (Constantes.TIPO_ENVIO == "web")
+            filename = "ProdapWeb" + data_dd_mm_yyyy +".txt";
+
+        if (Constantes.TIPO_ENVIO == null)
+            filename = "Backup" + ".txt";
+
         String conteudo = "";
         File diretorio  = new File(obterDiretorio(), "Prodap");
 
