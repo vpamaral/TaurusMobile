@@ -215,7 +215,7 @@ public class Menu_Principal_Activity extends Activity
         isEnableBluetooth();
 		//existCelular(lista_conf, conf_tb);
 
-		parto_model.recoverSentPartos(this);
+		//parto_model.recoverSentPartos(this);
 	}
 
 	//metodo para selecionar o arquivo para atualizar o banco de dados do aparelho
