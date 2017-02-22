@@ -628,6 +628,7 @@ public class Menu_Principal_Activity extends Activity
 		switch (item.getItemId())
 		{
 			case R.id.menu_dispositivos_pariados:
+				Constantes.CALL_BLUETOOTH = "Menu_Principal";
 				searchPairedDevices();
 				return false;
 

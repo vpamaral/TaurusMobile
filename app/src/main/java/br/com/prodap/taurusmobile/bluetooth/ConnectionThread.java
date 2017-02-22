@@ -13,11 +13,12 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.UUID;
 
+import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
 import br.com.prodap.taurusmobile.view.Parto_Activity;
 
-public class ConnectionThread extends Thread {
-
+public class ConnectionThread extends Thread
+{
     private BluetoothSocket btSocket = null;
     private BluetoothServerSocket btServerSocket = null;
     private String btDevAddress = null;
@@ -191,8 +192,11 @@ public class ConnectionThread extends Thread {
         bundle.putByteArray("data", data);
         message.setData(bundle);
 
-        //Parto_Activity.handler.sendMessage(message);
-        Menu_Principal_Activity.handler.sendMessage(message);
+        if (Constantes.CALL_BLUETOOTH == "Parto")
+            Parto_Activity.handler.sendMessage(message);
+
+        if(Constantes.CALL_BLUETOOTH == "Menu_Principal")
+            Menu_Principal_Activity.handler.sendMessage(message);
     }
 
     /*  Método utilizado pela Activity principal para transmitir uma mensagem ao

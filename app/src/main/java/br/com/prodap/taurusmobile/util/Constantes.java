@@ -34,4 +34,6 @@ public class Constantes
 	public static String ARQUIVO;
 	public static boolean CREATE_ARQUIVO;
 	public static String TIPO_ENVIO;
+
+	public static String CALL_BLUETOOTH;
 }

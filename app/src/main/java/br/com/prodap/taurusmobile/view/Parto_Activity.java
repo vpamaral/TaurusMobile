@@ -168,7 +168,7 @@ public class Parto_Activity extends Activity
         if(dataString.equals("ERRO_CONEXAO"))
             editMatriz.setHint("Erro durante a conexão!");
         else if(dataString.equals("CONECTADO"))
-            editMatriz.setHint("Batão Conectado!");
+            editMatriz.setHint("Bastão Conectado!");
         else
         {
             data.toString().length();
@@ -1094,25 +1094,28 @@ public class Parto_Activity extends Activity
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.parto, menu);
+
+        //return super.onCreateOptionsMenu(menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        /*switch (item.getItemId())
+        switch (item.getItemId())
         {
             /*case R.id.menu_bluetooth:
-                configBluetooth();
+                conBluetooth();
                 return false;
             default:
-                break;
-        }*/
+                break;*/
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    private void configBluetooth()
+    private void conBluetooth()
     {
+        Constantes.CALL_BLUETOOTH = "Parto";
         Intent intent = new Intent(Parto_Activity.this, Bluetooth_Activity.class);
         startActivity(intent);
     }
