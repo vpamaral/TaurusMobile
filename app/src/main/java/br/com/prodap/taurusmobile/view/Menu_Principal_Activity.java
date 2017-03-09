@@ -1,6 +1,5 @@
 package br.com.prodap.taurusmobile.view;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -8,13 +7,11 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -265,10 +262,11 @@ public class Menu_Principal_Activity extends Activity
 
         if (checksConnectionBluetooth())
         {
+			Constantes.JSON = "";
             sendMessage("GET");
 
             delay();
-            mHandler.postDelayed(mRun, 10000);
+            mHandler.postDelayed(mRun, 7000);
         }
         else
         {
