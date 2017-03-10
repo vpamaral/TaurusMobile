@@ -28,6 +28,7 @@ public class CreateReadWrite
     private String data_dd_mm_yyyy;
 
     private String filename;
+    private File file;// = null;
     private Context ctx;
 
     public CreateReadWrite(Context ctx)
@@ -51,23 +52,34 @@ public class CreateReadWrite
 
     public boolean writeInFile(String text)
     {
-        permision();
+        permission();
         BufferedReader input    = null;
-        File file               = null;
 
         try
         {
             if (Constantes.TIPO_ENVIO == "arquivo")
-                filename = "ProdapArquivo" + data_dd_mm_yyyy +".txt";
+            {
+                filename = "ProdapArquivo" + data_dd_mm_yyyy + ".tpa";
+                file     = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
+                validateFile(text, file);
+            }
 
             if (Constantes.TIPO_ENVIO == "bluetooth")
-                filename = "ProdapBluetooth" + data_dd_mm_yyyy +".txt";
+            {
+                filename = "ProdapBluetooth" + data_dd_mm_yyyy + ".tpa";
+                file     = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
+                validateFile(text, file);
+            }
 
             if (Constantes.TIPO_ENVIO == "web")
-                filename = "ProdapWeb" + data_dd_mm_yyyy +".txt";
+            {
+                filename = "ProdapWeb" + data_dd_mm_yyyy + ".tpa";
+                file     = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
+                validateFile(text, file);
+            }
 
-            file = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
-
+            filename = "Backup" + ".tpa";
+            file     = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
             validateFile(text, file);
 
             return true;
@@ -79,7 +91,7 @@ public class CreateReadWrite
         return false;
     }
 
-    private void permision()
+    private void permission()
     {
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
@@ -94,7 +106,7 @@ public class CreateReadWrite
 
     public void createFile() throws IOException
     {
-        permision();
+        permission();
 
         Date data           = new Date();
         final Calendar cal  = Calendar.getInstance();
@@ -102,16 +114,16 @@ public class CreateReadWrite
         cal.setTime(data);
 
         if (Constantes.TIPO_ENVIO == "arquivo")
-            filename = "ProdapArquivo" + data_dd_mm_yyyy +".txt";
+            filename = "Arquivo_A_Processar" + data_dd_mm_yyyy +".tpa";
 
         if (Constantes.TIPO_ENVIO == "bluetooth")
-            filename = "ProdapBluetooth" + data_dd_mm_yyyy +".txt";
+            filename = "ProdapBluetooth" + data_dd_mm_yyyy +".tpa";
 
         if (Constantes.TIPO_ENVIO == "web")
-            filename = "ProdapWeb" + data_dd_mm_yyyy +".txt";
+            filename = "ProdapWeb" + data_dd_mm_yyyy +".tpa";
 
         if (Constantes.TIPO_ENVIO == null)
-            filename = "Backup" + ".txt";
+            filename = "Backup" + ".tpa";
 
         String conteudo = "";
         File diretorio  = new File(obterDiretorio(), "Prodap");
