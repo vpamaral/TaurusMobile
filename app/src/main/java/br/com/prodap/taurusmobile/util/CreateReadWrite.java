@@ -63,7 +63,7 @@ public class CreateReadWrite
             if (Constantes.TIPO_ENVIO == "bluetooth" || Constantes.TIPO_ENVIO == "web")
                 filename = "Enviado_" + arquivo_name + "_.tpa";
 
-            file     = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
+            file     = new File(Environment.getExternalStorageDirectory()+"/Prodap/Arquivos_Mobile", filename);
             validateFile(text, file);
 
             return true;
@@ -104,16 +104,18 @@ public class CreateReadWrite
             filename = "Enviado_" + arquivo_name + "_.tpa";
 
         String conteudo = "";
-        File diretorio  = new File(obterDiretorio(), "Prodap");
+        File dir_mobile  = new File(obterDiretorio(), "Prodap/Arquivos_Mobile");
+        File dir_server  = new File(obterDiretorio(), "Prodap/Arquivos_Servidor");
 
-        if(!diretorio.exists())
+        if(!dir_mobile.exists() || !dir_server.exists())
         {
-            diretorio.mkdir();
+            dir_mobile.mkdir();
+            dir_server.mkdir();
         }
 
         if (filename != null)
         {
-            File arquivo = new File(Environment.getExternalStorageDirectory() + "/Prodap", filename);
+            File arquivo = new File(Environment.getExternalStorageDirectory() + "/Prodap/Arquivos_Mobile", filename);
             validateFile(conteudo, arquivo);
         }
     }
