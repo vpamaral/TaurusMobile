@@ -21,11 +21,11 @@ import java.util.Date;
 
 public class CreateReadWrite
 {
-    private SimpleDateFormat dateFormat;
+    private SimpleDateFormat date_format;
     private Date data;
     private Date data_atual;
     private Calendar calendar;
-    private String data_dd_mm_yyyy;
+    private String arquivo_name;
 
     private String filename;
     private File file;// = null;
@@ -40,14 +40,14 @@ public class CreateReadWrite
 
     private void source()
     {
-        dateFormat 				= new SimpleDateFormat("dd-MM-yyyy");
+        date_format             = new SimpleDateFormat("yyyyMMdd_HHmm");
         data 					= new Date();
         calendar 				= Calendar.getInstance();
 
         calendar.setTime(data);
 
         data_atual 				= calendar.getTime();
-        data_dd_mm_yyyy 		= dateFormat.format(data_atual);
+        arquivo_name            = date_format.format(data_atual);
     }
 
     public boolean writeInFile(String text)
@@ -58,27 +58,11 @@ public class CreateReadWrite
         try
         {
             if (Constantes.TIPO_ENVIO == "arquivo")
-            {
-                filename = "ProdapArquivo" + data_dd_mm_yyyy + ".tpa";
-                file     = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
-                validateFile(text, file);
-            }
+                filename = arquivo_name + "_.tpa";
 
-            if (Constantes.TIPO_ENVIO == "bluetooth")
-            {
-                filename = "ProdapBluetooth" + data_dd_mm_yyyy + ".tpa";
-                file     = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
-                validateFile(text, file);
-            }
+            if (Constantes.TIPO_ENVIO == "bluetooth" || Constantes.TIPO_ENVIO == "web")
+                filename = "Enviado_" + arquivo_name + "_.tpa";
 
-            if (Constantes.TIPO_ENVIO == "web")
-            {
-                filename = "ProdapWeb" + data_dd_mm_yyyy + ".tpa";
-                file     = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
-                validateFile(text, file);
-            }
-
-            filename = "Backup" + ".tpa";
             file     = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
             validateFile(text, file);
 
@@ -114,16 +98,10 @@ public class CreateReadWrite
         cal.setTime(data);
 
         if (Constantes.TIPO_ENVIO == "arquivo")
-            filename = "Arquivo_A_Processar" + data_dd_mm_yyyy +".tpa";
+            filename = arquivo_name + "_.tpa";
 
-        if (Constantes.TIPO_ENVIO == "bluetooth")
-            filename = "ProdapBluetooth" + data_dd_mm_yyyy +".tpa";
-
-        if (Constantes.TIPO_ENVIO == "web")
-            filename = "ProdapWeb" + data_dd_mm_yyyy +".tpa";
-
-        if (Constantes.TIPO_ENVIO == null)
-            filename = "Backup" + ".tpa";
+        if (Constantes.TIPO_ENVIO == "bluetooth" || Constantes.TIPO_ENVIO == "web")
+            filename = "Enviado_" + arquivo_name + "_.tpa";
 
         String conteudo = "";
         File diretorio  = new File(obterDiretorio(), "Prodap");
@@ -133,9 +111,11 @@ public class CreateReadWrite
             diretorio.mkdir();
         }
 
-        File arquivo = new File(Environment.getExternalStorageDirectory() + "/Prodap", filename);
-
-        validateFile(conteudo, arquivo);
+        if (filename != null)
+        {
+            File arquivo = new File(Environment.getExternalStorageDirectory() + "/Prodap", filename);
+            validateFile(conteudo, arquivo);
+        }
     }
 
     private void validateFile(String conteudo, File arquivo)
