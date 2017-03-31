@@ -161,7 +161,11 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 					if (objListaAnimal.isEmpty())
 						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
 					else
+					{
 						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
+						Constantes.STATUS_CONN = ("desconectado");
+                        Constantes.LBL_STATUS.setText("Desconectado");
+					}
 				}
 			}
 		}

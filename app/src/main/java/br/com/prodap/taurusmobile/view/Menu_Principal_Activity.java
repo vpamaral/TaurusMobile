@@ -266,7 +266,7 @@ public class Menu_Principal_Activity extends Activity
             sendMessage("GET");
 
             delay();
-            mHandler.postDelayed(mRun, 7000);
+            mHandler.postDelayed(mRun, 15000);
         }
         else
         {
@@ -294,7 +294,7 @@ public class Menu_Principal_Activity extends Activity
             {
                 try
                 {
-                    Thread.sleep(10000);
+                    Thread.sleep(15000);
                     dialog.dismiss();
                 }
                 catch (Exception e)
@@ -778,7 +778,7 @@ public class Menu_Principal_Activity extends Activity
 	public void about()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
-		builder.setMessage("Versão do Sistema: S170224_STRM\n\n"+
+		builder.setMessage("Versão do Sistema: S170331_RM_01\n\n"+
 				"Suporte: (31) 3555-0800\n"+
 				"www.prodap.com.br\n"+
 				"prodap@prodap.com.br\n\n"+

@@ -149,6 +149,24 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sexo Cria:         "
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <Spinner
+                android:id="@+id/spnSexo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/space2"
             android:layout_width="match_parent"
@@ -355,24 +373,6 @@
 
             <Spinner
                 android:id="@+id/spnPerda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sexo Cria:         "
-                android:textStyle="bold"
-                android:layout_gravity="center" />
-
-            <Spinner
-                android:id="@+id/spnSexo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

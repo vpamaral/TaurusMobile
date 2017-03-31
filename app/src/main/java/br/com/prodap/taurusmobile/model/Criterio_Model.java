@@ -42,9 +42,16 @@ public class Criterio_Model extends Banco_Service {
         return c_dao.selectAllCriterios(ctx, Tabela, table);
     }
 
-    @Override
-    public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
+    public List<Criterio> selectSexo(Context ctx, String Tabela, Object table, String sexo)
+    {
+        c_dao = new Criterio_Dao(ctx);
 
+        return c_dao.selectAllForSexo(ctx, Tabela, table, sexo);
+    }
+
+    @Override
+    public <T> T selectID(Context ctx, String Tabela, Object table, long id)
+    {
         return null;
     }
 }

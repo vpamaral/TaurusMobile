@@ -58,12 +58,16 @@ public class CreateReadWrite
         try
         {
             if (Constantes.TIPO_ENVIO == "arquivo")
+            {
                 filename = arquivo_name + "_.tpa";
-
+                file     = new File(Environment.getExternalStorageDirectory()+"/Prodap/Arquivos_Mobile/A_Enviar", filename);
+            }
             if (Constantes.TIPO_ENVIO == "bluetooth" || Constantes.TIPO_ENVIO == "web")
+            {
                 filename = "Enviado_" + arquivo_name + "_.tpa";
+                file     = new File(Environment.getExternalStorageDirectory()+"/Prodap/Arquivos_Mobile/Enviados", filename);
+            }
 
-            file     = new File(Environment.getExternalStorageDirectory()+"/Prodap/Arquivos_Mobile", filename);
             validateFile(text, file);
 
             return true;
@@ -92,30 +96,39 @@ public class CreateReadWrite
     {
         permission();
 
+        //filename = "backup.txt";
+
         Date data           = new Date();
         final Calendar cal  = Calendar.getInstance();
 
         cal.setTime(data);
 
-        if (Constantes.TIPO_ENVIO == "arquivo")
+        /*if (Constantes.TIPO_ENVIO == "arquivo")
             filename = arquivo_name + "_.tpa";
 
         if (Constantes.TIPO_ENVIO == "bluetooth" || Constantes.TIPO_ENVIO == "web")
-            filename = "Enviado_" + arquivo_name + "_.tpa";
+            filename = "Enviado_" + arquivo_name + "_.tpa";*/
 
-        String conteudo = "";
-        File dir_mobile  = new File(obterDiretorio(), "Prodap/Arquivos_Mobile");
-        File dir_server  = new File(obterDiretorio(), "Prodap/Arquivos_Servidor");
+        String conteudo             = "";
+        File dir_padrao             = new File(obterDiretorio(), "Prodap");
+        File dir_mobile             = new File(obterDiretorio(), "Prodap/Arquivos_Mobile");
+        File dir_mobile_enviar      = new File(obterDiretorio(), "Prodap/Arquivos_Mobile/A_Enviar");
+        File dir_mobile_enviados    = new File(obterDiretorio(), "Prodap/Arquivos_Mobile/Enviados");
+        File dir_server             = new File(obterDiretorio(), "Prodap/Arquivos_Servidor");
 
-        if(!dir_mobile.exists() || !dir_server.exists())
+        if(!dir_padrao.exists() || dir_mobile.exists() || dir_server.exists()
+                || dir_mobile_enviar.exists() || dir_mobile_enviados.exists())
         {
+            dir_padrao.mkdir();
             dir_mobile.mkdir();
             dir_server.mkdir();
+            dir_mobile_enviar.mkdir();
+            dir_mobile_enviados.mkdir();
         }
 
         if (filename != null)
         {
-            File arquivo = new File(Environment.getExternalStorageDirectory() + "/Prodap/Arquivos_Mobile", filename);
+            File arquivo = new File(Environment.getExternalStorageDirectory() + "/Prodap/Arquivos_Mobile/Enviados", filename);
             validateFile(conteudo, arquivo);
         }
     }

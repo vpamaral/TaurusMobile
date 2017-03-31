@@ -5,9 +5,10 @@ import java.io.Serializable;
 /**
  * Created by Prodap on 28/07/2016.
  */
-public class Criterio implements Serializable {
-
+public class Criterio implements Serializable
+{
     private String criterio;
+    private String sexo;
 
     public String getCriterio() {
         return criterio;
@@ -15,5 +16,13 @@ public class Criterio implements Serializable {
 
     public void setCriterio(String criterio) {
         this.criterio = criterio;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 }

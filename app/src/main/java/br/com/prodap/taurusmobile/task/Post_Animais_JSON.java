@@ -218,6 +218,8 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 
 					parto_model.deletingLogic(ctx);
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
+					Constantes.STATUS_CONN = ("desconectado");
+					Constantes.LBL_STATUS.setText("Desconectado");
 					mProgress.dismiss();
 				}
 			}

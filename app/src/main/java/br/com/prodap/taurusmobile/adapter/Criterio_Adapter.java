@@ -32,19 +32,22 @@ public class Criterio_Adapter extends BaseAdapter {
     {
         Criterio c_tb = new Criterio();
 
-        while (c.moveToNext()) {
-
+        while (c.moveToNext())
+        {
             c_tb.setCriterio(c.getString(c.getColumnIndex("criterio")));
+            c_tb.setSexo(c.getString(c.getColumnIndex("sexo")));
         }
         return c_tb;
     }
 
-    public List<Criterio> criterioCursor(Cursor c) {
+    public List<Criterio> criterioCursor(Cursor c)
+    {
         List<Criterio> c_list = new ArrayList<Criterio>();
-        while (c.moveToNext()) {
-
+        while (c.moveToNext())
+        {
             Criterio c_tb = new Criterio();
             c_tb.setCriterio(c.getString(c.getColumnIndex("criterio")));
+            c_tb.setSexo(c.getString(c.getColumnIndex("sexo")));
 
             c_list.add(c_tb);
         }
@@ -52,13 +55,15 @@ public class Criterio_Adapter extends BaseAdapter {
         return c_list;
     }
 
-    public ArrayList<Criterio> arrayCriterio(Criterio[] c_array) {
+    public ArrayList<Criterio> arrayCriterio(Criterio[] c_array)
+    {
         ArrayList<Criterio> c_list = new ArrayList<Criterio>();
-        for (int i = 0; i < c_array.length; i++) {
-
+        for (int i = 0; i < c_array.length; i++)
+        {
             Criterio c_tb = new Criterio();
 
             c_tb.setCriterio(c_array[i].getCriterio());
+            c_tb.setSexo(c_array[i].getSexo());
 
             c_list.add(c_tb);
         }
@@ -69,6 +74,7 @@ public class Criterio_Adapter extends BaseAdapter {
         Criterio criterio_tb = new Criterio();
 
         criterio_tb.setCriterio(c_tb.getCriterio());
+        criterio_tb.setSexo(c_tb.getSexo());
 
         return criterio_tb;
     }
@@ -77,6 +83,8 @@ public class Criterio_Adapter extends BaseAdapter {
     {
         ContentValues dados = new ContentValues();
         dados.put("criterio", c_tb.getCriterio());
+        dados.put("sexo", c_tb.getSexo());
+
         return dados;
     }
 

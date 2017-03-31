@@ -84,7 +84,8 @@ public class Banco extends SQLiteOpenHelper {
 
 		String sql_criterio = "CREATE TABLE 'Criterio' ("
 				+ "'id_auto'	    	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'criterio'      		varchar(100)"
+				+ "'criterio'      		varchar(100),"
+				+ "'sexo'      			varchar(10)"
 				+");";
 
 		db.execSQL(sql_animal);

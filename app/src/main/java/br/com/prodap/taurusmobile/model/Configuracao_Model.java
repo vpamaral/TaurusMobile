@@ -32,7 +32,7 @@ public class Configuracao_Model extends Banco_Service {
 		c_dao = new Configuracao_Dao(ctx);
 		c_tb  = (Configuracao) table;
 
-		try
+		/*try
 		{
 			if (c_tb.getEndereco().toString().equals(""))
 			{
@@ -50,7 +50,7 @@ public class Configuracao_Model extends Banco_Service {
 		{
 			Log.i("CONFIGURACAO", e.toString());
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	@Override

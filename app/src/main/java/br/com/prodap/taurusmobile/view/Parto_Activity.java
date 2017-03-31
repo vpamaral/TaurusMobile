@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -193,13 +194,17 @@ public class Parto_Activity extends Activity
 
         buscaGrupoManejo();
 
-        buscaCriterio();
+        //buscaCriterio();
 
         loadComboBox();
 
         loadData();
 
         source();
+
+        changeSexo();
+
+        buscaCriterio(strSexo);
 
         leitorCodBarras();
 
@@ -248,6 +253,28 @@ public class Parto_Activity extends Activity
             }
         }
         return str;
+    }
+
+    private void changeSexo()
+    {
+        spinSexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                strSexo = spinSexo.getSelectedItem() == "FÊMEA" ? "FE" : "MA";
+                spinSexo.setSelection(position);
+
+                editCriterio.setText("");
+
+                buscaCriterio(strSexo);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
     }
 
     private void btnSalvarClick() {
@@ -627,6 +654,8 @@ public class Parto_Activity extends Activity
         btnLeitorCodBarra       = (Button) findViewById(R.id.btnLeitorCodBarra);
         editDataIdentificacao   = (EditText) findViewById(R.id.edtDataIdentificacao);
 
+        editCriterio            = (AutoCompleteTextView) findViewById(R.id.edtCriterio);
+
         ll_identificador        = (LinearLayout) findViewById(R.id.ll_identificador);
         ll_sisbov               = (LinearLayout) findViewById(R.id.ll_sisbov);
         ll_manejo               = (LinearLayout) findViewById(R.id.ll_manejo);
@@ -737,34 +766,35 @@ public class Parto_Activity extends Activity
         editGrupoManejo.setThreshold(1);
     }
 
-    private void buscaCriterio()
+    private void buscaCriterio(String sexo)
     {
-        List<Criterio> criterio_list;
-        List<String> c_criterio_list    = new ArrayList<String>();
-        Criterio criterio_tb            = new Criterio();
-        Criterio_Model criterio_model   = new Criterio_Model(this);
-
-        try
+        if (sexo != null)
         {
-            criterio_list = criterio_model.selectAll(this, "Criterio", criterio_tb);
+            List<Criterio> criterio_list;
+            List<String> c_criterio_list = new ArrayList<String>();
+            Criterio criterio_tb = new Criterio();
+            Criterio_Model criterio_model = new Criterio_Model(this);
 
-            for (Criterio c_tb : criterio_list)
-            {
-                c_criterio_list.add(c_tb.getCriterio());
+            try {
+                //criterio_list = criterio_model.selectAll(this, "Criterio", criterio_tb);
+
+                criterio_list = criterio_model.selectSexo(this, "Criterio", criterio_tb, sexo);
+
+                for (Criterio c_tb : criterio_list) {
+                    c_criterio_list.add(c_tb.getCriterio());
+                }
+            } catch (Exception e) {
+                Log.i("BuscaBusca", e.toString());
+                e.printStackTrace();
             }
+
+            //editCriterio = (AutoCompleteTextView) findViewById(R.id.edtCriterio);
+
+            ArrayAdapter<String> criterio_adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, c_criterio_list);
+
+            editCriterio.setAdapter(criterio_adapter);
+            editCriterio.setThreshold(1);
         }
-        catch (Exception e)
-        {
-            Log.i("BuscaBusca", e.toString());
-            e.printStackTrace();
-        }
-
-        editCriterio=(AutoCompleteTextView)findViewById(R.id.edtCriterio);
-
-        ArrayAdapter<String> criterio_adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, c_criterio_list);
-
-        editCriterio.setAdapter(criterio_adapter);
-        editCriterio.setThreshold(1);
     }
 
     private void leitorCodBarras()
@@ -1087,6 +1117,7 @@ public class Parto_Activity extends Activity
         editPeso.setText("");
         editIdentificador.setText("");
         editDataParto.setText("");
+        editCodAlternativo.requestFocus();
     }
 
     @Override

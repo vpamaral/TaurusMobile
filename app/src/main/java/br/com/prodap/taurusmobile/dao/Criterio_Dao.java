@@ -45,4 +45,29 @@ public class Criterio_Dao extends Banco
         banco.close();
         return c_list;
     }
+
+    public List<Criterio> selectAllForSexo(Context ctx, String Tabela, Object table, String sexo)
+    {
+        Banco banco = new Banco(ctx);
+        c_adapter   = new Criterio_Adapter();
+
+        Class classe = table.getClass();
+        List<Criterio> c_list = new ArrayList<Criterio>();
+
+        String sql = String.format("SELECT c.criterio, c.sexo "
+                        + "FROM "
+                        +      "%s AS c"
+                        + " WHERE "
+                        +       "c.sexo = '%s'"
+                , Tabela
+                , sexo
+        );
+
+        Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
+
+        c_list = c_adapter.criterioCursor(c);
+
+        banco.close();
+        return c_list;
+    }
 }
