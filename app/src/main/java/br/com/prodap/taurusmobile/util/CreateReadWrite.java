@@ -96,18 +96,10 @@ public class CreateReadWrite
     {
         permission();
 
-        //filename = "backup.txt";
-
         Date data           = new Date();
         final Calendar cal  = Calendar.getInstance();
 
         cal.setTime(data);
-
-        /*if (Constantes.TIPO_ENVIO == "arquivo")
-            filename = arquivo_name + "_.tpa";
-
-        if (Constantes.TIPO_ENVIO == "bluetooth" || Constantes.TIPO_ENVIO == "web")
-            filename = "Enviado_" + arquivo_name + "_.tpa";*/
 
         String conteudo             = "";
         File dir_padrao             = new File(obterDiretorio(), "Prodap");

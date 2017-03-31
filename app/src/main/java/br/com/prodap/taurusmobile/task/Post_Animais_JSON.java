@@ -179,8 +179,6 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 					{
 						crw.createFile();
 						crw.writeInFile(json);
-						//createFilePartoSend();
-						//writeInFileSendPartos(json);
 					}
 					catch (IOException e)
 					{
@@ -207,8 +205,6 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 					{
 						crw.createFile();
 						crw.writeInFile(json);
-						/*createFilePartoSend();
-						writeInFileSendPartos(json);*/
 					}
 					catch (IOException e)
 					{
@@ -230,8 +226,6 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 				{
 					crw.createFile();
 					crw.writeInFile(json);
-					/*createFilePartoSend();
-					writeInFileSendPartos(json);*/
 				}
 				catch (IOException e)
 				{
