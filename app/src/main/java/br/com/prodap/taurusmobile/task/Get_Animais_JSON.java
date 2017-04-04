@@ -32,6 +32,8 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 	public ProgressDialog mProgress;
 	private int mProgressDialog=0;
 
+	private String msg;
+
 	public Get_Animais_JSON(Context ctx, int progressDialog)
 	{
 		this.ctx = ctx;
@@ -98,19 +100,24 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 			aniHelper 					= new Animal_Adapter();
 			int i 						= 0;
 
-			if (objListaAnimal.size() > 0)
+			if (objListaAnimal != null)
 			{
 				mProgress.setMax(objListaAnimal.size());
 
 				for (Animal animal : objListaAnimal)
 				{
-					if (objListaAnimal.size() != 0)
+					if (objListaAnimal.size() > 0)
 					{
 						objModelAnimal.insert(ctx, "Animal", aniHelper.getDadosAnimal(animal));
 						publishProgress(i * 1);
 					}
 					i++;
 				}
+			}
+			else
+			{
+				mProgress.dismiss();
+				msg = ("Não existe Animal cadastrado no Servidor.");
 			}
 		}
 		catch (Validator_Exception e)
@@ -142,6 +149,10 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 					else
 						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
 				}
+				else
+				{
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+				}
 			}
 		}
 
@@ -167,6 +178,10 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
                         Constantes.LBL_STATUS.setText("Desconectado");
 					}
 				}
+				else
+				{
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+				}
 			}
 		}
 
@@ -180,6 +195,10 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contem dados no arquivo selecionado.");
 				else
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
+			}
+			else
+			{
+				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
 			}
 		}
 	}

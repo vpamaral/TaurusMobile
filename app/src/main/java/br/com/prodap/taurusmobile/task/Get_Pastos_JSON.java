@@ -33,6 +33,8 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
     private ProgressDialog mProgress;
     private int mProgressDialog = 0;
 
+    private String msg;
+
     public Get_Pastos_JSON(Context ctx, int progressDialog)
     {
         this.ctx                = ctx;
@@ -100,16 +102,24 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
             pastoAdapter            = new Pasto_Adapter();
             int i                   = 0;
 
-            mProgress.setMax(pastoList.size());
-
-            for (Pasto pasto_tb : pastoList)
+            if (pastoList != null)
             {
-                if (pastoList.size() != 0)
+                mProgress.setMax(pastoList.size());
+
+                for (Pasto pasto_tb : pastoList)
                 {
-                    pastoModel.insert(ctx, "Pasto", pastoAdapter.getDadosPasto(pasto_tb));
-                    publishProgress(i * 1);
+                    if (pastoList.size() > 0)
+                    {
+                        pastoModel.insert(ctx, "Pasto", pastoAdapter.getDadosPasto(pasto_tb));
+                        publishProgress(i * 1);
+                    }
+                    i++;
                 }
-                i++;
+            }
+            else
+            {
+                mProgress.dismiss();
+                msg = ("Não existe Pasto cadastrado no Servidor.");
             }
         }
         catch (Exception e)
@@ -141,6 +151,10 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
                     else
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Pasto atualizado com sucesso.");
                 }
+                else
+                {
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                }
             }
         }
 
@@ -162,6 +176,10 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
                     else
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Pasto atualizado com sucesso.");
                 }
+                else
+                {
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                }
             }
         }
 
@@ -175,6 +193,10 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contem dados no arquivo selecionado.");
                 else
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Pasto atualizado com sucesso.");
+            }
+            else
+            {
+                Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
             }
         }
     }

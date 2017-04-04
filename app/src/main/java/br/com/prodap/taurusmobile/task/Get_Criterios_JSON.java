@@ -33,6 +33,8 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
     private ProgressDialog mProgress;
     private int mProgressDialog = 0;
 
+    private String msg;
+
     public Get_Criterios_JSON(Context ctx, int progressDialog)
     {
         this.ctx                = ctx;
@@ -101,16 +103,24 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
             c_adapter                   = new Criterio_Adapter();
             int i                       = 0;
 
-            mProgress.setMax(criterio_list.size());
-
-            for (Criterio c_tb : criterio_list)
+            if (criterio_list != null)
             {
-                if (criterio_list.size() != 0)
+                mProgress.setMax(criterio_list.size());
+
+                for (Criterio c_tb : criterio_list)
                 {
-                    criterio_model.insert(ctx, "Criterio", c_adapter.getDadosCriterio(c_tb));
-                    publishProgress(i * 1);
+                    if (criterio_list.size() > 0)
+                    {
+                        criterio_model.insert(ctx, "Criterio", c_adapter.getDadosCriterio(c_tb));
+                        publishProgress(i * 1);
+                    }
+                    i++;
                 }
-                i++;
+            }
+            else
+            {
+                mProgress.dismiss();
+                msg = ("Não existe Criterio cadastrado no Servidor.");
             }
         }
         catch (Exception e)
@@ -141,6 +151,10 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
                     else
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Criterio atualizado com sucesso.");
                 }
+                else
+                {
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                }
             }
         }
 
@@ -162,6 +176,10 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
                     else
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Criterio atualizado com sucesso.");
                 }
+                else
+                {
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                }
             }
         }
 
@@ -175,6 +193,10 @@ public class Get_Criterios_JSON extends AsyncTask<Void, Integer, List<Criterio>>
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contem dados no arquivo selecionado.");
                 else
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Criterio atualizado com sucesso.");
+            }
+            else
+            {
+                Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
             }
         }
     }

@@ -148,6 +148,7 @@ public class Menu_Principal_Activity extends Activity
 
 	private void openFileDialog_Click()
 	{
+		openFileDialog 			= new OpenFileDialog(this);
 		openFileDialog.setOnCloseListener(new OnCloseListener()
 		{
 			@Override
@@ -196,7 +197,7 @@ public class Menu_Principal_Activity extends Activity
 		Constantes.GET_JSON 	= new Get_JSON();
 
 		mHandler 				= new Handler();
-		openFileDialog 			= new OpenFileDialog(this);
+		//openFileDialog 			= new OpenFileDialog(this);
 
 		configuracao_model 		= new Configuracao_Model(this);
 		conf_tb 				= new Configuracao();
@@ -307,7 +308,9 @@ public class Menu_Principal_Activity extends Activity
 
 	public void btn_open_arquivo_Click (View v)
 	{
+		openFileDialog_Click();
 		openFileDialog.setTitle("Seleciona Arquivo");
+		openFileDialog.setPath(Environment.getExternalStorageDirectory() + "/Prodap/Arquivos_Servidor");
 		openFileDialog.show();
 	}
 

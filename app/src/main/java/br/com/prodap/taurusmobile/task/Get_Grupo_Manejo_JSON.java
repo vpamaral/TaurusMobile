@@ -33,6 +33,8 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
     private ProgressDialog mProgress;
     private int mProgressDialog = 0;
 
+    private String msg;
+
     public Get_Grupo_Manejo_JSON(Context ctx, int progressDialog)
     {
         this.ctx                = ctx;
@@ -102,16 +104,22 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
             grupo_adapter           = new Grupo_Manejo_Adapter();
             int i                   = 0;
 
-            mProgress.setMax(grupo_list.size());
-
-            for (Grupo_Manejo grupo_tb : grupo_list)
+            if (grupo_list != null)
             {
-                if (grupo_list.size() != 0)
-                {
-                    grupo_model.insert(ctx, "Grupo_Manejo", grupo_adapter.getDadosGrupo(grupo_tb));
-                    publishProgress(i * 1);
+                mProgress.setMax(grupo_list.size());
+
+                for (Grupo_Manejo grupo_tb : grupo_list) {
+                    if (grupo_list.size() > 0) {
+                        grupo_model.insert(ctx, "Grupo_Manejo", grupo_adapter.getDadosGrupo(grupo_tb));
+                        publishProgress(i * 1);
+                    }
+                    i++;
                 }
-                i++;
+            }
+            else
+            {
+                mProgress.dismiss();
+                msg = ("Não existe Grupo de Manejo cadastrado no Servidor.");
             }
         }
         catch (Exception e)
@@ -143,6 +151,10 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
                     else
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Grupo Manejo atualizado com sucesso.");
                 }
+                else
+                {
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                }
             }
         }
 
@@ -164,6 +176,10 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
                     else
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Grupo Manejo atualizado com sucesso.");
                 }
+                else
+                {
+                    Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                }
             }
         }
 
@@ -177,6 +193,10 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contem dados no arquivo selecionado.");
                 else
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Grupo Manejo atualizado com sucesso.");
+            }
+            else
+            {
+                Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
             }
         }
     }
