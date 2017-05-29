@@ -239,15 +239,17 @@ public class Parto_Activity extends Activity
         }
     }
 
-    public static String validaId(String str, String charsRemove, String delimiter) {
-
-        if (charsRemove!=null && charsRemove.length()>0 && str!=null) {
-
+    public static String validaId(String str, String charsRemove, String delimiter)
+    {
+        if (charsRemove!=null && charsRemove.length()>0 && str!=null)
+        {
             String[] remover = charsRemove.split(delimiter);
 
-            for(int i =0; i < remover.length ; i++) {
+            for(int i =0; i < remover.length ; i++)
+            {
                 //System.out.println("i: " + i + " ["+ remover[i]+"]");
-                if (str.indexOf(remover[i]) != -1){
+                if (str.indexOf(remover[i]) != -1)
+                {
                     str = str.replace(remover[i], "");
                 }
             }
@@ -277,7 +279,8 @@ public class Parto_Activity extends Activity
         });
     }
 
-    private void btnSalvarClick() {
+    private void btnSalvarClick()
+    {
         btnSalvar.setOnClickListener(new OnClickListener()
         {
             @Override
@@ -368,7 +371,9 @@ public class Parto_Activity extends Activity
 
                     insertParto(parto_tb, cria_tb);
 
-                } else {
+                }
+                else
+                {
                     Mensagem_Util.addMsg(Message_Dialog.Yes, Parto_Activity.this
                             , "O Aparelho não foi preparado para o lançamento de Partos, favor prepara-lo!.", "Aviso", 1);
                 }
@@ -444,17 +449,21 @@ public class Parto_Activity extends Activity
     }
 
     private void loadBotaoLeitor() {
-        btnLeitorCodBarras.setOnClickListener(new OnClickListener() {
+        btnLeitorCodBarras.setOnClickListener(new OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(Parto_Activity.this, Leitor_Activity.class);
                 startActivity(intent);
             }
         });
 
-        btnLeitorCodBarra.setOnClickListener(new OnClickListener() {
+        btnLeitorCodBarra.setOnClickListener(new OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(Parto_Activity.this, Leitor_Activity.class);
                 startActivity(intent);
             }
@@ -576,50 +585,64 @@ public class Parto_Activity extends Activity
 
     private void loadIdentificadorSisbovGrupoManejo()
     {
-        if (listConf.size() > 0) {
+        if (listConf.size() > 0)
+        {
             if (!listConf.get(0).getValida_identificador().equals("S")
-                    && !listConf.get(0).getValida_sisbov().equals("S")) {
+                    && !listConf.get(0).getValida_sisbov().equals("S"))
+            {
                 editCodCria.setEnabled(true);
             }
 
-            if (listConf.get(0).getValida_identificador().equals("S")) {
+            if (listConf.get(0).getValida_identificador().equals("S"))
+            {
                 editIdentificador.setEnabled(true);
                 ll_identificador.setVisibility(LinearLayout.VISIBLE);
                 validaIdentificador = true;
-            } else {
+            }
+            else
+            {
                 editIdentificador.setText(" ");
                 editIdentificador.setEnabled(false);
                 ll_identificador.setVisibility(LinearLayout.GONE);
                 validaIdentificador = false;
             }
 
-            if (listConf.get(0).getValida_sisbov().equals("S")) {
+            if (listConf.get(0).getValida_sisbov().equals("S"))
+            {
                 editSisbov.setEnabled(true);
                 ll_sisbov.setVisibility(LinearLayout.VISIBLE);
                 validaSisbov = true;
-            } else {
+            }
+            else
+            {
                 editSisbov.setText(" ");
                 editSisbov.setEnabled(false);
                 ll_sisbov.setVisibility(LinearLayout.GONE);
                 validaSisbov = false;
             }
 
-            if (listConf.get(0).getValida_manejo().equals("S")) {
+            if (listConf.get(0).getValida_manejo().equals("S"))
+            {
                 editGrupoManejo.setEnabled(true);
                 ll_manejo.setVisibility(LinearLayout.VISIBLE);
                 validaManejo = true;
-            } else {
+            }
+            else
+            {
                 editGrupoManejo.setText(" ");
                 editGrupoManejo.setEnabled(false);
                 ll_manejo.setVisibility(LinearLayout.GONE);
                 validaManejo = false;
             }
 
-            if (listConf.get(0).getValida_cod_alternativo().equals("S")) {
+            if (listConf.get(0).getValida_cod_alternativo().equals("S"))
+            {
                 editCodAlternativo.setEnabled(true);
                 ll_cod_alternativo.setVisibility(LinearLayout.VISIBLE);
                 validaCodAlternativo = true;
-            } else {
+            }
+            else
+            {
                 editCodAlternativo.setText(" ");
                 editCodAlternativo.setEnabled(false);
                 ll_cod_alternativo.setVisibility(LinearLayout.GONE);
@@ -1135,11 +1158,11 @@ public class Parto_Activity extends Activity
     {
         switch (item.getItemId())
         {
-            /*case R.id.menu_bluetooth:
+            case R.id.menu_bluetooth:
                 conBluetooth();
                 return false;
             default:
-                break;*/
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
