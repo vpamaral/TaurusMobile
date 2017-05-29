@@ -30,7 +30,8 @@ public class ConnectionThread extends Thread
 
     /*  Este construtor prepara o dispositivo para atuar como servidor.
      */
-    public ConnectionThread() {
+    public ConnectionThread()
+    {
         this.server = true;
     }
 
@@ -86,8 +87,6 @@ public class ConnectionThread extends Thread
                 e.printStackTrace();
                 toMainActivity("ERRO_CONEXAO".getBytes());
             }
-
-
         }
         else
         {
@@ -165,6 +164,10 @@ public class ConnectionThread extends Thread
                 while(running)
                 {
                     bytes = input.read(buffer);
+
+                    if (bytes == 0)
+                        Constantes.BLUETOOTH_TESTE = true;
+
                     toMainActivity(Arrays.copyOfRange(buffer, 0, bytes));
                 }
             }
@@ -196,7 +199,9 @@ public class ConnectionThread extends Thread
             Parto_Activity.handler.sendMessage(message);
 
         if(Constantes.CALL_BLUETOOTH == "Menu_Principal")
+        {
             Menu_Principal_Activity.handler.sendMessage(message);
+        }
     }
 
     /*  Método utilizado pela Activity principal para transmitir uma mensagem ao

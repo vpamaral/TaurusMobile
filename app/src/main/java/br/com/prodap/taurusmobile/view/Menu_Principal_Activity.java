@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import br.com.prodap.taurusmobile.OpenFile.OnCloseListener;
 import br.com.prodap.taurusmobile.OpenFile.OpenFileDialog;
@@ -70,18 +73,17 @@ public class Menu_Principal_Activity extends Activity
 		}
 	};
 
-	private static void resultHandleMessage(Message msg)
-	{
-		Bundle bundle 		= msg.getData();
-		byte[] data 		= bundle.getByteArray("data");
-		String dataString	= new String(data);
+	private static void resultHandleMessage(Message msg) {
+		Bundle bundle = msg.getData();
+		byte[] data = bundle.getByteArray("data");
+		String dataString = new String(data);
 
-		if(dataString.equals("ERRO_CONEXAO"))
+		if (dataString.equals("ERRO_CONEXAO"))
 		{
 			Constantes.STATUS_CONN = ("desconectado");
 			Constantes.LBL_STATUS.setText("Desconectado");
 		}
-		else if(dataString.equals("CONECTADO"))
+		else if (dataString.equals("CONECTADO"))
 		{
 			Constantes.STATUS_CONN = ("conectado");
 			Constantes.LBL_STATUS.setText("Conectado");
@@ -107,16 +109,16 @@ public class Menu_Principal_Activity extends Activity
 	public static String old_genetica;
 	public static String old_sexo;
 
-
 	private List<Configuracao> lista_conf;
 	private Configuracao_Model configuracao_model;
 	private Configuracao conf_tb;
 	private String url;
 	private Parto_Model parto_model;
 
+    private int count;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_menu_principal);
@@ -132,48 +134,40 @@ public class Menu_Principal_Activity extends Activity
 		//loadListener();
 	}
 
-	private void loadVars()
-	{
-		old_sisbov 			= "";
-		old_identificador	= "";
-		old_cod_matriz		= "";
-		old_data_parto		= "";
-		old_grupo_manejo	= "";
-		old_criterio		= "";
-		old_pasto			= "";
-		old_genetica		= "";
-		old_raca_cria		= "";
-		old_sexo			= "";
+	private void loadVars() {
+		old_sisbov = "";
+		old_identificador = "";
+		old_cod_matriz = "";
+		old_data_parto = "";
+		old_grupo_manejo = "";
+		old_criterio = "";
+		old_pasto = "";
+		old_genetica = "";
+		old_raca_cria = "";
+		old_sexo = "";
 	}
 
 	private void openFileDialog_Click()
 	{
-		openFileDialog 			= new OpenFileDialog(this);
-		openFileDialog.setOnCloseListener(new OnCloseListener()
-		{
+		openFileDialog = new OpenFileDialog(this);
+		openFileDialog.setOnCloseListener(new OnCloseListener() {
 			@Override
-			public void onCancel() {}
+			public void onCancel() {
+			}
 
 			@Override
-			public void onOk(String selectedFile)
-			{
-				try
-				{
+			public void onOk(String selectedFile) {
+				try {
 					Constantes.ARQUIVO = createList(selectedFile).toString();
 
-					if (Constantes.ARQUIVO != null)
-					{
+					if (Constantes.ARQUIVO != null) {
 						Constantes.GET_JSON.Get_JSON(Constantes.ARQUIVO);
 
 						updateViaArquivo();
-					}
-					else
-					{
+					} else {
 						Mensagem_Util.addMsg(Message_Dialog.Toast, Menu_Principal_Activity.this, "Aquivos sem dados");
 					}
-				}
-				catch (IOException e)
-				{
+				} catch (IOException e) {
 					Log.i("OPENFILE", e.toString());
 					e.printStackTrace();
 				}
@@ -181,62 +175,52 @@ public class Menu_Principal_Activity extends Activity
 		});
 	}
 
-    private void source()
-	{
-		try
-		{
+	private void source() {
+		try {
 			crw = new CreateReadWrite(this);
 			crw.createFile();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		Constantes.LBL_STATUS 	= (TextView) findViewById(R.id.lbl_status_MSG);
-		Constantes.GET_JSON 	= new Get_JSON();
+		Constantes.LBL_STATUS = (TextView) findViewById(R.id.lbl_status_MSG);
+		Constantes.GET_JSON = new Get_JSON();
 
-		mHandler 				= new Handler();
+		mHandler = new Handler();
 		//openFileDialog 			= new OpenFileDialog(this);
 
-		configuracao_model 		= new Configuracao_Model(this);
-		conf_tb 				= new Configuracao();
-		parto_model				= new Parto_Model(this);
+		configuracao_model = new Configuracao_Model(this);
+		conf_tb = new Configuracao();
+		parto_model = new Parto_Model(this);
 
-		lista_conf 				= configuracao_model.selectAll(this, "Configuracao", conf_tb);
+		lista_conf = configuracao_model.selectAll(this, "Configuracao", conf_tb);
 
-		for (Configuracao conf : lista_conf)
-		{
+		for (Configuracao conf : lista_conf) {
 			url = conf.getEndereco();
 		}
 
-        isEnableBluetooth();
+		isEnableBluetooth();
 		//existCelular(lista_conf, conf_tb);
 
 		//parto_model.recoverSentPartos(this);
 	}
 
 	//metodo para selecionar o arquivo para atualizar o banco de dados do aparelho
-	private String createList (String path_file) throws IOException
-	{
+	private String createList(String path_file) throws IOException {
 		String dados_file = "";
 
-		try
-		{
+		try {
 			BufferedReader br = new BufferedReader(new FileReader(path_file));
 
 			dados_file = br.readLine();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		return dados_file;
 	}
 
-	private void atualizarBotoes()
-	{
+	private void atualizarBotoes() {
 		final List<Pasto> pasto_list;
 		final List<String> nome_pasto_list = new ArrayList<String>();
 		final Pasto pasto_tb = new Pasto();
@@ -252,51 +236,83 @@ public class Menu_Principal_Activity extends Activity
 //		}
 	}
 
-	public void btn_atualiza_via_web_Click (View v)
-	{
+	public void btn_atualiza_via_web_Click(View v) {
 		updateViaWeb();
 	}
 
-	public void btn_atualiza_via_bluetooth_Click (View v)
+	public void btn_atualiza_via_bluetooth_Click(View v)
 	{
 		Constantes.TIPO_ENVIO = "bluetooth";
 
-        if (checksConnectionBluetooth())
-        {
+		if (checksConnectionBluetooth())
+		{
+			dialog = ProgressDialog.show(this,"Sincronisando dados...","Aguarde ...", false, true);
 			Constantes.JSON = "";
-            sendMessage("GET");
+			sendMessage("GET");
 
-            delay();
-            mHandler.postDelayed(mRun, 15000);
-        }
-        else
-        {
-            Mensagem_Util.addMsg(Message_Dialog.Toast, this, "O dispositivo não esta conectado ao servidor!");
-            return;
-        }
+			Constantes.BLUETOOTH_TESTE = false;
+			mHandler.postDelayed(mRun, 5000);
+		}
+		else
+		{
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "O dispositivo não esta conectado ao servidor!");
+			return;
+		}
 	}
 
-    private Runnable mRun = new Runnable ()
-    {
-        @Override
-        public void run()
-        {
-            updateViaBluetooth();
-        }
-    };
+	private Runnable mRun = new Runnable()
+	{
+		@Override
+		public void run()
+		{
+			String validate_bluetooth = Constantes.JSON.toString();
 
-    private void delay ()
-    {
-        dialog = ProgressDialog.show(this,"","Aguarde ...", false, true);
+			finishConnection(validate_bluetooth, "|", ";");
 
+            if (count > 3)
+            {
+				Constantes.BLUETOOTH_TESTE = true;
+				count = 0;
+			}
+
+			if(Constantes.BLUETOOTH_TESTE)
+			{
+				dialog.dismiss();
+				updateViaBluetooth();
+			}
+			else
+			{
+				mHandler.postDelayed(mRun, 1000);
+			}
+		}
+	};
+
+	public void finishConnection(String str, String charsRemove, String delimiter)
+	{
+		if (charsRemove != null && charsRemove.length() > 0 && str != null)
+		{
+			String[] remover = charsRemove.split(delimiter);
+
+			for(int i = 0; i < remover.length; i++)
+			{
+				if (str.indexOf(remover[i]) != -1)
+				{
+					str = str.replace(remover[i], "");
+					count++;
+				}
+			}
+		}
+	}
+
+    public static void delay ()
+    {
         new Thread()
         {
             public void run()
             {
                 try
                 {
-                    Thread.sleep(15000);
-                    dialog.dismiss();
+                    Thread.sleep(1000);
                 }
                 catch (Exception e)
                 {
@@ -376,11 +392,9 @@ public class Menu_Principal_Activity extends Activity
 	{
 		if (checksConnectionBluetooth())
 		{
-			Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados via Bluetooth?", new DialogInterface.OnClickListener()
-			{
+			Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados via Bluetooth?", new DialogInterface.OnClickListener() {
 				@Override
-				public void onClick(DialogInterface dialog, int which)
-				{
+				public void onClick(DialogInterface dialog, int which) {
 					Constantes.TIPO_ENVIO = "bluetooth";
 					updatePastos();
 					updateGrupoManejo();

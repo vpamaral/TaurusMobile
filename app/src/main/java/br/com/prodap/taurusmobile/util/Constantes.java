@@ -36,4 +36,6 @@ public class Constantes
 	public static String TIPO_ENVIO;
 
 	public static String CALL_BLUETOOTH;
+
+	public static boolean BLUETOOTH_TESTE;
 }

@@ -7,17 +7,8 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="17b5e79ddaa8c219f0696441d819c15163ac1317">
+        sha1="dc4d8516d7ec3a308856966e9352bfae864df11f">
         <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_a5a9804cc9dcbc44917902f00e506bc74bf08ef0\classes.dex" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\Workspace\TaurusMoblie\app\libs\zxingjar-1.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="734ce52ec1144865e306c96029a23d339705a67a">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\pre-dexed\release\zxingjar-1.1_1df5be28340966abb71d8a67124bf433d8a9fc27.jar" />
     </item>
     <item
         is-multidex="true"
@@ -34,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
         <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_7a7cc06ea9869aadd0307ea692098bf1f628768f\classes.dex" />
     </item>
 
