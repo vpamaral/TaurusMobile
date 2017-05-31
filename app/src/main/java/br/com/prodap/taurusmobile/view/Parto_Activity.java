@@ -83,23 +83,24 @@ public class Parto_Activity extends Activity
     private static EditText editMatriz;
     private EditText editDataParto;
     private AutoCompleteTextView editBuscaPasto;
-    private EditText editCodCria;
+    private static EditText editCodCria;
     private EditText editCodAlternativo;
-    private EditText editIdentificador;
-    private EditText editSisbov;
+    private static EditText editIdentificador;
+    private static EditText editSisbov;
     private AutoCompleteTextView editGrupoManejo;
     private AutoCompleteTextView editCriterio;
     private EditText editPeso;
     private EditText editDataIdentificacao;
     private Button btnSalvar;
-    private Button btnLeitorCodBarras;
-    private Button btnLeitorCodBarra;
+    private Button btnIdentificador;
+    private Button btnSisbov;
     private Spinner spinPerda;
     private Spinner spinSexo;
     private Spinner spinRacaCria;
     private CheckBox cbTipoParto;
     private CheckBox cbDescarte;
     private TextView txtidanimal;
+    private static boolean bastao;
 
     private Animal_Model ani_model;
     private Animal animal_tb;
@@ -111,13 +112,13 @@ public class Parto_Activity extends Activity
     private Parto_Cria cria_tb;
     private Parto_Adapter p_helper;
     private Parto_Cria_Adapter pc_helper;
-    private List<Configuracao> listConf;
+    private static List<Configuracao> listConf;
     private List<Parto_Cria> listaCria;
     private static List<String> listaMatriz;
     private static List<Animal> listaAnimal;
 
     private String strSisbov;
-    private String strIdentificador;
+    private static String strIdentificador;
     private String strCod_matriz;
     private String strDataParto;
     private String strGrupo_manejo;
@@ -151,6 +152,7 @@ public class Parto_Activity extends Activity
     //conexão bluetooth
     private static CharSequence result;
     private static String id;
+    private static String first;
     public static Handler handler = new Handler()
     {
         @Override
@@ -175,9 +177,19 @@ public class Parto_Activity extends Activity
             data.toString().length();
             result = new String(data);
 
-            String r = validaId(result.toString(), "1000000;\r\n", ";");
-            id = r;
-            buscaMatriz(id);
+            int t = result.length();
+
+            if (t == 1)
+            {
+                first = (String) result;
+            }
+            else
+            {
+                String r = validaId(first + result.toString(), "1000000;\r\n", ";");
+                id = r;
+
+                buscaMatriz(id);
+            }
         }
     }
 
@@ -286,6 +298,7 @@ public class Parto_Activity extends Activity
             @Override
             public void onClick(View v)
             {
+                bastao = false;
                 id_pk = System.currentTimeMillis();
 
                 parto_tb.setId_pk(id_pk);
@@ -369,6 +382,8 @@ public class Parto_Activity extends Activity
 
                     loadOldValueVars();
 
+                    bastao = true;
+
                     insertParto(parto_tb, cria_tb);
 
                 }
@@ -395,6 +410,25 @@ public class Parto_Activity extends Activity
                 listaMatriz.add(animalList.getCodigo());
                 editMatriz.setText(animalList.getCodigo());
             }
+        }
+
+        if (listaMatriz.size() == 0)
+            if (bastao)
+                validaBastao();
+    }
+
+    private static void validaBastao()
+    {
+        strIdentificador                            = id;
+        Menu_Principal_Activity.old_identificador   = strIdentificador;
+        long sis                                    = Long.parseLong(Menu_Principal_Activity.old_identificador);
+        String strsis                               = String.valueOf(sis);
+
+        editIdentificador.setText(strsis);
+
+        if (editSisbov.getText().toString().equals("") || !listConf.get(0).getValida_sisbov().equals("S"))
+        {
+            editCodCria.setText(strsis.substring(7, 15));
         }
     }
 
@@ -448,18 +482,37 @@ public class Parto_Activity extends Activity
         });
     }
 
-    private void loadBotaoLeitor() {
-        btnLeitorCodBarras.setOnClickListener(new OnClickListener()
+    private void loadBotaoLeitor()
+    {
+        btnIdentificador.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(Parto_Activity.this, Leitor_Activity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Parto_Activity.this);
+                builder.setTitle("Alerta").setMessage("Deseja utilizar o bastão para leitura dos Identificadores?").setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Conecte o dispositivo ao Bastão.");
+                                btnIdentificador.setVisibility(View.GONE);
+                                bastao = true;
+                            }
+                        })
+                        .setNegativeButton("Não", new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                Intent intent = new Intent(Parto_Activity.this, Leitor_Activity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .show();
             }
         });
 
-        btnLeitorCodBarra.setOnClickListener(new OnClickListener()
+        btnSisbov.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -673,8 +726,8 @@ public class Parto_Activity extends Activity
         editPeso                = (EditText) findViewById(R.id.edtPesoCria);
         txtidanimal             = (TextView) findViewById(R.id.id_animal);
         btnSalvar               = (Button) findViewById(R.id.btnSalvarParto);
-        btnLeitorCodBarras      = (Button) findViewById(R.id.btnLeitorCodBarras);
-        btnLeitorCodBarra       = (Button) findViewById(R.id.btnLeitorCodBarra);
+        btnIdentificador        = (Button) findViewById(R.id.btnIdentificador);
+        btnSisbov               = (Button) findViewById(R.id.btnSisbov);
         editDataIdentificacao   = (EditText) findViewById(R.id.edtDataIdentificacao);
 
         editCriterio            = (AutoCompleteTextView) findViewById(R.id.edtCriterio);

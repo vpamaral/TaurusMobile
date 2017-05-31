@@ -243,11 +243,14 @@ public class Lista_Partos_Cria_Activity extends Activity
 		//MenuItem recoverSentPartos = menu.add("Recuperar Partos enviados");
 	}
 
-	private void alertMsg(){
+	private void alertMsg()
+	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Alerta").setMessage("Deseja Atualizar os dados?").setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
+				.setPositiveButton("Sim", new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
 
 					}
 				})

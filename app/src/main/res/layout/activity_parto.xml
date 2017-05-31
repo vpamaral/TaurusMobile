@@ -43,9 +43,9 @@
                 android:drawablePadding="2dip"
                 android:paddingLeft="2dip"
                 android:paddingRight="2dip"
-                android:singleLine="true"
                 android:gravity="center"
-                android:id="@+id/btnLeitorCodBarras" />
+                android:visibility="visible"
+                android:id="@+id/btnIdentificador" />
         </LinearLayout>
 
         <TextView
@@ -84,9 +84,8 @@
                 android:drawablePadding="2dip"
                 android:paddingLeft="2dip"
                 android:paddingRight="2dip"
-                android:singleLine="true"
                 android:gravity="center"
-                android:id="@+id/btnLeitorCodBarra" />
+                android:id="@+id/btnSisbov" />
         </LinearLayout>
 
         <TextView
