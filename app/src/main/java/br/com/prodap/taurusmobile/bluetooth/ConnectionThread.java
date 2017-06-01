@@ -22,7 +22,6 @@ public class ConnectionThread extends Thread
     private BluetoothSocket btSocket = null;
     private BluetoothServerSocket btServerSocket = null;
     private String btDevAddress = null;
-    private String myUUID = "00001101-0000-1000-8000-00805F9B34FB";
     private boolean server;
     private boolean running = false;
     private InputStream input = null;
@@ -69,7 +68,7 @@ public class ConnectionThread extends Thread
                     O socket servidor será usado apenas para iniciar a conexão.
                     Permanece em estado de espera até que algum cliente estabeleça uma conexão.
                  */
-                btServerSocket  = btAdapter.listenUsingRfcommWithServiceRecord("Bluetooth", UUID.fromString(myUUID));
+                btServerSocket  = btAdapter.listenUsingRfcommWithServiceRecord("Bluetooth", UUID.fromString(Constantes.UUID));
                 btSocket        = btServerSocket.accept();
 
                 /*  Se a conexão foi estabelecida corretamente, o socket
@@ -99,7 +98,7 @@ public class ConnectionThread extends Thread
                     Cria um socket Bluetooth.
                  */
                 BluetoothDevice btDevice    = btAdapter.getRemoteDevice(btDevAddress);
-                btSocket                    = btDevice.createRfcommSocketToServiceRecord(UUID.fromString(myUUID));
+                btSocket                    = btDevice.createRfcommSocketToServiceRecord(UUID.fromString(Constantes.UUID));
 
                 /*  Envia ao sistema um comando para cancelar qualquer processo
                 de descoberta em execução.
@@ -240,7 +239,6 @@ public class ConnectionThread extends Thread
             running = false;
             btServerSocket.close();
             btSocket.close();
-
         }
         catch (IOException e)
         {

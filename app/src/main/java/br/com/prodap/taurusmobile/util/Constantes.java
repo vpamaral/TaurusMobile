@@ -15,6 +15,8 @@ public class Constantes
 	public static final String METHOD_GET_GRUPOS 	= "listaGrupos";
 	public static final String METHOD_GET_CRITERIOS	= "listaCriterios";
 
+	public static final String UUID = "00001101-0000-1000-8000-00805F9B34FB";
+
 	public static int VALIDATION_TYPE_INSERT = 0;
 	public static int VALIDATION_TYPE_DELETE = 1;
 	public static int VALIDATION_TYPE_UPDATE = 2;

@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import br.com.prodap.taurusmobile.OpenFile.OnCloseListener;
 import br.com.prodap.taurusmobile.OpenFile.OpenFileDialog;
 import br.com.prodap.taurusmobile.R;
+import br.com.prodap.taurusmobile.bluetooth.Bluetooth_Activity;
 import br.com.prodap.taurusmobile.bluetooth.ConnectionThread;
 import br.com.prodap.taurusmobile.bluetooth.DiscoveredDevices;
 import br.com.prodap.taurusmobile.bluetooth.PairedDevices;
@@ -64,6 +65,9 @@ public class Menu_Principal_Activity extends Activity
 	private OpenFileDialog openFileDialog;
 	private CreateReadWrite crw;
 
+	private Bluetooth_Activity b_activity;
+	private String status_bluetooth;
+
 	public static Handler handler = new Handler()
 	{
 		@Override
@@ -73,10 +77,11 @@ public class Menu_Principal_Activity extends Activity
 		}
 	};
 
-	private static void resultHandleMessage(Message msg) {
-		Bundle bundle = msg.getData();
-		byte[] data = bundle.getByteArray("data");
-		String dataString = new String(data);
+	private static void resultHandleMessage(Message msg)
+	{
+		Bundle bundle 		= msg.getData();
+		byte[] data 		= bundle.getByteArray("data");
+		String dataString 	= new String(data);
 
 		if (dataString.equals("ERRO_CONEXAO"))
 		{
@@ -118,7 +123,8 @@ public class Menu_Principal_Activity extends Activity
     private int count;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_menu_principal);
@@ -150,24 +156,33 @@ public class Menu_Principal_Activity extends Activity
 	private void openFileDialog_Click()
 	{
 		openFileDialog = new OpenFileDialog(this);
-		openFileDialog.setOnCloseListener(new OnCloseListener() {
+		openFileDialog.setOnCloseListener(new OnCloseListener()
+		{
 			@Override
-			public void onCancel() {
+			public void onCancel()
+			{
 			}
 
 			@Override
-			public void onOk(String selectedFile) {
-				try {
+			public void onOk(String selectedFile)
+			{
+				try
+				{
 					Constantes.ARQUIVO = createList(selectedFile).toString();
 
-					if (Constantes.ARQUIVO != null) {
+					if (Constantes.ARQUIVO != null)
+					{
 						Constantes.GET_JSON.Get_JSON(Constantes.ARQUIVO);
 
 						updateViaArquivo();
-					} else {
+					}
+					else
+					{
 						Mensagem_Util.addMsg(Message_Dialog.Toast, Menu_Principal_Activity.this, "Aquivos sem dados");
 					}
-				} catch (IOException e) {
+				}
+				catch (IOException e)
+				{
 					Log.i("OPENFILE", e.toString());
 					e.printStackTrace();
 				}
@@ -175,52 +190,58 @@ public class Menu_Principal_Activity extends Activity
 		});
 	}
 
-	private void source() {
-		try {
+	private void source()
+	{
+		try
+		{
 			crw = new CreateReadWrite(this);
 			crw.createFile();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 
-		Constantes.LBL_STATUS = (TextView) findViewById(R.id.lbl_status_MSG);
-		Constantes.GET_JSON = new Get_JSON();
+		Constantes.LBL_STATUS 	= (TextView) findViewById(R.id.lbl_status_MSG);
+		Constantes.GET_JSON 	= new Get_JSON();
+		mHandler 				= new Handler();
+		configuracao_model 		= new Configuracao_Model(this);
+		conf_tb 				= new Configuracao();
+		parto_model 			= new Parto_Model(this);
 
-		mHandler = new Handler();
-		//openFileDialog 			= new OpenFileDialog(this);
-
-		configuracao_model = new Configuracao_Model(this);
-		conf_tb = new Configuracao();
-		parto_model = new Parto_Model(this);
+		b_activity				= new Bluetooth_Activity();
 
 		lista_conf = configuracao_model.selectAll(this, "Configuracao", conf_tb);
 
-		for (Configuracao conf : lista_conf) {
+		for (Configuracao conf : lista_conf)
+		{
 			url = conf.getEndereco();
 		}
 
-		isEnableBluetooth();
-		//existCelular(lista_conf, conf_tb);
-
-		//parto_model.recoverSentPartos(this);
+		b_activity.isEnableBluetooth();
 	}
 
 	//metodo para selecionar o arquivo para atualizar o banco de dados do aparelho
-	private String createList(String path_file) throws IOException {
+	private String createList(String path_file) throws IOException
+	{
 		String dados_file = "";
 
-		try {
+		try
+		{
 			BufferedReader br = new BufferedReader(new FileReader(path_file));
 
 			dados_file = br.readLine();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 
 		return dados_file;
 	}
 
-	private void atualizarBotoes() {
+	private void atualizarBotoes()
+	{
 		final List<Pasto> pasto_list;
 		final List<String> nome_pasto_list = new ArrayList<String>();
 		final Pasto pasto_tb = new Pasto();
@@ -236,7 +257,8 @@ public class Menu_Principal_Activity extends Activity
 //		}
 	}
 
-	public void btn_atualiza_via_web_Click(View v) {
+	public void btn_atualiza_via_web_Click(View v)
+	{
 		updateViaWeb();
 	}
 
@@ -640,23 +662,24 @@ public class Menu_Principal_Activity extends Activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
+		Constantes.CALL_BLUETOOTH = "Menu_Principal";
+
 		switch (item.getItemId())
 		{
 			case R.id.menu_dispositivos_pariados:
-				Constantes.CALL_BLUETOOTH = "Menu_Principal";
-				searchPairedDevices();
+				b_activity.searchPairedDevices(this);
 				return false;
 
 			case R.id.menu_habilitar_visibilidade:
-				enableVisibility();
+				b_activity.enableVisibility(this);
 				return false;
 
 			case R.id.menu_descoberta_dispositivo:
-				discoverDevices();
+				b_activity.discoverDevices(this);
 				return false;
 
 			case R.id.menu_esperar_conexao:
-				waitConnection();
+				b_activity.waitConnection();
 				return false;
 
 			case R.id.menu_QRCode:
@@ -678,25 +701,6 @@ public class Menu_Principal_Activity extends Activity
 	{
 		byte[] data = json.getBytes();
 		Constantes.CONNECT.write(data);
-	}
-
-	public void searchPairedDevices()
-	{
-		Intent searchPairedDevicesIntent = new Intent(this, PairedDevices.class);
-		startActivityForResult(searchPairedDevicesIntent,Constantes. SELECT_PAIRED_DEVICE);
-	}
-
-	public void discoverDevices()
-	{
-		Intent searchPairedDevicesIntent = new Intent(this, DiscoveredDevices.class);
-		startActivityForResult(searchPairedDevicesIntent, Constantes.SELECT_DISCOVERED_DEVICE);
-	}
-
-	public void enableVisibility()
-	{
-		Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-		discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 30);
-		startActivity(discoverableIntent);
 	}
 
 	private String obterDiretorio()
@@ -755,43 +759,6 @@ public class Menu_Principal_Activity extends Activity
         }
     }
 
-	public void waitConnection()
-	{
-		Constantes.CONNECT = new ConnectionThread();
-		Constantes.CONNECT.start();
-	}
-
-    public void connection(String device)
-    {
-        Constantes.CONNECT = new ConnectionThread(device);
-        Constantes.CONNECT.start();
-    }
-
-    private void isEnableBluetooth()
-    {
-        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        if (btAdapter == null)
-        {
-            Constantes.LBL_STATUS.setText("Hardware Bluetooth não está funcionando");
-        }
-        else
-        {
-            Constantes.LBL_STATUS.setText("Hardware Bluetooth está funcionando");
-        }
-
-        if(!btAdapter.isEnabled())
-        {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, Constantes.ENABLE_BLUETOOTH);
-            Constantes.LBL_STATUS.setText("Solicitando ativação do Bluetooth...");
-        }
-        else
-        {
-            Constantes.LBL_STATUS.setText("Bluetooth já ativado");
-        }
-    }
-
 	public void about()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
@@ -807,32 +774,91 @@ public class Menu_Principal_Activity extends Activity
 				.show();
 	}
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if(requestCode == Constantes.ENABLE_BLUETOOTH)
-        {
-            if(resultCode == RESULT_OK)
-            {
-                Constantes.LBL_STATUS.setText("Bluetooth ativado");
-            }
-            else
-            {
-                Constantes.LBL_STATUS.setText("Bluetooth não ativado");
-            }
-        }
-        else if(requestCode == Constantes.SELECT_PAIRED_DEVICE || requestCode == Constantes.SELECT_DISCOVERED_DEVICE)
-        {
-            if(resultCode == RESULT_OK)
-            {
-                Constantes.LBL_STATUS.setText("Aguarde conectando ao servidor...");
 
-                connection(data.getStringExtra("btDevAddress"));
-            }
-            else
-            {
-                Constantes.LBL_STATUS.setText("Nenhum dispositivo selecionado");
-            }
-        }
-    }
+	/*//Bluetooth
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode == Constantes.ENABLE_BLUETOOTH)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Constantes.LBL_STATUS.setText("Bluetooth ativado");
+			}
+			else
+			{
+				Constantes.LBL_STATUS.setText("Bluetooth não ativado");
+			}
+		}
+		else if(requestCode == Constantes.SELECT_PAIRED_DEVICE || requestCode == Constantes.SELECT_DISCOVERED_DEVICE)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Constantes.LBL_STATUS.setText("Aguarde conectando ao servidor...");
+
+				connection(data.getStringExtra("btDevAddress"));
+			}
+			else
+			{
+				Constantes.LBL_STATUS.setText("Nenhum dispositivo selecionado");
+			}
+		}
+	}
+
+	public void waitConnection()
+	{
+		Constantes.CONNECT = new ConnectionThread();
+		Constantes.CONNECT.start();
+	}
+
+	public void connection(String device)
+	{
+		Constantes.CONNECT = new ConnectionThread(device);
+		Constantes.CONNECT.start();
+	}
+
+	public void searchPairedDevices()
+	{
+		Intent searchPairedDevicesIntent = new Intent(this, PairedDevices.class);
+		startActivityForResult(searchPairedDevicesIntent,Constantes. SELECT_PAIRED_DEVICE);
+	}
+
+	public void discoverDevices()
+	{
+		Intent searchPairedDevicesIntent = new Intent(this, DiscoveredDevices.class);
+		startActivityForResult(searchPairedDevicesIntent, Constantes.SELECT_DISCOVERED_DEVICE);
+	}
+
+	public void enableVisibility()
+	{
+		Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+		discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 30);
+		startActivity(discoverableIntent);
+	}
+
+	private void isEnableBluetooth()
+	{
+		BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+
+		if (btAdapter == null)
+		{
+			Constantes.LBL_STATUS.setText("Hardware Bluetooth não está funcionando");
+		}
+		else
+		{
+			Constantes.LBL_STATUS.setText("Hardware Bluetooth está funcionando");
+		}
+
+		if(!btAdapter.isEnabled())
+		{
+			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableBtIntent, Constantes.ENABLE_BLUETOOTH);
+			Constantes.LBL_STATUS.setText("Solicitando ativação do Bluetooth...");
+		}
+		else
+		{
+			Constantes.LBL_STATUS.setText("Bluetooth já ativado");
+		}
+	}
+	*/
 }
