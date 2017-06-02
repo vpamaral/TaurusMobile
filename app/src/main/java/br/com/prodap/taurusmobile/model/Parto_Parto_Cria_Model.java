@@ -36,23 +36,12 @@ public class Parto_Parto_Cria_Model extends Banco_Service {
 	}
 
 	@Override
-	public List<Parto_Parto_Cria> selectAll(Context ctx, String Tabela, Object table) {
+	public List<Parto_Parto_Cria> selectAll(Context ctx, String Tabela, Object table)
+	{
 		Banco banco = new Banco(ctx);
 
 		Class classe = table.getClass();
 		List<Parto_Parto_Cria> listadd = new ArrayList<Parto_Parto_Cria>();
-		/*String sql = String.format("	SELECT DISTINCT p.*, c.* "
-									+	"FROM %s a "
-									+   "INNER JOIN Parto p ON a.id_pk = p.id_fk_animal "
-									+	"INNER JOIN Parto_Cria c ON a.id_pk = c.id_fk_animal_mae "
-									+	"WHERE "
-									+	"c.id_fk_animal_mae = 0 "
-									+	"p.id_fk_animal 	= 0 "
-									+	"AND c.sync_status 	= 0 "
-									+	"AND p.sync_status 	= 0 "
-									+	"GROUP BY c.codigo_cria"
-									, Tabela
-				                   );*/
 		String sql = String.format(
 										"SELECT p.*, pc.* "
 										+"FROM %s pc "

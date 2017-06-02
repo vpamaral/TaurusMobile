@@ -84,12 +84,14 @@ public class Parto_Cria_Dao extends Banco {
         return result;
     }
 
-    public List<Parto_Cria> selectAllPartosCria(Context ctx, String Tabela, Object table) {
+    public List<Parto_Cria> selectAllPartosCria(Context ctx, String Tabela, Object table)
+    {
         Banco banco = new Banco(ctx);
         pc_adapter = new Parto_Cria_Adapter();
 
         Class classe = table.getClass();
         List<Parto_Cria> pc_list = new ArrayList<Parto_Cria>();
+
         String sql = String.format(
                                         "SELECT * FROM %s " +
                                         "WHERE sync_status = 0 ORDER BY codigo_cria"

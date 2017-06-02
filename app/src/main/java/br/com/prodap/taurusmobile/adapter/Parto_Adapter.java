@@ -14,8 +14,8 @@ import java.util.List;
 import br.com.prodap.taurusmobile.tb.Parto;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
 
-public class Parto_Adapter extends BaseAdapter{
-
+public class Parto_Adapter extends BaseAdapter
+{
 	private List<Parto> partos;
 	private Activity activity;
 
@@ -23,15 +23,18 @@ public class Parto_Adapter extends BaseAdapter{
 
 	}
 
-	public Parto_Adapter(List<Parto> partos, Activity activity) {
+	public Parto_Adapter(List<Parto> partos, Activity activity)
+	{
 		this.partos = partos;
 		this.activity = activity;
 	}
 	
-	public Parto PartoCursor(Cursor c) {
+	public Parto PartoCursor(Cursor c)
+	{
 		Parto parto = new Parto();
 
-		while (c.moveToNext()) {
+		while (c.moveToNext())
+		{
 			parto.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
 			parto.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
 			parto.setData_parto(c.getString(c.getColumnIndex("data_parto")));
@@ -43,7 +46,8 @@ public class Parto_Adapter extends BaseAdapter{
 	}
 
 	@NonNull
-	public ContentValues getDadosParto(Parto p_tb) {
+	public ContentValues getDadosParto(Parto p_tb)
+	{
 		ContentValues p_dados = new ContentValues();
 		p_dados.put("id_pk", p_tb.getId_pk());
 		p_dados.put("id_fk_animal", p_tb.getId_fk_animal());
@@ -55,10 +59,12 @@ public class Parto_Adapter extends BaseAdapter{
 		return p_dados;
 	}
 
-	public List<Parto> PartoPreencheArrayCursor(Cursor c) {
+	public List<Parto> PartoPreencheArrayCursor(Cursor c)
+	{
 		List<Parto> listaParto = new ArrayList<Parto>();
-		while (c.moveToNext()) {
 
+		while (c.moveToNext())
+		{
 			Parto parto = new Parto();
 			parto.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
 			parto.setId_fk_animal(c.getLong(c.getColumnIndex("id_fk_animal")));
@@ -73,10 +79,12 @@ public class Parto_Adapter extends BaseAdapter{
 		return listaParto;
 	}
 
-	public ArrayList<Parto> PartoPreencheArrayHelper(Parto[] PartoArray) {
+	public ArrayList<Parto> PartoPreencheArrayHelper(Parto[] PartoArray)
+	{
 		ArrayList<Parto> listaParto = new ArrayList<Parto>();
-		for (int i = 0; i < PartoArray.length; i++) {
 
+		for (int i = 0; i < PartoArray.length; i++)
+		{
 			Parto parto = new Parto();
 			parto.setId_pk(PartoArray[i].getId_pk());
 			parto.setId_fk_animal(PartoArray[i].getId_fk_animal());
@@ -87,10 +95,12 @@ public class Parto_Adapter extends BaseAdapter{
 
 			listaParto.add(parto);
 		}
+
 		return listaParto;
 	}
 
-	public Parto PartoHelper(Parto parto_tb) {
+	public Parto PartoHelper(Parto parto_tb)
+	{
 		Parto parto = new Parto();
 		parto.setId_pk(parto_tb.getId_pk());
 		parto.setId_fk_animal(parto_tb.getId_fk_animal());
@@ -102,7 +112,8 @@ public class Parto_Adapter extends BaseAdapter{
 		return parto;
 	}
 
-	public String PartoArqHelper(Parto parto_tb, Parto_Cria cria){
+	public String PartoArqHelper(Parto parto_tb, Parto_Cria cria)
+	{
 		 String conteudo = "";
 
 		conteudo = String.valueOf(parto_tb.getId_fk_animal()) + ","
@@ -124,28 +135,31 @@ public class Parto_Adapter extends BaseAdapter{
 		+ String.valueOf(cria.getTipo_parto())+ "|";
 		//+ String.valueOf(cria.getPasto())+ "|";
 
-
 		return conteudo;
 
 	}
 
 	@Override
-	public int getCount() {
+	public int getCount()
+	{
 		return partos.size();
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public Object getItem(int position)
+	{
 		return partos.get(position);
 	}
 
 	@Override
-	public long getItemId(int position) {
+	public long getItemId(int position)
+	{
 		return Long.parseLong(String.valueOf(partos.get(position).getId_fk_animal()));
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
 		return null;
 	}
 }

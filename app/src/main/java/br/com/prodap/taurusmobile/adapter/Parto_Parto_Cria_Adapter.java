@@ -49,15 +49,19 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 			p_partoCria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
 			p_partoCria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			p_partoCria.setPasto(c.getString(c.getColumnIndex("pasto")));
+			p_partoCria.setCodigo_ferro_cria(c.getString(c.getColumnIndex("codigo_ferro_cria")));
+			p_partoCria.setCriterio(c.getString(c.getColumnIndex("criterio")));
 		}
 
 		return p_partoCria;
 	}
 
-	public List<Parto_Parto_Cria> P_PartoCriaPreencheArrayCursor(Cursor c) {
+	public List<Parto_Parto_Cria> P_PartoCriaPreencheArrayCursor(Cursor c)
+	{
 		List<Parto_Parto_Cria> listaPartoCria = new ArrayList<Parto_Parto_Cria>();
-		while (c.moveToNext()) {
 
+		while (c.moveToNext())
+		{
 			Parto_Parto_Cria p_partoCria = new Parto_Parto_Cria();
 
 			p_partoCria.setId_fk_animal_mae(c.getLong(c.getColumnIndex("id_fk_animal_mae")));
@@ -78,6 +82,8 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 			p_partoCria.setTipo_parto(c.getString(c.getColumnIndex("tipo_parto")));
 			p_partoCria.setCod_matriz_invalido(c.getString(c.getColumnIndex("cod_matriz_invalido")));
 			p_partoCria.setPasto(c.getString(c.getColumnIndex("pasto")));
+			p_partoCria.setCodigo_ferro_cria(c.getString(c.getColumnIndex("codigo_ferro_cria")));
+			p_partoCria.setCriterio(c.getString(c.getColumnIndex("criterio")));
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -111,6 +117,7 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 			p_partoCria.setTipo_parto(PartoCriaArray[i].getTipo_parto());
 			p_partoCria.setCod_matriz_invalido(PartoCriaArray[i].getCod_matriz_invalido());
 			p_partoCria.setPasto(PartoCriaArray[i].getPasto());
+			p_partoCria.setCodigo_ferro_cria(PartoCriaArray[i].getCodigo_ferro_cria());
 
 			listaPartoCria.add(p_partoCria);
 		}
@@ -138,6 +145,7 @@ public class Parto_Parto_Cria_Adapter extends BaseAdapter {
 		p_partoCria.setTipo_parto(p_partoCria_tb.getTipo_parto());
 		p_partoCria.setCod_matriz_invalido(p_partoCria_tb.getCod_matriz_invalido());
 		p_partoCria.setPasto(p_partoCria_tb.getPasto());
+		p_partoCria.setCodigo_ferro_cria(p_partoCria_tb.getCodigo_ferro_cria());
 
 		return p_partoCria;
 	}

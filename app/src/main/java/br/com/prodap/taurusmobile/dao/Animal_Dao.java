@@ -22,7 +22,8 @@ public class Animal_Dao extends Banco {
         super(context);
     }
 
-    public List<Animal> selectAllAnimais(Context ctx, String Tabela, Object table) {
+    public List<Animal> selectAllAnimais(Context ctx, String Tabela, Object table)
+    {
         Banco banco = new Banco(ctx);
         a_adapter = new Animal_Adapter();
 

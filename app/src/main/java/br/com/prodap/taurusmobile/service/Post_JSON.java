@@ -1,27 +1,31 @@
 package br.com.prodap.taurusmobile.service;
 
+import com.google.gson.Gson;
 
-import android.content.Context;
+import java.util.List;
 
-public class Post_JSON {
-	private String url;
-	Context ctx;
-	
-	public Post_JSON(String url, Context ctx) {
-		this.url = url;
-		this.ctx = ctx;
+import br.com.prodap.taurusmobile.tb.Parto_Parto_Cria;
+import br.com.prodap.taurusmobile.util.Constantes;
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
+
+public class Post_JSON
+{
+	private Menu_Principal_Activity mpa = new Menu_Principal_Activity();
+	private String return_json;
+
+	public String postDadosSend(List<Parto_Parto_Cria> p_p_cria_list) throws Exception
+	{
+		Gson gson 	= new Gson();
+		return_json = gson.toJson(p_p_cria_list);
+
+		if (Constantes.TIPO_ENVIO == "bluetooth")
+			mpa.sendMessage(return_json);
+
+		return return_json;
 	}
-		
-	public String postAnimais(String json) throws Exception{
-		try {
-			Conexao_HTTP conexaoServidor = new Conexao_HTTP(url, ctx);
-			conexaoServidor.postJson(json);
-			return json;
-			
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
+	private void loadFile(String json)
+	{
+		return_json += json + "|";
 	}	
 }

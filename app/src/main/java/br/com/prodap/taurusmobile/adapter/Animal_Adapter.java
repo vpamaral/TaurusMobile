@@ -10,47 +10,58 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.tb.Animal;
 
-public class Animal_Adapter {
+public class Animal_Adapter
+{
 	private List<Animal> animais;
 	private Activity activity;
 
 	public Animal_Adapter() {}
 
-	public Animal_Adapter(List<Animal> animais, Activity activity) {
+	public Animal_Adapter(List<Animal> animais, Activity activity)
+	{
 		this.animais = animais;
 		this.activity = activity;
 	}
 
-	public Animal cursorAnimais(Cursor c) {
+	public Animal cursorAnimais(Cursor c)
+	{
 		Animal a_tb = new Animal();
-		while (c.moveToNext()) {
+
+		while (c.moveToNext())
+		{
 			a_tb = getAnimal(c);
 		}
 		return a_tb;
 	}
 
-	public List<Animal> arrayAnimais(Cursor c) {
+	public List<Animal> arrayAnimais(Cursor c)
+	{
 		List<Animal> a_list = new ArrayList<Animal>();
-		while (c.moveToNext()) {
+
+		while (c.moveToNext())
+		{
 			a_list.add(getAnimal(c));
 		}
 		return a_list;
 	}
 
 	@NonNull
-	public ContentValues getDadosAnimal(Animal a_tb) {
+	public ContentValues getDadosAnimal(Animal a_tb)
+	{
 		ContentValues a_dados = new ContentValues();
+
 		a_dados.put("id_pk", a_tb.getId_pk());
 		a_dados.put("codigo", a_tb.getCodigo());
 		a_dados.put("codigo_ferro", a_tb.getCodigo_ferro());
-		a_dados.put("identificador", a_tb.getData_nascimento());
-		a_dados.put("data_nascimento", a_tb.getIdentificador());
+		a_dados.put("data_nascimento", a_tb.getData_nascimento());
+		a_dados.put("identificador", a_tb.getIdentificador());
 
 		return a_dados;
 	}
 
 	@NonNull
-	private Animal getAnimal(Cursor c) {
+	private Animal getAnimal(Cursor c)
+	{
 		Animal a_tb = new Animal();
 		a_tb.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
 		a_tb.setCodigo(c.getString(c.getColumnIndex("codigo")));
@@ -68,9 +79,12 @@ public class Animal_Adapter {
 		return a_tb;
 	}
 
-	public ArrayList<Animal> arrayAnimais(Animal[] AnimalArray) {
+	public ArrayList<Animal> arrayAnimais(Animal[] AnimalArray)
+	{
 		ArrayList<Animal> a_list = new ArrayList<Animal>();
-		for (int i = 0; i < AnimalArray.length; i++) {
+
+		for (int i = 0; i < AnimalArray.length; i++)
+		{
 			Animal a_tb = new Animal();
 			a_tb.setId_pk(AnimalArray[i].getId_pk());
 			a_tb.setCodigo(AnimalArray[i].getCodigo());
@@ -90,7 +104,8 @@ public class Animal_Adapter {
 		return a_list;
 	}
 
-	public Animal animalHelper(Animal a_tb) {
+	public Animal animalHelper(Animal a_tb)
+	{
 		Animal animal_tb = new Animal();
 
 		animal_tb.setId_pk(a_tb.getId_pk());

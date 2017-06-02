@@ -12,17 +12,19 @@ import br.com.prodap.taurusmobile.R;
 /**
  * Created by João on 1/24/2016.
  */
-public class Splash extends Activity {
-
+public class Splash extends Activity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        new Timer().schedule(new TimerTask() {
-
+        new Timer().schedule(new TimerTask()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 finish();
 
                 Intent intent = new Intent();

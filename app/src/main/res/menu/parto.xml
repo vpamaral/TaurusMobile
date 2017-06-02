@@ -2,15 +2,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="br.com.taurusmobile.ui.PartoActivity" >
 
-    <!--<item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>-->
-
     <item
-        android:id="@+id/menu_bluetooth"
+        android:icon="@drawable/ic_opcoes"
+        android:orderInCategory="100"
         android:showAsAction="always"
-        android:title="Conectar Bastão"/>
+        android:title="@string/action_settings">
+        <menu>
+            <!--<item
+                android:id="@+id/p_menu_dispositivos_pariados"
+                android:icon="@drawable/connect_icon"
+                android:showAsAction="always"
+                android:title="Dispositivos pareados"/>
 
+            <item
+                android:id="@+id/p_menu_habilitar_visibilidade"
+                android:icon="@drawable/connect_icon"
+                android:showAsAction="always"
+                android:title="Habilitar Visibilidade"/>
+
+            <item
+                android:id="@+id/p_menu_descoberta_dispositivo"
+                android:icon="@drawable/connect_icon"
+                android:showAsAction="always"
+                android:title="Descoberta de dispositivos"/>-->
+
+            <item
+                android:id="@+id/p_menu_esperar_conexao"
+                android:icon="@drawable/connect_icon"
+                android:showAsAction="always"
+                android:title="Esperar conexão"/>
+        </menu>
+    </item>
 </menu>

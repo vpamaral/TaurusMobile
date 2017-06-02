@@ -18,8 +18,8 @@ import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Parto;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
 
-public class Parto_Model extends Banco_Service {
-
+public class Parto_Model extends Banco_Service
+{
 	private Banco banco;
 	private Parto_Adapter parto_adapter;
 	private SQLiteDatabase db;
@@ -79,7 +79,8 @@ public class Parto_Model extends Banco_Service {
 		}
 	}
 
-	public void deleteParto(Context ctx, Long codigo){
+	public void deleteParto(Context ctx, Long codigo)
+	{
 		banco = new Banco(ctx);
 
 		db = banco.getWritableDatabase();
@@ -88,7 +89,8 @@ public class Parto_Model extends Banco_Service {
 	}
 
 	@Override
-	public List<Parto> selectAll(Context ctx, String Tabela, Object table) {
+	public List<Parto> selectAll(Context ctx, String Tabela, Object table)
+	{
 		Banco banco = new Banco(ctx);
 
 		Class classe = table.getClass();
@@ -100,6 +102,7 @@ public class Parto_Model extends Banco_Service {
 		listadd = parto_adapter.PartoPreencheArrayCursor(c);
 
 		banco.close();
+
 		return listadd;
 	}
 

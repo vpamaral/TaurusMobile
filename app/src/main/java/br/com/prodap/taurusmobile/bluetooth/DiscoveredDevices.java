@@ -16,23 +16,25 @@ import android.widget.TextView;
 
 import br.com.prodap.taurusmobile.R;
 
-public class DiscoveredDevices extends ListActivity {
-
+public class DiscoveredDevices extends ListActivity
+{
     /*  Um adaptador para conter os elementos da lista de dispositivos descobertos.
      */
     ArrayAdapter<String> arrayAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         /*  Esse trecho não é essencial, mas dá um melhor visual à lista.
             Adiciona um título à lista de dispositivos pareados utilizando
         o layout text_header.xml.
         */
-        ListView lv = getListView();
+        ListView lv             = getListView();
         LayoutInflater inflater = getLayoutInflater();
-        View header = inflater.inflate(R.layout.text_header, lv, false);
+        View header             = inflater.inflate(R.layout.text_header, lv, false);
+
         ((TextView) header.findViewById(R.id.textView)).setText("\nDispositivos próximos\n");
         lv.addHeaderView(header, null, false);
 
@@ -57,15 +59,15 @@ public class DiscoveredDevices extends ListActivity {
     /*  Este método é executado quando o usuário seleciona um elemento da lista.
      */
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-
+    protected void onListItemClick(ListView l, View v, int position, long id)
+    {
         /*  Extrai nome e endereço a partir do conteúdo do elemento selecionado.
             Nota: position-1 é utilizado pois adicionamos um título à lista e o
         valor de position recebido pelo método é deslocado em uma unidade.
          */
-        String item = (String) getListAdapter().getItem(position-1);
-        String devName = item.substring(0, item.indexOf("\n"));
-        String devAddress = item.substring(item.indexOf("\n")+1, item.length());
+        String item         = (String) getListAdapter().getItem(position-1);
+        String devName      = item.substring(0, item.indexOf("\n"));
+        String devAddress   = item.substring(item.indexOf("\n")+1, item.length());
 
         /*  Utiliza um Intent para encapsular as informações de nome e endereço.
             Informa à Activity principal que tudo foi um sucesso!
@@ -80,19 +82,21 @@ public class DiscoveredDevices extends ListActivity {
 
     /*  Define um receptor para o evento de descoberta de dispositivo.
      */
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-
+    private final BroadcastReceiver receiver = new BroadcastReceiver()
+    {
         /*  Este método é executado sempre que um novo dispositivo for descoberto.
          */
-        public void onReceive(Context context, Intent intent) {
-
+        public void onReceive(Context context, Intent intent)
+        {
             /*  Obtem o Intent que gerou a ação.
                 Verifica se a ação corresponde à descoberta de um novo dispositivo.
                 Obtem um objeto que representa o dispositivo Bluetooth descoberto.
                 Exibe seu nome e endereço na lista.
              */
             String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+
+            if (BluetoothDevice.ACTION_FOUND.equals(action))
+            {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 arrayAdapter.add(device.getName() + "\n" + device.getAddress());
             }
@@ -102,7 +106,8 @@ public class DiscoveredDevices extends ListActivity {
     /*  Executado quando a Activity é finalizada.
      */
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
         /*  Remove o filtro de descoberta de dispositivos do registro.
          */

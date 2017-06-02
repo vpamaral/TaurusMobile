@@ -13,14 +13,15 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.UUID;
 
+import br.com.prodap.taurusmobile.util.Constantes;
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
 import br.com.prodap.taurusmobile.view.Parto_Activity;
 
-public class ConnectionThread extends Thread {
-
+public class ConnectionThread extends Thread
+{
     private BluetoothSocket btSocket = null;
     private BluetoothServerSocket btServerSocket = null;
     private String btDevAddress = null;
-    private String myUUID = "00001101-0000-1000-8000-00805F9B34FB";
     private boolean server;
     private boolean running = false;
     private InputStream input = null;
@@ -28,7 +29,8 @@ public class ConnectionThread extends Thread {
 
     /*  Este construtor prepara o dispositivo para atuar como servidor.
      */
-    public ConnectionThread() {
+    public ConnectionThread()
+    {
         this.server = true;
     }
 
@@ -36,7 +38,8 @@ public class ConnectionThread extends Thread {
         Tem como argumento uma string contendo o endereço MAC do dispositivo
     Bluetooth para o qual deve ser solicitada uma conexão.
      */
-    public ConnectionThread(String btDevAddress) {
+    public ConnectionThread(String btDevAddress)
+    {
         this.server = false;
         this.btDevAddress = btDevAddress;
     }
@@ -44,40 +47,38 @@ public class ConnectionThread extends Thread {
     /*  O método run() contem as instruções que serão efetivamente realizadas
     em uma nova thread.
      */
-    public void run() {
-
+    public void run()
+    {
         /*  Anuncia que a thread está sendo executada.
             Pega uma referência para o adaptador Bluetooth padrão.
          */
-        this.running = true;
-        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+        this.running                = true;
+        BluetoothAdapter btAdapter  = BluetoothAdapter.getDefaultAdapter();
 
         /*  Determina que ações executar dependendo se a thread está configurada
         para atuar como servidor ou cliente.
          */
-        if(this.server) {
-
+        if(this.server)
+        {
             /*  Servidor.
              */
-            try {
-
+            try
+            {
                 /*  Cria um socket de servidor Bluetooth.
                     O socket servidor será usado apenas para iniciar a conexão.
                     Permanece em estado de espera até que algum cliente estabeleça uma conexão.
                  */
-                btServerSocket = btAdapter.listenUsingRfcommWithServiceRecord("Bluetooth", UUID.fromString(myUUID));
-                btSocket = btServerSocket.accept();
+                btServerSocket  = btAdapter.listenUsingRfcommWithServiceRecord("Bluetooth", UUID.fromString(Constantes.UUID));
+                btSocket        = btServerSocket.accept();
 
                 /*  Se a conexão foi estabelecida corretamente, o socket
                 servidor pode ser liberado.
                  */
-                if(btSocket != null) {
-
+                if(btSocket != null)
                     btServerSocket.close();
-                }
-
-            } catch (IOException e) {
-
+            }
+            catch (IOException e)
+            {
                 /*  Caso ocorra alguma exceção, exibe o stack trace para debug.
                     Envia um código para a Activity principal, informando que
                 a conexão falhou.
@@ -85,20 +86,19 @@ public class ConnectionThread extends Thread {
                 e.printStackTrace();
                 toMainActivity("ERRO_CONEXAO".getBytes());
             }
-
-
-        } else {
-
+        }
+        else
+        {
             /*  Cliente.
              */
-            try {
-
+            try
+            {
                 /*  Obtem uma representação do dispositivo Bluetooth com
                 endereço btDevAddress.
                     Cria um socket Bluetooth.
                  */
-                BluetoothDevice btDevice = btAdapter.getRemoteDevice(btDevAddress);
-                btSocket = btDevice.createRfcommSocketToServiceRecord(UUID.fromString(myUUID));
+                BluetoothDevice btDevice    = btAdapter.getRemoteDevice(btDevAddress);
+                btSocket                    = btDevice.createRfcommSocketToServiceRecord(UUID.fromString(Constantes.UUID));
 
                 /*  Envia ao sistema um comando para cancelar qualquer processo
                 de descoberta em execução.
@@ -113,8 +113,9 @@ public class ConnectionThread extends Thread {
                 if (btSocket != null)
                     btSocket.connect();
 
-            } catch (IOException e) {
-
+            }
+            catch (IOException e)
+            {
                 /*  Caso ocorra alguma exceção, exibe o stack trace para debug.
                     Envia um código para a Activity principal, informando que
                 a conexão falhou.
@@ -122,27 +123,26 @@ public class ConnectionThread extends Thread {
                 e.printStackTrace();
                 toMainActivity("ERRO_CONEXAO".getBytes());
             }
-
         }
 
         /*  Pronto, estamos conectados! Agora, só precisamos gerenciar a conexão.
             ...
          */
 
-        if(btSocket != null) {
-
+        if(btSocket != null)
+        {
             /*  Envia um código para a Activity principal informando que a
             a conexão ocorreu com sucesso.
              */
             toMainActivity("CONECTADO".getBytes());
 
-            try {
-
+            try
+            {
                 /*  Obtem referências para os fluxos de entrada e saída do
                 socket Bluetooth.
                  */
-                input = btSocket.getInputStream();
-                output = btSocket.getOutputStream();
+                input   = btSocket.getInputStream();
+                output  = btSocket.getOutputStream();
 
                 /*  Cria um byte array para armazenar temporariamente uma
                 mensagem recebida.
@@ -160,12 +160,18 @@ public class ConnectionThread extends Thread {
                     Esta thread permanecerá em estado de escuta até que
                 a variável running assuma o valor false.
                  */
-                while(running) {
+                while(running)
+                {
                     bytes = input.read(buffer);
+
+                    if (bytes == 0)
+                        Constantes.BLUETOOTH_TESTE = true;
+
                     toMainActivity(Arrays.copyOfRange(buffer, 0, bytes));
                 }
-            } catch (IOException e) {
-
+            }
+            catch (IOException e)
+            {
                 /*  Caso ocorra alguma exceção, exibe o stack trace para debug.
                     Envia um código para a Activity principal, informando que
                 a conexão falhou.
@@ -180,31 +186,44 @@ public class ConnectionThread extends Thread {
         O byte array é encapsulado em um Bundle e posteriormente em uma Message
     antes de ser enviado.
      */
-    private void toMainActivity(byte[] data) {
+    private void toMainActivity(byte[] data)
+    {
         Message message = new Message();
-        Bundle bundle = new Bundle();
+        Bundle bundle   = new Bundle();
+
         bundle.putByteArray("data", data);
         message.setData(bundle);
-        Parto_Activity.handler.sendMessage(message);
+
+        if (Constantes.CALL_BLUETOOTH == "Parto")
+            Parto_Activity.handler.sendMessage(message);
+
+        if(Constantes.CALL_BLUETOOTH == "Menu_Principal")
+        {
+            Menu_Principal_Activity.handler.sendMessage(message);
+        }
     }
 
     /*  Método utilizado pela Activity principal para transmitir uma mensagem ao
      outro lado da conexão.
         A mensagem deve ser representada por um byte array.
      */
-    public void write(byte[] data) {
-        if(output != null) {
-            try {
-
+    public void write(byte[] data)
+    {
+        if(output != null)
+        {
+            try
+            {
                 /*  Transmite a mensagem.
                  */
                 output.write(data);
-
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 e.printStackTrace();
             }
-        } else {
-
+        }
+        else
+        {
             /*  Envia à Activity principal um código de erro durante a conexão.
              */
             toMainActivity("ERRO_CONEXAO".getBytes());
@@ -213,13 +232,16 @@ public class ConnectionThread extends Thread {
 
     /*  Método utilizado pela Activity principal para encerrar a conexão
      */
-    public void cancel() {
-        try {
+    public void cancel()
+    {
+        try
+        {
             running = false;
             btServerSocket.close();
             btSocket.close();
-
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
         running = false;

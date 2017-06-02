@@ -7,12 +7,17 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.tb.Parto_Parto_Cria;
 
-public class Parto_Parto_Cria_JSON {
-	public String toJSON(List<Parto_Parto_Cria> partos_partoCria) {
+public class Parto_Parto_Cria_JSON
+{
+	public String toJSON(List<Parto_Parto_Cria> partos_partoCria)
+	{
 		JSONStringer js = new JSONStringer();
-		try {
+		try
+		{
 			js.object().key("parto_partoCria").array();
-			for (Parto_Parto_Cria p_partoCria : partos_partoCria) {
+
+			for (Parto_Parto_Cria p_partoCria : partos_partoCria)
+			{
 				js.object();
 				js.key("id_fk_animal").value(p_partoCria.getId_fk_animal());
 				js.key("data_parto").value(p_partoCria.getData_parto());
@@ -32,12 +37,17 @@ public class Parto_Parto_Cria_JSON {
 				js.key("tipo_parto").value(p_partoCria.getTipo_parto());
 				js.key("cod_matriz_invalido").value(p_partoCria.getCod_matriz_invalido());
 				js.key("pasto").value(p_partoCria.getPasto());
+				js.key("codigo_ferro_cria").value(p_partoCria.getCodigo_ferro_cria());
+				js.key("criterio").value(p_partoCria.getCriterio());
 				js.endObject();
 			}
 			js.endArray().endObject();
-		} catch (JSONException e) {
+		}
+		catch (JSONException e)
+		{
 			e.printStackTrace();
 		}
+
 		return js.toString();
 	}
 }
