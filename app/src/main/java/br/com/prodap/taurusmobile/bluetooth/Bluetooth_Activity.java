@@ -17,7 +17,6 @@ import br.com.prodap.taurusmobile.util.Constantes;
 public class Bluetooth_Activity extends Activity
 {
     private ConnectionThread connect;
-    private static TextView statusMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,32 +83,6 @@ public class Bluetooth_Activity extends Activity
         }
     }
 
-    /*public void searchPairedDevices(View view)
-    {
-        Intent searchPairedDevicesIntent = new Intent(this, PairedDevices.class);
-        startActivityForResult(searchPairedDevicesIntent, SELECT_PAIRED_DEVICE);
-    }
-
-    public void discoverDevices(View view)
-    {
-        Intent searchPairedDevicesIntent = new Intent(this, DiscoveredDevices.class);
-        startActivityForResult(searchPairedDevicesIntent, SELECT_DISCOVERED_DEVICE);
-    }
-
-    public void enableVisibility(View view)
-    {
-        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 30);
-        startActivity(discoverableIntent);
-    }
-
-    public void waitConnection(View view)
-    {
-        connect = new ConnectionThread();
-        connect.start();
-        finish();
-    }*/
-
     public void searchPairedDevices(Activity activity)
     {
         Intent searchPairedDevicesIntent = new Intent(activity, PairedDevices.class);
@@ -145,13 +118,4 @@ public class Bluetooth_Activity extends Activity
     {
         connect.cancel();
     }
-
-    /*public void sendMessage(View view)
-    {
-        EditText messageBox = (EditText) findViewById(R.id.editText_MessageBox);
-        String messageBoxString = messageBox.getText().toString();
-        byte[] data =  messageBoxString.getBytes();
-        connect.write(data);
-        messageBox.setText("");
-    }*/
 }

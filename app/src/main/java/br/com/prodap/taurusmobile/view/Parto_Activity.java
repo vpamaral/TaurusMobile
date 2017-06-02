@@ -98,10 +98,6 @@ public class Parto_Activity extends Activity
     private CheckBox cbDescarte;
     private TextView txtidanimal;
 
-    //Conexão com o bastão
-    private static boolean bastao;
-    private Bluetooth_Activity bluetooth_activity;
-
     private Animal_Model ani_model;
     private Animal animal_tb;
     private Parto_Model parto_model;
@@ -150,7 +146,9 @@ public class Parto_Activity extends Activity
     private long id_animal;
     private long id_pk;
 
-    //conexão bluetooth
+    //Conexão bluetooth com o bastão
+    private static boolean bastao;
+    private Bluetooth_Activity bluetooth_activity;
     private static CharSequence result;
     private static String id;
     private static String first;
@@ -418,9 +416,6 @@ public class Parto_Activity extends Activity
 
         for (Animal animalList : listaAnimal)
         {
-            /*if (animalList.getCodigo().equals(editMatriz.getText().toString())) {
-                listaMatriz.add(animalList.getCodigo());
-            }*/
             if (animalList.getIdentificador().equals(id))
             {
                 listaMatriz.add(animalList.getCodigo());
@@ -448,7 +443,7 @@ public class Parto_Activity extends Activity
 
             if (editSisbov.getText().toString().equals("") || !listConf.get(0).getValida_sisbov().equals("S"))
             {
-                if(strsis.length() >= 7 && strsis.length() <= 7)
+                if(strsis.length() > 14)
                     editCodCria.setText(strsis.substring(7, 15));
             }
         }
@@ -521,6 +516,7 @@ public class Parto_Activity extends Activity
                                 bluetooth_activity.waitConnection();
                                 Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Aguardando conexão com Bastão.");
                                 btnIdentificador.setVisibility(View.GONE);
+                                editIdentificador.setEnabled(false);
                             }
                         })
                         .setNegativeButton("Não", new DialogInterface.OnClickListener()
@@ -1093,29 +1089,6 @@ public class Parto_Activity extends Activity
         }
     }
 
-    private boolean writeInFile(String text)
-    {
-        BufferedReader input = null;
-        File file = null;
-
-        try
-        {
-            file = new File(Environment.getExternalStorageDirectory()+"/Prodap","backup.txt");
-            FileOutputStream in = new FileOutputStream(file, true);
-            in.write(text.getBytes());
-            in.write("\n".getBytes());
-            in.flush();
-            in.close();
-
-            return true;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public Boolean sisbovCorreto(String sisbov)
     {
         int valor = 0;
@@ -1150,30 +1123,6 @@ public class Parto_Activity extends Activity
         }
         return false;
     }
-
-    /*private boolean validate(Parto_Cria cria_tb, List<Parto_Cria> listaCria) {
-        if (listaCria.size() != 0) {
-            for (Parto_Cria cria : listaCria) {
-                if (cria.getIdentificador().equals(cria_tb.getIdentificador())) {
-                    msg = "Identificador da Cria não pode ser duplicado.\n";
-                    return false;
-                }
-                if (cria.getSisbov().equals(cria_tb.getSisbov())) {
-                    msg = "Sisbov da Cria não pode ser duplicado.\n";
-                    return false;
-                }
-                if (cria.getCodigo_cria().equals(cria_tb.getCodigo_cria())) {
-                    msg = "Codigo da Cria não pode ser duplicado.\n";
-                    return false;
-                }
-                return true;
-            }
-            msg = "Nenhuma Cria foi lançada.";
-            return false;
-        } else {
-            return true;
-        }
-    }*/
 
     public void showCalendar()
     {
@@ -1261,11 +1210,4 @@ public class Parto_Activity extends Activity
 
         return super.onOptionsItemSelected(item);
     }
-
-    /*private void conBluetooth()
-    {
-        Constantes.CALL_BLUETOOTH = "Parto";
-        Intent intent = new Intent(Parto_Activity.this, Bluetooth_Activity.class);
-        startActivity(intent);
-    }*/
 }

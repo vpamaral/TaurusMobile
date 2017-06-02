@@ -140,7 +140,8 @@ public class Menu_Principal_Activity extends Activity
 		//loadListener();
 	}
 
-	private void loadVars() {
+	private void loadVars()
+	{
 		old_sisbov = "";
 		old_identificador = "";
 		old_cod_matriz = "";
@@ -773,92 +774,4 @@ public class Menu_Principal_Activity extends Activity
 				.setPositiveButton("OK", null)
 				.show();
 	}
-
-
-	/*//Bluetooth
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		if(requestCode == Constantes.ENABLE_BLUETOOTH)
-		{
-			if(resultCode == RESULT_OK)
-			{
-				Constantes.LBL_STATUS.setText("Bluetooth ativado");
-			}
-			else
-			{
-				Constantes.LBL_STATUS.setText("Bluetooth não ativado");
-			}
-		}
-		else if(requestCode == Constantes.SELECT_PAIRED_DEVICE || requestCode == Constantes.SELECT_DISCOVERED_DEVICE)
-		{
-			if(resultCode == RESULT_OK)
-			{
-				Constantes.LBL_STATUS.setText("Aguarde conectando ao servidor...");
-
-				connection(data.getStringExtra("btDevAddress"));
-			}
-			else
-			{
-				Constantes.LBL_STATUS.setText("Nenhum dispositivo selecionado");
-			}
-		}
-	}
-
-	public void waitConnection()
-	{
-		Constantes.CONNECT = new ConnectionThread();
-		Constantes.CONNECT.start();
-	}
-
-	public void connection(String device)
-	{
-		Constantes.CONNECT = new ConnectionThread(device);
-		Constantes.CONNECT.start();
-	}
-
-	public void searchPairedDevices()
-	{
-		Intent searchPairedDevicesIntent = new Intent(this, PairedDevices.class);
-		startActivityForResult(searchPairedDevicesIntent,Constantes. SELECT_PAIRED_DEVICE);
-	}
-
-	public void discoverDevices()
-	{
-		Intent searchPairedDevicesIntent = new Intent(this, DiscoveredDevices.class);
-		startActivityForResult(searchPairedDevicesIntent, Constantes.SELECT_DISCOVERED_DEVICE);
-	}
-
-	public void enableVisibility()
-	{
-		Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-		discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 30);
-		startActivity(discoverableIntent);
-	}
-
-	private void isEnableBluetooth()
-	{
-		BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
-
-		if (btAdapter == null)
-		{
-			Constantes.LBL_STATUS.setText("Hardware Bluetooth não está funcionando");
-		}
-		else
-		{
-			Constantes.LBL_STATUS.setText("Hardware Bluetooth está funcionando");
-		}
-
-		if(!btAdapter.isEnabled())
-		{
-			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			startActivityForResult(enableBtIntent, Constantes.ENABLE_BLUETOOTH);
-			Constantes.LBL_STATUS.setText("Solicitando ativação do Bluetooth...");
-		}
-		else
-		{
-			Constantes.LBL_STATUS.setText("Bluetooth já ativado");
-		}
-	}
-	*/
 }

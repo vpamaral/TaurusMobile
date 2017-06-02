@@ -2,24 +2,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".view.Lista_Animais_Activity" >
 
-    <TextView
-        android:id="@+id/lblSisbov"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Código do Animal"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:padding="10dp"
+        android:background="@drawable/btn_selector">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/a_list_cod_animal"
+            android:text="Código do Animal"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lista_animais"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="40dp" />
 
 </RelativeLayout>

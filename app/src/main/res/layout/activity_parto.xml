@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textCapCharacters"
                 android:maxLength="10"
-                android:enabled="false"/>
+                android:enabled="true"/>
 
         </LinearLayout>
 
