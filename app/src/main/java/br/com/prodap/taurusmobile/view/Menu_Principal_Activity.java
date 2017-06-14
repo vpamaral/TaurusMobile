@@ -774,4 +774,33 @@ public class Menu_Principal_Activity extends Activity
 				.setPositiveButton("OK", null)
 				.show();
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode == Constantes.ENABLE_BLUETOOTH)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Constantes.LBL_STATUS.setText("Bluetooth ativado");
+			}
+			else
+			{
+				Constantes.LBL_STATUS.setText("Bluetooth não ativado");
+			}
+		}
+		else if(requestCode == Constantes.SELECT_PAIRED_DEVICE || requestCode == Constantes.SELECT_DISCOVERED_DEVICE)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Constantes.LBL_STATUS.setText("Aguarde conectando ao servidor...");
+
+				b_activity.connection(data.getStringExtra("btDevAddress"));
+			}
+			else
+			{
+				Constantes.LBL_STATUS.setText("Nenhum dispositivo selecionado");
+			}
+		}
+	}
 }

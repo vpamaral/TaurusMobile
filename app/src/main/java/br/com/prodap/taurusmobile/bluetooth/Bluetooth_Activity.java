@@ -29,7 +29,7 @@ public class Bluetooth_Activity extends Activity
         isEnableBluetooth();
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if(requestCode == Constantes.ENABLE_BLUETOOTH)
@@ -56,7 +56,7 @@ public class Bluetooth_Activity extends Activity
                 Constantes.LBL_STATUS.setText("Nenhum dispositivo selecionado");
             }
         }
-    }
+    }*/
 
     public void isEnableBluetooth()
     {
