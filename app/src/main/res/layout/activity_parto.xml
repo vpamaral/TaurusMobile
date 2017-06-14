@@ -116,7 +116,7 @@
                 android:id="@+id/edtCodAlternativo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapCharacters"
+                android:inputType="text"
                 android:maxLength="10"
                 android:enabled="true"/>
 
@@ -248,7 +248,8 @@
                 android:id="@+id/edtMatriz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="15" />
+                android:maxLength="15"
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
@@ -288,7 +289,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtGrupoManejo"
-                android:completionThreshold="1" />
+                android:completionThreshold="1"
+                android:inputType="text" />
 
         </LinearLayout>
 
@@ -314,7 +316,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtCriterio"
-                android:completionThreshold="1" />
+                android:completionThreshold="1"
+                android:inputType="text" />
 
         </LinearLayout>
 
@@ -339,7 +342,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtBuscaPasto"
-                android:completionThreshold="1"/>
+                android:completionThreshold="1"
+                android:inputType="text" />
         </LinearLayout>
 
         <!--<LinearLayout
