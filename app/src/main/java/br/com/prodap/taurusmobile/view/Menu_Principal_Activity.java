@@ -763,7 +763,7 @@ public class Menu_Principal_Activity extends Activity
 	public void about()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
-		builder.setMessage("Versão do Sistema: S170728_RM\n\n"+
+		builder.setMessage("Versão do Sistema: S170728_RM_01\n\n"+
 				"Suporte: (31) 3555-0800\n"+
 				"www.prodap.com.br\n"+
 				"prodap@prodap.com.br\n\n"+

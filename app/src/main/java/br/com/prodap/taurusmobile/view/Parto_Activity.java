@@ -152,6 +152,7 @@ public class Parto_Activity extends Activity
     private static CharSequence result;
     private static String id;
     private static String first;
+
     public static Handler handler = new Handler()
     {
         @Override
