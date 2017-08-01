@@ -633,7 +633,8 @@ public class Parto_Activity extends Activity
                         spinPerda.setEnabled(false);
                         if (editIdentificador.length() < 15)
                         {
-                            Toast.makeText(Parto_Activity.this, "Identificador inválido!", Toast.LENGTH_SHORT).show();
+                            Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Identificador inválido!");
+                            //Toast.makeText(Parto_Activity.this, "Identificador inválido!", Toast.LENGTH_SHORT).show();
                             editIdentificador.setFocusable(true);
                             return;
                         }
@@ -1010,7 +1011,6 @@ public class Parto_Activity extends Activity
             parto_model.validate(this, "Parto", parto_tb, Constantes.VALIDATION_TYPE_INSERT);
             parto_model.insert(Parto_Activity.this, "Parto", p_helper.getDadosParto(parto_tb));
             cria_model.insert(Parto_Activity.this, "Parto_Cria", pc_helper.getDadosCria(cria_tb));
-            //writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
             Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
             zeraInterface();
         }
