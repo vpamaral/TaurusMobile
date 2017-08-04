@@ -3,12 +3,48 @@
 
     <item
         is-multidex="true"
+        jar="C:\Users\Pc-Joao\.android\build-cache\1d684f63d22070b3fa87a5558d47cbddddc0734e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e7a05d66f22369b27ae6ca6e5f9aa11a87313fc3">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d0fb8e8f5e4fc3716cf68bc683d78171c5506005\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="D:\Workspace\TaurusMoblie\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="913b814a11a9597e517a1580096fbf096571f626">
+        sha1="c769c4b5c8da98b769ccca303facb9bcff09edd6">
         <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_a5a9804cc9dcbc44917902f00e506bc74bf08ef0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Pc-Joao\.android\build-cache\a9dfd292ea26b84933583a17a3373fd963cc70ab\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4dd38a750bd56a0a084e9da37789b7e5bf5c700f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Pc-Joao\.android\build-cache\2750c45fb44a6378da8f1d081ffc5d110d27c687\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1b350ef7ff93f1e3916ade76e7bf731009970eee\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Pc-Joao\.android\build-cache\58833fcab873ae300b44cbb2670baa8bfea6d2be\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d65ba912eaf2e75df046755a95ba43973574e286\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -25,8 +61,44 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
         <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_7a7cc06ea9869aadd0307ea692098bf1f628768f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Pc-Joao\.android\build-cache\c5b40719acf8ebd38084246034c3bc004b7068e0\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e04e2ee7b9dd730a70104c1f2dcbb0e151b244dc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Pc-Joao\.android\build-cache\5bfa47a61ba9679116ed56f6e9c2954a94ebb21c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_7485e65e686ac91710f0a4bfca3ee3b7cc936e29\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Pc-Joao\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\25.3.1\support-annotations-25.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.3.1_4874d3d803b0d9c4fd0c59defbbc4e7f0da0d0f9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Pc-Joao\.android\build-cache\a63ea694d020f2a42c2da8a8d0f878209bc89c10\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b047b46cc31c2e93ff5352115043cddb80ba6713\classes.dex" />
     </item>
 
 </items>

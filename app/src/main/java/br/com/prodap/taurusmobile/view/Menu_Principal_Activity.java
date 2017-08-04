@@ -219,7 +219,7 @@ public class Menu_Principal_Activity extends Activity
 			url = conf.getEndereco();
 		}
 
-		b_activity.isEnableBluetooth();
+		isEnableBluetooth();
 	}
 
 	//metodo para selecionar o arquivo para atualizar o banco de dados do aparelho
@@ -801,6 +801,31 @@ public class Menu_Principal_Activity extends Activity
 			{
 				Constantes.LBL_STATUS.setText("Nenhum dispositivo selecionado");
 			}
+		}
+	}
+
+	private void isEnableBluetooth()
+	{
+		BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+
+		if (btAdapter == null)
+		{
+			Constantes.LBL_STATUS.setText("Hardware Bluetooth não está funcionando");
+		}
+		else
+		{
+			Constantes.LBL_STATUS.setText("Hardware Bluetooth está funcionando");
+		}
+
+		if(!btAdapter.isEnabled())
+		{
+			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableBtIntent, Constantes.ENABLE_BLUETOOTH);
+			Constantes.LBL_STATUS.setText("Solicitando ativação do Bluetooth...");
+		}
+		else
+		{
+			Constantes.LBL_STATUS.setText("Bluetooth já ativado");
 		}
 	}
 }
