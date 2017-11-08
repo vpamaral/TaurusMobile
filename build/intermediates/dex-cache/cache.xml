@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
+        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a376a8af0f5c9465ea89381e938cbea1ccd057fd">
+        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_a5a9804cc9dcbc44917902f00e506bc74bf08ef0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Pc-Joao\.android\build-cache\1d684f63d22070b3fa87a5558d47cbddddc0734e\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="e7a05d66f22369b27ae6ca6e5f9aa11a87313fc3">
         <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d0fb8e8f5e4fc3716cf68bc683d78171c5506005\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Workspace\TaurusMoblie\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="c769c4b5c8da98b769ccca303facb9bcff09edd6">
-        <dex dex="D:\Workspace\TaurusMoblie\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_a5a9804cc9dcbc44917902f00e506bc74bf08ef0\classes.dex" />
     </item>
     <item
         is-multidex="true"

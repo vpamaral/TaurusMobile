@@ -134,10 +134,6 @@ public class Menu_Principal_Activity extends Activity
 		source();
 
 		openFileDialog_Click();
-
-		//parto_model.recoverDescarte(getBaseContext());
-		//atualizarBotoes();
-		//loadListener();
 	}
 
 	private void loadVars()
@@ -239,23 +235,6 @@ public class Menu_Principal_Activity extends Activity
 		}
 
 		return dados_file;
-	}
-
-	private void atualizarBotoes()
-	{
-		final List<Pasto> pasto_list;
-		final List<String> nome_pasto_list = new ArrayList<String>();
-		final Pasto pasto_tb = new Pasto();
-
-//		Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
-//		Pasto_Adapter pasto_adapter = new Pasto_Adapter();
-//
-//		pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
-//		if(pasto_list.size() > 0) {
-//			btn_atualizar_dados.setVisibility(View.INVISIBLE);
-//		} else {
-//			btn_atualizar_dados.setVisibility(View.VISIBLE);
-//		}
 	}
 
 	public void btn_atualiza_via_web_Click(View v)
@@ -379,18 +358,6 @@ public class Menu_Principal_Activity extends Activity
 	{
 		Constantes.TIPO_ENVIO = "arquivo";
 		postViaArquivo();
-	}
-
-	private void lancaParto()
-	{
-		Intent intent = new Intent(Menu_Principal_Activity.this, Parto_Activity.class);
-		startActivity(intent);
-	}
-
-	private void novoPasto()
-    {
-		Intent pasto = new Intent(Menu_Principal_Activity.this, Pasto_Activity.class);
-		startActivity(pasto);
 	}
 
 	private void animaisList()
@@ -603,33 +570,6 @@ public class Menu_Principal_Activity extends Activity
 		return connected;
 	}
 
-	private void existCelular(List<Configuracao> listQRCode, Configuracao qrcode_tb)
-	{
-		if (listQRCode.size() != 0)
-		{
-			for (Configuracao conf_tb : listQRCode)
-			{
-				if (conf_tb.getTipo().equals(qrcode_tb.getTipo())
-						&& conf_tb.getEndereco().equals(qrcode_tb.getEndereco()))
-				{
-					break;
-				}
-			}
-		}
-		else
-		{
-			loadLeitor();
-		}
-	}
-
-	private void loadLeitor()
-	{
-		Intent intent = new Intent(Menu_Principal_Activity.this, Leitor_Activity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
-		finish();
-	}
-
 	public boolean validateServer(String urlServer)
 	{
 		int count = 0;
@@ -704,66 +644,10 @@ public class Menu_Principal_Activity extends Activity
 		Constantes.CONNECT.write(data);
 	}
 
-	private String obterDiretorio()
-	{
-		File root = android.os.Environment.getExternalStorageDirectory();
-		return root.toString();
-	}
-
-    private String createListAnimais () throws IOException
-    {
-        String texto = "";
-
-        try {
-            File textfile = new File(Environment.getExternalStorageDirectory()+"/Prodap/","pasto.txt");
-            BufferedReader br = new BufferedReader(new FileReader(textfile));
-
-            texto = br.readLine();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return texto;
-    }
-
-    private void createFile() throws IOException
-	{
-        Date data = new Date();
-        final Calendar cal = Calendar.getInstance();
-        cal.setTime(data);
-
-        String filename = "backup.txt";
-        String conteudo = "";
-
-        File diretorio = new File(obterDiretorio(), "Prodap");
-
-        if(!diretorio.exists())
-		{
-            diretorio.mkdir();
-        }
-        File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
-
-        FileOutputStream outputStream = null;
-
-        try
-        {
-            if(!arquivo.exists())
-			{
-                outputStream = new FileOutputStream(arquivo);
-                outputStream.write(conteudo.getBytes());
-                outputStream.close();
-            }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
 	public void about()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
-		builder.setMessage("Versão do Sistema: S170728_RM_01\n\n"+
+		builder.setMessage("Versão do Sistema: S170929_RM_01\n\n"+
 				"Suporte: (31) 3555-0800\n"+
 				"www.prodap.com.br\n"+
 				"prodap@prodap.com.br\n\n"+
