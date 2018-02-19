@@ -121,6 +121,7 @@ public class Get_JSON
 				Log.i("URL", retornoDadosJSON);
 				objArrayAnimal = gson.fromJson(retornoDadosJSON, Animal[].class);
 				animais = a_helper.arrayAnimais(objArrayAnimal);
+				Constantes.SERVER_RESULT_GET = 200;
 			}
 
 			if (Constantes.TIPO_ENVIO == "bluetooth" || Constantes.TIPO_ENVIO == "arquivo")

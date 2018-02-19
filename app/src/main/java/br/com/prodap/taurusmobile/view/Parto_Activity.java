@@ -252,6 +252,8 @@ public class Parto_Activity extends Activity
         loadMatriz();
 
         btnSalvarClick();
+
+        needUnloadDevice();
     }
 
     public static void buscaMatriz (String id)
@@ -1211,4 +1213,17 @@ public class Parto_Activity extends Activity
 
         return super.onOptionsItemSelected(item);
     }
+
+    //region Testa se tem partos lançados com mais de uma semana no aparelho
+    private void needUnloadDevice()
+    {
+        SimpleDateFormat sdf    = new SimpleDateFormat("yyyy-MM-dd");
+        String partosHaSend     = parto_model.sendPartos(this, sdf.format(data_atual));
+
+        if (partosHaSend != "NÃO" )
+        {
+            md.addMsg(Message_Dialog.Yes, Parto_Activity.this, "Existem Partos com mais de uma semana em seu aparelho para evitar inconsistencia no banco descarregue seu aparelho!", "Aviso", 1);
+        }
+    }
+    //endregion
 }

@@ -267,24 +267,35 @@ public class Menu_Principal_Activity extends Activity
 		@Override
 		public void run()
 		{
-			String validate_bluetooth = Constantes.JSON.toString();
-
-			finishConnection(validate_bluetooth, "|", ";");
-
-            if (count > 3)
-            {
-				Constantes.BLUETOOTH_TESTE = true;
-				count = 0;
-			}
-
-			if(Constantes.BLUETOOTH_TESTE)
+			if (Constantes.TIPO_ENVIO == "bluetooth")
 			{
-				dialog.dismiss();
-				updateViaBluetooth();
+				String validate_bluetooth = Constantes.JSON.toString();
+
+				finishConnection(validate_bluetooth, "|", ";");
+
+				if (count > 3) {
+					Constantes.BLUETOOTH_TESTE = true;
+					count = 0;
+				}
+
+				if (Constantes.BLUETOOTH_TESTE) {
+					dialog.dismiss();
+					updateViaBluetooth();
+				} else {
+					mHandler.postDelayed(mRun, 1000);
+				}
 			}
-			else
+			if (Constantes.TIPO_ENVIO == "web")
 			{
-				mHandler.postDelayed(mRun, 1000);
+				if(Constantes.SERVER_RESULT_GET == 200)
+				{
+					dialog.dismiss();
+					//updateViaWeb();
+				}
+				else
+				{
+					mHandler.postDelayed(mRun, 1000);
+				}
 			}
 		}
 	};
@@ -402,22 +413,20 @@ public class Menu_Principal_Activity extends Activity
 
 	private void updateViaWeb()
 	{
+		Constantes.TIPO_ENVIO = "web";
+
 		if (checksConnectionWeb())
 		{
 			if (validateServer(url))
 			{
-				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados via Web?", new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(DialogInterface dialog, int which)
-					{
-						Constantes.TIPO_ENVIO = "web";
-						updatePastos();
-						updateGrupoManejo();
-						updateCriterios();
-						updateAnimais();
-					}
-				});
+				updatePastos();
+				updateGrupoManejo();
+				updateCriterios();
+				updateAnimais();
+
+				dialog = ProgressDialog.show(this,"Sincronisando dados...","Aguarde ...", false, true);
+
+				mHandler.postDelayed(mRun, 5000);
 			}
 		}
 		else
@@ -425,6 +434,30 @@ public class Menu_Principal_Activity extends Activity
 			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
+
+//		if (checksConnectionWeb())
+//		{
+//			if (validateServer(url))
+//			{
+//				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados via Web?", new DialogInterface.OnClickListener()
+//				{
+//					@Override
+//					public void onClick(DialogInterface dialog, int which)
+//					{
+//						Constantes.TIPO_ENVIO = "web";
+//						updatePastos();
+//						updateGrupoManejo();
+//						updateCriterios();
+//						updateAnimais();
+//					}
+//				});
+//			}
+//		}
+//		else
+//		{
+//			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
+//			return;
+//		}
 	}
 
 	private void updateViaArquivo()
@@ -647,7 +680,7 @@ public class Menu_Principal_Activity extends Activity
 	public void about()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
-		builder.setMessage("Versão do Sistema: S170929_RM_01\n\n"+
+		builder.setMessage("Versão do Sistema: S180126_RM_01\n\n"+
 				"Suporte: (31) 3555-0800\n"+
 				"www.prodap.com.br\n"+
 				"prodap@prodap.com.br\n\n"+

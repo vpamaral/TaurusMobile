@@ -19,6 +19,7 @@ import java.util.concurrent.TimeoutException;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import br.com.prodap.taurusmobile.util.Constantes;
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.ClientProtocolException;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
@@ -73,7 +74,8 @@ public class Conexao_HTTP
 				sb.append(linha);
 			}
 
-			dados = sb.toString();
+			dados 							= sb.toString();
+			//Constantes.SERVER_RESULT_GET 	= objUrlConnection.getResponseCode();
 			br.close();
 		}
 		catch (Exception e)
