@@ -1222,7 +1222,7 @@ public class Parto_Activity extends Activity
 
         if (partosHaSend != "NÃO" )
         {
-            md.addMsg(Message_Dialog.Yes, Parto_Activity.this, "Existem Partos com mais de uma semana em seu aparelho para evitar inconsistencia no banco descarregue seu aparelho!", "Aviso", 1);
+            md.addMsg(Message_Dialog.Yes, Parto_Activity.this, "Existem Partos lançados com mais de uma semana no seu aparelho, para evitar inconsistências nos dados, favor enviar os partos para o Servidor!", "Aviso", 1);
         }
     }
     //endregion
