@@ -152,6 +152,7 @@ public class Parto_Activity extends Activity
     private static CharSequence result;
     private static String id;
     private static String first;
+
     public static Handler handler = new Handler()
     {
         @Override
@@ -251,6 +252,8 @@ public class Parto_Activity extends Activity
         loadMatriz();
 
         btnSalvarClick();
+
+        needUnloadDevice();
     }
 
     public static void buscaMatriz (String id)
@@ -632,7 +635,8 @@ public class Parto_Activity extends Activity
                         spinPerda.setEnabled(false);
                         if (editIdentificador.length() < 15)
                         {
-                            Toast.makeText(Parto_Activity.this, "Identificador inválido!", Toast.LENGTH_SHORT).show();
+                            Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Identificador inválido!");
+                            //Toast.makeText(Parto_Activity.this, "Identificador inválido!", Toast.LENGTH_SHORT).show();
                             editIdentificador.setFocusable(true);
                             return;
                         }
@@ -673,7 +677,7 @@ public class Parto_Activity extends Activity
             }
             else
             {
-                editIdentificador.setText(" ");
+                editIdentificador.setText("");
                 editIdentificador.setEnabled(false);
                 ll_identificador.setVisibility(LinearLayout.GONE);
                 validaIdentificador = false;
@@ -687,7 +691,7 @@ public class Parto_Activity extends Activity
             }
             else
             {
-                editSisbov.setText(" ");
+                editSisbov.setText("");
                 editSisbov.setEnabled(false);
                 ll_sisbov.setVisibility(LinearLayout.GONE);
                 validaSisbov = false;
@@ -701,7 +705,7 @@ public class Parto_Activity extends Activity
             }
             else
             {
-                editGrupoManejo.setText(" ");
+                editGrupoManejo.setText("");
                 editGrupoManejo.setEnabled(false);
                 ll_manejo.setVisibility(LinearLayout.GONE);
                 validaManejo = false;
@@ -715,7 +719,7 @@ public class Parto_Activity extends Activity
             }
             else
             {
-                editCodAlternativo.setText(" ");
+                editCodAlternativo.setText("");
                 editCodAlternativo.setEnabled(false);
                 ll_cod_alternativo.setVisibility(LinearLayout.GONE);
                 validaCodAlternativo = false;
@@ -1009,7 +1013,6 @@ public class Parto_Activity extends Activity
             parto_model.validate(this, "Parto", parto_tb, Constantes.VALIDATION_TYPE_INSERT);
             parto_model.insert(Parto_Activity.this, "Parto", p_helper.getDadosParto(parto_tb));
             cria_model.insert(Parto_Activity.this, "Parto_Cria", pc_helper.getDadosCria(cria_tb));
-            //writeInFile(p_helper.PartoArqHelper(parto_tb, cria_tb));
             Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
             zeraInterface();
         }
@@ -1210,4 +1213,17 @@ public class Parto_Activity extends Activity
 
         return super.onOptionsItemSelected(item);
     }
+
+    //region Testa se tem partos lançados com mais de uma semana no aparelho
+    private void needUnloadDevice()
+    {
+        SimpleDateFormat sdf    = new SimpleDateFormat("yyyy-MM-dd");
+        String partosHaSend     = parto_model.sendPartos(this, sdf.format(data_atual));
+
+        if (partosHaSend != "NÃO" )
+        {
+            md.addMsg(Message_Dialog.Yes, Parto_Activity.this, "Existem Partos lançados com mais de uma semana no seu aparelho, para evitar inconsistências nos dados, favor enviar os partos para o Servidor!", "Aviso", 1);
+        }
+    }
+    //endregion
 }

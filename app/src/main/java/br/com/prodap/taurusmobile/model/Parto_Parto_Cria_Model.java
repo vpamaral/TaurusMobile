@@ -45,7 +45,7 @@ public class Parto_Parto_Cria_Model extends Banco_Service {
 		String sql = String.format(
 										"SELECT p.*, pc.* "
 										+"FROM %s pc "
-										+"INNER JOIN Parto p ON pc.id_fk_animal_mae = p.id_fk_animal "
+										+"INNER JOIN Parto p ON p.id_pk = pc.id_fk_parto "
 										+"WHERE "
 										+"    p.sync_status   = 0 "
 										+"AND pc.sync_status  = 0 "
@@ -62,8 +62,6 @@ public class Parto_Parto_Cria_Model extends Banco_Service {
 
 	public void delete(Parto_Parto_Cria parto_partoCria) {
 		String[] args = {Long.valueOf(parto_partoCria.getCodigo_cria()).toString()};
-
-
 	}
 	
 	@Override

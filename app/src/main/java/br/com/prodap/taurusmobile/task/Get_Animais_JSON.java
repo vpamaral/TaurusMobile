@@ -45,8 +45,8 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 	{
 		c_tb 		= new Configuracao();
 		c_model 	= new Configuracao_Model(ctx);
-		c_helper 		= new Configuracao_Adapter();
-		c_http			= new Conexao_HTTP();
+		c_helper 	= new Configuracao_Adapter();
+		c_http		= new Conexao_HTTP();
 	}
 	
 	@Override
@@ -56,7 +56,7 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 		mProgress.setTitle("Aguarde ...");
 		mProgress.setMessage("Recebendo dados do servidor ...");
 
-		if (mProgressDialog==ProgressDialog.STYLE_HORIZONTAL)
+		if (mProgressDialog == ProgressDialog.STYLE_HORIZONTAL)
 		{
 			mProgress.setIndeterminate(false);
 			mProgress.setMax(0);

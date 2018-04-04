@@ -132,4 +132,10 @@ public class Parto_Model extends Banco_Service
 		return null;
 	}
 
+	public String sendPartos(Context ctx, String data_atual)
+	{
+		p_dao = new Parto_Dao(ctx);
+
+		return p_dao.sendPartos(ctx, data_atual);
+	}
 }

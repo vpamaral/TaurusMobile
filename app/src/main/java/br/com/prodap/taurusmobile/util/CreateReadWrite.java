@@ -28,7 +28,7 @@ public class CreateReadWrite
     private String arquivo_name;
 
     private String filename;
-    private File file;// = null;
+    private File file;
     private Context ctx;
 
     public CreateReadWrite(Context ctx)
@@ -83,12 +83,12 @@ public class CreateReadWrite
     {
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
-            ActivityCompat.requestPermissions((Activity) ctx, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 123);
+            ActivityCompat.requestPermissions((Activity) ctx, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constantes.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
         }
 
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
         {
-            ActivityCompat.requestPermissions((Activity) ctx, new String[]{Manifest.permission.CAMERA}, 123);
+            ActivityCompat.requestPermissions((Activity) ctx, new String[]{Manifest.permission.CAMERA}, Constantes.READ_REQUEST_CODE);
         }
     }
 

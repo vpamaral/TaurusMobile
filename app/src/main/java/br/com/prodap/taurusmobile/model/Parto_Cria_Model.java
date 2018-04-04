@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
@@ -181,11 +182,10 @@ public class Parto_Cria_Model extends Banco_Service {
 
 		return pc_dao.selectAllPartosCria(ctx, Tabela, table);
 	}
-	
+
 	@Override
 	public <T> T selectID(Context ctx, String Tabela, Object table, long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

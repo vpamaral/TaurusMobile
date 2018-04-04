@@ -134,10 +134,6 @@ public class Menu_Principal_Activity extends Activity
 		source();
 
 		openFileDialog_Click();
-
-		//parto_model.recoverDescarte(getBaseContext());
-		//atualizarBotoes();
-		//loadListener();
 	}
 
 	private void loadVars()
@@ -219,7 +215,7 @@ public class Menu_Principal_Activity extends Activity
 			url = conf.getEndereco();
 		}
 
-		b_activity.isEnableBluetooth();
+		isEnableBluetooth();
 	}
 
 	//metodo para selecionar o arquivo para atualizar o banco de dados do aparelho
@@ -239,23 +235,6 @@ public class Menu_Principal_Activity extends Activity
 		}
 
 		return dados_file;
-	}
-
-	private void atualizarBotoes()
-	{
-		final List<Pasto> pasto_list;
-		final List<String> nome_pasto_list = new ArrayList<String>();
-		final Pasto pasto_tb = new Pasto();
-
-//		Pasto_Model pasto_model = new Pasto_Model(getBaseContext());
-//		Pasto_Adapter pasto_adapter = new Pasto_Adapter();
-//
-//		pasto_list = pasto_model.selectAll(getBaseContext(), "Pasto", pasto_tb);
-//		if(pasto_list.size() > 0) {
-//			btn_atualizar_dados.setVisibility(View.INVISIBLE);
-//		} else {
-//			btn_atualizar_dados.setVisibility(View.VISIBLE);
-//		}
 	}
 
 	public void btn_atualiza_via_web_Click(View v)
@@ -288,24 +267,35 @@ public class Menu_Principal_Activity extends Activity
 		@Override
 		public void run()
 		{
-			String validate_bluetooth = Constantes.JSON.toString();
-
-			finishConnection(validate_bluetooth, "|", ";");
-
-            if (count > 3)
-            {
-				Constantes.BLUETOOTH_TESTE = true;
-				count = 0;
-			}
-
-			if(Constantes.BLUETOOTH_TESTE)
+			if (Constantes.TIPO_ENVIO == "bluetooth")
 			{
-				dialog.dismiss();
-				updateViaBluetooth();
+				String validate_bluetooth = Constantes.JSON.toString();
+
+				finishConnection(validate_bluetooth, "|", ";");
+
+				if (count > 3) {
+					Constantes.BLUETOOTH_TESTE = true;
+					count = 0;
+				}
+
+				if (Constantes.BLUETOOTH_TESTE) {
+					dialog.dismiss();
+					updateViaBluetooth();
+				} else {
+					mHandler.postDelayed(mRun, 1000);
+				}
 			}
-			else
+			if (Constantes.TIPO_ENVIO == "web")
 			{
-				mHandler.postDelayed(mRun, 1000);
+				if(Constantes.SERVER_RESULT_GET == 200)
+				{
+					dialog.dismiss();
+					//updateViaWeb();
+				}
+				else
+				{
+					mHandler.postDelayed(mRun, 1000);
+				}
 			}
 		}
 	};
@@ -381,18 +371,6 @@ public class Menu_Principal_Activity extends Activity
 		postViaArquivo();
 	}
 
-	private void lancaParto()
-	{
-		Intent intent = new Intent(Menu_Principal_Activity.this, Parto_Activity.class);
-		startActivity(intent);
-	}
-
-	private void novoPasto()
-    {
-		Intent pasto = new Intent(Menu_Principal_Activity.this, Pasto_Activity.class);
-		startActivity(pasto);
-	}
-
 	private void animaisList()
     {
 		Intent intent = new Intent(Menu_Principal_Activity.this, Lista_Animais_Activity.class);
@@ -435,22 +413,20 @@ public class Menu_Principal_Activity extends Activity
 
 	private void updateViaWeb()
 	{
+		Constantes.TIPO_ENVIO = "web";
+
 		if (checksConnectionWeb())
 		{
 			if (validateServer(url))
 			{
-				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados via Web?", new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(DialogInterface dialog, int which)
-					{
-						Constantes.TIPO_ENVIO = "web";
-						updatePastos();
-						updateGrupoManejo();
-						updateCriterios();
-						updateAnimais();
-					}
-				});
+				updatePastos();
+				updateGrupoManejo();
+				updateCriterios();
+				updateAnimais();
+
+				dialog = ProgressDialog.show(this,"Sincronisando dados...","Aguarde ...", false, true);
+
+				mHandler.postDelayed(mRun, 5000);
 			}
 		}
 		else
@@ -458,6 +434,30 @@ public class Menu_Principal_Activity extends Activity
 			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
 			return;
 		}
+
+//		if (checksConnectionWeb())
+//		{
+//			if (validateServer(url))
+//			{
+//				Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja atualizar os dados via Web?", new DialogInterface.OnClickListener()
+//				{
+//					@Override
+//					public void onClick(DialogInterface dialog, int which)
+//					{
+//						Constantes.TIPO_ENVIO = "web";
+//						updatePastos();
+//						updateGrupoManejo();
+//						updateCriterios();
+//						updateAnimais();
+//					}
+//				});
+//			}
+//		}
+//		else
+//		{
+//			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Erro ao conectar ao servidor!");
+//			return;
+//		}
 	}
 
 	private void updateViaArquivo()
@@ -603,33 +603,6 @@ public class Menu_Principal_Activity extends Activity
 		return connected;
 	}
 
-	private void existCelular(List<Configuracao> listQRCode, Configuracao qrcode_tb)
-	{
-		if (listQRCode.size() != 0)
-		{
-			for (Configuracao conf_tb : listQRCode)
-			{
-				if (conf_tb.getTipo().equals(qrcode_tb.getTipo())
-						&& conf_tb.getEndereco().equals(qrcode_tb.getEndereco()))
-				{
-					break;
-				}
-			}
-		}
-		else
-		{
-			loadLeitor();
-		}
-	}
-
-	private void loadLeitor()
-	{
-		Intent intent = new Intent(Menu_Principal_Activity.this, Leitor_Activity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
-		finish();
-	}
-
 	public boolean validateServer(String urlServer)
 	{
 		int count = 0;
@@ -704,66 +677,10 @@ public class Menu_Principal_Activity extends Activity
 		Constantes.CONNECT.write(data);
 	}
 
-	private String obterDiretorio()
-	{
-		File root = android.os.Environment.getExternalStorageDirectory();
-		return root.toString();
-	}
-
-    private String createListAnimais () throws IOException
-    {
-        String texto = "";
-
-        try {
-            File textfile = new File(Environment.getExternalStorageDirectory()+"/Prodap/","pasto.txt");
-            BufferedReader br = new BufferedReader(new FileReader(textfile));
-
-            texto = br.readLine();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return texto;
-    }
-
-    private void createFile() throws IOException
-	{
-        Date data = new Date();
-        final Calendar cal = Calendar.getInstance();
-        cal.setTime(data);
-
-        String filename = "backup.txt";
-        String conteudo = "";
-
-        File diretorio = new File(obterDiretorio(), "Prodap");
-
-        if(!diretorio.exists())
-		{
-            diretorio.mkdir();
-        }
-        File arquivo = new File(Environment.getExternalStorageDirectory()+"/Prodap", filename);
-
-        FileOutputStream outputStream = null;
-
-        try
-        {
-            if(!arquivo.exists())
-			{
-                outputStream = new FileOutputStream(arquivo);
-                outputStream.write(conteudo.getBytes());
-                outputStream.close();
-            }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
 	public void about()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
-		builder.setMessage("Versão do Sistema: S170728_RM\n\n"+
+		builder.setMessage("Versão do Sistema: S180126_RM_01\n\n"+
 				"Suporte: (31) 3555-0800\n"+
 				"www.prodap.com.br\n"+
 				"prodap@prodap.com.br\n\n"+
@@ -773,5 +690,59 @@ public class Menu_Principal_Activity extends Activity
 				.setIcon(R.drawable.prodap_logo)
 				.setPositiveButton("OK", null)
 				.show();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode == Constantes.ENABLE_BLUETOOTH)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Constantes.LBL_STATUS.setText("Bluetooth ativado");
+			}
+			else
+			{
+				Constantes.LBL_STATUS.setText("Bluetooth não ativado");
+			}
+		}
+		else if(requestCode == Constantes.SELECT_PAIRED_DEVICE || requestCode == Constantes.SELECT_DISCOVERED_DEVICE)
+		{
+			if(resultCode == RESULT_OK)
+			{
+				Constantes.LBL_STATUS.setText("Aguarde conectando ao servidor...");
+
+				b_activity.connection(data.getStringExtra("btDevAddress"));
+			}
+			else
+			{
+				Constantes.LBL_STATUS.setText("Nenhum dispositivo selecionado");
+			}
+		}
+	}
+
+	private void isEnableBluetooth()
+	{
+		BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+
+		if (btAdapter == null)
+		{
+			Constantes.LBL_STATUS.setText("Hardware Bluetooth não está funcionando");
+		}
+		else
+		{
+			Constantes.LBL_STATUS.setText("Hardware Bluetooth está funcionando");
+		}
+
+		if(!btAdapter.isEnabled())
+		{
+			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableBtIntent, Constantes.ENABLE_BLUETOOTH);
+			Constantes.LBL_STATUS.setText("Solicitando ativação do Bluetooth...");
+		}
+		else
+		{
+			Constantes.LBL_STATUS.setText("Bluetooth já ativado");
+		}
 	}
 }
