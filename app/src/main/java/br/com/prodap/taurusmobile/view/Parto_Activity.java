@@ -677,7 +677,7 @@ public class Parto_Activity extends Activity
             }
             else
             {
-                editIdentificador.setText(" ");
+                editIdentificador.setText("");
                 editIdentificador.setEnabled(false);
                 ll_identificador.setVisibility(LinearLayout.GONE);
                 validaIdentificador = false;
@@ -691,7 +691,7 @@ public class Parto_Activity extends Activity
             }
             else
             {
-                editSisbov.setText(" ");
+                editSisbov.setText("");
                 editSisbov.setEnabled(false);
                 ll_sisbov.setVisibility(LinearLayout.GONE);
                 validaSisbov = false;
@@ -705,7 +705,7 @@ public class Parto_Activity extends Activity
             }
             else
             {
-                editGrupoManejo.setText(" ");
+                editGrupoManejo.setText("");
                 editGrupoManejo.setEnabled(false);
                 ll_manejo.setVisibility(LinearLayout.GONE);
                 validaManejo = false;
@@ -719,7 +719,7 @@ public class Parto_Activity extends Activity
             }
             else
             {
-                editCodAlternativo.setText(" ");
+                editCodAlternativo.setText("");
                 editCodAlternativo.setEnabled(false);
                 ll_cod_alternativo.setVisibility(LinearLayout.GONE);
                 validaCodAlternativo = false;
