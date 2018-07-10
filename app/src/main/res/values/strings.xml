@@ -10,5 +10,5 @@
     <string name="title_activity_lista_partos">ListaPartos</string>
     <string name="title_activity_configuracoes">Configurações</string>
     <string name="title_activity_pasto">PastoActivity</string>
-
+    <string name="release_apk">S180126_RM_01</string>
 </resources>
