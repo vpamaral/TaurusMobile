@@ -151,7 +151,7 @@ public class Parto_Activity extends Activity
     private Bluetooth_Activity bluetooth_activity;
     private static CharSequence result;
     private static String id;
-    private static String first = "";
+    private static String first;
 
     public static Handler handler = new Handler()
     {
@@ -182,12 +182,16 @@ public class Parto_Activity extends Activity
         }
         else
         {
+            data.toString().length();
             result = new String(data);
-            if (result.length() == 1 )
+
+            int t = result.length();
+
+            if (t == 1 )
             {
                 first = (String) result;
             }
-            else if (first != "D")
+            else if (!first.equals("D"))
             {
                 String r = validaId(first + result.toString(), "1000000;\r\n", ";");
 
