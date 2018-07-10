@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -679,12 +680,15 @@ public class Menu_Principal_Activity extends Activity
 
 	public void about()
 	{
+
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
-		builder.setMessage("Versão do Sistema: S180126_RM_01\n\n"+
-				"Suporte: (31) 3555-0800\n"+
+
+		builder.setMessage("Versão do Sistema: " + getString(R.string.release_apk) +
+				"\n\nSuporte: (31) 3555-0800\n"+
 				"www.prodap.com.br\n"+
 				"prodap@prodap.com.br\n\n"+
-				"© 2016 Prodap\n"+
+				"© 2017 Prodap\n"+
 				"Todos os direitos reservados.")
 				.setTitle(" ")
 				.setIcon(R.drawable.prodap_logo)
