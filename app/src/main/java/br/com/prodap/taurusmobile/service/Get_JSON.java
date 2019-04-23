@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import android.content.Context;
+import android.content.RestrictionEntry;
 import android.util.Log;
 
 import br.com.prodap.taurusmobile.adapter.Criterio_Adapter;
@@ -31,6 +32,7 @@ public class Get_JSON
 	private String pasto_json;
 	private String grupo_json;
 	private String criterio_json;
+	public String data_arquivo;
 
 	public Get_JSON() {	}
 
@@ -53,6 +55,14 @@ public class Get_JSON
 		this.pasto_json 			= parts_json.nextToken();
 		this.grupo_json 			= parts_json.nextToken();
 		this.criterio_json			= parts_json.nextToken();
+		try
+		{
+			this.data_arquivo 			= parts_json.nextToken();
+		}
+		catch(Exception e) {
+			Log.i("TAG", e.toString());
+			e.printStackTrace();
+		}
 	}
 
 	public String validaJson(String str, String charsRemove, String delimiter)

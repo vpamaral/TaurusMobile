@@ -41,6 +41,11 @@
         </activity>
 
         <activity
+            android:name=".view.Relatorio_Partos_Activity"
+            android:label="Relatório de Partos"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".view.Lista_Animais_Activity"
             android:label="@string/title_activity_lista_animais"
             android:screenOrientation="portrait" />

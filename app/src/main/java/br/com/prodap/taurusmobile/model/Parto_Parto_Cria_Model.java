@@ -25,6 +25,7 @@ public class Parto_Parto_Cria_Model extends Banco_Service {
 	@Override
 	public void validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE) {
 
+
 	}
 
 	public void deleteByCria(Context ctx, String codigo_cria){

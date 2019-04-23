@@ -12,7 +12,6 @@
     tools:context=".view.Menu_Principal_Activity" >
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -21,11 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="URL do Servidor: "
-            android:textStyle="bold"
-            android:id="@+id/lblEndereco" />
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:id="@+id/ll_url_server"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -46,12 +43,10 @@
                 android:paddingLeft="2dip"
                 android:paddingRight="2dip"
                 android:gravity="center"
-                android:id="@+id/btn_leitor_qrcode"
                 android:onClick="btn_leitor_qrcode_Click" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/lbl_space"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -64,7 +59,6 @@
             android:gravity="center" />
 
         <TextView
-            android:id="@+id/lbl_space4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -91,7 +85,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/lbl_space2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -118,7 +111,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/lbl_space1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -146,7 +138,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/lbl_space5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -178,7 +169,6 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/config_btn_confirmar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -195,7 +185,6 @@
                 android:onClick="btn_confirmar_Click" />
 
             <Button
-                android:id="@+id/config_btn_cancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

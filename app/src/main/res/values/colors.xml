@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="borda_imagem">#BABABA</color>
-    <color name="linha_par">#87CEFA</color>
-    <color name="linha_impar">#F0F8FF</color>
-
 </resources>

@@ -129,6 +129,7 @@ public class Parto_Activity extends Activity
     public static boolean validaIdentificador;
     public static boolean validaManejo;
     public static boolean validaCodAlternativo;
+    public boolean animal_macho;
 
     private String cod_matriz_invalido;
     private Mensagem_Util md;
@@ -322,7 +323,7 @@ public class Parto_Activity extends Activity
                     parto_tb.setPerda_gestacao(spinPerda.getSelectedItem().toString());
                     parto_tb.setSexo_parto(spinSexo.getSelectedItem() == "FÊMEA" ? "FE" : "MA");
 
-                    if (!txtidanimal.getText().toString().equals(""))
+                    if (!txtidanimal.getText().toString().equals("") && !txtidanimal.getText().toString().equals("0"))
                     {
                         parto_tb.setId_fk_animal(Long.parseLong(txtidanimal.getText().toString()));
                         cria_tb.setId_fk_animal_mae(Long.parseLong(txtidanimal.getText().toString()));
@@ -471,6 +472,7 @@ public class Parto_Activity extends Activity
             public void onFocusChange(View v, boolean hasFocus)
             {
                 final Animal animal;
+                animal_macho = false;
                 if (!hasFocus)
                 {
                     if (editMatriz.getText().toString() != "")
@@ -489,10 +491,17 @@ public class Parto_Activity extends Activity
                             {
                                 listaMatriz.add(animalList.getCodigo());
                                 editMatriz.setText(animalList.getCodigo());
+
+                                if(animalList.getSexo().equals("MA")){
+                                    animal_macho = true;
+                                }
                             }
                         }
                     }
                     matrizInvalida();
+                    if(animal_macho){
+                        txtidanimal.setText("");
+                    }
                 }
             }
         });
@@ -572,11 +581,13 @@ public class Parto_Activity extends Activity
             {
                 if (!hasFocus)
                 {
-                    if (!editCodAlternativo.getText().toString().equals("")
-                       && editCodCria.getText().toString().equals(""))
+                    if ((!editCodAlternativo.getText().toString().equals("") && editCodCria.getText().toString().equals(""))
+                        || (editSisbov.getText().toString().equals("") && !editCodCria.isEnabled())
+                            )
                     {
                         editCodCria.setText(editCodAlternativo.getText());
                     }
+
                 }
             }
         });
@@ -1007,6 +1018,12 @@ public class Parto_Activity extends Activity
         {
             cria_model.validate(this, "Parto_Cria", cria_tb, Constantes.VALIDATION_TYPE_INSERT);
             parto_model.validate(this, "Parto", parto_tb, Constantes.VALIDATION_TYPE_INSERT);
+
+            if(!editSisbov.getText().toString().equals("")) {
+                String codCria = editSisbov.getText().toString();
+                cria_tb.setCodigo_cria(codCria.substring(8, 14));
+            }
+
             parto_model.insert(Parto_Activity.this, "Parto", p_helper.getDadosParto(parto_tb));
             cria_model.insert(Parto_Activity.this, "Parto_Cria", pc_helper.getDadosCria(cria_tb));
             Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
@@ -1052,39 +1069,68 @@ public class Parto_Activity extends Activity
     {
         final boolean[] validaMatriz = {false};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        try {
 
-        if (listaMatriz.size() == 0)
+            if (listaMatriz.size() == 0) {
+                builder.setTitle("Aviso").setMessage("Matriz não existe na base de dados. Não será possível realizar o parto!")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                validaMatriz[0] = true;
+                                cod_matriz_invalido = editMatriz.getText().toString();
+                                cria_tb.setId_fk_animal_mae(1);
+                            }
+                        })
+                        //.setNegativeButton("Não", new DialogInterface.OnClickListener()
+                        //{
+                        //    @Override
+                        //    public void onClick(DialogInterface dialog, int which)
+                        //    {
+                        //        validaMatriz[0] = false;
+                        //        editMatriz.setText("");
+                        //    }
+                        //})
+                        .show();
+                //if (validaMatriz[0] == true)
+                //{
+                //    cod_matriz_invalido = editMatriz.getText().toString();
+                //}
+                //else
+                //{
+                cod_matriz_invalido = "0";
+                editMatriz.setText("");
+                return;
+                //}
+            }
+            else if (listaMatriz.size() > 0 && animal_macho) {
+                builder.setTitle("Aviso").setMessage("Este código é de um animal macho, favor informar um código de uma matriz!")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                validaMatriz[0] = true;
+                                cod_matriz_invalido = editMatriz.getText().toString();
+                                cria_tb.setId_fk_animal_mae(1);
+                            }
+                        })
+                        .show();
+
+                cod_matriz_invalido = "0";
+                editMatriz.setText("");
+                return;
+            }
+        }
+        catch (Exception e)
         {
-            builder.setTitle("Aviso").setMessage("Matriz não existe na base de dados. Deseja continuar?")
+            builder.setTitle("Aviso").setMessage("Erro ao tentar encontrar a matriz!")
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton("Sim", new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int which)
-                        {
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
                             validaMatriz[0] = true;
                             cod_matriz_invalido = editMatriz.getText().toString();
                             cria_tb.setId_fk_animal_mae(0);
                         }
                     })
-                    .setNegativeButton("Não", new DialogInterface.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
-                            validaMatriz[0] = false;
-                            editMatriz.setText("");
-                        }
-                    })
                     .show();
-            if (validaMatriz[0] == true)
-            {
-                cod_matriz_invalido = editMatriz.getText().toString();
-            }
-            else
-            {
-                cod_matriz_invalido = "0";
-                return;
-            }
         }
     }
 

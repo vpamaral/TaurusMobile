@@ -15,6 +15,7 @@ public class Animal implements Serializable {
 	//private String raca;
 	//private double peso_atual;
 	//private String raca_reprod;
+	private String sexo;
 
 	public long getId_pk() {
 		return id_pk;
@@ -70,6 +71,14 @@ public class Animal implements Serializable {
 
 	public void setData_nascimento(String data_nascimento) {
 		this.data_nascimento = data_nascimento;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	/*public String getCategoria() {

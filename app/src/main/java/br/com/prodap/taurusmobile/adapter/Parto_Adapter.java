@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.prodap.taurusmobile.tb.Relatorio_Parto;
 import br.com.prodap.taurusmobile.tb.Parto;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
 
@@ -73,6 +74,22 @@ public class Parto_Adapter extends BaseAdapter
 			parto.setPerda_gestacao(c.getString(c.getColumnIndex("perda_gestacao")));
 			parto.setSexo_parto(c.getString(c.getColumnIndex("sexo_parto")));
 
+			listaParto.add(parto);
+		}
+
+		return listaParto;
+	}
+
+	public List<Relatorio_Parto> RelatorioPartoPreencheArrayCursor(Cursor c)
+	{
+		List<Relatorio_Parto> listaParto = new ArrayList<Relatorio_Parto>();
+
+		while (c.moveToNext())
+		{
+			Relatorio_Parto parto = new Relatorio_Parto();
+			parto.setDataParto(c.getString(c.getColumnIndex("data_parto")));
+			parto.setSexoParto(c.getString(c.getColumnIndex("sexo_parto")));
+			parto.setQtdPartos(c.getInt(c.getColumnIndex("qtd_partos")));
 			listaParto.add(parto);
 		}
 

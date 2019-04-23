@@ -7,17 +7,23 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.format.DateFormat;
+import android.transition.Visibility;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.Button;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,6 +51,7 @@ import br.com.prodap.taurusmobile.model.Criterio_Model;
 import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
 import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
+import br.com.prodap.taurusmobile.model.Parto_Cria_Model;
 import br.com.prodap.taurusmobile.service.Get_JSON;
 import br.com.prodap.taurusmobile.task.Get_Animais_JSON;
 import br.com.prodap.taurusmobile.task.Get_Criterios_JSON;
@@ -53,6 +60,7 @@ import br.com.prodap.taurusmobile.task.Get_Pastos_JSON;
 import br.com.prodap.taurusmobile.task.Post_Animais_JSON;
 import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.tb.Pasto;
+import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.CreateReadWrite;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
@@ -120,6 +128,7 @@ public class Menu_Principal_Activity extends Activity
 	private Configuracao conf_tb;
 	private String url;
 	private Parto_Model parto_model;
+	private Parto_Cria_Model p_cria_model;
 
     private int count;
 
@@ -135,6 +144,106 @@ public class Menu_Principal_Activity extends Activity
 		source();
 
 		openFileDialog_Click();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		// The activity is about to become visible.
+
+		buscaPartosLancados();
+		buscaDataAtualizacao();
+	}
+
+	public void btn_itens_atualizar_Click(View v) {
+		LinearLayout be_w = (LinearLayout) findViewById(R.id.btn_enviar_web);
+		LinearLayout be_b = (LinearLayout) findViewById(R.id.btn_enviar_bluetooth);
+		LinearLayout be_a = (LinearLayout) findViewById(R.id.btn_enviar_arquivo);
+		be_w.setVisibility(View.GONE);
+		be_b.setVisibility(View.GONE);
+		be_a.setVisibility(View.GONE);
+
+        LinearLayout ba_w = (LinearLayout) findViewById(R.id.btn_atualiza_web);
+		LinearLayout ba_b = (LinearLayout) findViewById(R.id.btn_atualiza_bluetooth);
+		LinearLayout ba_a = (LinearLayout) findViewById(R.id.btn_atualiza_arquivo);
+
+		if (ba_w.getVisibility() == View.GONE) {
+			ba_w.setVisibility(View.VISIBLE);
+			ba_b.setVisibility(View.VISIBLE);
+			ba_a.setVisibility(View.VISIBLE);
+
+			ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_enviar);
+			i_select.setBackgroundColor(Color.parseColor("#5cb85c"));
+			Button btn_select = (Button) findViewById( R.id.btn_open_enviar);
+			btn_select.setBackgroundColor(Color.parseColor("#5cb85c"));
+			btn_select.setTextColor(Color.WHITE);
+
+			i_select = (ImageButton) findViewById( R.id.imagebutton_open_atualiza);
+			//i_select.setBackgroundColor(Color.parseColor("#FF33B5E5"));
+			btn_select = (Button) findViewById( R.id.btn_open_atualiza);
+			//btn_select.setBackgroundColor(Color.parseColor("#FF33B5E5"));
+
+			//btn_select.setTextColor(Color.BLACK);
+			i_select.setBackgroundColor(Color.parseColor("#ffff8800"));
+
+		} else {
+			ba_w.setVisibility(View.GONE);
+			ba_b.setVisibility(View.GONE);
+			ba_a.setVisibility(View.GONE);
+
+			ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_atualiza);
+			i_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
+
+			Button btn_select = (Button) findViewById( R.id.btn_open_atualiza);
+			btn_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
+			btn_select.setTextColor(Color.WHITE);
+		}
+	}
+
+	public void btn_itens_enviar_Click(View v)
+	{
+        LinearLayout ba_w = (LinearLayout) findViewById(R.id.btn_atualiza_web);
+		LinearLayout ba_b = (LinearLayout) findViewById(R.id.btn_atualiza_bluetooth);
+		LinearLayout ba_a = (LinearLayout) findViewById(R.id.btn_atualiza_arquivo);
+		ba_w.setVisibility(View.GONE);
+		ba_b.setVisibility(View.GONE);
+		ba_a.setVisibility(View.GONE);
+
+		LinearLayout be_w = (LinearLayout) findViewById(R.id.btn_enviar_web);
+		LinearLayout be_b = (LinearLayout) findViewById(R.id.btn_enviar_bluetooth);
+		LinearLayout be_a = (LinearLayout) findViewById(R.id.btn_enviar_arquivo);
+
+		if (be_w.getVisibility() == View.GONE) {
+			be_w.setVisibility(View.VISIBLE);
+			be_b.setVisibility(View.VISIBLE);
+			be_a.setVisibility(View.VISIBLE);
+
+			ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_atualiza);
+			i_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
+			Button btn_select = (Button) findViewById( R.id.btn_open_atualiza);
+			btn_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
+			btn_select.setTextColor(Color.WHITE);
+
+			i_select = (ImageButton) findViewById( R.id.imagebutton_open_enviar);
+			//i_select.setBackgroundColor(Color.parseColor("#FF33B5E5"));
+			btn_select = (Button) findViewById( R.id.btn_open_enviar);
+			//btn_select.setBackgroundColor(Color.parseColor("#FF33B5E5"));
+
+			//btn_select.setTextColor(Color.BLACK);
+            i_select.setBackgroundColor(Color.parseColor("#ff669900"));
+
+		} else {
+			be_w.setVisibility(View.GONE);
+			be_b.setVisibility(View.GONE);
+			be_a.setVisibility(View.GONE);
+
+			ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_enviar);
+			i_select.setBackgroundColor(Color.parseColor("#5cb85c"));
+
+			Button btn_select = (Button) findViewById( R.id.btn_open_enviar);
+			btn_select.setBackgroundColor(Color.parseColor("#5cb85c"));
+			btn_select.setTextColor(Color.WHITE);
+		}
 	}
 
 	private void loadVars()
@@ -206,6 +315,7 @@ public class Menu_Principal_Activity extends Activity
 		configuracao_model 		= new Configuracao_Model(this);
 		conf_tb 				= new Configuracao();
 		parto_model 			= new Parto_Model(this);
+		p_cria_model			= new Parto_Cria_Model(this);
 
 		b_activity				= new Bluetooth_Activity();
 
@@ -217,6 +327,74 @@ public class Menu_Principal_Activity extends Activity
 		}
 
 		isEnableBluetooth();
+
+		if(lista_conf.size() == 0){
+
+            verificaConfig();
+        }
+
+	}
+
+	private void verificaConfig(){
+
+		lista_conf = configuracao_model.selectAll(this, "Configuracao", conf_tb);
+		if(lista_conf.size() == 0) {
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
+				builder.setTitle("Aviso").setMessage("Favor informar as configurações antes de iniciar os lançamentos!")
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								loadConfiguracao();
+								verificaConfig();
+							}
+						})
+						.show();
+		}
+	}
+
+    public void buscaDataAtualizacao() {
+
+        try {
+            lista_conf = configuracao_model.selectAll(this, "Configuracao", conf_tb);
+            if(lista_conf.size() > 0){
+                conf_tb = lista_conf.get(0);
+
+                String ult_at = String.valueOf(conf_tb.getUltimaAtualizacao());
+                TextView tv = (TextView) findViewById(R.id.lbl_ult_atualizacao);
+                tv.setText(ult_at);
+
+				LinearLayout linear = (LinearLayout) findViewById(R.id.linear_ult_atualizacao);
+				if(ult_at == "null")
+					linear.setVisibility(View.GONE);
+				else
+					linear.setVisibility(View.VISIBLE);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+	public void buscaPartosLancados() {
+
+		try {
+
+			Parto_Cria p_cria_tb = new Parto_Cria();
+			List<Parto_Cria> p_cria_list = p_cria_model.selectAll(getBaseContext(), "Parto_Cria", p_cria_tb);
+			int quantdPartos = p_cria_list.size();
+			TextView tv = (TextView) findViewById(R.id.lbl_partos_lancados);
+			tv.setText( String.valueOf(quantdPartos));
+
+            LinearLayout linear = (LinearLayout) findViewById(R.id.linear_partos_lancados);
+			if(quantdPartos == 0)
+				linear.setVisibility(View.GONE);
+			else
+                linear.setVisibility(View.VISIBLE);
+
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	//metodo para selecionar o arquivo para atualizar o banco de dados do aparelho
@@ -354,6 +532,12 @@ public class Menu_Principal_Activity extends Activity
 		partosList();
 	}
 
+	public void btn_relatorio_parto_Click (View v)
+	{
+		Intent intent = new Intent(Menu_Principal_Activity.this, Relatorio_Partos_Activity.class);
+		startActivity(intent);
+	}
+
 	public void btn_enviar_via_web_Click (View v)
 	{
 		Constantes.TIPO_ENVIO = "web";
@@ -481,7 +665,7 @@ public class Menu_Principal_Activity extends Activity
 	{
 		Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
 		objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
-		new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+		new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
 	}
 
 	private void updatePastos()
@@ -505,6 +689,11 @@ public class Menu_Principal_Activity extends Activity
 		new Get_Criterios_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
 
+	private void post()
+    {
+        new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
+    }
+
 	private void postViaWeb()
 	{
 		Constantes.CREATE_ARQUIVO = false;
@@ -518,7 +707,7 @@ public class Menu_Principal_Activity extends Activity
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
-						new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+						post();
 					}
 				});
 			}
@@ -541,7 +730,7 @@ public class Menu_Principal_Activity extends Activity
 				@Override
 				public void onClick(DialogInterface dialog, int which)
 				{
-					new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+                    post();
 				}
 			});
 		}
@@ -561,7 +750,7 @@ public class Menu_Principal_Activity extends Activity
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+                post();
 			}
 		});
 	}
@@ -738,15 +927,14 @@ public class Menu_Principal_Activity extends Activity
 			Constantes.LBL_STATUS.setText("Hardware Bluetooth está funcionando");
 		}
 
-		if(!btAdapter.isEnabled())
-		{
-			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			startActivityForResult(enableBtIntent, Constantes.ENABLE_BLUETOOTH);
-			Constantes.LBL_STATUS.setText("Solicitando ativação do Bluetooth...");
-		}
-		else
-		{
-			Constantes.LBL_STATUS.setText("Bluetooth já ativado");
+		if(btAdapter != null) {
+			if (!btAdapter.isEnabled()) {
+				Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+				startActivityForResult(enableBtIntent, Constantes.ENABLE_BLUETOOTH);
+				Constantes.LBL_STATUS.setText("Solicitando ativação do Bluetooth...");
+			} else {
+				Constantes.LBL_STATUS.setText("Bluetooth já ativado");
+			}
 		}
 	}
 }

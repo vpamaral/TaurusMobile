@@ -12,7 +12,6 @@
     tools:context=".view.Menu_Principal_Activity" >
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -28,7 +27,6 @@
                 android:layout_height="wrap_content"
                 android:text="Status do Bluetooth: "
                 android:textStyle="bold"
-                android:id="@+id/lbl_status"
                 android:layout_gravity="center" />
 
             <TextView
@@ -38,64 +36,397 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_atualiza_via_web"
+
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/atualiza32"
-            android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Atualizar Via Web"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:onClick="btn_atualiza_via_web_Click" />
+            android:stretchColumns="0,1"
+            >
+
+            <TableRow>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_column="0">
+
+                    <ImageButton
+                        android:id="@+id/imagebutton_open_atualiza"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/bootstrap_brand_warning"
+                        android:onClick="btn_itens_atualizar_Click"
+                        android:src="@android:drawable/stat_sys_download" />
+
+                    <Button
+                        android:id="@+id/btn_open_atualiza"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/bootstrap_brand_warning"
+                        android:onClick="btn_itens_atualizar_Click"
+                        android:shadowColor="#A8A8A8"
+                        android:shadowRadius="5"
+                        android:text="Atualizar\nDados"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    >
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_column="1">
+
+                    <ImageButton
+                        android:id="@+id/imagebutton_open_enviar"
+                        android:layout_width="50dp"
+                        android:layout_height="100dp"
+                        android:background="@color/bootstrap_brand_success"
+                        android:onClick="btn_itens_enviar_Click"
+                        android:src="@android:drawable/stat_sys_upload" />
+
+                    <Button
+                        android:id="@+id/btn_open_enviar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/bootstrap_brand_success"
+                        android:onClick="btn_itens_enviar_Click"
+                        android:shadowColor="#A8A8A8"
+                        android:shadowRadius="5"
+                        android:text="Enviar   \nPartos   "
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp" />
+
+                    >
+
+                </LinearLayout>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1"
+            >
+
+            <TableRow>
+
+                <LinearLayout
+                    android:id="@+id/linear_ult_atualizacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="left"
+                    android:layout_column="0"
+                    android:weightSum="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Últ. Atual.: "
+                        android:gravity="center"
+                        android:textColor="@color/bootstrap_brand_warning"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/lbl_ult_atualizacao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/bootstrap_brand_warning"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear_partos_lancados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_column="1"
+                    android:weightSum="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Partos à enviar: "
+                        android:gravity="center"
+                        android:textColor="@color/bootstrap_brand_success"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/lbl_partos_lancados"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:textColor="@color/bootstrap_brand_success" />
+                </LinearLayout>
+
+            </TableRow>
+
+        </TableLayout>
+
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/btn_atualiza_web"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="0dp"
+            android:visibility="gone"
+            >
+
+            <ImageButton
+                android:id="@+id/imagebutton_atualiza_web"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/holo_orange_dark"
+                android:onClick="btn_atualiza_via_web_Click"
+                android:src="@android:drawable/stat_sys_download" />
+
+            <Button
+
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:background="@color/bootstrap_brand_warning"
+                android:onClick="btn_atualiza_via_web_Click"
+                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Atualizar Via Web"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_atualiza_bluetooth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="0dp"
+            android:visibility="gone"
+            >
+
+            <ImageButton
+                android:id="@+id/imagebutton_atualizar_blue"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/holo_orange_dark"
+                android:onClick="btn_atualiza_via_bluetooth_Click"
+                android:src="@android:drawable/stat_sys_data_bluetooth" />
+
+            <Button
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:background="@color/bootstrap_brand_warning"
+                android:onClick="btn_atualiza_via_bluetooth_Click"
+                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Atualizar Via Bluetooth"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:visibility="visible"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_atualiza_arquivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="0dp"
+            android:visibility="gone"
+            >
+            <ImageButton
+                android:id="@+id/imagebutton_atualizar_ar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/holo_orange_dark"
+                android:onClick="btn_open_arquivo_Click"
+                android:src="@android:drawable/stat_sys_download" />
+
+            <Button
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:background="@color/bootstrap_brand_warning"
+                android:onClick="btn_open_arquivo_Click"
+                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Atualizar Via Arquivo"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/btn_enviar_web"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:visibility="gone"
+            >
+            <ImageButton
+                android:id="@+id/imagebutton_enviar_web"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/holo_green_dark"
+                android:onClick="btn_enviar_via_web_Click"
+                android:src="@android:drawable/stat_sys_upload" />
+
+            <Button
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:background="@color/bootstrap_brand_success"
+                android:onClick="btn_enviar_via_web_Click"
+                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Enviar Via Web"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_enviar_bluetooth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:visibility="gone"
+            >
+            <ImageButton
+                android:id="@+id/imagebutton_enviar_blue"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/holo_green_dark"
+                android:onClick="btn_enviar_via_bluetooth_Click"
+                android:src="@android:drawable/stat_sys_data_bluetooth" />
+
+            <Button
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:background="@color/bootstrap_brand_success"
+                android:onClick="btn_enviar_via_bluetooth_Click"
+                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Enviar Via Bluetooth"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_enviar_arquivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="30dp"
+            android:visibility="gone"
+            >
+            <ImageButton
+                android:id="@+id/imagebutton_enviar_ar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/holo_green_dark"
+                android:onClick="btn_enviar_via_bluetooth_Click"
+                android:src="@android:drawable/stat_sys_upload" />
+
+            <Button
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:background="@color/bootstrap_brand_success"
+                android:onClick="btn_create_file_Click"
+                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Gerar Arquivo"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
 
         <Button
-            android:id="@+id/btn_atualiza_via_bluetooth"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/connect_icon"
-            android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Atualizar Via Bluetooth"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:onClick="btn_atualiza_via_bluetooth_Click" />
+            android:layout_height="10px"
+            android:layout_margin="10px"
+            android:background="@color/bootstrap_gray"
+            android:shadowColor="@color/bootstrap_gray_dark"
+            tools:shadowRadius="5" />
 
         <Button
-            android:id="@+id/btn_open_arquivo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/create_file"
-            android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Atualizar Via Arquivo"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:onClick="btn_open_arquivo_Click" />
-
-        <Button
-            android:id="@+id/btn_list_animais"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/lista32"
+            android:drawableLeft="@android:drawable/stat_notify_chat"
+            android:onClick="btn_list_animais_Click"
             android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
@@ -104,15 +435,15 @@
             android:text="Lista de Animais"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:onClick="btn_list_animais_Click" />
+            tools:drawableLeft="@android:drawable/stat_notify_chat" />
 
         <Button
-            android:id="@+id/btn_cadastro_parto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/adiciona32"
+            android:drawableLeft="@android:drawable/stat_notify_more"
+            android:onClick="btn_cadastro_parto_Click"
             android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
@@ -121,59 +452,26 @@
             android:text="Cadastro de Parto"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:onClick="btn_cadastro_parto_Click" />
-
+            tools:drawableLeft="@android:drawable/stat_notify_more" />
 
         <Button
-            android:id="@+id/btn_enviar_via_web"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/envia32"
+            android:drawableLeft="@android:drawable/stat_notify_chat"
+            android:onClick="btn_relatorio_parto_Click"
             android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="5"
-            android:text="Enviar Via Web"
+            android:text="Relatório Partos"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:onClick="btn_enviar_via_web_Click" />
+            tools:drawableLeft="@android:drawable/stat_notify_chat" />
 
-        <Button
-            android:id="@+id/btn_enviar_via_bluetooth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/connect_icon"
-            android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Enviar Via Bluetooth"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:onClick="btn_enviar_via_bluetooth_Click" />
 
-        <Button
-            android:id="@+id/btn_create_file"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/create_file"
-            android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Gerar Arquivo"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:onClick="btn_create_file_Click" />
     </LinearLayout>
 
     <!--<LinearLayout

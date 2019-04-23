@@ -16,7 +16,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/p_list_cod_cria"
             android:text="Código da Cria"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
@@ -45,7 +44,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
-        android:id="@+id/btn_novo_parto"
         android:onClick="btn_novo_parto_Click"/>
 
 </RelativeLayout>

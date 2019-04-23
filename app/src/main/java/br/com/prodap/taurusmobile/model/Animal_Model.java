@@ -39,6 +39,13 @@ public class Animal_Model extends Banco_Service {
 		return a_dao.selectAllAnimais(ctx, Tabela, table);
 	}
 
+	public List<Animal> selectAllbySexo(Context ctx, String Tabela, Object table, String sexo)
+	{
+		a_dao = new Animal_Dao(ctx);
+
+		return a_dao.selectAllbySexo(ctx, Tabela, table, sexo);
+	}
+
 	public Animal selectByCodigo(Context ctx, Integer codigo) {
 		banco = new Banco(ctx);
 

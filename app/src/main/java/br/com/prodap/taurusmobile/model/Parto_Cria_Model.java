@@ -10,6 +10,7 @@ import java.util.List;
 
 import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
 import br.com.prodap.taurusmobile.dao.Parto_Cria_Dao;
+import br.com.prodap.taurusmobile.dao.Animal_Dao;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.service.Banco_Service;
@@ -24,6 +25,7 @@ public class Parto_Cria_Model extends Banco_Service {
 	private Parto_Cria_Adapter pc_adapter;
 	private Parto_Cria pc_tb;
 	private Parto_Cria_Dao pc_dao;
+	private Animal_Dao a_dao;
 
 	public Parto_Cria_Model(Context ctx) {
 		pc_adapter = new Parto_Cria_Adapter();
@@ -34,6 +36,7 @@ public class Parto_Cria_Model extends Banco_Service {
 	public void validate(Context ctx, String Tabela, Object table, int VALIDATION_TYPE) throws Validator_Exception {
 		pc_dao = new Parto_Cria_Dao(ctx);
 		pc_tb = (Parto_Cria)table;
+        a_dao = new Animal_Dao(ctx);
 
 		try {
 			if (Parto_Activity.validaIdentificador == true) {
@@ -127,6 +130,14 @@ public class Parto_Cria_Model extends Banco_Service {
 				throw ve;
 			}
 
+			if(a_dao.ifExistAnimalVivo( pc_tb.getCodigo_cria(), pc_tb.getIdentificador()))
+			{
+				Validator_Exception ve = new Validator_Exception("O Id. Eletrônico e o código da cria já existe em outro animal vivo do sistema e não pode ser duplicado!");
+				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+				ve.setException_args(new Object[]{"FLAG_CODIGO_E_ID_DUPLICADO"});
+				throw ve;
+			}
+
 			if (Parto_Activity.FLAG_CODIGO_MATRIZ_DUPLICADO != true) {
 				if (pc_dao.ifExistCodMatriz(pc_tb.getCod_matriz_invalido().toString())) {
 					//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
@@ -148,6 +159,7 @@ public class Parto_Cria_Model extends Banco_Service {
 					throw ve;
 				}
 			}
+
 		} catch (Validator_Exception e) {
 			throw e;
 		} catch (Exception e) {

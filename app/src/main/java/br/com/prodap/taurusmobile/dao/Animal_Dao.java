@@ -38,4 +38,46 @@ public class Animal_Dao extends Banco {
         banco.close();
         return listadd;
     }
+
+    public List<Animal> selectAllbySexo(Context ctx, String Tabela, Object table, String sexo)
+    {
+        Banco banco = new Banco(ctx);
+        a_adapter = new Animal_Adapter();
+
+        Class classe = table.getClass();
+        List<Animal> listadd = new ArrayList<Animal>();
+        String sql = String.format("SELECT * FROM %s WHERE sexo = '%s' ORDER BY codigo", Tabela, sexo);
+
+        Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
+
+        listadd = a_adapter.arrayAnimais(c);
+
+        banco.close();
+        return listadd;
+    }
+
+    public boolean ifExistAnimalVivo(String codigo, String identificador) {
+        boolean result = false;
+        String sql = String.format("SELECT COUNT(id_pk) FROM Animal WHERE codigo = '%s' AND identificador = '%s'", codigo, identificador);
+
+        db = getReadableDatabase();
+        try
+        {
+            Cursor c = db.rawQuery(sql, null);
+
+            if (c != null) {
+                c.moveToFirst();
+                if (c.getInt (0) == 0) {
+                    result = false;
+                } else {
+                    result = true;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+        return result;
+    }
 }

@@ -32,6 +32,7 @@ import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.CreateReadWrite;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
 
 public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 {
@@ -60,12 +61,14 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 	private String data_dd_mm_yyyy;
 
 	private String filename;
+	private Menu_Principal_Activity menu_principal_activity;
 
-	public Post_Animais_JSON(Context ctx, int progressDialog)
+	public Post_Animais_JSON(Context ctx, int progressDialog, Menu_Principal_Activity activity)
 	{
 		this.ctx = ctx;
 		this.mProgressDialog = progressDialog;
 		source();
+		this.menu_principal_activity = activity;
 	}
 
 	private void source()
@@ -237,6 +240,8 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Arquivo gerado com sucesso.");
 				mProgress.dismiss();
 			}
+
+			this.menu_principal_activity.buscaPartosLancados();
 		}
 		else
 		{

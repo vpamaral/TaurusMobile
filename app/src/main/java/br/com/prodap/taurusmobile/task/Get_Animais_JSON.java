@@ -5,10 +5,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.JsonParser;
+
 import java.util.List;
 
 import br.com.prodap.taurusmobile.adapter.Animal_Adapter;
-import br.com.prodap.taurusmobile.adapter.Configuracao_Adapter;
+import br.com.prodap.taurusmobile.helper.Configuracao_Helper;
 import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.service.Conexao_HTTP;
@@ -19,33 +21,39 @@ import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
+import br.com.prodap.taurusmobile.view.Configuracao_Activity;
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
+import br.com.prodap.taurusmobile.R;
+import android.widget.TextView;
 
 public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 {
 	private List<Animal> objListaAnimal;
 	private Context ctx;
 	private Animal_Adapter aniHelper;
-	private Configuracao_Adapter c_helper;
+	private Configuracao_Helper c_helper;
 	private Configuracao c_tb;
 	private Configuracao_Model c_model;
 	public Conexao_HTTP c_http;
 	public ProgressDialog mProgress;
 	private int mProgressDialog=0;
+	private Menu_Principal_Activity menu_principal_activity;
 
 	private String msg;
 
-	public Get_Animais_JSON(Context ctx, int progressDialog)
+	public Get_Animais_JSON(Context ctx, int progressDialog, Menu_Principal_Activity activity)
 	{
 		this.ctx = ctx;
 		this.mProgressDialog = progressDialog;
-		source();	
+		source();
+		this.menu_principal_activity = activity;
 	}
 	
 	private void source()
 	{
 		c_tb 		= new Configuracao();
 		c_model 	= new Configuracao_Model(ctx);
-		c_helper 	= new Configuracao_Adapter();
+		c_helper 	= new Configuracao_Helper();
 		c_http		= new Conexao_HTTP();
 	}
 	
@@ -113,6 +121,24 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 					}
 					i++;
 				}
+
+				try {
+					String data_atualizacao = getJSON.data_arquivo.toString();
+					if (c_list.size() > 0) {
+						data_atualizacao = data_atualizacao.replace("[{\"DataArquivo\":\"", "");
+						data_atualizacao = data_atualizacao.replace("\"}]", "");
+
+						c_tb = (Configuracao) c_list.get(0);
+						c_tb.setUltimaAtualizacao(data_atualizacao);
+
+						c_model.validate(ctx, "Configuracao", c_tb, Constantes.VALIDATION_TYPE_UPDATE);
+						c_model.update(ctx, "Configuracao", c_helper.getDadosConfiguracao(c_tb));
+
+					}
+				}
+				catch (Exception e) {
+					Log.i("TAG", e.toString());
+				}
 			}
 			else
 			{
@@ -148,6 +174,7 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
 					else
 						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
+
 				}
 				else
 				{
@@ -200,6 +227,9 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 			{
 				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
 			}
+
 		}
+
+		this.menu_principal_activity.buscaDataAtualizacao();
 	}
 }

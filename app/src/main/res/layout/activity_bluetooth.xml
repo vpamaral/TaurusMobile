@@ -18,7 +18,6 @@
         android:text="..." />
 
     <Button
-        android:id="@+id/button_PairedDevices"
         android:text="Dispositivos pareados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +32,6 @@
 
     <Button
         android:text="Iniciar descoberta de dispositivos"
-        android:id="@+id/button_DiscoveredDevices"
         android:onClick="discoverDevices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +46,6 @@
 
     <Button
         android:text="Habilitar Visibilidade"
-        android:id="@+id/button_Visibility"
         android:onClick="enableVisibility"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +61,6 @@
 
     <Button
         android:text="Esperar conexão"
-        android:id="@+id/button_WaitConnection"
         android:onClick="waitConnection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

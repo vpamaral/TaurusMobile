@@ -24,7 +24,6 @@
                 android:layout_height="wrap_content"
                 android:text="Identificador:      "
                 android:textStyle="bold"
-                android:id="@+id/lblIdentificador"
                 android:layout_gravity="center" />
 
             <EditText
@@ -52,7 +51,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/space"
             android:layout_width="match_parent"
             android:layout_height="5dp" />
 
@@ -68,7 +66,6 @@
                 android:layout_height="wrap_content"
                 android:text="Sisbov:                "
                 android:textStyle="bold"
-                android:id="@+id/lblSisbov"
                 android:layout_gravity="center" />
 
             <EditText
@@ -92,7 +89,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/space14"
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
@@ -108,7 +104,6 @@
                 android:layout_height="wrap_content"
                 android:text="Cód.Alternativo:"
                 android:textStyle="bold"
-                android:id="@+id/lblCodAlternativo"
                 android:layout_gravity="center"
                 android:layout_weight="0"/>
 
@@ -123,7 +118,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/space4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -170,7 +164,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/space2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -195,7 +188,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/space6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -221,7 +213,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/space16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -295,12 +286,10 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/space1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:id="@+id/ll_criterio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -322,7 +311,6 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/space11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

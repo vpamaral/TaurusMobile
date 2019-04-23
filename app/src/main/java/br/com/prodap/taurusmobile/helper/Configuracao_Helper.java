@@ -86,6 +86,10 @@ public class Configuracao_Helper
         c_tb.setValida_manejo(cbManejo.isChecked() ? "S" : "N");
         c_tb.setValida_sisbov(cbSisbov.isChecked() ? "S" : "N");
         c_tb.setValida_cod_alternativo(cbCodAlternativo.isChecked() ? "S" : "N");
+        if(c_list.size() > 0){
+
+            c_tb.setUltimaAtualizacao(c_list.get(0).getUltimaAtualizacao());
+        }
 
         return c_tb;
     }
@@ -139,6 +143,7 @@ public class Configuracao_Helper
         c_dados.put("valida_identificador", c_tb.getValida_identificador());
         c_dados.put("valida_manejo", c_tb.getValida_manejo());
         c_dados.put("valida_cod_alternativo", c_tb.getValida_cod_alternativo());
+        c_dados.put("ultima_atualizacao", c_tb.getUltimaAtualizacao());
 
         return c_dados;
     }
@@ -155,6 +160,7 @@ public class Configuracao_Helper
         c_tb.setValida_manejo(c.getString(c.getColumnIndex("valida_manejo")));
         c_tb.setValida_sisbov(c.getString(c.getColumnIndex("valida_sisbov")));
         c_tb.setValida_cod_alternativo(c.getString(c.getColumnIndex("valida_cod_alternativo")));
+        c_tb.setUltimaAtualizacao(c.getString(c.getColumnIndex("ultima_atualizacao")));
 
         return c_tb;
     }
@@ -172,6 +178,7 @@ public class Configuracao_Helper
             config.setValida_identificador(ConfiguracaoArray[i].getValida_identificador());
             config.setValida_manejo(ConfiguracaoArray[i].getValida_manejo());
             config.setValida_sisbov(ConfiguracaoArray[i].getValida_sisbov());
+            config.setUltimaAtualizacao(ConfiguracaoArray[i].getUltimaAtualizacao());
 
             c_list.add(config);
         }
@@ -188,6 +195,7 @@ public class Configuracao_Helper
         config.setValida_identificador(c_tb.getValida_identificador());
         config.setValida_manejo(c_tb.getValida_manejo());
         config.setValida_sisbov(c_tb.getValida_sisbov());
+        config.setUltimaAtualizacao(c_tb.getUltimaAtualizacao());
 
         return config;
     }

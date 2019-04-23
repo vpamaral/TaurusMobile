@@ -55,6 +55,7 @@ public class Animal_Adapter
 		a_dados.put("codigo_ferro", a_tb.getCodigo_ferro());
 		a_dados.put("data_nascimento", a_tb.getData_nascimento());
 		a_dados.put("identificador", a_tb.getIdentificador());
+		a_dados.put("sexo", a_tb.getSexo());
 
 		return a_dados;
 	}
@@ -68,6 +69,7 @@ public class Animal_Adapter
 		a_tb.setIdentificador(c.getString(c.getColumnIndex("identificador")) != null ? c.getString(c.getColumnIndex("identificador")) : "");
 		a_tb.setCodigo_ferro(c.getString(c.getColumnIndex("codigo_ferro")) != null ? c.getString(c.getColumnIndex("codigo_ferro")) : "");
 		a_tb.setData_nascimento(c.getString(c.getColumnIndex("data_nascimento")));
+		a_tb.setSexo(c.getString(c.getColumnIndex("sexo")) != null ? c.getString(c.getColumnIndex("sexo")) : "");
 
 		//a_tb.setId_fk_cria(c.getLong(c.getColumnIndex("id_fk_cria")));
 		//a_tb.setSisbov(c.getString(c.getColumnIndex("sisbov")) != null ? c.getString(c.getColumnIndex("sisbov")) : "");
@@ -91,6 +93,7 @@ public class Animal_Adapter
 			a_tb.setIdentificador(AnimalArray[i].getIdentificador() != null ? AnimalArray[i].getIdentificador() : "");
 			a_tb.setCodigo_ferro(AnimalArray[i].getCodigo_ferro() != null ? AnimalArray[i].getCodigo_ferro() : "");
 			a_tb.setData_nascimento(AnimalArray[i].getData_nascimento());
+			a_tb.setSexo(AnimalArray[i].getSexo() != null ? AnimalArray[i].getSexo() : "");
 
 			//animal.setId_fk_cria(AnimalArray[i].getId_fk_cria());
 			//animal.setSisbov(AnimalArray[i].getSisbov() != null	? AnimalArray[i].getSisbov() : "");
@@ -113,6 +116,7 @@ public class Animal_Adapter
 		animal_tb.setIdentificador(a_tb.getIdentificador() != null ? a_tb.getIdentificador() : "0");
 		animal_tb.setCodigo_ferro(a_tb.getCodigo_ferro() != null ? a_tb.getCodigo_ferro() : "0");
 		animal_tb.setData_nascimento(a_tb.getData_nascimento());
+		animal_tb.setSexo(a_tb.getSexo() != null ? a_tb.getSexo() : "");
 
 		//animal_tb.setId_fk_cria(animalTB.getId_fk_cria());
 		//animal_tb.setSisbov(animalTB.getSisbov() != null ? animalTB.getSisbov() : "");

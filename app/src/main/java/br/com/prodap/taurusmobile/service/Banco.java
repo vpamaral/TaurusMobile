@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Banco extends SQLiteOpenHelper {
 
-	static final String DATABASE = "BDTaurus";
+	static final String DATABASE = "DBTaurusMobile";
 	static final int VERSION = 1;
 
 	public Banco(Context context) {
@@ -22,7 +22,8 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'codigo'				varchar(45),"
 				+ "'codigo_ferro'		varchar(45),"
 				+ "'identificador'		varchar(45),"
-				+ "'data_nascimento'	varchar(45)"
+				+ "'data_nascimento'	varchar(45),"
+				+ "'sexo'				varchar(10)"
 				+ " );";
 				/*+ "'sisbov'			varchar(45),"
 				+ "'id_fk_cria'			INTEGER,"
@@ -69,7 +70,8 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'valida_identificador'   varchar(5),"
 				+ "'valida_sisbov'   		varchar(5),"
 				+ "'valida_manejo'   		varchar(5),"
-				+ "'valida_cod_alternativo'	varchar(5)"
+				+ "'valida_cod_alternativo'	varchar(5),"
+				+ "'ultima_atualizacao'		varchar(15)"
 				+");";
 
 		String sql_pasto = "CREATE TABLE 'Pasto' ("
@@ -106,6 +108,8 @@ public class Banco extends SQLiteOpenHelper {
 				sql  = " ALTER TABLE Parto_Cria ADD COLUMN codigo_ferro_cria VARCHAR(45) ";
 
 				sql += " ALTER TABLE Configuracao ADD COLUMN valida_cod_alternativo VARCHAR(5) ";
+
+				sql += " ALTER TABLE Animal ADD COLUMN sexo VARCHAR(10) ";
 
 				sql += " CREATE TABLE 'Criterio' ("
 						+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"

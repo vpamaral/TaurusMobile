@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.com.prodap.taurusmobile.tb.Relatorio_Parto;
 import br.com.prodap.taurusmobile.adapter.Parto_Adapter;
 import br.com.prodap.taurusmobile.dao.Parto_Dao;
 import br.com.prodap.taurusmobile.service.Banco;
@@ -63,6 +64,7 @@ public class Parto_Model extends Banco_Service
 				throw ve;
 			}
 
+
 //            if (p_dao.ifExistPastoUpdate(pasto.getPasto().toString(), pasto.getId_auto() > 0))
 //            {
 //                //ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
@@ -104,6 +106,13 @@ public class Parto_Model extends Banco_Service
 		banco.close();
 
 		return listadd;
+	}
+
+	public List<Relatorio_Parto> selectRelatorioPartos(Context ctx, String Tabela, Object table)
+	{
+		p_dao = new Parto_Dao(ctx);
+
+		return p_dao.selectRelatorioPartos(ctx, Tabela, table);
 	}
 
 	public void deletingLogic (Context ctx) {

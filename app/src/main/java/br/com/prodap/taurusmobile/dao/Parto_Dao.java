@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.prodap.taurusmobile.tb.Relatorio_Parto;
 import br.com.prodap.taurusmobile.adapter.Parto_Adapter;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.tb.Parto;
@@ -36,6 +37,26 @@ public class Parto_Dao extends Banco {
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
         parto_list = p_adapter.PartoPreencheArrayCursor(c);
+
+        banco.close();
+        return parto_list;
+    }
+
+    public List<Relatorio_Parto> selectRelatorioPartos(Context ctx, String Tabela, Object table) {
+        Banco banco = new Banco(ctx);
+        p_adapter = new Parto_Adapter();
+
+        Class classe = table.getClass();
+        List<Relatorio_Parto> parto_list = new ArrayList<Relatorio_Parto>();
+        String sql = String.format("select p.data_parto, p.sexo_parto, count(p.id_fk_animal) as qtd_partos\n" +
+                "from parto p\n" +
+                "where p.sync_status = 1\n" +
+                "group by p.data_parto, p.sexo_parto\n" +
+                "order by p.data_parto", Tabela);
+
+        Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
+
+        parto_list = p_adapter.RelatorioPartoPreencheArrayCursor(c);
 
         banco.close();
         return parto_list;

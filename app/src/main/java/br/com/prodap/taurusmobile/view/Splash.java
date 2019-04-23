@@ -1,6 +1,7 @@
 package br.com.prodap.taurusmobile.view;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,20 +18,27 @@ public class Splash extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.splash);
 
-        new Timer().schedule(new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                finish();
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    finish();
 
-                Intent intent = new Intent();
-                intent.setClass(Splash.this, Menu_Principal_Activity.class);
-                startActivity(intent);
-            }
-        }, 2000);
+                    Intent intent = new Intent();
+                    intent.setClass(Splash.this, Menu_Principal_Activity.class);
+                    startActivity(intent);
+
+                }
+            }, 2000);
+        }
+        catch (ActivityNotFoundException e) {
+            throw e;
+        }
+        catch (Exception e) {
+            throw e;
+        }
     }
 }

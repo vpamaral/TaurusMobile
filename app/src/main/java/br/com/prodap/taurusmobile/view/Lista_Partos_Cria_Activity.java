@@ -169,20 +169,20 @@ public class Lista_Partos_Cria_Activity extends Activity
 				}
 
 				String msg = "Dados da Matriz\n"
-						+ "\nCódigo da Matriz: " + matriz
-						+ "\nDescarte: " + p_cria_tb.getRepasse()
+						+ "\n - Código da Matriz: " + matriz
+						+ "\n - Descarte: " + p_cria_tb.getRepasse()
 						+ "\n\nDados da Cria\n"
-						+ "\nCódigo da Cria: " + p_cria_tb.getCodigo_cria()
-						+ "\nCódigo Alternativo: " + p_cria_tb.getCodigo_ferro_cria()
-						+ "\nIdentif.: " + p_cria_tb.getIdentificador()
-						+ "\nSisbov: " + p_cria_tb.getSisbov()
-						+ "\nData do Parto: " + data_parto
-						+ "\nData da Identif.: " + p_cria_tb.getData_identificacao()
-						+ "\nTipo de Parto: " + p_cria_tb.getTipo_parto()
-						+ "\nSexo: " + p_cria_tb.getSexo()
-						+ "\nPeso: " + p_cria_tb.getPeso_cria()
-						+ "\nGrupo de Manejo: " + p_cria_tb.getGrupo_manejo()
-						+ "\nPasto: " + p_cria_tb.getPasto();
+						+ "\n - Código da Cria: " + p_cria_tb.getCodigo_cria()
+						+ "\n - Código Alternativo: " + p_cria_tb.getCodigo_ferro_cria()
+						+ "\n - Identif.: " + p_cria_tb.getIdentificador()
+						+ "\n - Sisbov: " + p_cria_tb.getSisbov()
+						+ "\n - Data do Parto: " + data_parto
+						+ "\n - Data da Identif.: " + p_cria_tb.getData_identificacao()
+						+ "\n - Tipo de Parto: " + p_cria_tb.getTipo_parto()
+						+ "\n - Sexo: " + p_cria_tb.getSexo()
+						+ "\n - Peso: " + p_cria_tb.getPeso_cria()
+						+ "\n - Grupo de Manejo: " + p_cria_tb.getGrupo_manejo()
+						+ "\n - Pasto: " + p_cria_tb.getPasto();
 
 				Mensagem_Util.addMsg(Message_Dialog.Yes,
 						Lista_Partos_Cria_Activity.this, msg, "Parto", position);
