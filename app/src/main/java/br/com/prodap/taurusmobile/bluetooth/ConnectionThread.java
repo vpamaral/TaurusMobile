@@ -47,6 +47,7 @@ public class ConnectionThread extends Thread
     /*  O método run() contem as instruções que serão efetivamente realizadas
     em uma nova thread.
      */
+
     public void run()
     {
         /*  Anuncia que a thread está sendo executada.
@@ -54,6 +55,8 @@ public class ConnectionThread extends Thread
          */
         this.running                = true;
         BluetoothAdapter btAdapter  = BluetoothAdapter.getDefaultAdapter();
+        boolean erro                = false;
+        Constantes.btSocket         = btSocket;
 
         /*  Determina que ações executar dependendo se a thread está configurada
         para atuar como servidor ou cliente.
@@ -76,6 +79,7 @@ public class ConnectionThread extends Thread
                  */
                 if(btSocket != null)
                     btServerSocket.close();
+
             }
             catch (IOException e)
             {
@@ -85,6 +89,7 @@ public class ConnectionThread extends Thread
                  */
                 e.printStackTrace();
                 toMainActivity("ERRO_CONEXAO".getBytes());
+                erro = true;
             }
         }
         else
@@ -122,6 +127,7 @@ public class ConnectionThread extends Thread
                  */
                 e.printStackTrace();
                 toMainActivity("ERRO_CONEXAO".getBytes());
+                erro = true;
             }
         }
 
@@ -129,7 +135,7 @@ public class ConnectionThread extends Thread
             ...
          */
 
-        if(btSocket != null)
+        if(btSocket != null && !erro)
         {
             /*  Envia um código para a Activity principal informando que a
             a conexão ocorreu com sucesso.
@@ -138,6 +144,7 @@ public class ConnectionThread extends Thread
 
             try
             {
+                Constantes.btSocket         = btSocket;
                 /*  Obtem referências para os fluxos de entrada e saída do
                 socket Bluetooth.
                  */
@@ -220,6 +227,7 @@ public class ConnectionThread extends Thread
             catch (IOException e)
             {
                 e.printStackTrace();
+                toMainActivity("ERRO_CONEXAO".getBytes());
             }
         }
         else

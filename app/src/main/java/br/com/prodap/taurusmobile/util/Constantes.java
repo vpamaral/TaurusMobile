@@ -1,5 +1,6 @@
 package br.com.prodap.taurusmobile.util;
 
+import android.bluetooth.BluetoothSocket;
 import android.widget.TextView;
 
 import br.com.prodap.taurusmobile.bluetooth.ConnectionThread;
@@ -14,6 +15,7 @@ public class Constantes
 	public static final String METHOD_GET_PASTOS 	= "listaPastos";
 	public static final String METHOD_GET_GRUPOS 	= "listaGrupos";
 	public static final String METHOD_GET_CRITERIOS	= "listaCriterios";
+	public static BluetoothSocket btSocket			= null;
 
 	public static final String UUID = "00001101-0000-1000-8000-00805F9B34FB";
     public static int SERVER_RESULT_GET = 0;

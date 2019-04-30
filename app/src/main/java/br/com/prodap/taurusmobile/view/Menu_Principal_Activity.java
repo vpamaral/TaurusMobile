@@ -427,7 +427,7 @@ public class Menu_Principal_Activity extends Activity
 
 		if (checksConnectionBluetooth())
 		{
-			dialog = ProgressDialog.show(this,"Sincronisando dados...","Aguarde ...", false, true);
+			dialog = ProgressDialog.show(this,"Sincronizando dados...","Aguarde ...", false, true);
 			Constantes.JSON = "";
 			sendMessage("GET");
 
@@ -609,7 +609,7 @@ public class Menu_Principal_Activity extends Activity
 				updateCriterios();
 				updateAnimais();
 
-				dialog = ProgressDialog.show(this,"Sincronisando dados...","Aguarde ...", false, true);
+				dialog = ProgressDialog.show(this,"Sincronizando dados...","Aguarde ...", false, true);
 
 				mHandler.postDelayed(mRun, 5000);
 			}
@@ -691,7 +691,14 @@ public class Menu_Principal_Activity extends Activity
 
 	private void post()
     {
-        new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
+    	try {
+			new Post_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
+		}
+		catch (Exception e)
+		{
+			Log.i("POSTFILE", e.toString());
+			e.printStackTrace();
+		}
     }
 
 	private void postViaWeb()
@@ -723,6 +730,14 @@ public class Menu_Principal_Activity extends Activity
 	{
 		Constantes.CREATE_ARQUIVO = false;
 
+		Parto_Cria p_cria_tb = new Parto_Cria();
+		List<Parto_Cria> p_cria_list = p_cria_model.selectAll(getBaseContext(), "Parto_Cria", p_cria_tb);
+		if(p_cria_list.size() == 0)
+		{
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Não existe(m) parto(s) a enviar!");
+			return;
+		}
+
 		if (checksConnectionBluetooth())
 		{
 			Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja enviar os dados?", new DialogInterface.OnClickListener()
@@ -744,6 +759,14 @@ public class Menu_Principal_Activity extends Activity
 	private void postViaArquivo()
 	{
 		Constantes.CREATE_ARQUIVO = true;
+
+		Parto_Cria p_cria_tb = new Parto_Cria();
+		List<Parto_Cria> p_cria_list = p_cria_model.selectAll(getBaseContext(), "Parto_Cria", p_cria_tb);
+		if(p_cria_list.size() == 0)
+		{
+			Mensagem_Util.addMsg(Message_Dialog.Toast, this, "Não existe(m) parto(s) a enviar!");
+			return;
+		}
 
 		Mensagem_Util.addMsg(Menu_Principal_Activity.this, "Aviso", "Deseja gerar o Arquivo?", new DialogInterface.OnClickListener()
 		{
@@ -781,6 +804,12 @@ public class Menu_Principal_Activity extends Activity
 	private boolean checksConnectionBluetooth()
 	{
 		boolean connected;
+		Boolean status = false;
+		if(Constantes.btSocket != null)
+		{
+			//Tentar fazer a verificação pelo btSocket
+
+		}
 
 		if (Constantes.STATUS_CONN == "conectado")
 		{

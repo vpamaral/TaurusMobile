@@ -167,85 +167,71 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 	@Override
 	protected void onPostExecute(String json)
 	{
-		if (json != null)
-		{
-			if (Constantes.TIPO_ENVIO == "web")
-			{
-				if (c_http.servResultPost != HttpsURLConnection.HTTP_OK)
-				{
-					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
-					mProgress.dismiss();
+		try {
+			if (json != null) {
+				if (Constantes.TIPO_ENVIO == "web") {
+					if (c_http.servResultPost != HttpsURLConnection.HTTP_OK) {
+						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
+						mProgress.dismiss();
+					} else {
+						try {
+							crw.createFile();
+							crw.writeInFile(json);
+
+							parto_model.deletingLogic(ctx);
+							Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
+							mProgress.dismiss();
+						} catch (IOException e) {
+							Log.i("PARTOS_WEB", e.toString());
+							e.printStackTrace();
+						}
+					}
 				}
-				else
-				{
-					try
-					{
+
+				if (Constantes.TIPO_ENVIO == "bluetooth") {
+					if (Constantes.STATUS_CONN == "desconectado") {
+						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "O dipositivo não esta conectado ao Servidor.");
+						mProgress.dismiss();
+					} else {
+						try {
+							crw.createFile();
+							crw.writeInFile(json);
+
+							parto_model.deletingLogic(ctx);
+							Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
+							Constantes.STATUS_CONN = ("desconectado");
+							Constantes.LBL_STATUS.setText("Desconectado");
+							mProgress.dismiss();
+						} catch (IOException e) {
+							Log.i("PARTOS_BLUETOOTH", e.toString());
+							e.printStackTrace();
+						}
+					}
+				}
+
+				if (Constantes.TIPO_ENVIO == "arquivo") {
+					try {
 						crw.createFile();
 						crw.writeInFile(json);
-					}
-					catch (IOException e)
-					{
-						Log.i("PARTOS_WEB", e.toString());
+
+						parto_model.deletingLogic(ctx);
+						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Arquivo gerado com sucesso.");
+						mProgress.dismiss();
+					} catch (IOException e) {
+						Log.i("ARQUIVO_PARTOS", e.toString());
 						e.printStackTrace();
 					}
-
-					parto_model.deletingLogic(ctx);
-					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
-					mProgress.dismiss();
-				}
-			}
-
-			if (Constantes.TIPO_ENVIO == "bluetooth")
-			{
-				if (Constantes.STATUS_CONN == "desconectado")
-				{
-					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "O dipositivo não esta conectado ao Servidor.");
-					mProgress.dismiss();
-				}
-				else
-				{
-					try
-					{
-						crw.createFile();
-						crw.writeInFile(json);
-					}
-					catch (IOException e)
-					{
-						Log.i("PARTOS_BLUETOOTH", e.toString());
-						e.printStackTrace();
-					}
-
-					parto_model.deletingLogic(ctx);
-					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados enviados com sucesso.");
-					Constantes.STATUS_CONN = ("desconectado");
-					Constantes.LBL_STATUS.setText("Desconectado");
-					mProgress.dismiss();
-				}
-			}
-
-			if (Constantes.TIPO_ENVIO == "arquivo")
-			{
-				try
-				{
-					crw.createFile();
-					crw.writeInFile(json);
-				}
-				catch (IOException e)
-				{
-					Log.i("ARQUIVO_PARTOS", e.toString());
-					e.printStackTrace();
 				}
 
-				parto_model.deletingLogic(ctx);
-				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Arquivo gerado com sucesso.");
+				this.menu_principal_activity.buscaPartosLancados();
+			} else {
+				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não existem dados para serem enviados.");
 				mProgress.dismiss();
 			}
-
-			this.menu_principal_activity.buscaPartosLancados();
 		}
-		else
+		catch (Exception erro)
 		{
-			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não existem dados para serem enviados.");
+			Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Erro ao executar a operação.");
 			mProgress.dismiss();
 		}
 	}

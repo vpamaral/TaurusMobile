@@ -219,7 +219,7 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 				mProgress.dismiss();
 
 				if (objListaAnimal.isEmpty())
-					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contem dados no arquivo selecionado.");
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contém dados no arquivo selecionado.");
 				else
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
 			}
