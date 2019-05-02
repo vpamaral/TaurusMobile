@@ -18,17 +18,17 @@
         android:text="..." />
 
     <Button
-        android:text="Dispositivos pareados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_selector"
+        android:onClick="searchPairedDevices"
         android:shadowColor="#A8A8A8"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
+        android:text="Dispositivos pareados"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:onClick="searchPairedDevices" />
+        android:textSize="20sp" />
 
     <Button
         android:text="Iniciar descoberta de dispositivos"

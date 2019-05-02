@@ -11,25 +11,25 @@
         <menu>
             <item
                 android:id="@+id/menu_dispositivos_pariados"
-                android:icon="@drawable/connect_icon"
+                android:icon="@drawable/dispositivos_pareados"
                 android:showAsAction="always"
                 android:title="Dispositivos pareados"/>
 
             <item
                 android:id="@+id/menu_habilitar_visibilidade"
-                android:icon="@drawable/connect_icon"
+                android:icon="@drawable/habilitar_visibilidade"
                 android:showAsAction="always"
                 android:title="Habilitar Visibilidade"/>
 
             <item
                 android:id="@+id/menu_descoberta_dispositivo"
-                android:icon="@drawable/connect_icon"
+                android:icon="@drawable/descoberta"
                 android:showAsAction="always"
                 android:title="Descoberta de dispositivos"/>
 
             <item
                 android:id="@+id/menu_esperar_conexao"
-                android:icon="@drawable/connect_icon"
+                android:icon="@drawable/esperar_conexao"
                 android:showAsAction="always"
                 android:title="Esperar conexão"/>
             <item
