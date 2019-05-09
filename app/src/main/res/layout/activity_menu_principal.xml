@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
-    tools:context=".view.Menu_Principal_Activity" >
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".view.Menu_Principal_Activity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="1" >
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Status do Bluetooth: "
-                android:textStyle="bold"
-                android:layout_gravity="center" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/lbl_status_MSG"
@@ -40,17 +39,17 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="0,1"
-            >
+            android:stretchColumns="0,1">
 
             <TableRow>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:orientation="horizontal"
+                    android:layout_column="0"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
-                    android:layout_column="0">
+                    android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/imagebutton_open_atualiza"
@@ -70,7 +69,8 @@
                         android:shadowRadius="5"
                         android:text="Atualizar\nDados"
                         android:textColor="#FFFFFF"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     >
 
@@ -79,10 +79,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
+                    android:layout_column="1"
                     android:layout_marginLeft="5dp"
-                    android:layout_column="1">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/imagebutton_open_enviar"
@@ -102,7 +102,8 @@
                         android:shadowRadius="5"
                         android:text="Enviar   \nPartos   "
                         android:textColor="#FFFFFF"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     >
 
@@ -115,8 +116,7 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="0,1"
-            >
+            android:stretchColumns="0,1">
 
             <TableRow>
 
@@ -124,17 +124,17 @@
                     android:id="@+id/linear_ult_atualizacao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="left"
                     android:layout_column="0"
-                    android:weightSum="1" >
+                    android:layout_gravity="left"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Últ. Atual.: "
                         android:gravity="center"
+                        android:text="Últ. Atual.: "
                         android:textColor="@color/bootstrap_brand_warning"
                         android:textStyle="bold" />
 
@@ -146,21 +146,22 @@
                         android:textColor="@color/bootstrap_brand_warning"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linear_partos_lancados"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_column="1"
-                    android:weightSum="1" >
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Partos à enviar: "
                         android:gravity="center"
+                        android:text="Partos à enviar: "
                         android:textColor="@color/bootstrap_brand_success"
                         android:textStyle="bold" />
 
@@ -169,8 +170,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textStyle="bold"
-                        android:textColor="@color/bootstrap_brand_success" />
+                        android:textColor="@color/bootstrap_brand_success"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </TableRow>
@@ -178,19 +179,14 @@
         </TableLayout>
 
 
-
-
-
-
         <LinearLayout
             android:id="@+id/btn_atualiza_web"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="0dp"
-            android:visibility="gone"
-            >
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageButton
                 android:id="@+id/imagebutton_atualiza_web"
@@ -203,7 +199,6 @@
 
             <Button
 
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -218,7 +213,8 @@
                 android:text="Atualizar Via Web"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
-                />
+                android:textStyle="bold"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -226,11 +222,10 @@
             android:id="@+id/btn_atualiza_bluetooth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="0dp"
-            android:visibility="gone"
-            >
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageButton
                 android:id="@+id/imagebutton_atualizar_blue"
@@ -246,7 +241,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
                 android:background="@color/bootstrap_brand_warning"
                 android:onClick="btn_atualiza_via_bluetooth_Click"
                 android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
@@ -257,8 +251,8 @@
                 android:text="Atualizar Via Bluetooth"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
-                android:visibility="visible"
-                />
+                android:textStyle="bold"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -266,11 +260,11 @@
             android:id="@+id/btn_atualiza_arquivo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="0dp"
-            android:visibility="gone"
-            >
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
             <ImageButton
                 android:id="@+id/imagebutton_atualizar_ar"
                 android:layout_width="50dp"
@@ -281,11 +275,9 @@
                 android:src="@android:drawable/stat_sys_download" />
 
             <Button
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
                 android:background="@color/bootstrap_brand_warning"
                 android:onClick="btn_open_arquivo_Click"
                 android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
@@ -295,20 +287,21 @@
                 android:shadowRadius="5"
                 android:text="Atualizar Via Arquivo"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
         </LinearLayout>
-
 
 
         <LinearLayout
             android:id="@+id/btn_enviar_web"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="30dp"
-            android:visibility="gone"
-            >
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
             <ImageButton
                 android:id="@+id/imagebutton_enviar_web"
                 android:layout_width="50dp"
@@ -319,11 +312,10 @@
                 android:src="@android:drawable/stat_sys_upload" />
 
             <Button
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/bootstrap_brand_success"
                 android:onClick="btn_enviar_via_web_Click"
                 android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
@@ -333,7 +325,9 @@
                 android:shadowRadius="5"
                 android:text="Enviar Via Web"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -341,11 +335,10 @@
             android:id="@+id/btn_enviar_bluetooth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            android:visibility="gone"
-            >
+            android:orientation="horizontal"
+            android:visibility="gone">
+
             <ImageButton
                 android:id="@+id/imagebutton_enviar_blue"
                 android:layout_width="50dp"
@@ -356,11 +349,10 @@
                 android:src="@android:drawable/stat_sys_data_bluetooth" />
 
             <Button
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/bootstrap_brand_success"
                 android:onClick="btn_enviar_via_bluetooth_Click"
                 android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
@@ -370,7 +362,9 @@
                 android:shadowRadius="5"
                 android:text="Enviar Via Bluetooth"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -378,11 +372,10 @@
             android:id="@+id/btn_enviar_arquivo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            android:visibility="gone"
-            >
+            android:orientation="horizontal"
+            android:visibility="gone">
+
             <ImageButton
                 android:id="@+id/imagebutton_enviar_ar"
                 android:layout_width="50dp"
@@ -393,11 +386,10 @@
                 android:src="@android:drawable/stat_sys_upload" />
 
             <Button
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/bootstrap_brand_success"
                 android:onClick="btn_create_file_Click"
                 android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
@@ -407,7 +399,9 @@
                 android:shadowRadius="5"
                 android:text="Gerar Arquivo"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -424,7 +418,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:background="@drawable/btn_selector"
+            android:background="@drawable/gradientinvertido"
             android:drawableLeft="@android:drawable/stat_notify_chat"
             android:onClick="btn_list_animais_Click"
             android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
@@ -435,13 +429,14 @@
             android:text="Lista de Animais"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
+            android:textStyle="bold"
             tools:drawableLeft="@android:drawable/stat_notify_chat" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
+            android:background="@drawable/gradientinvertido"
             android:drawableLeft="@android:drawable/stat_notify_more"
             android:onClick="btn_cadastro_parto_Click"
             android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
@@ -452,13 +447,14 @@
             android:text="Cadastro de Parto"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
+            android:textStyle="bold"
             tools:drawableLeft="@android:drawable/stat_notify_more" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
+            android:background="@drawable/gradientinvertido"
             android:drawableLeft="@android:drawable/stat_notify_chat"
             android:onClick="btn_relatorio_parto_Click"
             android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
@@ -469,6 +465,7 @@
             android:text="Relatório Partos"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
+            android:textStyle="bold"
             tools:drawableLeft="@android:drawable/stat_notify_chat" />
 
 

@@ -4,10 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.google.gson.JsonParser;
-
 import java.util.List;
+import java.util.HashMap;
+import android.database.DatabaseUtils.InsertHelper;
 
 import br.com.prodap.taurusmobile.adapter.Animal_Adapter;
 import br.com.prodap.taurusmobile.helper.Configuracao_Helper;
@@ -23,8 +22,13 @@ import br.com.prodap.taurusmobile.util.Message_Dialog;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
 import br.com.prodap.taurusmobile.view.Configuracao_Activity;
 import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
+import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.R;
 import android.widget.TextView;
+import java.util.Map.Entry;
+import java.util.Iterator;
+import android.database.DatabaseUtils;
+
 
 public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 {
@@ -112,7 +116,14 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 			{
 				mProgress.setMax(objListaAnimal.size());
 
-				for (Animal animal : objListaAnimal)
+				HashMap<Long, Animal> animalMap = new HashMap<Long, Animal>();
+				for (Animal animal_tb : objListaAnimal) {
+					animalMap.put(animal_tb.getId_pk(), animal_tb);
+				}
+
+				fillDatabase(ctx, animalMap, "Animal");
+
+				/*for (Animal animal : objListaAnimal)
 				{
 					if (objListaAnimal.size() > 0)
 					{
@@ -120,7 +131,7 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 						publishProgress(i * 1);
 					}
 					i++;
-				}
+				}*/
 
 				try {
 					String data_atualizacao = getJSON.data_arquivo.toString();
@@ -232,4 +243,46 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 
 		this.menu_principal_activity.buscaDataAtualizacao();
 	}
+
+	public void fillDatabase(Context ctx, HashMap<Long, Animal> localData, String Table){
+
+		Banco banco = new Banco(ctx);
+
+		//The InsertHelper needs to have the db instance + the name of the table where you want to add the data
+		InsertHelper ih = new InsertHelper(banco.getReadableDatabase(), Table);
+		Iterator<Entry<Long, Animal>> it = localData.entrySet().iterator();
+		final int id_pk = ih.getColumnIndex("id_pk");
+		final int codigo = ih.getColumnIndex("codigo");
+		final int identificador = ih.getColumnIndex("identificador");
+		final int codigo_ferro = ih.getColumnIndex("codigo_ferro");
+		final int data_nascimento = ih.getColumnIndex("data_nascimento");
+		final int sexo = ih.getColumnIndex("sexo");
+		try{
+			int i = 0;
+			banco.getReadableDatabase().setLockingEnabled(false);
+			while(it.hasNext()){
+				Entry<Long, Animal> entry = it.next();
+
+				ih.prepareForInsert();
+				ih.bind(id_pk, entry.getKey());
+				ih.bind(codigo, entry.getValue().getCodigo());
+				ih.bind(identificador, entry.getValue().getIdentificador());
+				ih.bind(codigo_ferro, entry.getValue().getCodigo_ferro());
+				ih.bind(data_nascimento, entry.getValue().getData_nascimento());
+				ih.bind(sexo, entry.getValue().getSexo());
+				ih.execute();
+
+				publishProgress(i * 1);
+				i++;
+			}
+		}catch(Exception e){e.printStackTrace();}
+		finally{
+			if(ih!=null)
+				ih.close();
+			banco.getReadableDatabase().setLockingEnabled(true);
+		}
+	}
+
+
+
 }

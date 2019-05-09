@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".view.Relatorio_Partos_Activity" >
+    tools:context=".view.Relatorio_Partos_Activity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp" android:layout_weight="1"
-        android:background="@drawable/btn_selector">
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@drawable/gradientinvertido">
 
         <TextView
             android:layout_width="0dp"
@@ -20,8 +19,8 @@
             android:gravity="center"
             android:text="Data Parto"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
 
@@ -31,8 +30,8 @@
             android:gravity="center"
             android:text="Sexo Parto"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
 
@@ -40,64 +39,66 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:text="Quantidade"
+            android:text="Qtd."
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="50dp">
 
         <TableLayout
+            android:id="@+id/history_table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/bootstrap_alert_cross_default"
-            android:id="@+id/history_table"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
-            <TableRow android:visibility="gone"
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="2dp">
+                android:paddingTop="2dp"
+                android:visibility="gone">
 
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:text="10/12/2018"
-                        android:textColor="@color/bootstrap_gray_dark"
-                        android:textSize="18sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="10/12/2018"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="18sp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:text="FE"
-                        android:textColor="@color/bootstrap_gray_dark"
-                        android:textSize="18sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="FE"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="18sp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:gravity="center"
-                        android:text="5"
-                        android:textColor="@color/bootstrap_gray_dark"
-                        android:textSize="18sp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="18sp" />
             </TableRow>
-            <TableRow android:visibility="gone"
+
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="2dp">
+                android:paddingTop="2dp"
+                android:visibility="gone">
 
 
                 <TextView

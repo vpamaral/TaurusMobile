@@ -112,10 +112,20 @@ public class Parto_Cria_Model extends Banco_Service {
 				}
 			}
 
-			if (pc_tb.getPasto().equals(""))
+			if (Parto_Activity.validaPasto == true) {
+				if (pc_tb.getPasto().equals(""))
+				{
+					//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
+					Validator_Exception ve = new Validator_Exception("O campo Pasto não pode ser vazio!");
+					ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+					ve.setException_args(new Object[] {});
+					throw ve;
+				}
+			}
+
+			if (pc_tb.getRaca_cria().equals(""))
 			{
-				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_DUPLICADO");
-				Validator_Exception ve = new Validator_Exception("O campo Pasto não pode ser vazio!");
+				Validator_Exception ve = new Validator_Exception("O campo Raça Cria não pode ser vazio!");
 				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
 				ve.setException_args(new Object[] {});
 				throw ve;

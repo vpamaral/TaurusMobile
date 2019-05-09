@@ -9,12 +9,14 @@ import android.util.Log;
 
 import br.com.prodap.taurusmobile.adapter.Criterio_Adapter;
 import br.com.prodap.taurusmobile.adapter.Grupo_Manejo_Adapter;
+import br.com.prodap.taurusmobile.adapter.Raca_Adapter;
 import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.helper.Animal_Helper;
 import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.adapter.Animal_Adapter;
 import br.com.prodap.taurusmobile.tb.Criterio;
 import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
+import br.com.prodap.taurusmobile.tb.Raca;
 import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
@@ -31,6 +33,7 @@ public class Get_JSON
 	private String animais_json;
 	private String pasto_json;
 	private String grupo_json;
+	private String raca_json;
 	private String criterio_json;
 	public String data_arquivo;
 
@@ -55,6 +58,7 @@ public class Get_JSON
 		this.pasto_json 			= parts_json.nextToken();
 		this.grupo_json 			= parts_json.nextToken();
 		this.criterio_json			= parts_json.nextToken();
+		this.raca_json 				= parts_json.nextToken();
 		try
 		{
 			this.data_arquivo 			= parts_json.nextToken();
@@ -337,6 +341,71 @@ public class Get_JSON
 			}
 
 			return c_list;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			throw  new Validator_Exception("Impossível estabelecer conexão com o Banco Dados do Servidor.");
+		}
+	}
+
+	//gera a lista via bluetooth ou via arquivo
+	public ArrayList<Raca> GetRacas() throws Validator_Exception
+	{
+		Raca_Adapter gm_helper = new Raca_Adapter();
+		LoadJson();
+
+		try
+		{
+			Log.i("JSON", this.raca_json);
+
+			Gson gson 						= new Gson();
+			ArrayList<Raca> gm_list = null;
+			Raca[] gm_array 		= gson.fromJson(this.raca_json, Raca[].class);
+
+			if (gm_array.length > 0)
+			{
+				gm_list = gm_helper.arrayRaca(gm_array);
+				return gm_list;
+			}
+			else
+			{
+				return gm_list;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			throw  new Validator_Exception("Impossível estabelecer conexão com o Banco Dados do Servidor.");
+		}
+	}
+
+	public ArrayList<Raca> listRaca() throws Validator_Exception
+	{
+		Raca_Adapter raca_adapter = new Raca_Adapter();
+		Raca[] array_raca;
+
+		try
+		{
+			Gson gson = new Gson();
+			ArrayList<Raca> list_raca = null;
+
+			if (Constantes.TIPO_ENVIO == "web")
+			{
+				//conexao com a web
+				Conexao_HTTP conexaoServidor 	= new Conexao_HTTP(url, ctx);
+				String retornoDadosJSON 		= conexaoServidor.lerUrlServico(url);
+				array_raca 					= gson.fromJson(retornoDadosJSON, Raca[].class);
+				list_raca 						= raca_adapter.arrayRaca(array_raca);
+			}
+
+			if (Constantes.TIPO_ENVIO == "bluetooth" || Constantes.TIPO_ENVIO == "arquivo")
+			{
+				//via bluetooth ou via arquivo
+				list_raca = GetRacas();
+			}
+
+			return list_raca;
 		}
 		catch (Exception e)
 		{

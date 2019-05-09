@@ -23,6 +23,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,11 +42,13 @@ import br.com.prodap.taurusmobile.adapter.Parto_Cria_Adapter;
 import br.com.prodap.taurusmobile.bluetooth.Bluetooth_Activity;
 import br.com.prodap.taurusmobile.model.Criterio_Model;
 import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
+import br.com.prodap.taurusmobile.model.Raca_Model;
 import br.com.prodap.taurusmobile.model.Parto_Cria_Model;
 import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.tb.Configuracao;
 import br.com.prodap.taurusmobile.tb.Criterio;
 import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
+import br.com.prodap.taurusmobile.tb.Raca;
 import br.com.prodap.taurusmobile.tb.Leitor;
 import br.com.prodap.taurusmobile.tb.Parto;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
@@ -55,6 +58,7 @@ import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
+import br.com.prodap.taurusmobile.model.Raca_Model;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
@@ -75,6 +79,8 @@ public class Parto_Activity extends Activity
     private LinearLayout ll_sisbov;
     private LinearLayout ll_manejo;
     private LinearLayout ll_cod_alternativo;
+    private LinearLayout ll_criterio;
+    private LinearLayout ll_pasto;
 
     private Calendar calendario;
     private static EditText editMatriz;
@@ -85,7 +91,9 @@ public class Parto_Activity extends Activity
     private static EditText editIdentificador;
     private static EditText editSisbov;
     private AutoCompleteTextView editGrupoManejo;
+    private AutoCompleteTextView editRaca;
     private AutoCompleteTextView editCriterio;
+    private AutoCompleteTextView editPasto;
     private EditText editPeso;
     private EditText editDataIdentificacao;
     private Button btnSalvar;
@@ -94,15 +102,17 @@ public class Parto_Activity extends Activity
     private Spinner spinPerda;
     private Spinner spinSexo;
     private Spinner spinRacaCria;
-    private CheckBox cbTipoParto;
+    private RadioButton rbTipoPartoGenetica;
     private CheckBox cbDescarte;
     private TextView txtidanimal;
 
     private Animal_Model ani_model;
     private Animal animal_tb;
+    private Raca raca_tb;
     private Parto_Model parto_model;
     private Parto_Cria_Model cria_model;
     private Configuracao_Model conf_model;
+    private Raca_Model raca_model;
     private Configuracao conf_tb;
     private Parto parto_tb;
     private Parto_Cria cria_tb;
@@ -112,6 +122,7 @@ public class Parto_Activity extends Activity
     private List<Parto_Cria> listaCria;
     private static List<String> listaMatriz;
     private static List<Animal> listaAnimal;
+    private static List<Raca> listaRaca;
 
     private String strSisbov;
     private static String strIdentificador;
@@ -129,6 +140,8 @@ public class Parto_Activity extends Activity
     public static boolean validaIdentificador;
     public static boolean validaManejo;
     public static boolean validaCodAlternativo;
+    public static boolean validaCriterio;
+    public static boolean validaPasto;
     public boolean animal_macho;
 
     private String cod_matriz_invalido;
@@ -210,6 +223,10 @@ public class Parto_Activity extends Activity
         FLAG_CODIGO_MATRIZ_DUPLICADO    = false;
         FLAG_ID_FK_MAE_DUPLICADO        = false;
 
+        loadData();
+
+        source();
+
         buscaPasto();
 
         buscaGrupoManejo();
@@ -217,10 +234,6 @@ public class Parto_Activity extends Activity
         //buscaCriterio();
 
         loadComboBox();
-
-        loadData();
-
-        source();
 
         changeSexo();
 
@@ -344,8 +357,8 @@ public class Parto_Activity extends Activity
                         }
                     }*/
 
-                    cria_tb.setTipo_parto(cbTipoParto.isChecked() ? "GENETICA" : "ESTIMADO");
-                    strGenetica = cbTipoParto.isChecked() ? "GENETICA" : "ESTIMADO";
+                    cria_tb.setTipo_parto(rbTipoPartoGenetica.isChecked() ? "GENETICA" : "ESTIMADO");
+                    strGenetica = rbTipoPartoGenetica.isChecked() ? "GENETICA" : "ESTIMADO";
 
                     cria_tb.setRepasse(cbDescarte.isChecked() ? "SIM" : "NAO");
                     cria_tb.setSexo(spinSexo.getSelectedItem() == "FÊMEA" ? "FE" : "MA");
@@ -469,37 +482,34 @@ public class Parto_Activity extends Activity
         editMatriz.setOnFocusChangeListener(new OnFocusChangeListener()
         {
             @Override
-            public void onFocusChange(View v, boolean hasFocus)
-            {
+            public void onFocusChange(View v, boolean hasFocus) {
                 final Animal animal;
                 animal_macho = false;
-                if (!hasFocus)
-                {
-                    if (editMatriz.getText().toString() != "")
-                    {
-                        animal = ani_model.selectByCodigo(Parto_Activity.this, editMatriz.getText().toString());
+                String mt = editMatriz.getText().toString().trim();
 
-                        txtidanimal.setText(String.valueOf(animal.getId_pk()));
-                        listaMatriz = new ArrayList<String>();
+                if (!hasFocus && mt.length() > 0) {
 
-                        for (Animal animalList : listaAnimal)
-                        {
-                            if (animalList.getCodigo().equals(editMatriz.getText().toString().toLowerCase())
+                    animal = ani_model.selectByCodigo(Parto_Activity.this, editMatriz.getText().toString());
+
+                    txtidanimal.setText(String.valueOf(animal.getId_pk()));
+                    listaMatriz = new ArrayList<String>();
+
+                    for (Animal animalList : listaAnimal) {
+                        if (animalList.getCodigo().equals(editMatriz.getText().toString().toLowerCase())
                                 || animalList.getCodigo().equals(editMatriz.getText().toString().toUpperCase())
                                 || animalList.getCodigo_ferro().equals(editMatriz.getText().toString().toLowerCase())
-                                || animalList.getCodigo_ferro().equals(editMatriz.getText().toString().toUpperCase()))
-                            {
-                                listaMatriz.add(animalList.getCodigo());
-                                editMatriz.setText(animalList.getCodigo());
+                                || animalList.getCodigo_ferro().equals(editMatriz.getText().toString().toUpperCase())) {
+                            listaMatriz.add(animalList.getCodigo());
+                            editMatriz.setText(animalList.getCodigo());
 
-                                if(animalList.getSexo().equals("MA")){
-                                    animal_macho = true;
-                                }
+                            if (animalList.getSexo().equals("MA")) {
+                                animal_macho = true;
                             }
                         }
                     }
+
                     matrizInvalida();
-                    if(animal_macho){
+                    if (animal_macho) {
                         txtidanimal.setText("");
                     }
                 }
@@ -565,6 +575,7 @@ public class Parto_Activity extends Activity
                     }
                     else
                     {
+                        spinPerda.setSelection(0);
                         spinPerda.setEnabled(false);
                     }
                 }
@@ -731,6 +742,34 @@ public class Parto_Activity extends Activity
                 ll_cod_alternativo.setVisibility(LinearLayout.GONE);
                 validaCodAlternativo = false;
             }
+
+            if (listConf.get(0).getValida_criterio().equals("S"))
+            {
+                editCriterio.setEnabled(true);
+                ll_criterio.setVisibility(LinearLayout.VISIBLE);
+                validaCriterio = true;
+            }
+            else
+            {
+                editCriterio.setText("");
+                editCriterio.setEnabled(false);
+                ll_criterio.setVisibility(LinearLayout.GONE);
+                validaCriterio = false;
+            }
+
+            if (listConf.get(0).getValida_pasto().equals("S"))
+            {
+                editPasto.setEnabled(true);
+                ll_pasto.setVisibility(LinearLayout.VISIBLE);
+                validaPasto = true;
+            }
+            else
+            {
+                editPasto.setText("");
+                editPasto.setEnabled(false);
+                ll_pasto.setVisibility(LinearLayout.GONE);
+                validaPasto = false;
+            }
         }
     }
 
@@ -740,12 +779,14 @@ public class Parto_Activity extends Activity
         parto_model             = new Parto_Model(this);
         cria_model              = new Parto_Cria_Model(this);
         conf_model              = new Configuracao_Model(this);
+        raca_model              = new Raca_Model(this);
         p_helper                = new Parto_Adapter();
         pc_helper               = new Parto_Cria_Adapter();
         parto_tb                = new Parto();
         cria_tb                 = new Parto_Cria();
         conf_tb                 = new Configuracao();
         animal_tb               = new Animal();
+        raca_tb               = new Raca();
         bluetooth_activity      = new Bluetooth_Activity();
 
         editIdentificador       = (EditText) findViewById(R.id.edtIdentificador);
@@ -762,11 +803,14 @@ public class Parto_Activity extends Activity
         editDataIdentificacao   = (EditText) findViewById(R.id.edtDataIdentificacao);
 
         editCriterio            = (AutoCompleteTextView) findViewById(R.id.edtCriterio);
+        editPasto               = (AutoCompleteTextView) findViewById(R.id.edtBuscaPasto);
 
         ll_identificador        = (LinearLayout) findViewById(R.id.ll_identificador);
         ll_sisbov               = (LinearLayout) findViewById(R.id.ll_sisbov);
         ll_manejo               = (LinearLayout) findViewById(R.id.ll_manejo);
         ll_cod_alternativo      = (LinearLayout) findViewById(R.id.ll_cod_alternativo);
+        ll_criterio             = (LinearLayout) findViewById(R.id.ll_criterio);
+        ll_pasto                = (LinearLayout) findViewById(R.id.ll_pasto);
 
         listConf                = conf_model.selectAll(this, "Configuracao", conf_tb);
         listaAnimal             = ani_model.selectAll(this, "Animal", animal_tb);
@@ -803,13 +847,21 @@ public class Parto_Activity extends Activity
         adpSexo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinSexo.setAdapter(adpSexo);
 
+        listaRaca             = raca_model.selectAll(this, "Raca", raca_tb);
+        ArrayList<String> arrayRaca = new ArrayList<String>();
+        arrayRaca.add("");
+        for(Raca tbr : listaRaca)
+        {
+            if(tbr.getNome() != null)
+                arrayRaca.add(tbr.getNome());
+        }
         spinRacaCria = (Spinner) findViewById(R.id.spnRaca);
         ArrayAdapter<String> adpRaca = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, RACACRIA);
+                android.R.layout.simple_dropdown_item_1line, arrayRaca);
         adpRaca.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinRacaCria.setAdapter(adpRaca);
 
-        cbTipoParto = (CheckBox) findViewById(R.id.cbTipoParto);
+        rbTipoPartoGenetica = (RadioButton) findViewById(R.id.rbTipoPartoGenetica);
         cbDescarte = (CheckBox) findViewById(R.id.cbDescarte);
 
         calendario = Calendar.getInstance();
@@ -874,6 +926,36 @@ public class Parto_Activity extends Activity
         editGrupoManejo.setAdapter(grupo_adapter);
         editGrupoManejo.setThreshold(1);
     }
+
+    /*private void buscaRaca()
+    {
+        List<Raca> raca_list;
+        List<String> nome_raca_list  = new ArrayList<String>();
+        Raca raca_tb           = new Raca();
+        Raca_Model raca_model  = new Raca_Model(this);
+
+        try
+        {
+            raca_list = raca_model.selectAll(this, "Raca", raca_tb);
+
+            for (Raca g_tb : raca_list)
+            {
+                nome_raca_list.add(g_tb.getNome());
+            }
+        }
+        catch (Exception e)
+        {
+            Log.i("BuscaRaca", e.toString());
+            e.printStackTrace();
+        }
+
+        editRaca=(AutoCompleteTextView)findViewById(R.id.edtRacaCria);
+
+        ArrayAdapter<String> raca_adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,nome_raca_list);
+
+        editRaca.setAdapter(raca_adapter);
+        editRaca.setThreshold(1);
+    }*/
 
     private void buscaCriterio(String sexo)
     {
@@ -996,7 +1078,7 @@ public class Parto_Activity extends Activity
             /*Menu_Principal_Activity.old_sexo;*/
             spinSexo.setSelection(Menu_Principal_Activity.old_sexo != "MA" ? 0 : 1);
 
-            cbTipoParto.setChecked(Menu_Principal_Activity.old_genetica == "GENETICA" ? true : false);
+            rbTipoPartoGenetica.setChecked(Menu_Principal_Activity.old_genetica == "GENETICA" ? true : false);
         }
     }
 
@@ -1026,6 +1108,7 @@ public class Parto_Activity extends Activity
 
             parto_model.insert(Parto_Activity.this, "Parto", p_helper.getDadosParto(parto_tb));
             cria_model.insert(Parto_Activity.this, "Parto_Cria", pc_helper.getDadosCria(cria_tb));
+
             Mensagem_Util.addMsg(Message_Dialog.Toast, Parto_Activity.this, "Parto cadastrado com sucesso!");
             zeraInterface();
         }
@@ -1185,6 +1268,7 @@ public class Parto_Activity extends Activity
                     , ++month <= 9 ? "0" + (month) : (month)
                     , year);
             editDataParto.setText(date);
+            editMatriz.requestFocus();
         }
     };
 
@@ -1213,7 +1297,7 @@ public class Parto_Activity extends Activity
         editPeso.setText("");
         editIdentificador.setText("");
         editDataParto.setText("");
-        editCodAlternativo.requestFocus();
+        editMatriz.requestFocus();
     }
 
     @Override

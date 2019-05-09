@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Banco extends SQLiteOpenHelper {
 
-	static final String DATABASE = "DBTaurusMobile";
+	static final String DATABASE = "PartoMobileDB";
 	static final int VERSION = 1;
 
 	public Banco(Context context) {
@@ -71,6 +71,8 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'valida_sisbov'   		varchar(5),"
 				+ "'valida_manejo'   		varchar(5),"
 				+ "'valida_cod_alternativo'	varchar(5),"
+				+ "'valida_criterio'		varchar(5),"
+				+ "'valida_pasto'			varchar(5),"
 				+ "'ultima_atualizacao'		varchar(15)"
 				+");";
 
@@ -90,6 +92,12 @@ public class Banco extends SQLiteOpenHelper {
 				+ "'sexo'      			varchar(10)"
 				+");";
 
+		String sql_raca = "CREATE TABLE 'Raca' ("
+				+ "'id_auto'	    		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'codigo'        			varchar(50),"
+				+ "'nome'        			varchar(100)"
+				+");";
+
 		db.execSQL(sql_animal);
 		db.execSQL(sql_parto);
 		db.execSQL(sql_parto_cria);
@@ -97,6 +105,7 @@ public class Banco extends SQLiteOpenHelper {
 		db.execSQL(sql_pasto);
 		db.execSQL(sql_grupo_manejo);
 		db.execSQL(sql_criterio);
+		db.execSQL(sql_raca);
 	}
 
 	@Override

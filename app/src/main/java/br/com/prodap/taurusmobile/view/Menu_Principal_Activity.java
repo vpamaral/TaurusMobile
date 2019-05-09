@@ -49,6 +49,7 @@ import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.model.Criterio_Model;
 import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
+import br.com.prodap.taurusmobile.model.Raca_Model;
 import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.model.Parto_Cria_Model;
@@ -56,6 +57,7 @@ import br.com.prodap.taurusmobile.service.Get_JSON;
 import br.com.prodap.taurusmobile.task.Get_Animais_JSON;
 import br.com.prodap.taurusmobile.task.Get_Criterios_JSON;
 import br.com.prodap.taurusmobile.task.Get_Grupo_Manejo_JSON;
+import br.com.prodap.taurusmobile.task.Get_Raca_JSON;
 import br.com.prodap.taurusmobile.task.Get_Pastos_JSON;
 import br.com.prodap.taurusmobile.task.Post_Animais_JSON;
 import br.com.prodap.taurusmobile.tb.Configuracao;
@@ -163,12 +165,12 @@ public class Menu_Principal_Activity extends Activity
 		be_b.setVisibility(View.GONE);
 		be_a.setVisibility(View.GONE);
 
-        LinearLayout ba_w = (LinearLayout) findViewById(R.id.btn_atualiza_web);
+        //LinearLayout ba_w = (LinearLayout) findViewById(R.id.btn_atualiza_web);
 		LinearLayout ba_b = (LinearLayout) findViewById(R.id.btn_atualiza_bluetooth);
 		LinearLayout ba_a = (LinearLayout) findViewById(R.id.btn_atualiza_arquivo);
 
-		if (ba_w.getVisibility() == View.GONE) {
-			ba_w.setVisibility(View.VISIBLE);
+		if (ba_b.getVisibility() == View.GONE) {
+			//ba_w.setVisibility(View.VISIBLE);
 			ba_b.setVisibility(View.VISIBLE);
 			ba_a.setVisibility(View.VISIBLE);
 
@@ -187,7 +189,7 @@ public class Menu_Principal_Activity extends Activity
 			i_select.setBackgroundColor(Color.parseColor("#ffff8800"));
 
 		} else {
-			ba_w.setVisibility(View.GONE);
+			//ba_w.setVisibility(View.GONE);
 			ba_b.setVisibility(View.GONE);
 			ba_a.setVisibility(View.GONE);
 
@@ -209,12 +211,12 @@ public class Menu_Principal_Activity extends Activity
 		ba_b.setVisibility(View.GONE);
 		ba_a.setVisibility(View.GONE);
 
-		LinearLayout be_w = (LinearLayout) findViewById(R.id.btn_enviar_web);
+		//LinearLayout be_w = (LinearLayout) findViewById(R.id.btn_enviar_web);
 		LinearLayout be_b = (LinearLayout) findViewById(R.id.btn_enviar_bluetooth);
 		LinearLayout be_a = (LinearLayout) findViewById(R.id.btn_enviar_arquivo);
 
-		if (be_w.getVisibility() == View.GONE) {
-			be_w.setVisibility(View.VISIBLE);
+		if (be_b.getVisibility() == View.GONE) {
+			//be_w.setVisibility(View.VISIBLE);
 			be_b.setVisibility(View.VISIBLE);
 			be_a.setVisibility(View.VISIBLE);
 
@@ -233,7 +235,7 @@ public class Menu_Principal_Activity extends Activity
             i_select.setBackgroundColor(Color.parseColor("#ff669900"));
 
 		} else {
-			be_w.setVisibility(View.GONE);
+			//be_w.setVisibility(View.GONE);
 			be_b.setVisibility(View.GONE);
 			be_a.setVisibility(View.GONE);
 
@@ -584,6 +586,7 @@ public class Menu_Principal_Activity extends Activity
 					Constantes.TIPO_ENVIO = "bluetooth";
 					updatePastos();
 					updateGrupoManejo();
+					updateRaca();
 					updateCriterios();
 					updateAnimais();
 				}
@@ -606,6 +609,7 @@ public class Menu_Principal_Activity extends Activity
 			{
 				updatePastos();
 				updateGrupoManejo();
+				updateRaca();
 				updateCriterios();
 				updateAnimais();
 
@@ -655,6 +659,7 @@ public class Menu_Principal_Activity extends Activity
 				Constantes.TIPO_ENVIO = "arquivo";
 				updatePastos();
 				updateGrupoManejo();
+				updateRaca();
 				updateCriterios();
 				updateAnimais();
 			}
@@ -680,6 +685,13 @@ public class Menu_Principal_Activity extends Activity
 		Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(Menu_Principal_Activity.this);
 		grupo_model.delete(Menu_Principal_Activity.this, "Grupo_Manejo");
 		new Get_Grupo_Manejo_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+	}
+
+	private void updateRaca()
+	{
+		Raca_Model raca_model = new Raca_Model(Menu_Principal_Activity.this);
+		raca_model.delete(Menu_Principal_Activity.this, "Raca");
+		new Get_Raca_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
 	}
 
 	private void updateCriterios()

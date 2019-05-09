@@ -11,6 +11,8 @@ public class Configuracao implements Serializable  {
 	private String valida_manejo;
 	private String valida_sisbov;
 	private String valida_cod_alternativo;
+	private String valida_criterio;
+	private String valida_pasto;
 	private String ultima_atualizacao;
 
 	public long getId_auto() {
@@ -61,6 +63,20 @@ public class Configuracao implements Serializable  {
 	}
 	public void setValida_cod_alternativo(String valida_cod_alternativo) {
 		this.valida_cod_alternativo = valida_cod_alternativo;
+	}
+
+	public String getValida_criterio() {
+		return valida_criterio;
+	}
+	public void setValida_criterio(String valida_criterio) {
+		this.valida_criterio = valida_criterio;
+	}
+
+	public String getValida_pasto() {
+		return valida_pasto;
+	}
+	public void setValida_pasto(String valida_pasto) {
+		this.valida_pasto = valida_pasto;
 	}
 
 	public String getUltimaAtualizacao() {

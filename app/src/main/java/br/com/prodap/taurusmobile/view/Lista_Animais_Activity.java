@@ -10,6 +10,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.util.List;
 
@@ -29,6 +30,9 @@ public class Lista_Animais_Activity extends Activity
 	private long quantdAnimais;
 	private Button btn_select;
 	private int sexo_selected;
+	private Spinner spinSexo;
+
+	private static final String[] SEXO = new String[]{"TODOS", "FÊMEA", "MACHO"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -44,6 +48,12 @@ public class Lista_Animais_Activity extends Activity
 		this.consultarPorIdClick();
 		this.consultarPorIdClickLongo();
 
+		spinSexo = (Spinner) findViewById(R.id.spnSexoFiltro);
+		ArrayAdapter<String> adpSexo = new ArrayAdapter<String>(this,
+				android.R.layout.simple_dropdown_item_1line, SEXO);
+		adpSexo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		spinSexo.setAdapter(adpSexo);
+
 	}
 
 	private void AnimalList()
@@ -57,18 +67,24 @@ public class Lista_Animais_Activity extends Activity
 		sexo_selected = -1;
 	}
 
-	public void btn_macho_Click (View view)
+	/*public void btn_macho_Click (View view)
 	{
 	    btn_select = (Button) findViewById( R.id.btn_femea);
 		btn_select.setTextColor(Color.WHITE);
+		//btn_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
+		btn_select.setBackgroundColor(Color.GRAY);
 
 		if(sexo_selected == 1) {
 			((Button)view).setTextColor(Color.WHITE);
+			((Button)view).setBackgroundColor(Color.parseColor("#5cb85c"));
+			btn_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
 			AnimalList();
 			return;
 		}
-		else
-			((Button)view).setTextColor(Color.BLACK);
+		else {
+			//((Button) view).setTextColor(Color.BLACK);
+			((Button)view).setBackgroundColor(Color.parseColor("#5cb85c"));
+		}
 
 		animais 		= a_model.selectAllbySexo(this, "Animal", ani_tb, "MA");
 		quantdAnimais 	= animais.size();
@@ -84,14 +100,20 @@ public class Lista_Animais_Activity extends Activity
 	{
 		btn_select = (Button) findViewById( R.id.btn_macho);
 		btn_select.setTextColor(Color.WHITE);
+		//btn_select.setBackgroundColor(Color.parseColor("#5cb85c"));
+		btn_select.setBackgroundColor(Color.GRAY);
 
 		if(sexo_selected == 0) {
 			((Button)view).setTextColor(Color.WHITE);
+			((Button)view).setBackgroundColor(Color.parseColor("#f0ad4e"));
+			btn_select.setBackgroundColor(Color.parseColor("#5cb85c"));
 			AnimalList();
 			return;
 		}
-		else
-			((Button)view).setTextColor(Color.BLACK);
+		else {
+			//((Button) view).setTextColor(Color.BLACK);
+			((Button)view).setBackgroundColor(Color.parseColor("#f0ad4e"));
+		}
 
 		animais 		= a_model.selectAllbySexo(this, "Animal", ani_tb, "FE");
 		quantdAnimais 	= animais.size();
@@ -101,11 +123,33 @@ public class Lista_Animais_Activity extends Activity
 
         setTitle("Quantidade de Fêmeas: " + quantdAnimais);
 		sexo_selected = 0;
-	}
+	}*/
 
 	/*
 	 * Método executado quando algum item da lista é clicado
 	 */
+
+	public void btn_filtro_Click (View view)
+	{
+		Spinner spnSexo = (Spinner) findViewById(R.id.spnSexoFiltro);
+		String sexo_selecionado = spnSexo.getSelectedItem().toString();
+
+
+		if(sexo_selecionado == "TODOS") {
+			AnimalList();
+			return;
+		}
+		else
+			animais 		= a_model.selectAllbySexo(this, "Animal", ani_tb, sexo_selecionado == "MACHO" ? "MA" : "FE");
+
+		quantdAnimais 	= animais.size();
+		adapter         = new ArrayAdapter<Animal>(this, android.R.layout.simple_list_item_1, animais);
+
+		animal_list.setAdapter(adapter);
+
+		setTitle("Quantidade de " + (sexo_selecionado == "MACHO" ? "Machos: " : "Fêmeas: ") + quantdAnimais);
+	}
+
 	private void consultarPorIdClick()
 	{
 		animal_list.setOnItemClickListener(new OnItemClickListener()

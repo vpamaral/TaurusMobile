@@ -3,9 +3,6 @@ package br.com.prodap.taurusmobile.service;
 import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.util.Validator_Exception;
@@ -119,4 +116,5 @@ public abstract class Banco_Service
 			return "Erro";
 		}
 	}*/
+
 }

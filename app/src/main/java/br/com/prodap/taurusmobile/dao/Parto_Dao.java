@@ -50,7 +50,8 @@ public class Parto_Dao extends Banco {
         List<Relatorio_Parto> parto_list = new ArrayList<Relatorio_Parto>();
         String sql = String.format("select p.data_parto, p.sexo_parto, count(p.id_fk_animal) as qtd_partos\n" +
                 "from parto p\n" +
-                "where p.sync_status = 1\n" +
+                "where p.sync_status = 1" +
+                "\n" +
                 "group by p.data_parto, p.sexo_parto\n" +
                 "order by p.data_parto", Tabela);
 
