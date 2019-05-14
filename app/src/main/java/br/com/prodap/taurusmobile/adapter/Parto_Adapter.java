@@ -14,6 +14,7 @@ import java.util.List;
 import br.com.prodap.taurusmobile.tb.Relatorio_Parto;
 import br.com.prodap.taurusmobile.tb.Parto;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
+import br.com.prodap.taurusmobile.tb.Vacas_Gestantes;
 
 public class Parto_Adapter extends BaseAdapter
 {
@@ -90,6 +91,22 @@ public class Parto_Adapter extends BaseAdapter
 			parto.setDataParto(c.getString(c.getColumnIndex("data_parto")));
 			parto.setSexoParto(c.getString(c.getColumnIndex("sexo_parto")));
 			parto.setQtdPartos(c.getInt(c.getColumnIndex("qtd_partos")));
+			listaParto.add(parto);
+		}
+
+		return listaParto;
+	}
+
+	public List<Vacas_Gestantes> VacasGestantesPreencheArrayCursor(Cursor c)
+	{
+		List<Vacas_Gestantes> listaParto = new ArrayList<Vacas_Gestantes>();
+
+		while (c.moveToNext())
+		{
+			Vacas_Gestantes parto = new Vacas_Gestantes();
+			parto.setCodigo(c.getString(c.getColumnIndex("codigo")));
+			parto.setData_ultimo_dg(c.getString(c.getColumnIndex("data_ultimo_dg")));
+			parto.setData_parto_provavel(c.getString(c.getColumnIndex("data_parto_provavel")));
 			listaParto.add(parto);
 		}
 

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Banco extends SQLiteOpenHelper {
 
-	static final String DATABASE = "PartoMobileDB";
+	static final String DATABASE = "PartoMobileDataBase";
 	static final int VERSION = 1;
 
 	public Banco(Context context) {
@@ -17,13 +17,16 @@ public class Banco extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 
 		String sql_animal = "CREATE TABLE 'Animal' ("
-				+ "'id_auto'			INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "'id_pk'				INTEGER,"
-				+ "'codigo'				varchar(45),"
-				+ "'codigo_ferro'		varchar(45),"
-				+ "'identificador'		varchar(45),"
-				+ "'data_nascimento'	varchar(45),"
-				+ "'sexo'				varchar(10)"
+				+ "'id_auto'				INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "'id_pk'					INTEGER,"
+				+ "'codigo'					varchar(45),"
+				+ "'codigo_ferro'			varchar(45),"
+				+ "'identificador'			varchar(45),"
+				+ "'data_nascimento'		varchar(45),"
+				+ "'sexo'					varchar(10),"
+				+ "'situacao_reprodutiva'	varchar(70),"
+				+ "'data_ultimo_dg'			varchar(45),"
+				+ "'data_parto_provavel'	varchar(45)"
 				+ " );";
 				/*+ "'sisbov'			varchar(45),"
 				+ "'id_fk_cria'			INTEGER,"

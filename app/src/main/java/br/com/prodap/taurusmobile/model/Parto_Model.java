@@ -17,6 +17,7 @@ import br.com.prodap.taurusmobile.dao.Parto_Dao;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.service.Banco_Service;
 import br.com.prodap.taurusmobile.tb.Parto;
+import br.com.prodap.taurusmobile.tb.Vacas_Gestantes;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
 
 public class Parto_Model extends Banco_Service
@@ -41,7 +42,12 @@ public class Parto_Model extends Banco_Service
 		cal.setTime(data);
 		final Date data_atual = cal.getTime();
 
-		p_dao = new Parto_Dao(ctx);
+		final Calendar cal_limite = Calendar.getInstance();
+		cal_limite.setTime(data);
+		cal_limite.add(Calendar.DATE,-30);
+		final Date data_limite = cal_limite.getTime();
+
+				p_dao = new Parto_Dao(ctx);
 		p_tb = (Parto)table;
 
 		try {
@@ -59,6 +65,14 @@ public class Parto_Model extends Banco_Service
 			if (data_parto.after(data_atual)) {
 				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_NULO");
 				Validator_Exception ve = new Validator_Exception("A Data do Parto não pode ser maior que a Data de Identificação!");
+				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
+				ve.setException_args(new Object[] {});
+				throw ve;
+			}
+
+			if (data_parto.before(data_limite)) {
+				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_NULO");
+				Validator_Exception ve = new Validator_Exception("A Data do Parto não pode ser anterior a 30 dias!");
 				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
 				ve.setException_args(new Object[] {});
 				throw ve;
@@ -113,6 +127,13 @@ public class Parto_Model extends Banco_Service
 		p_dao = new Parto_Dao(ctx);
 
 		return p_dao.selectRelatorioPartos(ctx, Tabela, table);
+	}
+
+	public List<Vacas_Gestantes> selectVacasGestantes(Context ctx, String Tabela, Object table, String data_referencia)
+	{
+		p_dao = new Parto_Dao(ctx);
+
+		return p_dao.selectVacasGestantes(ctx, Tabela, table, data_referencia);
 	}
 
 	public void deletingLogic (Context ctx) {

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Vacas_Gestantes_Activity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@drawable/gradientinvertido">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="Código"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="Parto Provável"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="Parto Lançado"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp">
+
+        <TableLayout
+            android:id="@+id/history_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bootstrap_alert_cross_default"
+            android:orientation="vertical">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="2dp"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="10/12/2018"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="FE"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="18sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="10/12/2018"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="FE"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textColor="@color/bootstrap_gray_dark"
+                    android:textSize="18sp" />
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bootstrap_brand_secondary_border"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_column="0"
+                android:id="@+id/edtDataFiltro"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="datetime"
+                android:maxLength="10" />
+
+            <Button
+                android:id="@+id/btnFiltrar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="1"
+                android:layout_margin="4dp"
+                android:focusableInTouchMode="true"
+                android:background="@color/bootstrap_brand_success"
+                android:onClick="btn_filtro_Click"
+                android:text="Filtrar"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <!--
+            <Button
+                android:id="@+id/btn_macho"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_column="0"
+                android:background="@color/bootstrap_brand_success"
+                android:onClick="btn_macho_Click"
+                android:stateListAnimator="@null"
+                android:text="Machos"
+                android:textColor="#ffffff"
+                android:textSize="30sp"
+                android:layout_marginRight="2dp"/>
+
+            <Button
+                android:id="@+id/btn_femea"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_column="1"
+                android:background="@color/bootstrap_brand_warning"
+                android:elevation="10dp"
+                android:onClick="btn_femea_Click"
+                android:stateListAnimator="@null"
+                android:text="Fêmeas"
+                android:textColor="#ffffff"
+                android:textSize="30sp"
+                android:layout_marginLeft="2dp"/>-->
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</RelativeLayout>

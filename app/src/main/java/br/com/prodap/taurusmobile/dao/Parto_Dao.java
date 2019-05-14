@@ -12,6 +12,7 @@ import br.com.prodap.taurusmobile.tb.Relatorio_Parto;
 import br.com.prodap.taurusmobile.adapter.Parto_Adapter;
 import br.com.prodap.taurusmobile.service.Banco;
 import br.com.prodap.taurusmobile.tb.Parto;
+import br.com.prodap.taurusmobile.tb.Vacas_Gestantes;
 import br.com.prodap.taurusmobile.util.Validator_Exception;
 
 /**
@@ -58,6 +59,30 @@ public class Parto_Dao extends Banco {
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
         parto_list = p_adapter.RelatorioPartoPreencheArrayCursor(c);
+
+        banco.close();
+        return parto_list;
+    }
+
+    public List<Vacas_Gestantes> selectVacasGestantes(Context ctx, String Tabela, Object table, String data_referencia) {
+        Banco banco = new Banco(ctx);
+        p_adapter = new Parto_Adapter();
+
+        Class classe = table.getClass();
+        List<Vacas_Gestantes> parto_list = new ArrayList<Vacas_Gestantes>();
+        String sql = String.format("select p.codigo, case when pa.data_parto is null then '' else pa.data_parto end as data_ultimo_dg, p.data_parto_provavel\n" +
+                                        "from animal p \n" +
+
+                                        "left join parto pa on pa.id_fk_animal = p.id_pk \n" +
+                                        "where p.situacao_reprodutiva = 'GESTANTE' " +
+                                        "and DATE(substr(p.data_parto_provavel,7,4) ||'-' ||substr(p.data_parto_provavel,4,2) ||'-' ||substr(p.data_parto_provavel,1,2)) >= DATE('"+ data_referencia  +"', '-15 days') " +
+                                        "and DATE(substr(p.data_parto_provavel,7,4) ||'-' ||substr(p.data_parto_provavel,4,2) ||'-' ||substr(p.data_parto_provavel,1,2)) <= DATE('"+ data_referencia  +"', '+15 days') " +
+                                        "\n" +
+                                        "order by pa.data_parto desc, p.data_parto_provavel desc", Tabela);
+
+        Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
+
+        parto_list = p_adapter.VacasGestantesPreencheArrayCursor(c);
 
         banco.close();
         return parto_list;

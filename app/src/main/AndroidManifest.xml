@@ -46,6 +46,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".view.Vacas_Gestantes_Activity"
+            android:label="Vacas Gestantes"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".view.Lista_Animais_Activity"
             android:label="@string/title_activity_lista_animais"
             android:screenOrientation="portrait" />

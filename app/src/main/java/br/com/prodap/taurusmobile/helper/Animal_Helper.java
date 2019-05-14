@@ -48,6 +48,9 @@ public class Animal_Helper
         a_dados.put("data_nascimento", a_tb.getData_nascimento());
         a_dados.put("identificador", a_tb.getIdentificador());
         a_dados.put("sexo", a_tb.getSexo());
+        a_dados.put("situacao_reprodutiva", a_tb.getSituacao_reprodutiva());
+        a_dados.put("data_ultimo_dg", a_tb.getData_ultimo_dg());
+        a_dados.put("data_parto_provavel", a_tb.getData_parto_provavel());
 
         return a_dados;
     }
@@ -62,6 +65,9 @@ public class Animal_Helper
         a_tb.setCodigo_ferro(c.getString(c.getColumnIndex("codigo_ferro")) != null ? c.getString(c.getColumnIndex("codigo_ferro")) : "");
         a_tb.setData_nascimento(c.getString(c.getColumnIndex("data_nascimento")));
         a_tb.setSexo(c.getString(c.getColumnIndex("sexo")) != null ? c.getString(c.getColumnIndex("sexo")) : "");
+        a_tb.setSituacao_reprodutiva(c.getString(c.getColumnIndex("situacao_reprodutiva")) != null ? c.getString(c.getColumnIndex("situacao_reprodutiva")) : "");
+        a_tb.setData_ultimo_dg(c.getString(c.getColumnIndex("data_ultimo_dg")) != null ? c.getString(c.getColumnIndex("data_ultimo_dg")) : "");
+        a_tb.setData_parto_provavel(c.getString(c.getColumnIndex("data_parto_provavel")) != null ? c.getString(c.getColumnIndex("data_parto_provavel")) : "");
 
         //a_tb.setId_fk_cria(c.getLong(c.getColumnIndex("id_fk_cria")));
         //a_tb.setSisbov(c.getString(c.getColumnIndex("sisbov")) != null ? c.getString(c.getColumnIndex("sisbov")) : "");
@@ -86,6 +92,9 @@ public class Animal_Helper
             a_tb.setCodigo_ferro(AnimalArray[i].getCodigo_ferro() != null ? AnimalArray[i].getCodigo_ferro() : "");
             a_tb.setData_nascimento(AnimalArray[i].getData_nascimento());
             a_tb.setSexo(AnimalArray[i].getSexo() != null ? AnimalArray[i].getSexo() : "");
+            a_tb.setSituacao_reprodutiva(AnimalArray[i].getSituacao_reprodutiva() != null ? AnimalArray[i].getSituacao_reprodutiva() : "");
+            a_tb.setData_ultimo_dg(AnimalArray[i].getData_ultimo_dg() != null ? AnimalArray[i].getData_ultimo_dg() : "");
+            a_tb.setData_parto_provavel(AnimalArray[i].getData_parto_provavel() != null ? AnimalArray[i].getData_parto_provavel() : "");
 
             //animal.setId_fk_cria(AnimalArray[i].getId_fk_cria());
             //animal.setSisbov(AnimalArray[i].getSisbov() != null	? AnimalArray[i].getSisbov() : "");
@@ -109,6 +118,9 @@ public class Animal_Helper
         animal_tb.setCodigo_ferro(a_tb.getCodigo_ferro() != null ? a_tb.getCodigo_ferro() : "0");
         animal_tb.setData_nascimento(a_tb.getData_nascimento());
         animal_tb.setSexo(a_tb.getSexo() != null ? a_tb.getSexo() : "");
+        animal_tb.setSituacao_reprodutiva(a_tb.getSituacao_reprodutiva() != null ? a_tb.getSituacao_reprodutiva() : "");
+        animal_tb.setData_ultimo_dg(a_tb.getData_ultimo_dg() != null ? a_tb.getData_ultimo_dg() : "");
+        animal_tb.setData_parto_provavel(a_tb.getData_parto_provavel() != null ? a_tb.getData_parto_provavel() : "");
 
         //animal_tb.setId_fk_cria(animalTB.getId_fk_cria());
         //animal_tb.setSisbov(animalTB.getSisbov() != null ? animalTB.getSisbov() : "");

@@ -11,6 +11,9 @@ public class Animal implements Serializable {
 	private String identificador;
 	private String codigo_ferro;
 	private String data_nascimento;
+	private String data_parto_provavel;
+	private String data_ultimo_dg;
+	private String situacao_reprodutiva;
 	//private String categoria;
 	//private String raca;
 	//private double peso_atual;
@@ -80,6 +83,31 @@ public class Animal implements Serializable {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
+
+	public String getData_parto_provavel() {
+		return data_parto_provavel;
+	}
+
+	public void setData_parto_provavel(String data_parto_provavel) {
+		this.data_parto_provavel = data_parto_provavel;
+	}
+
+	public String getData_ultimo_dg() {
+		return data_ultimo_dg;
+	}
+
+	public void setData_ultimo_dg(String data_ultimo_dg) {
+		this.data_ultimo_dg = data_ultimo_dg;
+	}
+
+	public String getSituacao_reprodutiva() {
+		return situacao_reprodutiva;
+	}
+
+	public void setSituacao_reprodutiva(String situacao_reprodutiva) {
+		this.situacao_reprodutiva = situacao_reprodutiva;
+	}
+
 
 	/*public String getCategoria() {
 		return categoria;

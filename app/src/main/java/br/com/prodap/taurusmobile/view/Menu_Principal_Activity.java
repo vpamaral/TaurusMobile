@@ -540,6 +540,12 @@ public class Menu_Principal_Activity extends Activity
 		startActivity(intent);
 	}
 
+	public void btn_vacas_gestantes_Click (View v)
+	{
+		Intent intent = new Intent(Menu_Principal_Activity.this, Vacas_Gestantes_Activity.class);
+		startActivity(intent);
+	}
+
 	public void btn_enviar_via_web_Click (View v)
 	{
 		Constantes.TIPO_ENVIO = "web";

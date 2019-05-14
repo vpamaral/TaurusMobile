@@ -257,6 +257,9 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 		final int codigo_ferro = ih.getColumnIndex("codigo_ferro");
 		final int data_nascimento = ih.getColumnIndex("data_nascimento");
 		final int sexo = ih.getColumnIndex("sexo");
+		final int situacao_reprodutiva = ih.getColumnIndex("situacao_reprodutiva");
+		final int data_ultimo_dg = ih.getColumnIndex("data_ultimo_dg");
+		final int data_parto_provavel = ih.getColumnIndex("data_parto_provavel");
 		try{
 			int i = 0;
 			banco.getReadableDatabase().setLockingEnabled(false);
@@ -270,6 +273,9 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 				ih.bind(codigo_ferro, entry.getValue().getCodigo_ferro());
 				ih.bind(data_nascimento, entry.getValue().getData_nascimento());
 				ih.bind(sexo, entry.getValue().getSexo());
+				ih.bind(situacao_reprodutiva, entry.getValue().getSituacao_reprodutiva());
+				ih.bind(data_ultimo_dg, entry.getValue().getData_ultimo_dg());
+				ih.bind(data_parto_provavel, entry.getValue().getData_parto_provavel());
 				ih.execute();
 
 				publishProgress(i * 1);
