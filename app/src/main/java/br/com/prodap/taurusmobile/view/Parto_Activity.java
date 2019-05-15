@@ -294,7 +294,7 @@ public class Parto_Activity extends Activity
 
     private void changeSexo()
     {
-        spinSexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            spinSexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {

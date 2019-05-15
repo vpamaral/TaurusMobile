@@ -8,9 +8,17 @@ import java.io.Serializable;
 public class Vacas_Gestantes implements Serializable {
 
     //private long id_auto;
+    private Long id_pk;
     private String codigo;
     private String data_ultimo_dg;
     private String data_parto_provavel;
+
+    public Long getIdpk() {
+        return id_pk;
+    }
+    public void setIdpk(Long id_pk) {
+        this.id_pk = id_pk;
+    }
 
     public String getCodigo() {
         return codigo;

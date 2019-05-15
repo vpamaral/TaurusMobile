@@ -1,8 +1,11 @@
 package br.com.prodap.taurusmobile.view;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -11,16 +14,22 @@ import android.widget.EditText;
 import android.view.View.OnFocusChangeListener;
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
 import br.com.prodap.taurusmobile.R;
+import br.com.prodap.taurusmobile.model.Animal_Model;
+import br.com.prodap.taurusmobile.model.Parto_Cria_Model;
 import br.com.prodap.taurusmobile.model.Parto_Model;
+import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.tb.Parto;
+import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.tb.Relatorio_Parto;
 import br.com.prodap.taurusmobile.tb.Vacas_Gestantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
@@ -29,12 +38,15 @@ import br.com.prodap.taurusmobile.util.Message_Dialog;
 public class Vacas_Gestantes_Activity extends Activity
 {
 	private Parto_Model p_model;
+	private Parto_Cria_Model pc_model;
 	private Parto p_tb;
 	private EditText editDataFiltro;
 	private Calendar calendario;
 	private String filtro;
 	private Mensagem_Util md;
 	boolean init = false;
+	private List<Parto> parto_list;
+	private List<Parto_Cria> parto_cria_list;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -44,6 +56,7 @@ public class Vacas_Gestantes_Activity extends Activity
 		setContentView(R.layout.activity_vacas_gestantes);
 
 		p_model = new Parto_Model(this);
+		pc_model = new Parto_Cria_Model(this);
 		p_tb	= new Parto();
 		setTitle("Vacas Gestantes");
 		//displayHistory();
@@ -68,6 +81,7 @@ public class Vacas_Gestantes_Activity extends Activity
 		findViewById(R.id.btnFiltrar).requestFocus();
 
 		btn_filtro_Click(null);
+
 	}
 
 	private void changeDataFiltro()
@@ -94,6 +108,59 @@ public class Vacas_Gestantes_Activity extends Activity
 
 		findViewById(R.id.btnFiltrar).requestFocus();
 
+	}
+
+	public void RowClick(View view) {
+
+		long value = (long)view.getTag();
+
+        Animal_Model a_model = new Animal_Model(this);
+        Animal a_tb = a_model.selectByIdPk(this, value);
+
+        boolean tem_parto = false;
+        Parto p_tb = new Parto();
+        Parto_Cria pc_tb = new Parto_Cria();
+		for(Parto p : parto_list)
+        {
+            if(p.getId_fk_animal() == value) {
+                p_tb = p;
+                tem_parto = true;
+                break;
+            }
+        }
+        for(Parto_Cria pc : parto_cria_list)
+        {
+            if(pc.getId_fk_animal_mae() == value) {
+                pc_tb = pc;
+                break;
+            }
+        }
+
+		String msg = "";
+		if(tem_parto) {
+            msg = "Dados da Matriz\n"
+                    + "\n - Código da Matriz: " + a_tb.getCodigo()
+                    + "\n - Descarte: " + pc_tb.getRepasse()
+                    + "\n\nDados da Cria\n"
+                    + "\n - Código da Cria: " + pc_tb.getCodigo_cria()
+                    + "\n - Código Alternativo: " + pc_tb.getCodigo_ferro_cria()
+                    + "\n - Identif.: " + pc_tb.getIdentificador()
+                    + "\n - Sisbov: " + pc_tb.getSisbov()
+                    + "\n - Data do Parto: " + p_tb.getData_parto()
+                    + "\n - Data da Identif.: " + pc_tb.getData_identificacao()
+                    + "\n - Tipo de Parto: " + pc_tb.getTipo_parto()
+                    + "\n - Sexo: " + pc_tb.getSexo()
+                    + "\n - Peso: " + pc_tb.getPeso_cria()
+                    + "\n - Grupo de Manejo: " + pc_tb.getGrupo_manejo()
+                    + "\n - Pasto: " + pc_tb.getPasto();
+        }
+        else
+        {
+            msg = "Não existe lançamento de parto para a matriz '" + a_tb.getCodigo() + "'!";
+        }
+
+
+		Mensagem_Util.addMsg(Message_Dialog.Yes,Vacas_Gestantes_Activity.this, msg, "Parto", 1);
 	}
 
 	private DatePickerDialog.OnDateSetListener listner = new DatePickerDialog.OnDateSetListener()
@@ -142,13 +209,21 @@ public class Vacas_Gestantes_Activity extends Activity
 		displayHistory();
 	}
 
-
 	public void displayHistory(){
 
 		List<Vacas_Gestantes> list = p_model.selectVacasGestantes(this, "Parto", p_tb, filtro);
 
 		TableLayout showRow = (TableLayout) findViewById(R.id.history_table);
 		showRow.removeAllViews();
+
+		Parto parto_tb = new Parto();
+		Parto_Cria parto_cria_tb = new Parto_Cria();
+		parto_list 	= p_model.selectAll(getBaseContext(), "Parto", parto_tb);
+		parto_cria_list = pc_model.selectAll(getBaseContext(), "Parto_Cria", parto_cria_tb);
+		List<Long> list_ids = new ArrayList<Long>();
+
+		for(Parto p : parto_list)
+			list_ids.add(p.getId_fk_animal());
 
 		int count = 0;
 		for(Vacas_Gestantes hl : list) {
@@ -157,7 +232,14 @@ public class Vacas_Gestantes_Activity extends Activity
 			tr.setBackgroundColor(getResources().getColor(R.color.bootstrap_gray_lighter));
 			tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 			tr.setOrientation(TableRow.HORIZONTAL);
-			tr.setPadding(5,5,5,5);
+			tr.setPadding(0, 10, 0, 10);
+			tr.setTag(hl.getIdpk());
+			tr.setOnClickListener(new View.OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					RowClick(v);
+				}
+			});
 
 			//LinearLayout ll = new LinearLayout(this);
 			//ll.setLayoutParams(new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 30));
@@ -165,14 +247,16 @@ public class Vacas_Gestantes_Activity extends Activity
 			TextView tv_codigo = new TextView(this);
 			TextView tv_data_dg = new TextView(this);
 			TextView tv_data_parto = new TextView(this);
+			ImageView im_status = new ImageView(this);
 
 			tv_codigo.setGravity(Gravity.CENTER);
 			tv_data_dg.setGravity(Gravity.CENTER);
 			tv_data_parto.setGravity(Gravity.CENTER);
 
-			tv_codigo.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.5f));
-			tv_data_dg.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.5f));
-			tv_data_parto.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.5f));
+			tv_codigo.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.4f));
+			tv_data_dg.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.4f));
+			tv_data_parto.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.3f));
+			im_status.setLayoutParams(new TableRow.LayoutParams(60, 60, 0.2f));
 
 			tv_codigo.setTextSize(18);
 			tv_data_dg.setTextSize(18);
@@ -181,10 +265,15 @@ public class Vacas_Gestantes_Activity extends Activity
 			tv_codigo.setTextColor(getResources().getColor(R.color.bootstrap_gray_dark));
 			tv_data_dg.setTextColor(getResources().getColor(R.color.bootstrap_gray_dark));
 			tv_data_parto.setTextColor(getResources().getColor(R.color.bootstrap_gray_dark));
+			im_status.setMaxWidth(10);
 
 			tv_codigo.setText(hl.getCodigo());
 			tv_data_dg.setText(hl.getData_ultimo_dg());
 			tv_data_parto.setText(hl.getData_parto_provavel());
+			if(list_ids.contains(hl.getIdpk()))
+				im_status.setImageResource(R.drawable.check);
+			else
+				im_status.setImageResource(R.drawable.close);
 
 			//ll.addView(tv_sync_no);
 			//ll.addView(tv_sync_date);
@@ -193,7 +282,8 @@ public class Vacas_Gestantes_Activity extends Activity
 			//tr.addView(ll);
 			tr.addView(tv_codigo);
 			tr.addView(tv_data_parto);
-			tr.addView(tv_data_dg);
+			//tr.addView(tv_data_dg);
+			tr.addView(im_status);
 
 			showRow.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
 

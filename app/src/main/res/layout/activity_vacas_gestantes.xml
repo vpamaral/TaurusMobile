@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_weight="0.4"
             android:gravity="center"
             android:text="Código"
             android:textColor="#FFFFFF"
@@ -26,20 +26,32 @@
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_weight="0.4"
             android:gravity="center"
             android:text="Parto Provável"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
-
+<!--
         <TextView
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_weight="0.3"
             android:gravity="center"
             android:text="Parto Lançado"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />-->
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text=""
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -55,79 +67,89 @@
             android:id="@+id/history_table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bootstrap_alert_cross_default"
             android:orientation="vertical">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="2dp"
-                android:visibility="gone">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:visibility="visible">
 
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:gravity="center"
-                    android:text="10/12/2018"
-                    android:textColor="@color/bootstrap_gray_dark"
+                    android:text="101365"
                     android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:gravity="center"
-                    android:text="FE"
-                    android:textColor="@color/bootstrap_gray_dark"
+                    android:text="10/10/2018"
                     android:textSize="18sp" />
 
-                <TextView
+             <!--   <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="5"
-                    android:textColor="@color/bootstrap_gray_dark"
-                    android:textSize="18sp" />
+                    android:text="08/10/2018"
+                    android:textSize="18sp" />-->
+
+                <ImageView
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:src="@drawable/check" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="5dp"
-                android:visibility="gone">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:visibility="visible">
 
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:gravity="center"
-                    android:text="10/12/2018"
-                    android:textColor="@color/bootstrap_gray_dark"
+                    android:text="101366"
                     android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:gravity="center"
-                    android:text="FE"
-                    android:textColor="@color/bootstrap_gray_dark"
+                    android:text="15/10/2018"
                     android:textSize="18sp" />
 
-                <TextView
+                <!--<TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="5"
-                    android:textColor="@color/bootstrap_gray_dark"
-                    android:textSize="18sp" />
+                    android:text=""
+                    android:textSize="18sp" />-->
+
+
+                <ImageView
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_weight="0.2"
+                    android:gravity="center"
+                    android:src="@drawable/check" />
             </TableRow>
 
         </TableLayout>

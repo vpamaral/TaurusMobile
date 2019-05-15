@@ -176,7 +176,7 @@ public class Lista_Partos_Cria_Activity extends Activity
 						+ "\n - Código Alternativo: " + p_cria_tb.getCodigo_ferro_cria()
 						+ "\n - Identif.: " + p_cria_tb.getIdentificador()
 						+ "\n - Sisbov: " + p_cria_tb.getSisbov()
-						+ "\n - Data do Parto: " + data_parto
+							+ "\n - Data do Parto: " + data_parto
 						+ "\n - Data da Identif.: " + p_cria_tb.getData_identificacao()
 						+ "\n - Tipo de Parto: " + p_cria_tb.getTipo_parto()
 						+ "\n - Sexo: " + p_cria_tb.getSexo()

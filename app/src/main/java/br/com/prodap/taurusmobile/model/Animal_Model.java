@@ -96,6 +96,42 @@ public class Animal_Model extends Banco_Service {
 		return a_tb;
 	}
 
+	public Animal selectByIdPk(Context ctx, Long id_pk)
+	{
+		Cursor cursor 		= null;
+		Animal a_tb 		= new Animal();
+		Banco banco 		= new Banco(ctx);
+
+		try
+		{
+			String query = String.format("SELECT * FROM Animal WHERE id_pk =%s;", id_pk);
+
+			List<Animal> listadd = new ArrayList<Animal>();
+
+			cursor = banco.getWritableDatabase().rawQuery(query, null);
+
+			listadd = ani_adapter.arrayAnimais(cursor);
+
+			a_tb = listadd.get(0);
+
+		}
+		catch (Exception e)
+		{
+			Log.e("Animal_Model", e.toString());
+		}
+		finally
+		{
+			if (cursor != null)
+			{
+				if (!cursor.isClosed())
+				{
+					cursor.close();
+				}
+			}
+		}
+		return a_tb;
+	}
+
 	public Animal selectByCodAlternativo(Context ctx, String codigo_ferro)
 	{
 		Cursor cursor 		= null;

@@ -70,7 +70,7 @@ public class Parto_Dao extends Banco {
 
         Class classe = table.getClass();
         List<Vacas_Gestantes> parto_list = new ArrayList<Vacas_Gestantes>();
-        String sql = String.format("select p.codigo, case when pa.data_parto is null then '' else pa.data_parto end as data_ultimo_dg, p.data_parto_provavel\n" +
+        String sql = String.format("select p.id_pk, p.codigo, case when pa.data_parto is null then '' else pa.data_parto end as data_ultimo_dg, p.data_parto_provavel\n" +
                                         "from animal p \n" +
 
                                         "left join parto pa on pa.id_fk_animal = p.id_pk \n" +

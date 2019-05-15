@@ -107,6 +107,7 @@ public class Parto_Adapter extends BaseAdapter
 			parto.setCodigo(c.getString(c.getColumnIndex("codigo")));
 			parto.setData_ultimo_dg(c.getString(c.getColumnIndex("data_ultimo_dg")));
 			parto.setData_parto_provavel(c.getString(c.getColumnIndex("data_parto_provavel")));
+			parto.setIdpk(c.getLong(c.getColumnIndex("id_pk")));
 			listaParto.add(parto);
 		}
 
