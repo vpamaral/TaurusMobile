@@ -1,11 +1,18 @@
 package br.com.prodap.taurusmobile.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -49,6 +56,14 @@ public class Vacas_Gestantes_Activity extends Activity
 	private List<Parto_Cria> parto_cria_list;
 
 	@Override
+	protected void onResume()
+	{
+		// TODO Auto-generated method stub
+		super.onResume();
+		displayHistory();
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -68,13 +83,28 @@ public class Vacas_Gestantes_Activity extends Activity
 		editDataFiltro = (EditText) findViewById(R.id.edtDataFiltro);
 		changeDataFiltro();
 
-		Date currentTime = Calendar.getInstance().getTime();
+		//Calendar cal_data_parto = Calendar.getInstance();
+		Date date = new Date();
+		String strDateParto;
+		try
+		{
+			strDateParto = p_model.maxDataPartoProvavel(this);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			if(strDateParto != null)
+				date = sdf.parse(strDateParto);
+			//cal_data_parto.setTime(date);
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		//Date currentTime = Calendar.getInstance().getTime();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String strDate = dateFormat.format(currentTime);
+		String strDate = dateFormat.format(date);
 		filtro = strDate;
 
 		dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		strDate = dateFormat.format(currentTime);
+		strDate = dateFormat.format(date);
 		editDataFiltro.setText(strDate);
 
 
@@ -110,13 +140,19 @@ public class Vacas_Gestantes_Activity extends Activity
 
 	}
 
+	TableRow tr;
 	public void RowClick(View view) {
+
+		//@drawable/gradientinvertido
+		tr = (TableRow)view;
+		tr.setBackgroundResource(R.drawable.gradientinvertido);
 
 		long value = (long)view.getTag();
 
         Animal_Model a_model = new Animal_Model(this);
-        Animal a_tb = a_model.selectByIdPk(this, value);
+        final Animal a_tb = a_model.selectByIdPk(this, value);
 
+		boolean perdaGestacao = false;
         boolean tem_parto = false;
         Parto p_tb = new Parto();
         Parto_Cria pc_tb = new Parto_Cria();
@@ -125,6 +161,8 @@ public class Vacas_Gestantes_Activity extends Activity
             if(p.getId_fk_animal() == value) {
                 p_tb = p;
                 tem_parto = true;
+				if(!p.getPerda_gestacao().equals("NENHUMA"))
+					perdaGestacao = true;
                 break;
             }
         }
@@ -140,8 +178,11 @@ public class Vacas_Gestantes_Activity extends Activity
 		if(tem_parto) {
             msg = "Dados da Matriz\n"
                     + "\n - Código da Matriz: " + a_tb.getCodigo()
-                    + "\n - Descarte: " + pc_tb.getRepasse()
-                    + "\n\nDados da Cria\n"
+                    + "\n - Descarte: " + pc_tb.getRepasse();
+
+			if(!perdaGestacao)
+				msg +=
+                       "\n\nDados da Cria\n"
                     + "\n - Código da Cria: " + pc_tb.getCodigo_cria()
                     + "\n - Código Alternativo: " + pc_tb.getCodigo_ferro_cria()
                     + "\n - Identif.: " + pc_tb.getIdentificador()
@@ -156,11 +197,41 @@ public class Vacas_Gestantes_Activity extends Activity
         }
         else
         {
-            msg = "Não existe lançamento de parto para a matriz '" + a_tb.getCodigo() + "'!";
+            msg = "Não existe lançamento de parto para a matriz '" + a_tb.getCodigo() + "', deseja lançar agora?";
         }
 
+        if(tem_parto) {
+			Mensagem_Util.addMsg(Message_Dialog.Yes, Vacas_Gestantes_Activity.this, msg, "Parto", 1);
+			tr.setBackgroundColor(getResources().getColor(R.color.bootstrap_gray_lighter));
+		}
+		else {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			try {
+				builder.setTitle("Aviso").setMessage(msg)
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								Intent intent = new Intent(Vacas_Gestantes_Activity.this, Parto_Activity.class);
+								intent.putExtra("data_parto_provavel", a_tb.getData_parto_provavel());
+								intent.putExtra("matriz", a_tb.getCodigo());
 
-		Mensagem_Util.addMsg(Message_Dialog.Yes,Vacas_Gestantes_Activity.this, msg, "Parto", 1);
+								tr.setBackgroundColor(getResources().getColor(R.color.bootstrap_gray_lighter));
+								startActivity(intent);
+
+							}
+						})
+						.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								tr.setBackgroundColor(getResources().getColor(R.color.bootstrap_gray_lighter));
+								return;
+							}
+						})
+						.show();
+			} catch (Exception e) {
+				Log.i("Vacas gestantes", e.toString());
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private DatePickerDialog.OnDateSetListener listner = new DatePickerDialog.OnDateSetListener()
@@ -206,7 +277,6 @@ public class Vacas_Gestantes_Activity extends Activity
 		}
 
 
-		displayHistory();
 	}
 
 	public void displayHistory(){
@@ -219,7 +289,7 @@ public class Vacas_Gestantes_Activity extends Activity
 		Parto parto_tb = new Parto();
 		Parto_Cria parto_cria_tb = new Parto_Cria();
 		parto_list 	= p_model.selectAll(getBaseContext(), "Parto", parto_tb);
-		parto_cria_list = pc_model.selectAll(getBaseContext(), "Parto_Cria", parto_cria_tb);
+		parto_cria_list = pc_model.selectAllCrias(getBaseContext(), "Parto_Cria", parto_cria_tb, true);
 		List<Long> list_ids = new ArrayList<Long>();
 
 		for(Parto p : parto_list)
@@ -232,7 +302,7 @@ public class Vacas_Gestantes_Activity extends Activity
 			tr.setBackgroundColor(getResources().getColor(R.color.bootstrap_gray_lighter));
 			tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 			tr.setOrientation(TableRow.HORIZONTAL);
-			tr.setPadding(0, 10, 0, 10);
+			tr.setPadding(0, 20, 0, 20);
 			tr.setTag(hl.getIdpk());
 			tr.setOnClickListener(new View.OnClickListener(){
 				@Override
@@ -286,6 +356,13 @@ public class Vacas_Gestantes_Activity extends Activity
 			tr.addView(im_status);
 
 			showRow.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 3);
+			layoutParams.setMargins(15, 3, 15, 3);
+
+			View v_line = new View(this);
+			v_line.setBackgroundColor(Color.GRAY);
+			showRow.addView(v_line, layoutParams);
 
 			showRow.setFocusable(true);
 		}

@@ -9,6 +9,7 @@ import java.util.List;
 import br.com.prodap.taurusmobile.adapter.Configuracao_Adapter;
 import br.com.prodap.taurusmobile.adapter.Raca_Adapter;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
+import br.com.prodap.taurusmobile.model.Criterio_Model;
 import br.com.prodap.taurusmobile.model.Raca_Model;
 import br.com.prodap.taurusmobile.service.Conexao_HTTP;
 import br.com.prodap.taurusmobile.service.Get_JSON;
@@ -18,6 +19,7 @@ import br.com.prodap.taurusmobile.tb.Raca;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
 
 /**
  * Created by Prodap on 02/02/2016.
@@ -33,15 +35,18 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
     public Conexao_HTTP c_http;
     private ProgressDialog mProgress;
     private int mProgressDialog = 0;
+    private Menu_Principal_Activity menu_principal_activity;
 
     private String msg;
 
-    public Get_Raca_JSON(Context ctx, int progressDialog)
+    public Get_Raca_JSON(Context ctx, int progressDialog, Menu_Principal_Activity activity, ProgressDialog _mProgress)
     {
         this.ctx                = ctx;
         this.mProgressDialog    = progressDialog;
+        this.mProgress          = _mProgress;
 
         source();
+        this.menu_principal_activity = activity;
     }
 
     private void source()
@@ -55,9 +60,9 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
     @Override
     protected void onPreExecute()
     {
-        mProgress = new ProgressDialog(ctx);
+        //mProgress = new ProgressDialog(ctx);
         mProgress.setTitle("Aguarde ...");
-        mProgress.setMessage("Recebendo dados do servidor ...");
+        mProgress.setMessage("Recebendo raças do servidor ...");
 
         if (mProgressDialog == ProgressDialog.STYLE_HORIZONTAL)
         {
@@ -125,6 +130,7 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
         }
         catch (Exception e)
         {
+            msg = ("Erro ao atualizar as raças.");
             e.printStackTrace();
         }
 
@@ -145,7 +151,7 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
             {
                 if (result != null)
                 {
-                    mProgress.dismiss();
+                    //mProgress.dismiss();
 
                     if (raca_list.isEmpty())
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
@@ -155,6 +161,8 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
                 else
                 {
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                    mProgress.dismiss();
+                    return;
                 }
             }
         }
@@ -170,7 +178,7 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
             {
                 if (result != null)
                 {
-                    mProgress.dismiss();
+                    //mProgress.dismiss();
 
                     if (raca_list.isEmpty())
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
@@ -180,6 +188,8 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
                 else
                 {
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                    mProgress.dismiss();
+                    return;
                 }
             }
         }
@@ -188,7 +198,7 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
         {
             if (result != null)
             {
-                mProgress.dismiss();
+                //mProgress.dismiss();
 
                 if (raca_list.isEmpty())
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contem dados no arquivo selecionado.");
@@ -198,7 +208,13 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
             else
             {
                 Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                mProgress.dismiss();
+                return;
             }
         }
+
+        Criterio_Model c_model = new Criterio_Model(this.ctx);
+        c_model.delete(this.ctx, "Criterio");
+        new Get_Criterios_JSON(this.ctx, ProgressDialog.STYLE_HORIZONTAL, this.menu_principal_activity, mProgress).execute();
     }
 }

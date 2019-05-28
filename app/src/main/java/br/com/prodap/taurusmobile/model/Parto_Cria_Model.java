@@ -197,12 +197,19 @@ public class Parto_Cria_Model extends Banco_Service {
 
 		return pc_tb;
 	}
-	
+
+	public List<Parto_Cria> selectAllCrias(Context ctx, String Tabela, Object table, boolean all) {
+		pc_dao = new Parto_Cria_Dao(ctx);
+
+		return pc_dao.selectAllPartosCria(ctx, Tabela, table, all);
+	}
+
+
 	@Override
 	public List<Parto_Cria> selectAll(Context ctx, String Tabela, Object table) {
 		pc_dao = new Parto_Cria_Dao(ctx);
 
-		return pc_dao.selectAllPartosCria(ctx, Tabela, table);
+		return pc_dao.selectAllPartosCria(ctx, Tabela, table, false);
 	}
 
 	@Override

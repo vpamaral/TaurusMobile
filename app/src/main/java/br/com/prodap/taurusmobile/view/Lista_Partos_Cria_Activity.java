@@ -112,13 +112,12 @@ public class Lista_Partos_Cria_Activity extends Activity
 
 		for (Parto_Cria parto_cria_tb : p_cria_list)
 		{
-			if (parto_cria_tb.getSexo().toString().equals("MA"))
-			{
-				quantMachos++;
-			}
-			else
-			{
-				quantFemeas++;
+			if(!parto_cria_tb.getCodigo_cria().toString().contains("ABORTO")) {
+				if (parto_cria_tb.getSexo().toString().equals("MA")) {
+					quantMachos++;
+				} else {
+					quantFemeas++;
+				}
 			}
 		}
 
@@ -160,18 +159,24 @@ public class Lista_Partos_Cria_Activity extends Activity
 					}
 				}
 
+				boolean perdaGestacao = false;
 				for(Parto p : parto_list)
 				{
 					if(p_cria_tb.getId_fk_animal_mae() == p.getId_fk_animal())
 					{
 						data_parto = p.getData_parto();
+						if(!p.getPerda_gestacao().equals("NENHUMA"))
+							perdaGestacao = true;
 					}
 				}
 
 				String msg = "Dados da Matriz\n"
 						+ "\n - Código da Matriz: " + matriz
-						+ "\n - Descarte: " + p_cria_tb.getRepasse()
-						+ "\n\nDados da Cria\n"
+						+ "\n - Descarte: " + p_cria_tb.getRepasse();
+
+				if(!perdaGestacao)
+					msg +=
+						   "\n\nDados da Cria\n"
 						+ "\n - Código da Cria: " + p_cria_tb.getCodigo_cria()
 						+ "\n - Código Alternativo: " + p_cria_tb.getCodigo_ferro_cria()
 						+ "\n - Identif.: " + p_cria_tb.getIdentificador()

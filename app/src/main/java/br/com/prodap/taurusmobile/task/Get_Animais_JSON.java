@@ -45,12 +45,13 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 
 	private String msg;
 
-	public Get_Animais_JSON(Context ctx, int progressDialog, Menu_Principal_Activity activity)
+	public Get_Animais_JSON(Context ctx, int progressDialog, Menu_Principal_Activity activity, ProgressDialog _mProgress)
 	{
 		this.ctx = ctx;
 		this.mProgressDialog = progressDialog;
 		source();
 		this.menu_principal_activity = activity;
+        this.mProgress          = _mProgress;
 	}
 	
 	private void source()
@@ -64,14 +65,14 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 	@Override
 	protected void onPreExecute()
 	{
-		mProgress = new ProgressDialog(ctx);
+		//mProgress = new ProgressDialog(ctx);
 		mProgress.setTitle("Aguarde ...");
-		mProgress.setMessage("Recebendo dados do servidor ...");
+		mProgress.setMessage("Recebendo animais do servidor ...");
 
 		if (mProgressDialog == ProgressDialog.STYLE_HORIZONTAL)
 		{
 			mProgress.setIndeterminate(false);
-			mProgress.setMax(0);
+			mProgress.setMax(100);
 			mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			mProgress.setCancelable(false);
 		}
@@ -159,6 +160,7 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 		}
 		catch (Validator_Exception e)
 		{
+			msg = ("Erro ao atualizar os animais.");
 			Log.i("TAG", e.toString());
 			e.printStackTrace();
 		}
@@ -190,13 +192,16 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 				else
 				{
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+					mProgress.dismiss();
+					return;
 				}
 			}
 		}
 
 		if (Constantes.TIPO_ENVIO == "bluetooth")
 		{
-			if (Constantes.STATUS_CONN == "desconectado")
+			boolean teste = Constantes.btSocket.isConnected();
+			if (Constantes.STATUS_CONN == "desconectado" ||  Constantes.btSocket == null || Constantes.btSocket.isConnected() == false)
 			{
 				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "O dipositivo não esta conectado ao Servidor.");
 				mProgress.dismiss();
@@ -213,12 +218,15 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 					{
 						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
 						Constantes.STATUS_CONN = ("desconectado");
-                        Constantes.LBL_STATUS.setText("Desconectado");
+						Constantes.LBL_STATUS.setText("Desconectado");
+						Constantes.CONNECT.cancel();
 					}
 				}
 				else
 				{
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+					mProgress.dismiss();
+					return;
 				}
 			}
 		}
@@ -237,6 +245,8 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 			else
 			{
 				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+				mProgress.dismiss();
+				return;
 			}
 
 		}

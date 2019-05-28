@@ -49,12 +49,37 @@ public class Parto_Dao extends Banco {
 
         Class classe = table.getClass();
         List<Relatorio_Parto> parto_list = new ArrayList<Relatorio_Parto>();
-        String sql = String.format("select p.data_parto, p.sexo_parto, count(p.id_fk_animal) as qtd_partos\n" +
+        String sql = String.format("select case \n" +
+                "when p.data_parto is null \n" +
+                "     then '' \n" +
+                "else  substr(p.data_parto,1,2)\n" +
+                "      || '/'\n" +
+                "      ||substr(p.data_parto,4,2)\n" +
+                "      || '/'\n" +
+                "      ||substr(p.data_parto,7,4) \n" +
+                "end as data_parto, p.sexo_parto, count(p.id_fk_animal) as qtd_partos\n" +
                 "from parto p\n" +
                 "where p.sync_status = 1" +
                 "\n" +
-                "group by p.data_parto, p.sexo_parto\n" +
-                "order by p.data_parto", Tabela);
+                "group by  case \n" +
+                "             when p.data_parto is null \n" +
+                "                  then '' \n" +
+                "             else  substr(p.data_parto,1,2)\n" +
+                "                   || '/'\n" +
+                "                   ||substr(p.data_parto,4,2)\n" +
+                "                   || '/'\n" +
+                "                   ||substr(p.data_parto,7,4) \n" +
+                "        end, p.sexo_parto\n" +
+                "order by " +
+                "case "  +
+                "     when p.data_parto is null \n" +
+                "          then '' \n" +
+                "     else  date(substr(p.data_parto,7,4) \n" +
+                "           || '-' \n" +
+                "           ||substr(p.data_parto,4,2) \n" +
+                "           || '-' \n" +
+                "           ||substr(p.data_parto,1,2)) \n" +
+                "end desc", Tabela);
 
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
@@ -78,7 +103,7 @@ public class Parto_Dao extends Banco {
                                         "and DATE(substr(p.data_parto_provavel,7,4) ||'-' ||substr(p.data_parto_provavel,4,2) ||'-' ||substr(p.data_parto_provavel,1,2)) >= DATE('"+ data_referencia  +"', '-15 days') " +
                                         "and DATE(substr(p.data_parto_provavel,7,4) ||'-' ||substr(p.data_parto_provavel,4,2) ||'-' ||substr(p.data_parto_provavel,1,2)) <= DATE('"+ data_referencia  +"', '+15 days') " +
                                         "\n" +
-                                        "order by pa.data_parto desc, p.data_parto_provavel desc", Tabela);
+                                        "order by pa.data_parto desc, p.codigo", Tabela);
 
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
@@ -122,6 +147,43 @@ public class Parto_Dao extends Banco {
                 else
                 {
                     result = "NÃO";
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            banco.close();
+            throw e;
+        }
+
+        banco.close();
+        return result;
+    }
+
+
+    public String maxDataPartoProvavel(Context ctx)
+    {
+        Banco banco = new Banco(ctx);
+
+        String result = "";
+        String sql = String.format("select MAX(DATE(substr(p.data_parto_provavel,7,4) ||'-' ||substr(p.data_parto_provavel,4,2) ||'-' ||substr(p.data_parto_provavel,1,2))) as data_parto_provavel_max\n" +
+                "from animal p \n" +
+                "left join parto pa on pa.id_fk_animal = p.id_pk \n" +
+                "where p.situacao_reprodutiva = 'GESTANTE' "
+        );
+
+        try
+        {
+            Cursor c = banco.getReadableDatabase().rawQuery(sql, null);
+
+            if (c != null) {
+
+                boolean v = c.moveToNext();
+
+                if (v)
+                {
+                    String teste = c.getString(c.getColumnIndex("data_parto_provavel_max"));
+                    result = teste;
                 }
             }
         }

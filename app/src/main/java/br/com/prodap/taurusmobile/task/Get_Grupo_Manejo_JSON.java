@@ -10,6 +10,7 @@ import br.com.prodap.taurusmobile.adapter.Configuracao_Adapter;
 import br.com.prodap.taurusmobile.adapter.Grupo_Manejo_Adapter;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
+import br.com.prodap.taurusmobile.model.Raca_Model;
 import br.com.prodap.taurusmobile.service.Conexao_HTTP;
 import br.com.prodap.taurusmobile.service.Get_JSON;
 import br.com.prodap.taurusmobile.tb.Configuracao;
@@ -17,6 +18,7 @@ import br.com.prodap.taurusmobile.tb.Grupo_Manejo;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
 
 /**
  * Created by Prodap on 02/02/2016.
@@ -32,15 +34,18 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
     public Conexao_HTTP c_http;
     private ProgressDialog mProgress;
     private int mProgressDialog = 0;
+    private Menu_Principal_Activity menu_principal_activity;
 
     private String msg;
 
-    public Get_Grupo_Manejo_JSON(Context ctx, int progressDialog)
+    public Get_Grupo_Manejo_JSON(Context ctx, int progressDialog, Menu_Principal_Activity activity, ProgressDialog _mProgress)
     {
         this.ctx                = ctx;
         this.mProgressDialog    = progressDialog;
+        this.mProgress          = _mProgress;
 
         source();
+        this.menu_principal_activity = activity;
     }
 
     private void source()
@@ -54,9 +59,9 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
     @Override
     protected void onPreExecute()
     {
-        mProgress = new ProgressDialog(ctx);
+        //mProgress = new ProgressDialog(ctx);
         mProgress.setTitle("Aguarde ...");
-        mProgress.setMessage("Recebendo dados do servidor ...");
+        mProgress.setMessage("Recebendo grupos de manejo do servidor ...");
 
         if (mProgressDialog == ProgressDialog.STYLE_HORIZONTAL)
         {
@@ -124,6 +129,7 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
         }
         catch (Exception e)
         {
+            msg = ("Erro ao atualizar os grupos de manejo.");
             e.printStackTrace();
         }
 
@@ -144,7 +150,7 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
             {
                 if (result != null)
                 {
-                    mProgress.dismiss();
+                    //mProgress.dismiss();
 
                     if (grupo_list.isEmpty())
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
@@ -154,6 +160,8 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
                 else
                 {
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                    mProgress.dismiss();
+                    return;
                 }
             }
         }
@@ -169,7 +177,7 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
             {
                 if (result != null)
                 {
-                    mProgress.dismiss();
+                    //mProgress.dismiss();
 
                     if (grupo_list.isEmpty())
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
@@ -179,6 +187,8 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
                 else
                 {
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                    mProgress.dismiss();
+                    return;
                 }
             }
         }
@@ -187,7 +197,7 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
         {
             if (result != null)
             {
-                mProgress.dismiss();
+                //mProgress.dismiss();
 
                 if (grupo_list.isEmpty())
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contem dados no arquivo selecionado.");
@@ -197,7 +207,13 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
             else
             {
                 Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                mProgress.dismiss();
+                return;
             }
         }
+
+        Raca_Model raca_model = new Raca_Model(this.ctx);
+        raca_model.delete(this.ctx, "Raca");
+        new Get_Raca_JSON(this.ctx, ProgressDialog.STYLE_HORIZONTAL, this.menu_principal_activity, mProgress).execute();
     }
 }

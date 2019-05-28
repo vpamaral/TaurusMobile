@@ -37,6 +37,7 @@ public class Parto_Model extends Banco_Service
 	public void validate(Context ctx, String Tabela, Object table,int VALIDATION_TYPE) throws Validator_Exception {
 		Date data = new Date();
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		final SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
 
 		final Calendar cal = Calendar.getInstance();
 		cal.setTime(data);
@@ -44,10 +45,10 @@ public class Parto_Model extends Banco_Service
 
 		final Calendar cal_limite = Calendar.getInstance();
 		cal_limite.setTime(data);
-		cal_limite.add(Calendar.DATE,-30);
+		cal_limite.add(Calendar.DATE,-150);
 		final Date data_limite = cal_limite.getTime();
 
-				p_dao = new Parto_Dao(ctx);
+		p_dao = new Parto_Dao(ctx);
 		p_tb = (Parto)table;
 
 		try {
@@ -60,7 +61,10 @@ public class Parto_Model extends Banco_Service
 				throw ve;
 			}
 
-			data_parto = dateFormat.parse(p_tb.getData_parto().toString());
+			if(p_tb.getData_parto().toString().contains("/"))
+				data_parto = dateFormat2.parse(p_tb.getData_parto().toString());
+			else
+				data_parto = dateFormat.parse(p_tb.getData_parto().toString());
 
 			if (data_parto.after(data_atual)) {
 				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_NULO");
@@ -72,7 +76,7 @@ public class Parto_Model extends Banco_Service
 
 			if (data_parto.before(data_limite)) {
 				//ValidatorException ve = new ValidatorException(this.getClass().getName() + "." + "PASTO_NULO");
-				Validator_Exception ve = new Validator_Exception("A Data do Parto não pode ser anterior a 30 dias!");
+				Validator_Exception ve = new Validator_Exception("A Data do Parto não pode ser anterior a 150 dias!");
 				ve.setException_code(Validator_Exception.MESSAGE_TYPE_WARNING);
 				ve.setException_args(new Object[] {});
 				throw ve;
@@ -167,5 +171,12 @@ public class Parto_Model extends Banco_Service
 		p_dao = new Parto_Dao(ctx);
 
 		return p_dao.sendPartos(ctx, data_atual);
+	}
+
+	public String maxDataPartoProvavel(Context ctx)
+	{
+		p_dao = new Parto_Dao(ctx);
+
+		return p_dao.maxDataPartoProvavel(ctx);
 	}
 }

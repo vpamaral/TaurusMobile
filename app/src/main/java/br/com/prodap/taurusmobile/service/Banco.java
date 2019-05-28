@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class Banco extends SQLiteOpenHelper {
 
 	static final String DATABASE = "PartoMobileDataBase";
-	static final int VERSION = 1;
+	static final int VERSION = 2;
 
 	public Banco(Context context) {
 		super(context, DATABASE, null, VERSION);

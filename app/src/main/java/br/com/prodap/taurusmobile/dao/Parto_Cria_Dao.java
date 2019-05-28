@@ -85,7 +85,7 @@ public class Parto_Cria_Dao extends Banco {
         return result;
     }
 
-    public List<Parto_Cria> selectAllPartosCria(Context ctx, String Tabela, Object table)
+    public List<Parto_Cria> selectAllPartosCria(Context ctx, String Tabela, Object table, boolean all)
     {
         Banco banco = new Banco(ctx);
         pc_adapter = new Parto_Cria_Adapter();
@@ -93,10 +93,24 @@ public class Parto_Cria_Dao extends Banco {
         Class classe = table.getClass();
         List<Parto_Cria> pc_list = new ArrayList<Parto_Cria>();
 
+        String sync = "";
+        String p_sync = "";
+        if(!all) {
+            sync = " AND pc.sync_status = 0 ";
+            p_sync = " AND p.sync_status = 0 ";
+        }
         String sql = String.format(
-                                        "SELECT * FROM %s " +
-                                        "WHERE sync_status = 0 ORDER BY codigo_cria"
-                                        , Tabela
+                                        "SELECT pc.id_auto, pc.id_fk_animal_mae, pc.id_fk_parto, pc.codigo_ferro_cria, pc.data_identificacao, pc.repasse, pc.sisbov, pc.raca_cria, pc.identificador, pc.grupo_manejo, pc.criterio, pc.sync_status, pc.peso_cria, case when p.perda_gestacao = 'NENHUMA' then pc.codigo_cria else pc.codigo_cria || ' - Matriz: ' || a.codigo end as codigo_cria, pc.sexo, pc.tipo_parto, pc.cod_matriz_invalido, pc.pasto\n" +
+                                                "\n" +
+                                                "FROM Parto as p\n" +
+                                                "inner join Animal a on a.id_pk = p.id_fk_animal\n" +
+                                                "inner join Parto_Cria as pc on p.id_pk = pc.id_fk_parto %s\n" +
+                                                "WHERE 1 = 1 " +
+                                                "%s \n" +
+                                                "ORDER BY pc.codigo_cria"
+
+                                        , sync
+                                        , p_sync
                                    );
 
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);

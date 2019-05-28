@@ -97,7 +97,7 @@ public class Post_Animais_JSON extends AsyncTask<Object, Integer, String>
 	{
 		mProgress = new ProgressDialog(ctx);
 		mProgress.setTitle("Aguarde ...");
-		mProgress.setMessage("Enviando dados para o servidor ...");
+		mProgress.setMessage("Enviando animais para o servidor ...");
 
 		if (mProgressDialog == ProgressDialog.STYLE_HORIZONTAL)
 		{

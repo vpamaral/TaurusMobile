@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -41,6 +42,7 @@ import java.util.concurrent.TimeUnit;
 import br.com.prodap.taurusmobile.OpenFile.OnCloseListener;
 import br.com.prodap.taurusmobile.OpenFile.OpenFileDialog;
 import br.com.prodap.taurusmobile.R;
+import br.com.prodap.taurusmobile.TesteActivity;
 import br.com.prodap.taurusmobile.bluetooth.Bluetooth_Activity;
 import br.com.prodap.taurusmobile.bluetooth.ConnectionThread;
 import br.com.prodap.taurusmobile.bluetooth.DiscoveredDevices;
@@ -434,7 +436,7 @@ public class Menu_Principal_Activity extends Activity
 			sendMessage("GET");
 
 			Constantes.BLUETOOTH_TESTE = false;
-			mHandler.postDelayed(mRun, 5000);
+			mHandler.postDelayed(mRun, 2000);
 		}
 		else
 		{
@@ -542,7 +544,7 @@ public class Menu_Principal_Activity extends Activity
 
 	public void btn_vacas_gestantes_Click (View v)
 	{
-		Intent intent = new Intent(Menu_Principal_Activity.this, Vacas_Gestantes_Activity.class);
+		Intent intent = new Intent(Menu_Principal_Activity.this, TesteActivity.class);
 		startActivity(intent);
 	}
 
@@ -591,10 +593,10 @@ public class Menu_Principal_Activity extends Activity
 				public void onClick(DialogInterface dialog, int which) {
 					Constantes.TIPO_ENVIO = "bluetooth";
 					updatePastos();
-					updateGrupoManejo();
-					updateRaca();
-					updateCriterios();
-					updateAnimais();
+					//updateGrupoManejo();
+					//updateRaca();
+					//updateCriterios();
+					//updateAnimais();
 				}
 			});
 		}
@@ -664,47 +666,46 @@ public class Menu_Principal_Activity extends Activity
 			{
 				Constantes.TIPO_ENVIO = "arquivo";
 				updatePastos();
-				updateGrupoManejo();
-				updateRaca();
-				updateCriterios();
-				updateAnimais();
+				//updateGrupoManejo();
+				//updateRaca();
+				//updateCriterios();
+				//updateAnimais();
 			}
 		});
 	}
 
-	private void updateAnimais()
+	public void updateAnimais()
 	{
 		Animal_Model objModelAnimal = new Animal_Model(Menu_Principal_Activity.this);
 		objModelAnimal.delete(Menu_Principal_Activity.this, "Animal");
-		new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
+		//new Get_Animais_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
 	}
 
-	private void updatePastos()
-	{
+	public void updatePastos() {
 		Pasto_Model pasto_model = new Pasto_Model(Menu_Principal_Activity.this);
 		pasto_model.delete(Menu_Principal_Activity.this, "Pasto");
-		new Get_Pastos_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
-	}
+		new Get_Pastos_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
+    }
 
-	private void updateGrupoManejo()
+	public void updateGrupoManejo()
 	{
 		Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(Menu_Principal_Activity.this);
 		grupo_model.delete(Menu_Principal_Activity.this, "Grupo_Manejo");
-		new Get_Grupo_Manejo_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+		//new Get_Grupo_Manejo_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
 	}
 
-	private void updateRaca()
+	public void updateRaca()
 	{
 		Raca_Model raca_model = new Raca_Model(Menu_Principal_Activity.this);
 		raca_model.delete(Menu_Principal_Activity.this, "Raca");
-		new Get_Raca_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+		//new Get_Raca_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
 	}
 
-	private void updateCriterios()
+	public void updateCriterios()
 	{
 		Criterio_Model c_model = new Criterio_Model(Menu_Principal_Activity.this);
 		c_model.delete(Menu_Principal_Activity.this, "Criterio");
-		new Get_Criterios_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL).execute();
+		//new Get_Criterios_JSON(Menu_Principal_Activity.this, ProgressDialog.STYLE_HORIZONTAL, this).execute();
 	}
 
 	private void post()
@@ -916,8 +917,6 @@ public class Menu_Principal_Activity extends Activity
 
 	public void about()
 	{
-
-
 		AlertDialog.Builder builder = new AlertDialog.Builder(Menu_Principal_Activity.this);
 
 		builder.setMessage("Versão do Sistema: " + getString(R.string.release_apk) +

@@ -49,7 +49,7 @@ public class Relatorio_Partos_Activity extends Activity
 			tr.setBackgroundColor(getResources().getColor(R.color.bootstrap_gray_lighter));
 			tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 			tr.setOrientation(TableRow.HORIZONTAL);
-			tr.setPadding(0,5,0,0);
+			tr.setPadding(0,20,0,20);
 
 			//LinearLayout ll = new LinearLayout(this);
 			//ll.setLayoutParams(new LinearLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 30));
@@ -87,8 +87,14 @@ public class Relatorio_Partos_Activity extends Activity
 			tr.addView(tv_sexo);
 			tr.addView(tv_Qtd);
 
-
 			showRow.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 3);
+			layoutParams.setMargins(15, 3, 15, 3);
+
+			View v_line = new View(this);
+			v_line.setBackgroundColor(Color.GRAY);
+			showRow.addView(v_line, layoutParams);
 		}
 
 

@@ -9,6 +9,7 @@ import java.util.List;
 import br.com.prodap.taurusmobile.adapter.Configuracao_Adapter;
 import br.com.prodap.taurusmobile.adapter.Pasto_Adapter;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
+import br.com.prodap.taurusmobile.model.Grupo_Manejo_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.service.Conexao_HTTP;
 import br.com.prodap.taurusmobile.service.Get_JSON;
@@ -17,6 +18,7 @@ import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
+import br.com.prodap.taurusmobile.view.Menu_Principal_Activity;
 
 /**
  * Created by Prodap on 27/01/2016.
@@ -32,15 +34,17 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
     public Conexao_HTTP c_http;
     private ProgressDialog mProgress;
     private int mProgressDialog = 0;
+    private Menu_Principal_Activity menu_principal_activity;
 
     private String msg;
 
-    public Get_Pastos_JSON(Context ctx, int progressDialog)
+    public Get_Pastos_JSON(Context ctx, int progressDialog, Menu_Principal_Activity activity)
     {
         this.ctx                = ctx;
         this.mProgressDialog    = progressDialog;
 
         source();
+        this.menu_principal_activity = activity;
     }
 
     private void source()
@@ -56,14 +60,14 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
     {
         mProgress = new ProgressDialog(ctx);
         mProgress.setTitle("Aguarde ...");
-        mProgress.setMessage("Recebendo dados do servidor ...");
+        mProgress.setMessage("Recebendo pastos do servidor ...");
 
         if (mProgressDialog == ProgressDialog.STYLE_HORIZONTAL)
         {
             mProgress.setIndeterminate(false);
-            mProgress.setMax(100);
+            mProgress.setMax(0);
             mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgress.setCancelable(true);
+            mProgress.setCancelable(false);
         }
 
         mProgress.show();
@@ -124,6 +128,7 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
         }
         catch (Exception e)
         {
+            msg = ("Erro ao atualizar os pastos.");
             e.printStackTrace();
         }
 
@@ -144,7 +149,7 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
             {
                 if (result != null)
                 {
-                    mProgress.dismiss();
+                    //mProgress.dismiss();
 
                     if (pastoList.isEmpty())
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
@@ -154,6 +159,8 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
                 else
                 {
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                    mProgress.dismiss();
+                    return;
                 }
             }
         }
@@ -169,7 +176,7 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
             {
                 if (result != null)
                 {
-                    mProgress.dismiss();
+                    //mProgress.dismiss();
 
                     if (pastoList.isEmpty())
                         Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
@@ -179,6 +186,8 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
                 else
                 {
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                    mProgress.dismiss();
+                    return;
                 }
             }
         }
@@ -187,7 +196,7 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
         {
             if (result != null)
             {
-                mProgress.dismiss();
+                //mProgress.dismiss();
 
                 if (pastoList.isEmpty())
                     Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contem dados no arquivo selecionado.");
@@ -197,7 +206,14 @@ public class Get_Pastos_JSON extends AsyncTask<Void, Integer, List<Pasto>>
             else
             {
                 Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+                mProgress.dismiss();
+                return;
             }
         }
+
+        Grupo_Manejo_Model grupo_model = new Grupo_Manejo_Model(this.ctx);
+        grupo_model.delete(this.ctx, "Grupo_Manejo");
+        new Get_Grupo_Manejo_JSON(this.ctx, ProgressDialog.STYLE_HORIZONTAL, this.menu_principal_activity, mProgress).execute();
+
     }
 }
