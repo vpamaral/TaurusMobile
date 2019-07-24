@@ -7,16 +7,12 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.text.format.DateFormat;
-import android.transition.Visibility;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,26 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.Button;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import br.com.prodap.taurusmobile.OpenFile.OnCloseListener;
 import br.com.prodap.taurusmobile.OpenFile.OpenFileDialog;
 import br.com.prodap.taurusmobile.R;
-import br.com.prodap.taurusmobile.TesteActivity;
 import br.com.prodap.taurusmobile.bluetooth.Bluetooth_Activity;
-import br.com.prodap.taurusmobile.bluetooth.ConnectionThread;
-import br.com.prodap.taurusmobile.bluetooth.DiscoveredDevices;
-import br.com.prodap.taurusmobile.bluetooth.PairedDevices;
 import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.model.Configuracao_Model;
 import br.com.prodap.taurusmobile.model.Criterio_Model;
@@ -56,14 +40,9 @@ import br.com.prodap.taurusmobile.model.Parto_Model;
 import br.com.prodap.taurusmobile.model.Pasto_Model;
 import br.com.prodap.taurusmobile.model.Parto_Cria_Model;
 import br.com.prodap.taurusmobile.service.Get_JSON;
-import br.com.prodap.taurusmobile.task.Get_Animais_JSON;
-import br.com.prodap.taurusmobile.task.Get_Criterios_JSON;
-import br.com.prodap.taurusmobile.task.Get_Grupo_Manejo_JSON;
-import br.com.prodap.taurusmobile.task.Get_Raca_JSON;
 import br.com.prodap.taurusmobile.task.Get_Pastos_JSON;
 import br.com.prodap.taurusmobile.task.Post_Animais_JSON;
 import br.com.prodap.taurusmobile.tb.Configuracao;
-import br.com.prodap.taurusmobile.tb.Pasto;
 import br.com.prodap.taurusmobile.tb.Parto_Cria;
 import br.com.prodap.taurusmobile.util.Constantes;
 import br.com.prodap.taurusmobile.util.CreateReadWrite;
@@ -156,99 +135,99 @@ public class Menu_Principal_Activity extends Activity
 		// The activity is about to become visible.
 
 		buscaPartosLancados();
-		buscaDataAtualizacao();
+		buscaDataAtualizacao(false);
 	}
 
 	public void btn_itens_atualizar_Click(View v) {
-		LinearLayout be_w = (LinearLayout) findViewById(R.id.btn_enviar_web);
-		LinearLayout be_b = (LinearLayout) findViewById(R.id.btn_enviar_bluetooth);
-		LinearLayout be_a = (LinearLayout) findViewById(R.id.btn_enviar_arquivo);
-		be_w.setVisibility(View.GONE);
+		//LinearLayout be_w = (LinearLayout) findViewById(R.id.btn_enviar_web);
+		Button be_b = (Button) findViewById(R.id.btn_enviar_bluetooth);
+		Button be_a = (Button) findViewById(R.id.btn_enviar_arquivo);
+		//be_w.setVisibility(View.GONE);
 		be_b.setVisibility(View.GONE);
 		be_a.setVisibility(View.GONE);
 
         //LinearLayout ba_w = (LinearLayout) findViewById(R.id.btn_atualiza_web);
-		LinearLayout ba_b = (LinearLayout) findViewById(R.id.btn_atualiza_bluetooth);
-		LinearLayout ba_a = (LinearLayout) findViewById(R.id.btn_atualiza_arquivo);
+		Button ba_b = (Button) findViewById(R.id.btn_atualiza_bluetooth);
+		Button ba_a = (Button) findViewById(R.id.btn_atualiza_arquivo);
 
 		if (ba_b.getVisibility() == View.GONE) {
 			//ba_w.setVisibility(View.VISIBLE);
 			ba_b.setVisibility(View.VISIBLE);
 			ba_a.setVisibility(View.VISIBLE);
 
-			ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_enviar);
-			i_select.setBackgroundColor(Color.parseColor("#5cb85c"));
-			Button btn_select = (Button) findViewById( R.id.btn_open_enviar);
-			btn_select.setBackgroundColor(Color.parseColor("#5cb85c"));
-			btn_select.setTextColor(Color.WHITE);
+			//ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_enviar);
+			//i_select.setBackgroundColor(Color.parseColor("#5cb85c"));
+			//Button btn_select = (Button) findViewById( R.id.btn_open_enviar);
+			//btn_select.setBackgroundColor(Color.parseColor("#5cb85c"));
+			//btn_select.setTextColor(Color.WHITE);
 
-			i_select = (ImageButton) findViewById( R.id.imagebutton_open_atualiza);
+			//i_select = (ImageButton) findViewById( R.id.imagebutton_open_atualiza);
 			//i_select.setBackgroundColor(Color.parseColor("#FF33B5E5"));
-			btn_select = (Button) findViewById( R.id.btn_open_atualiza);
+			//btn_select = (Button) findViewById( R.id.btn_open_atualiza);
 			//btn_select.setBackgroundColor(Color.parseColor("#FF33B5E5"));
 
 			//btn_select.setTextColor(Color.BLACK);
-			i_select.setBackgroundColor(Color.parseColor("#ffff8800"));
+			//i_select.setBackgroundColor(Color.parseColor("#ffff8800"));
 
 		} else {
 			//ba_w.setVisibility(View.GONE);
 			ba_b.setVisibility(View.GONE);
 			ba_a.setVisibility(View.GONE);
 
-			ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_atualiza);
-			i_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
+			//ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_atualiza);
+			//i_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
 
-			Button btn_select = (Button) findViewById( R.id.btn_open_atualiza);
-			btn_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
-			btn_select.setTextColor(Color.WHITE);
+			//Button btn_select = (Button) findViewById( R.id.btn_open_atualiza);
+			//btn_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
+			//btn_select.setTextColor(Color.WHITE);
 		}
 	}
 
-	public void btn_itens_enviar_Click(View v)
-	{
-        LinearLayout ba_w = (LinearLayout) findViewById(R.id.btn_atualiza_web);
-		LinearLayout ba_b = (LinearLayout) findViewById(R.id.btn_atualiza_bluetooth);
-		LinearLayout ba_a = (LinearLayout) findViewById(R.id.btn_atualiza_arquivo);
-		ba_w.setVisibility(View.GONE);
+	public void btn_itens_enviar_Click(View v) {
+		//LinearLayout ba_w = (LinearLayout) findViewById(R.id.btn_atualiza_web);
+		Button ba_b = (Button) findViewById(R.id.btn_atualiza_bluetooth);
+		Button ba_a = (Button) findViewById(R.id.btn_atualiza_arquivo);
+		//ba_w.setVisibility(View.GONE);
 		ba_b.setVisibility(View.GONE);
 		ba_a.setVisibility(View.GONE);
 
 		//LinearLayout be_w = (LinearLayout) findViewById(R.id.btn_enviar_web);
-		LinearLayout be_b = (LinearLayout) findViewById(R.id.btn_enviar_bluetooth);
-		LinearLayout be_a = (LinearLayout) findViewById(R.id.btn_enviar_arquivo);
+		Button be_b = (Button) findViewById(R.id.btn_enviar_bluetooth);
+		Button be_a = (Button) findViewById(R.id.btn_enviar_arquivo);
 
 		if (be_b.getVisibility() == View.GONE) {
 			//be_w.setVisibility(View.VISIBLE);
 			be_b.setVisibility(View.VISIBLE);
 			be_a.setVisibility(View.VISIBLE);
 
-			ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_atualiza);
-			i_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
-			Button btn_select = (Button) findViewById( R.id.btn_open_atualiza);
-			btn_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
-			btn_select.setTextColor(Color.WHITE);
+			//ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_atualiza);
+			//i_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
+			//Button btn_select = (Button) findViewById(R.id.btn_open_atualiza);
+			//btn_select.setBackgroundColor(Color.parseColor("#f0ad4e"));
+			//btn_select.setTextColor(Color.WHITE);
 
-			i_select = (ImageButton) findViewById( R.id.imagebutton_open_enviar);
+			//i_select = (ImageButton) findViewById( R.id.imagebutton_open_enviar);
 			//i_select.setBackgroundColor(Color.parseColor("#FF33B5E5"));
-			btn_select = (Button) findViewById( R.id.btn_open_enviar);
+			//btn_select = (Button) findViewById(R.id.btn_open_enviar);
 			//btn_select.setBackgroundColor(Color.parseColor("#FF33B5E5"));
 
 			//btn_select.setTextColor(Color.BLACK);
-            i_select.setBackgroundColor(Color.parseColor("#ff669900"));
+			//i_select.setBackgroundColor(Color.parseColor("#ff669900"));
 
 		} else {
 			//be_w.setVisibility(View.GONE);
 			be_b.setVisibility(View.GONE);
 			be_a.setVisibility(View.GONE);
 
-			ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_enviar);
-			i_select.setBackgroundColor(Color.parseColor("#5cb85c"));
+			//ImageButton i_select = (ImageButton) findViewById( R.id.imagebutton_open_enviar);
+			//i_select.setBackgroundColor(Color.parseColor("#5cb85c"));
 
-			Button btn_select = (Button) findViewById( R.id.btn_open_enviar);
-			btn_select.setBackgroundColor(Color.parseColor("#5cb85c"));
-			btn_select.setTextColor(Color.WHITE);
+			//Button btn_select = (Button) findViewById(R.id.btn_open_enviar);
+			//btn_select.setBackgroundColor(Color.parseColor("#5cb85c"));
+			//btn_select.setTextColor(Color.WHITE);
 		}
 	}
+
 
 	private void loadVars()
 	{
@@ -357,7 +336,7 @@ public class Menu_Principal_Activity extends Activity
 		}
 	}
 
-    public void buscaDataAtualizacao() {
+    public void buscaDataAtualizacao(boolean clickButton) {
 
         try {
             lista_conf = configuracao_model.selectAll(this, "Configuracao", conf_tb);
@@ -373,6 +352,9 @@ public class Menu_Principal_Activity extends Activity
 					linear.setVisibility(View.GONE);
 				else
 					linear.setVisibility(View.VISIBLE);
+
+				if(clickButton)
+					btn_itens_atualizar_Click(null);
             }
 
         } catch (Exception e) {
@@ -431,7 +413,7 @@ public class Menu_Principal_Activity extends Activity
 
 		if (checksConnectionBluetooth())
 		{
-			dialog = ProgressDialog.show(this,"Sincronizando dados...","Aguarde ...", false, true);
+			dialog = ProgressDialog.show(this,"Sincronizando dados...","Aguarde ...", false, false);
 			Constantes.JSON = "";
 			sendMessage("GET");
 
@@ -544,7 +526,7 @@ public class Menu_Principal_Activity extends Activity
 
 	public void btn_vacas_gestantes_Click (View v)
 	{
-		Intent intent = new Intent(Menu_Principal_Activity.this, TesteActivity.class);
+		Intent intent = new Intent(Menu_Principal_Activity.this, Vacas_Gestantes_Activity.class);
 		startActivity(intent);
 	}
 

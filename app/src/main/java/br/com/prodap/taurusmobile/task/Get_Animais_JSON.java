@@ -170,88 +170,86 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 	@Override
 	protected void onPostExecute(List<Animal> result)
 	{
-		if (Constantes.TIPO_ENVIO == "web")
-		{
-			if (c_http.servResultGet != 200)
-			{
-				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
-				mProgress.dismiss();
-			}
-			else
-			{
-				if (result != null)
-				{
+		try {
+			if (Constantes.TIPO_ENVIO == "web") {
+				if (c_http.servResultGet != 200) {
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Impossível estabelecer conexão com o Banco Dados do Servidor.");
 					mProgress.dismiss();
+				} else {
+					if (result != null) {
+						mProgress.dismiss();
 
-					if (objListaAnimal.isEmpty())
-						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
-					else
-						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
+						if (objListaAnimal.isEmpty())
+							Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
+						else
+							Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
 
-				}
-				else
-				{
-					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
-					mProgress.dismiss();
-					return;
-				}
-			}
-		}
-
-		if (Constantes.TIPO_ENVIO == "bluetooth")
-		{
-			boolean teste = Constantes.btSocket.isConnected();
-			if (Constantes.STATUS_CONN == "desconectado" ||  Constantes.btSocket == null || Constantes.btSocket.isConnected() == false)
-			{
-				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "O dipositivo não esta conectado ao Servidor.");
-				mProgress.dismiss();
-			}
-			else
-			{
-				if (result != null)
-				{
-					mProgress.dismiss();
-
-					if (objListaAnimal.isEmpty())
-						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
-					else
-					{
-						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
-						Constantes.STATUS_CONN = ("desconectado");
-						Constantes.LBL_STATUS.setText("Desconectado");
-						Constantes.CONNECT.cancel();
+					} else {
+						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+						mProgress.dismiss();
+						return;
 					}
 				}
-				else
-				{
+			}
+
+			if (Constantes.TIPO_ENVIO == "bluetooth") {
+				boolean teste = Constantes.btSocket.isConnected();
+				if (Constantes.STATUS_CONN == "desconectado" || Constantes.btSocket == null || Constantes.btSocket.isConnected() == false) {
+					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "O dipositivo não esta conectado ao Servidor.");
+					mProgress.dismiss();
+				} else {
+					if (result != null) {
+						mProgress.dismiss();
+
+						if (objListaAnimal.isEmpty())
+							Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não foi possível atualizar os dados.");
+						else {
+							Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
+							Constantes.STATUS_CONN = ("desconectado");
+							Constantes.LBL_STATUS.setText("Desconectado");
+						}
+					} else {
+						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
+						mProgress.dismiss();
+						return;
+					}
+				}
+			}
+
+			if (Constantes.TIPO_ENVIO == "arquivo") {
+				if (result != null) {
+					mProgress.dismiss();
+
+					if (objListaAnimal.isEmpty())
+						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contém dados no arquivo selecionado.");
+					else
+						Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
+				} else {
 					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
 					mProgress.dismiss();
 					return;
 				}
-			}
-		}
 
-		if (Constantes.TIPO_ENVIO == "arquivo")
+			}
+
+			this.menu_principal_activity.buscaDataAtualizacao(true);
+		}
+		catch (Exception e)
 		{
-			if (result != null)
-			{
-				mProgress.dismiss();
-
-				if (objListaAnimal.isEmpty())
-					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Não contém dados no arquivo selecionado.");
-				else
-					Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, "Dados atualizados com sucesso.");
-			}
-			else
-			{
-				Mensagem_Util.addMsg(Message_Dialog.Toast, ctx, msg);
-				mProgress.dismiss();
-				return;
-			}
-
+			msg = ("Erro ao atualizar os animais.");
+			Log.i("TAG", e.toString());
+			e.printStackTrace();
 		}
-
-		this.menu_principal_activity.buscaDataAtualizacao();
+		finally {
+			try
+			{
+				Constantes.CONNECT.cancel();
+			}
+			catch (Exception e){
+				Log.i("TAG", e.toString());
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void fillDatabase(Context ctx, HashMap<Long, Animal> localData, String Table){
@@ -291,7 +289,10 @@ public class Get_Animais_JSON extends AsyncTask<Void, Integer, List<Animal>>
 				publishProgress(i * 1);
 				i++;
 			}
-		}catch(Exception e){e.printStackTrace();}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 		finally{
 			if(ih!=null)
 				ih.close();

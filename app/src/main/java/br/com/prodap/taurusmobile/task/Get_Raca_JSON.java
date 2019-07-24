@@ -69,7 +69,7 @@ public class Get_Raca_JSON extends AsyncTask<Void, Integer, List<Raca>>
             mProgress.setIndeterminate(false);
             mProgress.setMax(100);
             mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgress.setCancelable(true);
+            mProgress.setCancelable(false);
         }
 
         mProgress.show();

@@ -4,7 +4,7 @@
     tools:context="br.com.taurusmobile.ui.MainActivity" >
 
     <item
-        android:icon="@drawable/ic_opcoes"
+        android:icon="@drawable/perfil"
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/action_settings">

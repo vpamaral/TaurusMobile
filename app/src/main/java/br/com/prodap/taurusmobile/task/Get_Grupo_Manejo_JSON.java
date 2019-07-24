@@ -68,7 +68,7 @@ public class Get_Grupo_Manejo_JSON  extends AsyncTask<Void, Integer, List<Grupo_
             mProgress.setIndeterminate(false);
             mProgress.setMax(100);
             mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgress.setCancelable(true);
+            mProgress.setCancelable(false);
         }
 
         mProgress.show();

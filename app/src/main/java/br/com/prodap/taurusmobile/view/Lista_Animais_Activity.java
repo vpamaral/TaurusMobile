@@ -3,15 +3,21 @@ package br.com.prodap.taurusmobile.view;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.text.ParseException;
 import java.util.List;
 
 import br.com.prodap.taurusmobile.R;
@@ -54,6 +60,9 @@ public class Lista_Animais_Activity extends Activity
 		adpSexo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spinSexo.setAdapter(adpSexo);
 
+		search();
+
+		configuraSearch(false);
 	}
 
 	private void AnimalList()
@@ -129,11 +138,55 @@ public class Lista_Animais_Activity extends Activity
 	 * Método executado quando algum item da lista é clicado
 	 */
 
+	public void search(){
+
+		EditText inputSearch = (EditText) findViewById(R.id.edtSearch);
+
+		inputSearch.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+				// When user changed the Text
+				//MainActivity.this.adapter.getFilter().filter(cs);
+
+				adapter.getFilter().filter(cs);
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable arg0) {
+
+				Spinner spnSexo = (Spinner) findViewById(R.id.spnSexoFiltro);
+				String sexo_selecionado = spnSexo.getSelectedItem().toString();
+
+				/*if(arg0.toString().equals("")) {
+					if (sexo_selecionado == "TODOS")
+						setTitle("Quantidade de Animais: " + quantdAnimais);
+					else
+						setTitle("Quantidade de " + (sexo_selecionado == "MACHO" ? "Machos: " : "Fêmeas: ") + quantdAnimais);
+				}
+				else
+					setTitle("Animais");*/
+
+			}
+		});
+
+	}
+
 	public void btn_filtro_Click (View view)
 	{
 		Spinner spnSexo = (Spinner) findViewById(R.id.spnSexoFiltro);
 		String sexo_selecionado = spnSexo.getSelectedItem().toString();
-
+		EditText inputSearch = (EditText) findViewById(R.id.edtSearch);
+		inputSearch.setText("");
+		configuraSearch(false);
+		//inputSearch.setFocusable(false);
+//		((InputMethodManager) this.getSystemService(this.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
 
 		if(sexo_selecionado == "TODOS") {
 			AnimalList();
@@ -148,6 +201,61 @@ public class Lista_Animais_Activity extends Activity
 		animal_list.setAdapter(adapter);
 
 		setTitle("Quantidade de " + (sexo_selecionado == "MACHO" ? "Machos: " : "Fêmeas: ") + quantdAnimais);
+	}
+
+	public void searchClick(View b) {
+		try {
+
+			EditText edtSearch = (EditText) findViewById(R.id.edtSearch);
+
+			int w = edtSearch.getLayoutParams().width;
+			if(w == 0) {
+				edtSearch.setFocusable(true);
+				edtSearch.setFocusableInTouchMode(true);
+				edtSearch.setEnabled(true);
+				edtSearch.setClickable(true);
+				changeSearch();
+				configuraSearch(true);
+			}
+			else{
+				configuraSearch(false);
+				edtSearch.setText("");
+			}
+		} catch (Exception error) {
+			error.printStackTrace();
+		}
+	}
+
+	private void configuraSearch(boolean valor){
+
+		EditText edtSearch = (EditText) findViewById(R.id.edtSearch);
+
+		if(valor){
+			edtSearch.setLayoutParams(new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+			((InputMethodManager) this.getSystemService(this.INPUT_METHOD_SERVICE)).showSoftInput(edtSearch, InputMethodManager.SHOW_FORCED);
+
+			edtSearch.requestFocus();
+		}
+		else{
+			edtSearch.setLayoutParams(new LinearLayout.LayoutParams( 0, LinearLayout.LayoutParams.WRAP_CONTENT));
+			((InputMethodManager) this.getSystemService(this.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(edtSearch.getWindowToken(), 0);
+
+			spinSexo.requestFocus();
+		}
+	}
+
+	private void changeSearch()
+	{
+		EditText edtSearch = (EditText) findViewById(R.id.edtSearch);
+
+		edtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+
+				configuraSearch(hasFocus);
+
+			}
+		});
 	}
 
 	private void consultarPorIdClick()

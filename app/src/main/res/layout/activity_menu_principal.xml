@@ -1,620 +1,346 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".view.Menu_Principal_Activity">
 
+
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-
-            <TextView
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Status do Bluetooth: "
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/lbl_status_MSG"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
-
+        android:layout_height="match_parent">
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="0,1">
+            android:layout_margin="10dp"
+            android:stretchColumns="*">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Status do Bluetooth: "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lbl_status_MSG"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <TableRow>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_open_atualiza"
+                    android:layout_width="0dp"
                     android:layout_height="100dp"
-                    android:layout_column="0"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="5dp"
-                    android:orientation="horizontal">
+                    android:layout_margin="2dp"
+                    android:background="@drawable/shape3"
+                    android:drawableLeft="@android:drawable/stat_sys_download"
+                    android:onClick="btn_itens_atualizar_Click"
+                    android:paddingLeft="10dp"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowRadius="5"
+                    android:text="Atualizar\nDados"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                    <ImageButton
-                        android:id="@+id/imagebutton_open_atualiza"
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/bootstrap_brand_warning"
-                        android:onClick="btn_itens_atualizar_Click"
-                        android:src="@android:drawable/stat_sys_download" />
-
-                    <Button
-                        android:id="@+id/btn_open_atualiza"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/bootstrap_brand_warning"
-                        android:onClick="btn_itens_atualizar_Click"
-                        android:shadowColor="#A8A8A8"
-                        android:shadowRadius="5"
-                        android:text="Atualizar\nDados"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    >
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/imagebutton_open_enviar"
-                        android:layout_width="50dp"
-                        android:layout_height="100dp"
-                        android:background="@color/bootstrap_brand_success"
-                        android:onClick="btn_itens_enviar_Click"
-                        android:src="@android:drawable/stat_sys_upload" />
-
-                    <Button
-                        android:id="@+id/btn_open_enviar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/bootstrap_brand_success"
-                        android:onClick="btn_itens_enviar_Click"
-                        android:shadowColor="#A8A8A8"
-                        android:shadowRadius="5"
-                        android:text="Enviar   \nPartos   "
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    >
-
-                </LinearLayout>
+                <Button
+                    android:id="@+id/btn_open_enviar"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/shape"
+                    android:drawableLeft="@android:drawable/stat_sys_upload"
+                    android:onClick="btn_itens_enviar_Click"
+                    android:paddingLeft="10dp"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowRadius="5"
+                    android:text="Enviar\nPartos"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </TableRow>
-
-        </TableLayout>
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="0,1">
 
             <TableRow>
 
-                <LinearLayout
-                    android:id="@+id/linear_ult_atualizacao"
-                    android:layout_width="wrap_content"
+                <TableLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_column="0"
-                    android:layout_gravity="left"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:stretchColumns="*">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Últ. Atual.: "
-                        android:textColor="@color/bootstrap_brand_warning"
-                        android:textStyle="bold" />
+                    <TableRow>
+                        <Button
+                            android:id="@+id/btn_atualiza_arquivo"
+                            android:onClick="btn_open_arquivo_Click"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/shape3"
+                            android:shadowColor="#A8A8A8"
+                            android:shadowRadius="5"
+                            android:text="Arquivo"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/lbl_ult_atualizacao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/bootstrap_brand_warning"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        <Button
+                            android:id="@+id/btn_atualiza_bluetooth"
+                            android:onClick="btn_atualiza_via_bluetooth_Click"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/shape3"
+                            android:shadowColor="#A8A8A8"
+                            android:shadowRadius="5"
+                            android:text="bluetooth"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
 
-                <LinearLayout
-                    android:id="@+id/linear_partos_lancados"
-                    android:layout_width="wrap_content"
+                    </TableRow>
+
+                </TableLayout>
+
+                <TableLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_gravity="right"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    android:stretchColumns="*">
 
-                    <TextView
+                    <TableRow>
+                        <Button
+                            android:id="@+id/btn_enviar_arquivo"
+                            android:onClick="btn_create_file_Click"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/shape"
+                            android:shadowColor="#A8A8A8"
+                            android:shadowRadius="5"
+                            android:text="Arquivo"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <Button
+                            android:id="@+id/btn_enviar_bluetooth"
+                            android:onClick="btn_enviar_via_bluetooth_Click"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginLeft="2dp"
+                            android:background="@drawable/shape"
+                            android:shadowColor="#A8A8A8"
+                            android:shadowRadius="5"
+                            android:text="Bluetooth"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+                    </TableRow>
+
+                </TableLayout>
+
+            </TableRow>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:stretchColumns="0,1">
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:id="@+id/linear_ult_atualizacao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Partos à enviar: "
-                        android:textColor="@color/bootstrap_brand_success"
-                        android:textStyle="bold" />
+                        android:layout_column="0"
+                        android:layout_gravity="left"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                    <TextView
-                        android:id="@+id/lbl_partos_lancados"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Últ. Atual.: "
+                            android:textColor="@color/bootstrap_brand_warning"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lbl_ult_atualizacao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/bootstrap_brand_warning"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linear_partos_lancados"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/bootstrap_brand_success"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:layout_column="1"
+                        android:layout_gravity="right"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Partos à enviar: "
+                            android:textColor="@color/bootstrap_brand_success"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lbl_partos_lancados"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/bootstrap_brand_success"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </TableRow>
+
+            </TableLayout>
+
+
+            <LinearLayout
+                android:id="@+id/separator1"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/bootstrap_gray_dark"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/separator2"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/bootstrap_gray"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/shape"
+                    android:drawableLeft="@android:drawable/stat_notify_more"
+                    android:onClick="btn_cadastro_parto_Click"
+                    android:paddingLeft="10dp"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowRadius="5"
+                    android:text="Cadastro\nde Parto"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/shape"
+                    android:drawableLeft="@android:drawable/stat_notify_chat"
+                    android:onClick="btn_list_animais_Click"
+                    android:paddingLeft="10dp"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowRadius="5"
+                    android:text="Lista de\nAnimais"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/shape"
+                    android:drawableLeft="@android:drawable/stat_notify_chat"
+                    android:onClick="btn_relatorio_parto_Click"
+                    android:paddingLeft="10dp"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowRadius="5"
+                    android:text="Partos\nEnviados"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="0.25"
+                    android:background="@drawable/shape"
+                    android:drawableLeft="@android:drawable/stat_notify_chat"
+                    android:onClick="btn_vacas_gestantes_Click"
+                    android:paddingLeft="10dp"
+                    android:shadowColor="#A8A8A8"
+                    android:shadowRadius="5"
+                    android:text="Vacas\nGestantes"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </TableRow>
 
         </TableLayout>
 
-
-        <LinearLayout
-            android:id="@+id/btn_atualiza_web"
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageButton
-                android:id="@+id/imagebutton_atualiza_web"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/holo_orange_dark"
-                android:onClick="btn_atualiza_via_web_Click"
-                android:src="@android:drawable/stat_sys_download" />
-
-            <Button
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:background="@color/bootstrap_brand_warning"
-                android:onClick="btn_atualiza_via_web_Click"
-                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Atualizar Via Web"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_atualiza_bluetooth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageButton
-                android:id="@+id/imagebutton_atualizar_blue"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/holo_orange_dark"
-                android:onClick="btn_atualiza_via_bluetooth_Click"
-                android:src="@android:drawable/stat_sys_data_bluetooth" />
-
-            <Button
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/bootstrap_brand_warning"
-                android:onClick="btn_atualiza_via_bluetooth_Click"
-                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Atualizar Via Bluetooth"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_atualiza_arquivo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageButton
-                android:id="@+id/imagebutton_atualizar_ar"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/holo_orange_dark"
-                android:onClick="btn_open_arquivo_Click"
-                android:src="@android:drawable/stat_sys_download" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@color/bootstrap_brand_warning"
-                android:onClick="btn_open_arquivo_Click"
-                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Atualizar Via Arquivo"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/btn_enviar_web"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageButton
-                android:id="@+id/imagebutton_enviar_web"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/holo_green_dark"
-                android:onClick="btn_enviar_via_web_Click"
-                android:src="@android:drawable/stat_sys_upload" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/bootstrap_brand_success"
-                android:onClick="btn_enviar_via_web_Click"
-                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Enviar Via Web"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_enviar_bluetooth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageButton
-                android:id="@+id/imagebutton_enviar_blue"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/holo_green_dark"
-                android:onClick="btn_enviar_via_bluetooth_Click"
-                android:src="@android:drawable/stat_sys_data_bluetooth" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/bootstrap_brand_success"
-                android:onClick="btn_enviar_via_bluetooth_Click"
-                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Enviar Via Bluetooth"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btn_enviar_arquivo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageButton
-                android:id="@+id/imagebutton_enviar_ar"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/holo_green_dark"
-                android:onClick="btn_enviar_via_bluetooth_Click"
-                android:src="@android:drawable/stat_sys_upload" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/bootstrap_brand_success"
-                android:onClick="btn_create_file_Click"
-                android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-                android:shadowColor="#A8A8A8"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="Gerar Arquivo"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
-
-        </LinearLayout>
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="10px"
-            android:layout_margin="10px"
-            android:background="@color/bootstrap_gray"
-            android:shadowColor="@color/bootstrap_gray_dark"
-            tools:shadowRadius="5" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/gradientinvertido"
-            android:drawableLeft="@android:drawable/stat_notify_chat"
-            android:onClick="btn_list_animais_Click"
-            android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Lista de Animais"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:drawableLeft="@android:drawable/stat_notify_chat" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/gradientinvertido"
-            android:drawableLeft="@android:drawable/stat_notify_more"
-            android:onClick="btn_cadastro_parto_Click"
-            android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Cadastro de Parto"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:drawableLeft="@android:drawable/stat_notify_more" />
-
-        <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/gradientinvertido"
-        android:drawableLeft="@android:drawable/stat_notify_chat"
-        android:onClick="btn_relatorio_parto_Click"
-        android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="Partos Enviados"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:drawableLeft="@android:drawable/stat_notify_chat" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/gradientinvertido"
-            android:drawableLeft="@android:drawable/stat_notify_chat"
-            android:onClick="btn_vacas_gestantes_Click"
-            android:paddingLeft="@dimen/bootstrap_h5_hori_padding"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Vacas Gestantes"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:drawableLeft="@android:drawable/stat_notify_chat" />
-
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:alpha="0.1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fazenda" />
 
     </LinearLayout>
 
-    <!--<LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/btn_atualiza"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/atualiza32"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Atualizar Dados"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btn_animal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/lista32"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Animais"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btn_parto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/adiciona32"
-            android:drawablePadding="0dp"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Lançar Parto"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btn_lista_parto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/lista32"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Partos"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btn_enviar_dados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/envia32"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Enviar Dados Servidor"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-        
-         <Button
-            android:id="@+id/btn_configuracoes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/setting"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Configurações"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-        &lt;!&ndash;<Button
-            android:id="@+id/btn_atualiza_dados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/atualiza32"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Atualizar Dados via arquivo"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-
-          <Button
-            android:id="@+id/btn_busca"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
-            android:drawableLeft="@drawable/envia32"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:text="Busca Animais"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />&ndash;&gt;
-          
-    </LinearLayout>-->
-
-</ScrollView>
+</LinearLayout>

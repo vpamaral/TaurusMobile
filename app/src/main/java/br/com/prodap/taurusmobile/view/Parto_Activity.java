@@ -522,6 +522,8 @@ public class Parto_Activity extends Activity
                         || animalList.getCodigo_ferro().equals(editMatriz.getText().toString().toUpperCase())) {
                     listaMatriz.add(animalList.getCodigo());
                     editMatriz.setText(animalList.getCodigo());
+                    if(animal.getId_pk()== 0)
+                        txtidanimal.setText(String.valueOf(animalList.getId_pk()));
 
                     if (animalList.getSexo().equals("MA")) {
                         animal_macho = true;
