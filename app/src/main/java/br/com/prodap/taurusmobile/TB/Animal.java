@@ -6,6 +6,7 @@ public class Animal implements Serializable {
 	
 	private long id_pk;
 	//private long id_fk_cria;
+	private String hash;
 	private String codigo;
 	//private String sisbov;
 	private String identificador;
@@ -26,6 +27,14 @@ public class Animal implements Serializable {
 
 	public void setId_pk(long id_pk) {
 		this.id_pk = id_pk;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 
 	/*public long getId_fk_cria() {
@@ -143,6 +152,6 @@ public class Animal implements Serializable {
 
 	@Override
 	public String toString() {
-		return codigo;
+		return hash;
 	}
 }

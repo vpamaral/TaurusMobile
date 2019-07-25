@@ -51,6 +51,7 @@ public class Animal_Adapter
 		ContentValues a_dados = new ContentValues();
 
 		a_dados.put("id_pk", a_tb.getId_pk());
+		a_dados.put("hash", a_tb.getHash());
 		a_dados.put("codigo", a_tb.getCodigo());
 		a_dados.put("codigo_ferro", a_tb.getCodigo_ferro());
 		a_dados.put("data_nascimento", a_tb.getData_nascimento());
@@ -68,6 +69,7 @@ public class Animal_Adapter
 	{
 		Animal a_tb = new Animal();
 		a_tb.setId_pk(c.getLong(c.getColumnIndex("id_pk")));
+		a_tb.setHash(c.getColumnIndex("hash") != -1 && c.getString(c.getColumnIndex("hash")) != null ? c.getString(c.getColumnIndex("hash")) : "");
 		a_tb.setCodigo(c.getString(c.getColumnIndex("codigo")));
 		a_tb.setIdentificador(c.getString(c.getColumnIndex("identificador")) != null ? c.getString(c.getColumnIndex("identificador")) : "");
 		a_tb.setCodigo_ferro(c.getString(c.getColumnIndex("codigo_ferro")) != null ? c.getString(c.getColumnIndex("codigo_ferro")) : "");
@@ -96,6 +98,7 @@ public class Animal_Adapter
 		{
 			Animal a_tb = new Animal();
 			a_tb.setId_pk(AnimalArray[i].getId_pk());
+			a_tb.setHash(AnimalArray[i].getHash() != null ? AnimalArray[i].getHash() : "");
 			a_tb.setCodigo(AnimalArray[i].getCodigo());
 			a_tb.setIdentificador(AnimalArray[i].getIdentificador() != null ? AnimalArray[i].getIdentificador() : "");
 			a_tb.setCodigo_ferro(AnimalArray[i].getCodigo_ferro() != null ? AnimalArray[i].getCodigo_ferro() : "");
@@ -122,6 +125,7 @@ public class Animal_Adapter
 		Animal animal_tb = new Animal();
 
 		animal_tb.setId_pk(a_tb.getId_pk());
+		animal_tb.setHash(a_tb.getHash() != null ? a_tb.getHash() : "");
 		animal_tb.setCodigo(a_tb.getCodigo());
 		animal_tb.setIdentificador(a_tb.getIdentificador() != null ? a_tb.getIdentificador() : "0");
 		animal_tb.setCodigo_ferro(a_tb.getCodigo_ferro() != null ? a_tb.getCodigo_ferro() : "0");

@@ -25,6 +25,7 @@ import br.com.prodap.taurusmobile.model.Animal_Model;
 import br.com.prodap.taurusmobile.tb.Animal;
 import br.com.prodap.taurusmobile.util.Mensagem_Util;
 import br.com.prodap.taurusmobile.util.Message_Dialog;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class Lista_Animais_Activity extends Activity
 {
@@ -37,8 +38,10 @@ public class Lista_Animais_Activity extends Activity
 	private Button btn_select;
 	private int sexo_selected;
 	private Spinner spinSexo;
+	private Spinner spinID;
 
 	private static final String[] SEXO = new String[]{"TODOS", "FÊMEA", "MACHO"};
+	private static final String[] IDENTIFICADORES = new String[]{"Cód. Alternativo", "Cód. de Manejo", "Identificador"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +53,7 @@ public class Lista_Animais_Activity extends Activity
 		a_model 	= new Animal_Model(getBaseContext());
 		animal_list = (ListView) findViewById(R.id.lista_animais);
 
-		this.AnimalList();
+		//this.AnimalList();
 		this.consultarPorIdClick();
 		this.consultarPorIdClickLongo();
 
@@ -60,14 +63,36 @@ public class Lista_Animais_Activity extends Activity
 		adpSexo.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spinSexo.setAdapter(adpSexo);
 
+		spinID = (Spinner) findViewById(R.id.spnIdentificador);
+		ArrayAdapter<String> adpID = new ArrayAdapter<String>(this,
+				android.R.layout.simple_dropdown_item_1line, IDENTIFICADORES);
+		adpID.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		spinID.setAdapter(adpID);
+		selectedItem();
+
 		search();
 
 		configuraSearch(false);
 	}
 
-	private void AnimalList()
+	private void selectedItem()
 	{
-		animais 		= a_model.selectAll(this, "Animal", ani_tb);
+		spinID.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				int index = arg0.getSelectedItemPosition();
+                AnimalList(IDENTIFICADORES[index]);
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+				int index =0;
+			}
+		});
+	}
+
+	private void AnimalList(String id_selecionado)
+	{
+		animais 		= a_model.selectAllAni(this, "Animal", ani_tb, id_selecionado);
 		quantdAnimais 	= animais.size();
 		adapter         = new ArrayAdapter<Animal>(this, android.R.layout.simple_list_item_1, animais);
 
@@ -182,6 +207,8 @@ public class Lista_Animais_Activity extends Activity
 	{
 		Spinner spnSexo = (Spinner) findViewById(R.id.spnSexoFiltro);
 		String sexo_selecionado = spnSexo.getSelectedItem().toString();
+		String id_selecionado = spinID.getSelectedItem().toString();
+
 		EditText inputSearch = (EditText) findViewById(R.id.edtSearch);
 		inputSearch.setText("");
 		configuraSearch(false);
@@ -189,11 +216,11 @@ public class Lista_Animais_Activity extends Activity
 //		((InputMethodManager) this.getSystemService(this.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
 
 		if(sexo_selecionado == "TODOS") {
-			AnimalList();
+			AnimalList(id_selecionado);
 			return;
 		}
 		else
-			animais 		= a_model.selectAllbySexo(this, "Animal", ani_tb, sexo_selecionado == "MACHO" ? "MA" : "FE");
+			animais 		= a_model.selectAllbySexo(this, "Animal", ani_tb, sexo_selecionado == "MACHO" ? "MA" : "FE", id_selecionado);
 
 		quantdAnimais 	= animais.size();
 		adapter         = new ArrayAdapter<Animal>(this, android.R.layout.simple_list_item_1, animais);

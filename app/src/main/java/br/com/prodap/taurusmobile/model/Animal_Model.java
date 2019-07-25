@@ -36,14 +36,21 @@ public class Animal_Model extends Banco_Service {
 	{
 		a_dao = new Animal_Dao(ctx);
 
-		return a_dao.selectAllAnimais(ctx, Tabela, table);
+		return a_dao.selectAllAnimais(ctx, Tabela, table, "codigo");
 	}
 
-	public List<Animal> selectAllbySexo(Context ctx, String Tabela, Object table, String sexo)
+    public List<Animal> selectAllAni(Context ctx, String Tabela, Object table, String _hash)
+    {
+        a_dao = new Animal_Dao(ctx);
+
+        return a_dao.selectAllAnimais(ctx, Tabela, table, _hash);
+    }
+
+	public List<Animal> selectAllbySexo(Context ctx, String Tabela, Object table, String sexo, String _hash)
 	{
 		a_dao = new Animal_Dao(ctx);
 
-		return a_dao.selectAllbySexo(ctx, Tabela, table, sexo);
+		return a_dao.selectAllbySexo(ctx, Tabela, table, sexo, _hash);
 	}
 
 	public Animal selectByCodigo(Context ctx, Integer codigo) {

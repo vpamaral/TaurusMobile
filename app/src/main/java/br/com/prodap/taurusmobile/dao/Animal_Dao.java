@@ -22,14 +22,22 @@ public class Animal_Dao extends Banco {
         super(context);
     }
 
-    public List<Animal> selectAllAnimais(Context ctx, String Tabela, Object table)
+    public List<Animal> selectAllAnimais(Context ctx, String Tabela, Object table, String _hash)
     {
         Banco banco = new Banco(ctx);
         a_adapter = new Animal_Adapter();
 
+        String hash = "";
+        if(_hash.toLowerCase().contains("alternativo"))
+            hash = "codigo_ferro";
+        else if(_hash.toLowerCase().contains("identificador"))
+            hash = "identificador";
+        else
+            hash = "codigo";
+
         Class classe = table.getClass();
         List<Animal> listadd = new ArrayList<Animal>();
-        String sql = String.format("SELECT * FROM %s ORDER BY codigo", Tabela);
+        String sql = String.format("SELECT %s as hash, * FROM %s ORDER BY codigo", hash, Tabela);
 
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
@@ -39,14 +47,22 @@ public class Animal_Dao extends Banco {
         return listadd;
     }
 
-    public List<Animal> selectAllbySexo(Context ctx, String Tabela, Object table, String sexo)
+    public List<Animal> selectAllbySexo(Context ctx, String Tabela, Object table, String sexo, String _hash)
     {
         Banco banco = new Banco(ctx);
         a_adapter = new Animal_Adapter();
 
+        String hash = "";
+        if(_hash.toLowerCase().contains("alternativo"))
+            hash = "codigo_ferro";
+        else if(_hash.toLowerCase().contains("identificador"))
+            hash = "identificador";
+        else
+            hash = "codigo";
+
         Class classe = table.getClass();
         List<Animal> listadd = new ArrayList<Animal>();
-        String sql = String.format("SELECT * FROM %s WHERE sexo = '%s' ORDER BY codigo", Tabela, sexo);
+        String sql = String.format("SELECT %s as hash, * FROM %s WHERE sexo = '%s' ORDER BY codigo", hash, Tabela, sexo);
 
         Cursor c = banco.getWritableDatabase().rawQuery(sql, null);
 
