@@ -466,7 +466,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center_vertical"
-                        android:text="- Raca Cria:         "
+                        android:text="- Raça Cria:"
                         android:textStyle="bold" />
 
                     <Spinner
@@ -484,7 +484,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="- Peso Cria:          "
+                        android:text="- Peso Cria:"
                         android:textStyle="bold" />
 
                     <EditText
